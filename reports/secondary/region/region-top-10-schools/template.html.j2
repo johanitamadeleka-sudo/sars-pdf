@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>{{ doc.document.report_title }}</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+{#
+  Region top-10 schools (LEVEL + FUNCTION name). Section-centric: 6 stacked top-10
+  division-performance sections, one per page. Fully self-contained (own template + own
+  style.css, inline @font-face, no shared stylesheet). Data-driven and location-agnostic.
+  Competency-level background is the ONLY data-driven colour.
+
+  Region variant of the council top-10 grid: adds a COUNCIL column, rank column is R/RANK.
+  Columns: S/NO. | COUNCIL | SCHOOL NAME
+    | REGISTERED(F M T) | SAT(% F M T) | I(F M T) II(F M T) III(F M T) IV(F M T) | 0
+    | I-III(F M T %) | I-IV(F M T %) | GPA | COMPETENCY LEVEL | R/RANK
+#}
+<div class="titles">
+  {% for line in doc.document.ministry %}
+  <div class="hl ministry">{{ line }}</div>
+  {% endfor %}
+  <div class="hl exam-name">{{ doc.document.exam_name }}</div>
+</div>
+
+{% set bold = [2,6,9,12,15,18,19,22,23,26,27] %}
+{% set yellow = [3] %}
+{% set green0 = [19] %}
+{% set green3 = [22,23] %}
+{% set green4 = [26,27] %}
+
+{% macro nums(r) %}
+  {% for i in range(doc.document.num_count) %}
+  {% set key = 'n' ~ i %}
+  <td class="{% if i in bold %}b {% endif %}{% if i in yellow %}fill-sat {% endif %}{% if i in green0 %}fill-0 {% endif %}{% if i in green3 %}fill-3 {% endif %}{% if i in green4 %}fill-4 {% endif %}{% if i == 28 %}fill-gpa b{% endif %}">{{ r[key] }}</td>
+  {% endfor %}
+{% endmacro %}
+
+{% for s in doc.sections %}
+<div class="section{% if not loop.first %} page-top{% endif %}">
+  <div class="sec-title">{{ s.title }}</div>
+  <table class="grid">
+    <colgroup>
+      <col class="w-sn"><col class="w-council"><col class="w-school">
+      {% for i in range(doc.document.num_count) %}<col class="t">{% endfor %}
+      <col class="w-comp"><col class="w-rrank">
+    </colgroup>
+    <thead>
+      <tr class="hg">
+        <th rowspan="3" class="c-sn">S/NO.</th>
+        <th rowspan="3" class="v-mid">COUNCIL</th>
+        <th rowspan="3" class="v-mid">SCHOOL NAME</th>
+        <th colspan="7" class="grp fill-cand-h">NUMBER OF CANDIDATES</th>
+        <th colspan="20" class="grp">DIVISION PERFORMANCE</th>
+        <th colspan="2" class="grp fill-gpa-h">GPA PERFORMANCE</th>
+        <th rowspan="3" class="rrank-h"><div class="vert"><span>R/RANK</span></div></th>
+      </tr>
+      <tr class="hs">
+        <th colspan="3" class="fill-cand-h">REGISTERED</th>
+        <th colspan="4" class="fill-cand-h">SAT</th>
+        <th colspan="3">I</th><th colspan="3">II</th><th colspan="3">III</th><th colspan="3">IV</th>
+        <th class="fill-0-h">0</th>
+        <th colspan="4" class="fill-3-h">I-III</th>
+        <th colspan="4" class="fill-4-h">I-IV</th>
+        <th rowspan="2" class="v-mid fill-gpa-h">GPA</th>
+        <th rowspan="2" class="v-mid">COMPETENCY LEVEL</th>
+      </tr>
+      <tr class="hf">
+        <th>F</th><th>M</th><th>T</th>
+        <th>%</th><th>F</th><th>M</th><th>T</th>
+        <th>F</th><th>M</th><th>T</th><th>F</th><th>M</th><th>T</th>
+        <th>F</th><th>M</th><th>T</th><th>F</th><th>M</th><th>T</th>
+        <th>T</th>
+        <th>F</th><th>M</th><th>T</th><th>%</th>
+        <th>F</th><th>M</th><th>T</th><th>%</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for r in s.rows %}
+      <tr class="row">
+        <td class="c-sn">{{ r.sn }}</td>
+        <td class="txt">{{ r.council }}</td>
+        <td class="txt">{{ r.school }}</td>
+        {{ nums(r) }}
+        <td class="txt comp{% if r.level %} lvl-{{ r.level | lower }}{% endif %}">{{ r.competency }}</td>
+        <td class="b c-rank">{{ r.rank }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endfor %}
+</body>
+</html>

@@ -1,0 +1,144 @@
+/*
+ * region-top-10-schools (LEVEL + FUNCTION name; data-driven, not tied to any region).
+ * Section-centric: 6 stacked top-10 division-performance sections (one per page), measured
+ * from the reference PDF (US Letter LANDSCAPE, 792 x 612 pt). Region variant of the council
+ * top-10 grid: adds a COUNCIL column, rank column is R/RANK. All fixed fills live in :root;
+ * only .lvl-* (competency) is data-driven (grading.py).
+ *
+ * REAL fonts registered INLINE so this report is fully self-contained (own template + own
+ * CSS, no shared stylesheet). One family name per @font-face, NO fallback list.
+ */
+@font-face {
+  font-family: 'Arial'; font-style: normal; font-weight: normal;
+  src: url("../../../../fonts/LiberationSans-Regular.ttf") format('truetype');
+}
+@font-face {
+  font-family: 'Arial'; font-style: normal; font-weight: bold;
+  src: url("../../../../fonts/LiberationSans-Bold.ttf") format('truetype');
+}
+
+:root {
+  --fill-cand: #fce9d9;
+  --fill-gpa-h: #d2fbe6;
+  --fill-sat: #ffffcc;
+  --fill-0: #8fd968;
+  --fill-3: #29ff8a;
+  --fill-4: #d2fbe6;
+
+  --lvl-a: #00b050;  --lvl-a-ink: #000000;
+  --lvl-b: #92d050;  --lvl-b-ink: #000000;
+  --lvl-c: #ffff00;  --lvl-c-ink: #000000;
+  --lvl-d: #ffc000;  --lvl-d-ink: #000000;
+  --lvl-f: #ff0000;  --lvl-f-ink: #ffc7ce;
+
+  --ink: #000000;
+  --grid: #000000;
+}
+
+@page {
+  size: Letter landscape;
+  margin: 18pt 0 18pt 0;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; font-family: 'Arial'; color: var(--ink); }
+
+.titles { text-align: center; font-weight: bold; font-size: 8.5pt; line-height: 10.5pt; }
+.titles .hl { white-space: pre; }
+.titles .report-title { font-size: 8.5pt; margin-top: 6pt; }
+
+.section { }
+.section.page-top { page-break-before: always; }
+.sec-title { text-align: center; font-weight: bold; font-size: 9pt; margin: 8pt 0 3pt 0; }
+.section:not(:first-child) .sec-title { margin-top: 0; }
+
+/* ---------- grid ---------- */
+table.grid {
+  width: 735.9pt;              /* 18.1 .. 754.0 */
+  margin: 0 0 0 18.1pt;
+  border-collapse: collapse;
+  table-layout: fixed;
+  border: 0.8pt solid var(--grid);
+}
+
+col:nth-child(1) { width: 16.8pt; }
+col:nth-child(2) { width: 43.0pt; }
+col:nth-child(3) { width: 60.8pt; }
+col:nth-child(4) { width: 17.1pt; }
+col:nth-child(5) { width: 17.0pt; }
+col:nth-child(6) { width: 17.0pt; }
+col:nth-child(7) { width: 16.8pt; }
+col:nth-child(8) { width: 17.3pt; }
+col:nth-child(9) { width: 17.1pt; }
+col:nth-child(10) { width: 17.0pt; }
+col:nth-child(11) { width: 17.0pt; }
+col:nth-child(12) { width: 17.1pt; }
+col:nth-child(13) { width: 15.8pt; }
+col:nth-child(14) { width: 14.9pt; }
+col:nth-child(15) { width: 14.9pt; }
+col:nth-child(16) { width: 14.9pt; }
+col:nth-child(17) { width: 19.4pt; }
+col:nth-child(18) { width: 19.3pt; }
+col:nth-child(19) { width: 19.1pt; }
+col:nth-child(20) { width: 17.5pt; }
+col:nth-child(21) { width: 17.3pt; }
+col:nth-child(22) { width: 17.3pt; }
+col:nth-child(23) { width: 17.0pt; }
+col:nth-child(24) { width: 19.7pt; }
+col:nth-child(25) { width: 19.4pt; }
+col:nth-child(26) { width: 19.5pt; }
+col:nth-child(27) { width: 19.1pt; }
+col:nth-child(28) { width: 19.6pt; }
+col:nth-child(29) { width: 20.8pt; }
+col:nth-child(30) { width: 19.4pt; }
+col:nth-child(31) { width: 19.4pt; }
+col:nth-child(32) { width: 30.8pt; }
+col:nth-child(33) { width: 71.6pt; }
+col:nth-child(34) { width: 15.2pt; }
+
+th, td {
+  border: 0.4pt solid var(--grid);
+  padding: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 6pt;
+  line-height: 1;
+}
+thead th { font-weight: bold; font-size: 6pt; }
+thead th.grp { font-size: 6.5pt; }
+thead th.v-mid { vertical-align: middle; }
+thead .hg { height: 10pt; }
+thead .hs { height: 8pt; }
+thead .hf { height: 8pt; }
+
+thead th.rrank-h { padding: 0; overflow: visible; }
+.vert { position: relative; margin: 0 auto; height: 100%; width: 9pt; }
+.vert span {
+  position: absolute; left: 50%; top: 50%;
+  font-size: 5.6pt; font-weight: bold; white-space: nowrap;
+  transform: translate(-50%, -50%) rotate(-90deg);
+}
+
+/* body rows */
+tbody tr.row { height: 10.3pt; }
+tbody td { font-size: 6pt; }
+td.txt { text-align: left; padding-left: 1.5pt; font-size: 5.6pt; letter-spacing: -0.1pt; }
+td.b { font-weight: bold; }
+td.comp { text-align: left; font-weight: bold; padding-left: 1.5pt; font-size: 5.8pt; }
+td.c-rank { }
+
+/* fills */
+.fill-cand-h { background: var(--fill-cand); }
+.fill-gpa-h, .fill-gpa { background: var(--fill-gpa-h); }
+.fill-sat { background: var(--fill-sat); }
+.fill-0, .fill-0-h { background: var(--fill-0); }
+.fill-3, .fill-3-h { background: var(--fill-3); }
+.fill-4, .fill-4-h { background: var(--fill-4); }
+
+.lvl-a { background: var(--lvl-a); color: var(--lvl-a-ink); }
+.lvl-b { background: var(--lvl-b); color: var(--lvl-b-ink); }
+.lvl-c { background: var(--lvl-c); color: var(--lvl-c-ink); }
+.lvl-d { background: var(--lvl-d); color: var(--lvl-d-ink); }
+.lvl-f { background: var(--lvl-f); color: var(--lvl-f-ink); }
