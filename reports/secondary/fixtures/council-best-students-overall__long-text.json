@@ -1,0 +1,100 @@
+{
+  "document": {
+    "page_size": "Letter-landscape",
+    "ministry": [
+      "THE PRIME MINISTER'S OFFICE",
+      "REGIONAL ADMINISTRATION AND LOCAL GOVERNMENT",
+      "MWANZA REGION"
+    ],
+    "exam_name": "SYNTHETIC FIXTURE - LONG TEXT (WRAP WITHIN CELL)",
+    "report_title": "MWANZA CC TOP TEN BEST STUDENTS OVERALL COUNCILWISE",
+    "wrap_text": true
+  },
+  "sections": [
+    {
+      "title": "LONG-TEXT FIXTURE - WRAPPING SCHOOL / CANDIDATE / DETAILED SUBJECTS (SYNTHETIC)",
+      "rows": [
+        {
+          "cno": "01",
+          "school": "VERY LONG SYNTHETIC SECONDARY SCHOOL NAME FOR COUNCIL WRAP TEST",
+          "candidate": "MWANAHAMISI ABDALLAH RAMADHANI MOHAMEDI SULEIMANI FULLNAME",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "1",
+          "detailed": "HISTORY - 97'A' BUSINESS STUDIES - 80'A' GEOGRAPHY - 91'A' KISWAHILI - 85'A' ENGLISH LANGUAGE - 78'A' PHYSICS - 88'A' CHEMISTRY - 90'A' BIOLOGY - 84'A' BASIC MATHEMATICS - 95'A' CIVICS AND MORAL EDUCATION - 82'A' COMMERCE - 76'A' BOOKKEEPING AND ACCOUNTS - 79'A'"
+        },
+        {
+          "cno": "02",
+          "school": "VERY LONG SYNTHETIC SECONDARY SCHOOL NAME FOR COUNCIL WRAP TEST",
+          "candidate": "MWANAHAMISI ABDALLAH RAMADHANI MOHAMEDI SULEIMANI FULLNAME",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "1",
+          "detailed": "HISTORY - 97'A' BUSINESS STUDIES - 80'A' GEOGRAPHY - 91'A' KISWAHILI - 85'A' ENGLISH LANGUAGE - 78'A' PHYSICS - 88'A' CHEMISTRY - 90'A' BIOLOGY - 84'A' BASIC MATHEMATICS - 95'A' CIVICS AND MORAL EDUCATION - 82'A' COMMERCE - 76'A' BOOKKEEPING AND ACCOUNTS - 79'A'"
+        },
+        {
+          "cno": "03",
+          "school": "VERY LONG SYNTHETIC SECONDARY SCHOOL NAME FOR COUNCIL WRAP TEST",
+          "candidate": "MWANAHAMISI ABDALLAH RAMADHANI MOHAMEDI SULEIMANI FULLNAME",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "1",
+          "detailed": "HISTORY - 97'A' BUSINESS STUDIES - 80'A' GEOGRAPHY - 91'A' KISWAHILI - 85'A' ENGLISH LANGUAGE - 78'A' PHYSICS - 88'A' CHEMISTRY - 90'A' BIOLOGY - 84'A' BASIC MATHEMATICS - 95'A' CIVICS AND MORAL EDUCATION - 82'A' COMMERCE - 76'A' BOOKKEEPING AND ACCOUNTS - 79'A'"
+        },
+        {
+          "cno": "04",
+          "school": "VERY LONG SYNTHETIC SECONDARY SCHOOL NAME FOR COUNCIL WRAP TEST",
+          "candidate": "MWANAHAMISI ABDALLAH RAMADHANI MOHAMEDI SULEIMANI FULLNAME",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "1",
+          "detailed": "HISTORY - 97'A' BUSINESS STUDIES - 80'A' GEOGRAPHY - 91'A' KISWAHILI - 85'A' ENGLISH LANGUAGE - 78'A' PHYSICS - 88'A' CHEMISTRY - 90'A' BIOLOGY - 84'A' BASIC MATHEMATICS - 95'A' CIVICS AND MORAL EDUCATION - 82'A' COMMERCE - 76'A' BOOKKEEPING AND ACCOUNTS - 79'A'"
+        },
+        {
+          "cno": "05",
+          "school": "VERY LONG SYNTHETIC SECONDARY SCHOOL NAME FOR COUNCIL WRAP TEST",
+          "candidate": "MWANAHAMISI ABDALLAH RAMADHANI MOHAMEDI SULEIMANI FULLNAME",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "1",
+          "detailed": "HISTORY - 97'A' BUSINESS STUDIES - 80'A' GEOGRAPHY - 91'A' KISWAHILI - 85'A' ENGLISH LANGUAGE - 78'A' PHYSICS - 88'A' CHEMISTRY - 90'A' BIOLOGY - 84'A' BASIC MATHEMATICS - 95'A' CIVICS AND MORAL EDUCATION - 82'A' COMMERCE - 76'A' BOOKKEEPING AND ACCOUNTS - 79'A'"
+        },
+        {
+          "cno": "06",
+          "school": "VERY LONG SYNTHETIC SECONDARY SCHOOL NAME FOR COUNCIL WRAP TEST",
+          "candidate": "MWANAHAMISI ABDALLAH RAMADHANI MOHAMEDI SULEIMANI FULLNAME",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "1",
+          "detailed": "HISTORY - 97'A' BUSINESS STUDIES - 80'A' GEOGRAPHY - 91'A' KISWAHILI - 85'A' ENGLISH LANGUAGE - 78'A' PHYSICS - 88'A' CHEMISTRY - 90'A' BIOLOGY - 84'A' BASIC MATHEMATICS - 95'A' CIVICS AND MORAL EDUCATION - 82'A' COMMERCE - 76'A' BOOKKEEPING AND ACCOUNTS - 79'A'"
+        },
+        {
+          "cno": "07",
+          "school": "VERY LONG SYNTHETIC SECONDARY SCHOOL NAME FOR COUNCIL WRAP TEST",
+          "candidate": "MWANAHAMISI ABDALLAH RAMADHANI MOHAMEDI SULEIMANI FULLNAME",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "1",
+          "detailed": "HISTORY - 97'A' BUSINESS STUDIES - 80'A' GEOGRAPHY - 91'A' KISWAHILI - 85'A' ENGLISH LANGUAGE - 78'A' PHYSICS - 88'A' CHEMISTRY - 90'A' BIOLOGY - 84'A' BASIC MATHEMATICS - 95'A' CIVICS AND MORAL EDUCATION - 82'A' COMMERCE - 76'A' BOOKKEEPING AND ACCOUNTS - 79'A'"
+        },
+        {
+          "cno": "08",
+          "school": "VERY LONG SYNTHETIC SECONDARY SCHOOL NAME FOR COUNCIL WRAP TEST",
+          "candidate": "MWANAHAMISI ABDALLAH RAMADHANI MOHAMEDI SULEIMANI FULLNAME",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "1",
+          "detailed": "HISTORY - 97'A' BUSINESS STUDIES - 80'A' GEOGRAPHY - 91'A' KISWAHILI - 85'A' ENGLISH LANGUAGE - 78'A' PHYSICS - 88'A' CHEMISTRY - 90'A' BIOLOGY - 84'A' BASIC MATHEMATICS - 95'A' CIVICS AND MORAL EDUCATION - 82'A' COMMERCE - 76'A' BOOKKEEPING AND ACCOUNTS - 79'A'"
+        }
+      ]
+    }
+  ]
+}

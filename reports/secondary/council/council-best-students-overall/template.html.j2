@@ -5,7 +5,7 @@
 <title>{{ doc.document.report_title }}</title>
 <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body{% if doc.document.wrap_text %} class="wrap-text"{% endif %}>
 {#
   Council best students overall (LEVEL + FUNCTION name). Section-centric: stacked top-10
   tables. Fully self-contained (own template + own style.css, inline @font-face, no shared
@@ -22,8 +22,12 @@
   <div class="hl exam-name">{{ doc.document.exam_name }}</div>
 </div>
 
+{% set bpp = doc.document.blocks_per_page | default(2) %}
 {% for s in doc.sections %}
-<div class="section{% if not loop.first %} keep-together{% endif %}{% if loop.index0 % 2 == 0 and not loop.first %} page-top{% endif %}">
+{# page grouping is data-driven (blocks_per_page, default 2), not a hard-coded section
+   index. A block with >10 rows (ties) is not force-kept-together so it may flow across a
+   page break with its <thead> repeated instead of overflowing. #}
+<div class="section{% if not loop.first and not s.allow_break %} keep-together{% endif %}{% if not loop.first and loop.index0 % bpp == 0 %} page-top{% endif %}">
   {% if s.banner %}
   <div class="banner">{{ doc.document.report_title }}</div>
   {% else %}

@@ -64,9 +64,12 @@ html, body { margin: 0; padding: 0; font-family: 'Arial'; color: var(--ink); }
 
 .section { padding: 0 18pt; margin-top: 14pt; }
 .section:first-child { margin-top: 12pt; }
-.page-top { page-break-before: always; }
+/* Page grouping is data-driven: the template adds .page-top before every
+   blocks_per_page-th block (default 2), matching how the original groups Top-10
+   blocks per page, WITHOUT a hard-coded section index. A block that itself overflows
+   a page flows onto the next page with its <thead> repeated (table-header-group). */
+.page-top { page-break-before: always; padding-top: 6pt; }
 .sec-title { text-align: center; font-weight: bold; font-size: 10pt; margin-bottom: 6pt; }
-.page-top { padding-top: 6pt; }
 
 table.grid {
   width: 742.8pt;          /* 18.4 .. 761.2 */
@@ -124,10 +127,20 @@ th, td {
   font-size: 6.6pt;
   line-height: 1;
 }
-thead { display: table-row-group; }
+/* table-header-group so the column-header band repeats on every printed page if a
+   section's rows overflow a page (e.g. a "Top 10" block that actually holds >10 rows
+   because of ranking ties). On the real instance each section is 10 rows and fits, so
+   this is visually identical to table-row-group and the fidelity comparison is unchanged. */
+thead { display: table-header-group; }
 thead th { font-weight: bold; font-size: 6.8pt; }
 thead th.grp { font-size: 7.5pt; }
 thead th.v-mid { vertical-align: middle; }
+/* HEADER OVERFLOW FIX (CSS sizing, not font width): "COMPETENCY LEVEL" is a long
+   two-word label that, left single-line (nowrap), spilled off the right page edge.
+   The original PDF wraps it to two lines inside its cell (Arial-BoldMT, metric-
+   compatible with our Liberation Sans Bold), so the overflow was purely CSS: allow
+   this header cell to WRAP within its fixed column width like the original. */
+thead th.comp-h { white-space: normal; line-height: 1; }
 thead .hg { height: 11pt; }
 thead .hs { height: 12pt; }
 thead .hf { height: 9pt; }

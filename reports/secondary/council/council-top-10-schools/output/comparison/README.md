@@ -6,9 +6,9 @@ Pixel diff = share of pixels that differ at 110 dpi; tolerant = still different 
 
 | page | pixel diff | tolerant diff | words missing | words extra | fills only in original | fills only in generated |
 |---|---|---|---|---|---|---|
-| 1 | 19.99% | 15.29% | 16 | 11 | - | #ffc000 #ffff00 |
-| 2 | 19.06% | 14.79% | 16 | 11 | #fcd5b4 | #dce6f1 #fabf8f |
-| 3 | 18.39% | 13.68% | 14 | 10 | #fcd5b4 | #dce6f1 |
+| 1 | 19.72% | 14.77% | 16 | 11 | - | #ffc000 #ffff00 |
+| 2 | 18.12% | 12.58% | 16 | 11 | #fcd5b4 | #dce6f1 #fabf8f |
+| 3 | 18.25% | 13.98% | 14 | 10 | #fcd5b4 | #dce6f1 |
 
 ## Page 1
 missing: `{'S/NO.': 2, 'SCHOOL': 2, 'K': 2, 'N': 2, 'A': 2, 'R': 2, '/C': 2, 'ARMY': 1, '15': 1}`

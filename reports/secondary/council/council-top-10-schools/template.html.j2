@@ -37,8 +37,12 @@
   <td class="b fill-4pct">{{ r.gpa }}</td>
 {% endmacro %}
 
+{% set bpp = doc.document.blocks_per_page | default(2) %}
 {% for s in doc.sections %}
-<div class="section{% if loop.index0 % 2 == 0 and not loop.first %} page-top{% endif %}">
+{# page break before a block whose position starts a new page-group of `bpp` blocks;
+   data-driven (blocks_per_page), not a hard-coded section index. A block that itself
+   overflows a page still flows onto the next page with its <thead> repeated. #}
+<div class="section{% if not loop.first and loop.index0 % bpp == 0 %} page-top{% endif %}">
   <div class="sec-title">{{ s.title }}</div>
   <table class="grid">
     <colgroup>
@@ -71,7 +75,7 @@
         <th colspan="3" class="fill-3-h">I-III</th><th class="fill-3pct-h"></th>
         <th colspan="3" class="fill-4-h">I-IV</th><th class="fill-4pct"></th>
         <th rowspan="2" class="v-mid fill-gpa-h">GPA</th>
-        <th rowspan="2" class="v-mid">COMPETENCY LEVEL</th>
+        <th rowspan="2" class="v-mid comp-h">COMPETENCY LEVEL</th>
       </tr>
       <tr class="hf">
         <th>F</th><th>M</th><th>T</th>

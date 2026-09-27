@@ -123,7 +123,11 @@ th, td {
   font-size: 5.4pt;
   line-height: 1;
 }
-thead { display: table-row-group; }
+/* table-header-group so WeasyPrint repeats the column-header band on every printed
+   page when the row set spans more than one page (content-driven pagination, no
+   hard-coded rows-per-page). On the real single-page instance this is visually
+   identical to table-row-group, so the fidelity comparison is unchanged. */
+thead { display: table-header-group; }
 thead th { font-weight: bold; font-size: 5.6pt; }
 thead th.grp { font-size: 6pt; }
 thead th.v-mid { vertical-align: middle; }
