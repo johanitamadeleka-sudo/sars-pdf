@@ -1,0 +1,33 @@
+{
+  "id": "FEAT-004",
+  "type": "feat",
+  "description": "REGION-level secondary reports (the 11 distinct region reports; the two 'Schools Rank For Governments' files are byte-identical duplicates so only one is built). Each is its own self-contained report unit named by LEVEL + FUNCTION (region-...). Reuse structures from the council reports where genuinely identical (region school-rank variants add a COUNCIL column and dual C/RANK + R/RANK). Reuse shared fonts.css and grading.py.",
+  "status": "pending",
+  "steps": [
+    "region-schools-rank-subjectwise  <- 'Mwanza School Rank-EDK.pdf' (1pp, portrait) AND 'Mwanza School Rank-English Language.pdf' (6pp, portrait). Same subjectwise-rank structure as council-schools-rank-subjectwise but adds a COUNCIL column and BOTH C/RANK and R/RANK columns; scope REGIONWISE (R/RANK). These two share one template driven by data.json; build one report dir per subject file OR one dir with both subjects - keep each source PDF's comparison separate. Header ...'MWANZA REGION' / 'MWANZA <SUBJECT> SCHOOL RANK'. Extract all rows/pages.",
+    "region-subjects-rank  <- 'Mwanza Overall Subjects Performance.pdf' (2pp, landscape). One row per subject with A,B,C,D,F, TOTAL, A-C,%A-C,A-D,%A-D, GPA, COMPETENCY LEVEL, RANK. Header 'SUBJECTS PERFORMANCE REGIONALWISE'. Very close to council-subjects-rank; reuse that template as the starting point.",
+    "region-schools-rank-overall  <- 'Mwanza schools rank Overall.pdf' (6pp, landscape). Division grid: S/NO., COUNCIL, SCHOOL NAME, OWNERSHIP, NUMBER OF CANDIDATES + DIVISION PERFORMANCE F/M/T triplets, GPA, COMPETENCY LEVEL, I-III rank + I-IV rank (C/R style). Includes summary + % PASS rows. Reuse council-schools-rank-overall structure, adding the COUNCIL column.",
+    "region-schools-rank-governments  <- 'Mwanza Schools Rank For Governments.pdf' (4pp, landscape). Same division grid as region-schools-rank-overall but government schools only. Reuse that template. (Skip the duplicate 'Mwanza Schools Rank For Governments (1).pdf' - it is byte-identical; note this in the report README.)",
+    "region-top-10-schools  <- 'Mwanza Top 10 Schools.pdf' (6pp, landscape). Top 10 overall division grid with COUNCIL column. Header 'TOP 10 BEST SCHOOLS OVERALL'. Reuse council-top-10-schools structure + COUNCIL column.",
+    "region-best-students-overall  <- 'Mwanza Best Students-Overall.pdf' (9pp, landscape). Per-candidate rows with a COUNCIL column plus C/NO, SCHOOL NAME, CANDIDATE FULL NAME, SEX, points/GPA/DIV, POSITION, DETAILED SUBJECTS string. Reuse council-best-students-overall + COUNCIL column.",
+    "region-best-students-subjectwise  <- 'Mwanza Best students-Subjectwise.pdf' (23pp, landscape). Top-10-per-subject tables with a COUNCIL column; columns S/NO., COUNCIL, SCHOOL, CATEGORY, CANDIDATE FULL NAME, SEX, MARKS, GRADE, POSITION, COMPETENCY LEVEL. Reuse council-best-students-subjectwise + COUNCIL column. Capture all subjects/pages.",
+    "region-district-performance  <- 'Mwanza f2 District Performance.pdf' (5pp, landscape). Per-council/district division grid: S/NO., COUNCIL, NO. OF SCHOOLS, NUMBER OF CANDIDATES + DIVISION PERFORMANCE F/M/T triplets, 0, I-III, I-IV, GPA, COMPETENCY LEVEL, RANK. Region-only structure; build its own template.",
+    "region-mobility  <- 'Mwanza f2 Mock Mobility 2026.pdf' (6pp, portrait). 2025 vs 2026 comparison: S/NO., COUNCIL, SCHOOL NAME, OWNERSHIP, FTNA 2025 (TOTAL,%(I-III),GPA), MOCK 2026 (TOTAL,%(I-III),GPA), CHANYA/change, MJONGEO WA GPA, HALI YA MJONGEO (IMEPANDA/UMESHUKA). Header 'POSITIVE MOBILITY'. Region-only structure; own template. Preserve Swahili labels exactly.",
+    "For EACH report: create reports/secondary/region/<name>/ with template.html.j2, style.css (shared fonts.css, single family name, no fallbacks), data.json extracted as DISPLAY STRINGS across ALL pages via pdfplumber/pymupdf, reference/original.pdf copied from the region_pdf source, then render and compare, iterating until word-diff is at/near zero and pixel-diff is low."
+  ],
+  "acceptance_criteria": [
+    "All distinct region report directories exist under reports/secondary/region/ (9 report types; governments duplicate not rebuilt) with the 4 required files each plus generated output/.",
+    "Each data.json captures every page/section/row of its source PDF as display strings.",
+    "Each generated PDF has the same page count as its original and renders without error.",
+    "For each report, compare.py shows near-zero missing/extra words and low pixel-diff, per page.",
+    "The byte-identical 'Schools Rank For Governments (1)' duplicate is documented and not rebuilt separately.",
+    "No template or directory is named after the region/council instance name; names are level+function."
+  ],
+  "verification": [
+    "For each region report, run render + compare.py against its reference/original.pdf and confirm near-zero word-diff and low pixel-diff on every page.",
+    "Confirm each region report's PDF page count equals its original's page count.",
+    "Confirm md5 of the two 'Schools Rank For Governments' source files is identical (justifying building only one)."
+  ],
+  "blocked_reason": null,
+  "findings": ""
+}

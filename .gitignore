@@ -1,3 +1,10 @@
 __pycache__/
 *.pyc
 .venv/
+
+# Raw extracted source PDFs (working dirs). The ZIPs (council_pdf.zip,
+# region_pdf.zip) stay tracked in the repo; extract with:
+#   unzip -o council_pdf.zip -d council_pdf && unzip -o region_pdf.zip -d region_pdf
+# Per-report reference PDFs live under reports/.../reference/original.pdf instead.
+/council_pdf/
+/region_pdf/

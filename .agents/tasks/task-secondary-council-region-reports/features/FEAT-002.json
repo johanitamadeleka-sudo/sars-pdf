@@ -1,0 +1,29 @@
+{
+  "id": "FEAT-002",
+  "type": "feat",
+  "description": "Prove the end-to-end pattern on the report structurally identical to the success example: council-schools-rank-subjectwise (MWANZA CC SCHOOLS RANK SUBJECTWISE, 24pp, portrait). Also extend compare.py into a reusable per-report fidelity harness. This feature establishes the exact workflow every later report follows.",
+  "status": "pending",
+  "steps": [
+    "Extend scripts/compare.py so it can compare ANY (original, generated) pair into ANY output dir (it already accepts positional args + --out/--pages-out; verify and, if needed, add a thin wrapper scripts/render_and_compare.py that takes a report directory containing data.json/template.html.j2/style.css/reference/original.pdf, renders it, and runs the comparison, writing output/ and comparison/README.md inside that report dir). Keep backward compatibility with the existing lakezone invocation.",
+    "Make render.py able to render a self-contained report from an arbitrary template/CSS dir. Preferred approach: add an optional --templates/--template-dir argument (and/or a small render function) so a report folder's own template.html.j2 + style.css are used, base_url pointed at that folder so its style.css and the shared fonts.css resolve. Do NOT break the default lakezone behaviour (templates/ + report.html.j2).",
+    "Create reports/secondary/council/council-schools-rank-subjectwise/ with: template.html.j2, style.css (start by copying templates/report.* and the shared fonts.css @font-face, then adjust column set/labels to this report), reference/original.pdf (copy from 'council_pdf/council_pdf/MWANZA CC SCHOOLS RANK SUBJECTWISE.pdf'), and data.json.",
+    "Extract the data for ALL pages/subjects of MWANZA CC SCHOOLS RANK SUBJECTWISE into data.json as DISPLAY STRINGS, mirroring the lakezone data model (document header block, one table per subject, rows with sn/school_name/a/b/c/d/f/total/a_c/pct_a_c/a_d/pct_a_d/gpa/competency/rank; scope COUNCILWISE so rank label is C/RANK). Note this report's header is 'THE PRIME MINISTER'S OFFICE / REGIONAL ADMINISTRATION AND LOCAL GOVERNMENT / MWANZA REGION / REGIONAL FORM TWO MOCK ASSESSMENT RESULTS, JULY 2026 / MWANZA CC SCHOOLS RANK SUBJECTWISE / SCHOOL RANK IN <SUBJECT> COUNCILWISE'. This report has NO REGION/COUNCIL/CENTRE columns (columns are: S/N, SCHOOL NAME, A,B,C,D,F, TOTAL, A-C,%A-C,A-D,%A-D, GPA, COMPETENCY LEVEL, C/RANK) - adjust the template colgroup/headers accordingly. Use pdfplumber/pymupdf to read every row; do not hand-type or guess values.",
+    "Wire the competency-level colour via the existing grading.py rules (reuse, since it is the same GPA->band mapping). Keep the fixed column fills from the CSS :root palette.",
+    "Render the report to its own output/ (PDF + HTML + page PNGs) and run the fidelity comparison against reference/original.pdf.",
+    "Iterate on style.css geometry/fills/fonts until the comparison verdict is strong: drive pixel-diff low and missing+extra words to (near) zero on every page, matching the lakezone example's quality. Record the final per-page scores."
+  ],
+  "acceptance_criteria": [
+    "reports/secondary/council/council-schools-rank-subjectwise/ contains template.html.j2, style.css, data.json, reference/original.pdf, and generated output/ artifacts.",
+    "data.json captures every subject table and every row from all 24 pages as display strings (row counts and values match the original text extraction).",
+    "Rendering produces a PDF with the same page count as the original.",
+    "compare.py reports 0 or near-0 missing words and 0 or near-0 extra words per page, and low pixel-diff %, comparable to the lakezone example.",
+    "The generic render/compare path does not regress the existing lakezone example (lakezone still renders and compares as before)."
+  ],
+  "verification": [
+    "Render + compare this report (via the new wrapper or explicit render + compare.py invocation) and confirm per-page word-diff is at/near zero and pixel-diff is low.",
+    "Re-render the lakezone example and confirm it is byte-for-byte / visually unchanged from before this feature.",
+    "Confirm the generated PDF embeds the registered real font (fonttools/pdffonts shows the Arial-family font, not a generic substitute name from a fallback)."
+  ],
+  "blocked_reason": null,
+  "findings": ""
+}

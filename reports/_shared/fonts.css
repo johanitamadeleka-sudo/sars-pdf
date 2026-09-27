@@ -1,0 +1,51 @@
+/*
+ * Shared @font-face registration for every SECONDARY (and future PRIMARY) report.
+ *
+ * The source PDFs embed these EXACT families:
+ *   ArialMT               -> 'Arial'            (regular)
+ *   Arial-BoldMT          -> 'Arial'            (bold)
+ *   ArialNarrow-Bold      -> 'Arial Narrow'     (bold)
+ *   TimesNewRomanPS-BoldMT-> 'Times New Roman'  (bold)
+ *
+ * Those Monotype fonts are proprietary and cannot be redistributed in this
+ * repo. We register metric-compatible open substitutes (Liberation family,
+ * SIL/GPL+font-exception) under the SAME family names the reports reference,
+ * so each report's CSS carries a SINGLE family name and NO fallback list.
+ *
+ * Rule for every report stylesheet: `font-family: 'Arial';` (one name, no comma).
+ * See ../../fonts/README.md for the licensing/substitution decision.
+ *
+ * Paths are relative to this file (reports/_shared/), resolving to repo-local
+ * fonts/. A report that lives deeper can @import this file or copy it with an
+ * adjusted url() base.
+ */
+
+/* ---- Arial  (backed by Liberation Sans) ---- */
+@font-face {
+  font-family: 'Arial';
+  font-style: normal;
+  font-weight: normal;
+  src: url('../../fonts/LiberationSans-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Arial';
+  font-style: normal;
+  font-weight: bold;
+  src: url('../../fonts/LiberationSans-Bold.ttf') format('truetype');
+}
+
+/* ---- Arial Narrow Bold  (backed by Liberation Sans Narrow Bold) ---- */
+@font-face {
+  font-family: 'Arial Narrow';
+  font-style: normal;
+  font-weight: bold;
+  src: url('../../fonts/LiberationSansNarrow-Bold.ttf') format('truetype');
+}
+
+/* ---- Times New Roman Bold  (backed by Liberation Serif Bold) ---- */
+@font-face {
+  font-family: 'Times New Roman';
+  font-style: normal;
+  font-weight: bold;
+  src: url('../../fonts/LiberationSerif-Bold.ttf') format('truetype');
+}

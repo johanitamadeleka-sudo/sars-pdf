@@ -1,0 +1,7 @@
+{
+  "task_id": "task-secondary-council-region-reports",
+  "task_description": "Reproduce the Mwanza SECONDARY-school Form Two mock reports (7 council/district-level + 12 region-level PDFs) as self-contained HTML+CSS -> WeasyPrint PDF generators, each with its own template, CSS, JSON data (display strings) and reference PDF, organized by school level (secondary now, primary future placeholder) and scope (council, region). Reuse the proven pattern from the existing lakezone success example (kept intact) and the compare.py fidelity harness as the verdict: generated PDFs must match originals (same rows, same colours, same fonts, same everything). Templates are named by LEVEL+FUNCTION (not the test council/region instance names) and are data-driven so any future data of the same shape renders through them. Use real fonts with no fallback chains.",
+  "status": "in_progress",
+  "feature_order": ["FEAT-001", "FEAT-002", "FEAT-003", "FEAT-004", "FEAT-005"],
+  "blocked_reason": null
+}

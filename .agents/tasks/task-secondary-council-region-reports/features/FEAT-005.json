@@ -1,0 +1,27 @@
+{
+  "id": "FEAT-005",
+  "type": "docs",
+  "description": "Documentation, CI, and a top-level fidelity summary tying the new secondary council/region reports together. Make the data-driven, reusable-template nature explicit so any future data (or the future primary level) renders through the same templates.",
+  "status": "pending",
+  "steps": [
+    "Update the top-level README.md: keep the existing lakezone section as the documented SUCCESS EXAMPLE, and add a section describing the reports/ tree, the LEVEL+FUNCTION naming convention (with an explicit note that 'MWANZA CC'/'Mwanza' are the test council/region instances, not template names), the secondary-now / primary-future split, the shared fonts.css (real fonts, no fallbacks) and the font licensing decision point, and the per-report render+compare workflow.",
+    "Add a per-report short README (or a top reports/secondary/INDEX.md) listing every report, its source PDF, its scope/level, its page count, and its latest fidelity scores (pixel-diff, word-diff) so the verdict is visible at a glance, mirroring how output/comparison/README.md works for the lakezone example.",
+    "Update .github/workflows/compare.yml (or add a companion workflow) so CI renders and compares the new reports too: install the repo fonts (or fonts-liberation), loop over reports/secondary/**, render each data.json with its own template dir, run compare.py against each reference/original.pdf, and commit the output/ + comparison artifacts back. Keep the existing lakezone job working.",
+    "Provide a single convenience entrypoint (e.g. extend scripts/render_and_compare.py or add scripts/build_all.py) that discovers every report dir under reports/secondary/** and renders+compares them in one command, so regenerating everything is one step.",
+    "Write a BLOCKERS/decisions note (in the PR-facing docs, e.g. a section in reports/README.md) capturing: the font substitution decision (no genuine Arial/Times obtainable in-sandbox; metric-compatible Liberation/Tinos used under the real family names), any report that could not reach near-zero fidelity and why, and the primary-level future placeholder."
+  ],
+  "acceptance_criteria": [
+    "README.md documents the new reports/ layout, naming convention, secondary/primary split, and fonts approach, while preserving the lakezone success-example section.",
+    "A visible fidelity summary (INDEX.md or per-report READMEs) lists each report's source, scope, page count, and latest pixel/word diff scores.",
+    ".github/workflows/compare.yml renders+compares the new reports in addition to the lakezone example without breaking the existing job.",
+    "A single command regenerates and compares all secondary reports.",
+    "A blockers/decisions note records the font substitution and any imperfect reports."
+  ],
+  "verification": [
+    "Run the single build-all command and confirm it renders + compares every report under reports/secondary/** without error.",
+    "Lint/parse the updated compare.yml (e.g. `python -c \"import yaml,sys; yaml.safe_load(open('.github/workflows/compare.yml'))\"`) to confirm valid YAML.",
+    "Confirm the fidelity summary file exists and lists all built reports with scores."
+  ],
+  "blocked_reason": null,
+  "findings": ""
+}
