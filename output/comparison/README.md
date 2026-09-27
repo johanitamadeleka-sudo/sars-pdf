@@ -8,17 +8,17 @@ Pixel diff = share of pixels that differ at 110 dpi; tolerant = still different 
 
 | page | pixel diff | tolerant diff | words missing | words extra | fills only in original | fills only in generated | verdict (>=96%) |
 |---|---|---|---|---|---|---|---|
-| 1 | 9.70% | 4.81% | 0 | 0 | - | - | ❌ FAIL (pixels 4.81%>4%) |
-| 2 | 10.95% | 6.66% | 0 | 0 | - | - | ❌ FAIL (pixels 6.66%>4%) |
-| 3 | 9.91% | 5.33% | 0 | 0 | - | - | ❌ FAIL (pixels 5.33%>4%) |
-| 4 | 10.76% | 6.65% | 0 | 0 | - | - | ❌ FAIL (pixels 6.65%>4%) |
-| 5 | 10.83% | 6.78% | 0 | 0 | - | - | ❌ FAIL (pixels 6.78%>4%) |
-| 6 | 10.53% | 6.05% | 0 | 0 | - | - | ❌ FAIL (pixels 6.05%>4%) |
-| 7 | 10.62% | 6.06% | 0 | 0 | - | - | ❌ FAIL (pixels 6.06%>4%) |
-| 8 | 10.66% | 6.08% | 0 | 0 | - | - | ❌ FAIL (pixels 6.08%>4%) |
-| 9 | 10.57% | 6.07% | 0 | 0 | - | - | ❌ FAIL (pixels 6.07%>4%) |
-| 10 | 9.86% | 5.23% | 0 | 0 | - | - | ❌ FAIL (pixels 5.23%>4%) |
-| 11 | 28.22% | 23.18% | 0 | 0 | - | - | ❌ FAIL (pixels 23.18%>4%) |
+| 1 | 9.96% | 4.81% | 0 | 0 | - | - | ❌ FAIL (pixels 4.81%>4%) |
+| 2 | 11.25% | 6.69% | 0 | 0 | - | - | ❌ FAIL (pixels 6.69%>4%) |
+| 3 | 10.17% | 5.26% | 0 | 0 | - | - | ❌ FAIL (pixels 5.26%>4%) |
+| 4 | 10.98% | 6.62% | 0 | 0 | - | - | ❌ FAIL (pixels 6.62%>4%) |
+| 5 | 11.05% | 6.74% | 2 | 1 | - | - | ❌ FAIL (pixels 6.74%>4%, words 2miss/1extra) |
+| 6 | 10.72% | 5.94% | 0 | 0 | - | - | ❌ FAIL (pixels 5.94%>4%) |
+| 7 | 10.81% | 5.93% | 0 | 0 | - | - | ❌ FAIL (pixels 5.93%>4%) |
+| 8 | 10.83% | 5.94% | 0 | 0 | - | - | ❌ FAIL (pixels 5.94%>4%) |
+| 9 | 10.79% | 5.98% | 0 | 0 | - | - | ❌ FAIL (pixels 5.98%>4%) |
+| 10 | 10.07% | 5.10% | 0 | 0 | - | - | ❌ FAIL (pixels 5.10%>4%) |
+| 11 | 28.95% | 23.61% | 0 | 0 | - | - | ❌ FAIL (pixels 23.61%>4%) |
 
 **Verdict summary: 0/11 pages meet the >=96% bar** (tolerant diff <= 4% AND zero fill diffs AND zero word diffs).
 
@@ -39,6 +39,8 @@ Pixel diff = share of pixels that differ at 110 dpi; tolerant = still different 
 ![page 4](page_04.png)
 
 ## Page 5
+missing: `{'1425': 1, '82.597': 1}`
+extra: `{'142582.597': 1}`
 
 ![page 5](page_05.png)
 
