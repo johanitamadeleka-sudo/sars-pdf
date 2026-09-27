@@ -91,7 +91,7 @@ including the per-page **verdict** column and a **verdict summary** line) under
 | `region-district-performance` | Mwanza f2 District Performance.pdf | region only, per-council/district division grid | 5 | 8.4–9.2% | 5.5–7.1% | 17 / 35 | 0 / 1 | **0 / 5** |
 | `region-mobility` | Mwanza f2 Mock Mobility 2026.pdf | region only, FTNA 2025 vs Mock 2026 (Swahili labels); fixed section/header fills + IMEPANDA/UMESHUKA up-down colour-coding | 6 | 28.5–33.7% | 16.9–23.6% | 71 / 45 | 1 / 1 | **0 / 6** |
 
-\* word-diff is the fuzzy-tokeniser total (see [How to read the scores](#how-to-read-the-scores)); it over-counts visually identical rotated headers and cell-adjacency kern merges. Extracted content is verified correct.
+\* word-diff is the fuzzy-tokeniser total (see [How to read the scores](#how-to-read-the-scores)); it over-counts visually identical rotated headers (e.g. `C/RANK` → `K N A R /C`). It USED to also over-count **cell-adjacency kern merges** — adjacent cell contents gluing in the PDF text layer such as `DCKATUNGURU` (`DC` + ward `KATUNGURU`) and `DCSAVANA` on `region-top-10-schools` / `region-schools-rank-governments`. Those were a real structural symptom (COUNCIL names in metric-compatible Liberation are wider than the original's Arial, so `…DC` overflowed its column and touched the next cell). They are now **fixed** by tightening the COUNCIL column's font/tracking so the text stays inside its own fixed-width column (column boundaries unchanged, grid still aligns to ~0.3pt): `region-top-10-schools` pages 2/6 dropped from 5 miss / 6 extra to 1 miss / 4 extra (the residual is only the rotated-header split). The remaining word diffs are rotated-header tokeniser artifacts (visually identical) or the dense F/M/T triplet numeric runs on the schools-rank grids, which pdfplumber concatenates regardless of cell borders; extracted per-cell content is verified correct.
 
 † fills = the count of **distinct** fill colours that appear on only one side, aggregated across the report's pages (orig-only / gen-only). `0 / 0` means the fixed per-report palette reproduces the original's colours exactly on every page. Non-zero residuals are itemised in the [PR-body summary](#pr-body-ready-summary--per-report-beforeafter--verdict) below.
 
@@ -217,11 +217,20 @@ least one dimension, itemised below.
   (documented, unavoidable in-sandbox). These pages have **0 fill mismatch** on
   their main grid.
 - **`region-mobility` (0/6):** `pixels` (tol 16.9–23.6%, dense wide grid) **plus**
-  a documented `#c00000` **coloured-text** delta — the negative-MJONGEO ink is
-  rendered as coloured text (visually identical) but pdfplumber counts the
-  original's as a filled glyph path, so it shows as 1 orig-only fill; the matching
-  `#65ffab` sub-header is a fixed fill now present on both sides on the header
-  page only.
+  two documented, unavoidable fill deltas:
+  - `#c00000` orig-only on every page is a **coloured-text glyph, not a rect**: the
+    negative-MJONGEO delta is rendered as dark-red *text* (`.mj-down { color }`),
+    which is visually identical to the original but pdfplumber records the
+    original's as a filled glyph path in `page.rects`, so it can never appear in
+    our generated fill Counter. This is the text-vs-rect case — correcting CSS
+    cannot make a text colour show up as a rect fill.
+  - `#65ffab` gen-only on pages 2–6 is a **per-page inconsistency in the ORIGINAL**:
+    `measure_fills.py` shows the original paints the `%(I-III)` sub-header green
+    (`#65ffab`) only on page 1 (where we match it 0 gen-only), but on pages 2–6 the
+    original does NOT repeat that green on the re-drawn header band. Our template
+    repeats the header identically on every page (data-driven, correct), so we emit
+    `#65ffab` on every page. Suppressing it only on pages 2–6 would need a
+    hard-coded page index, which the constraint forbids. Documented residual.
 - **Dense F/M/T grids `region-schools-rank-overall` / `-governments` (0/6, 0/4):**
   `pixels` (tol 16.6–21.5%) from font noise **plus** high fuzzy `words` counts
   from rotated/kerned headers. Columns align to ~0.5pt (Thread C) and main-grid
@@ -235,10 +244,19 @@ least one dimension, itemised below.
 - **`council-wards-rank` (0/1):** `pixels` + `words` + **7 orig-only** fills that
   are the one-off decorative **SUMMARY block** legend; the main per-ward grid is
   clean.
-- **`region-top-10-schools` fills residual:** the `0`-division column is modeled
-  as a single `0` column per the Thread C topology, so `#8ed973`/`#ff0000` show as
-  orig-only and `#29ff8a`/`#c0e6f5` as gen-only — a structural modelling choice,
-  documented, not a palette bug.
+- **`region-top-10-schools` fills residual (per-page palette inconsistency in the
+  ORIGINAL):** re-measuring page-by-page with `measure_fills.py` shows the original
+  itself uses **different tints on different pages** for the same cells — page 1
+  paints REGISTERED `#c0e6f5` and I-III% `#29ff8a`/0% `#8ed973`, while pages 2–6
+  switch REGISTERED to `#caedfb` and I-III% to `#65ffab`. Our fixed per-report
+  palette is measured from page 1 and reproduces it **0 orig / 0 gen on page 1**;
+  pages 2–6 then show `#caedfb`/`#65ffab` (orig-only) vs `#c0e6f5`/`#29ff8a`
+  (gen-only). Matching the original's per-page tint drift would require hard-coding
+  a page/section index into the palette, which the data-driven constraint forbids
+  (no hard-coded page numbers). This is a documented residual, not a palette bug we
+  can fix without violating the constraint. The `#ff0000` orig-only is a single
+  empty-cell red the original paints but our topology leaves unfilled — one cell,
+  decorative.
 - **`region-schools-rank-subjectwise` (EDK 0/1, English 0/6):** `pixels` (tol
   8.8% / 16.3–18.7%); EDK has 1 orig-only `#d9d9d9` on one aggregate-row C/RANK
   cell; English has a `#d9d9d9`↔`#f7c7ac` swap on its last aggregate page. One

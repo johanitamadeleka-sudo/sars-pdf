@@ -8,6 +8,10 @@ oversized / edge-case data to prove that the templates are data-driven for VOLUM
                     (including tied ranks) must render ALL 26 rows, not truncate at 10.
   * long-text     - very long DETAILED SUBJECTS / SCHOOL / CANDIDATE strings must WRAP
                     inside their cell (opt-in wrap policy), never silently clip/overflow.
+                    Proven two ways: the long column spans >=2 text baselines per row,
+                    AND the wrapped rows are physically taller than a single-line row
+                    (measured against the single-line ties fixture) - so a clip/shrink
+                    that merely fit the width would FAIL, not pass.
   * 3-page        - a report whose real instance fits on ONE page must paginate to
                     exactly 3 pages when given enough rows, repeating the heading +
                     column-header band on each page and continuing S/N numbering.
@@ -191,6 +195,77 @@ def header_repeats_each_page(pdf_path, header_token):
     return [header_token in t for t in pages], len(pages)
 
 
+def _line_tops(chars, tol=0.8):
+    """Distinct text baselines (rounded 'top' values) occupied by `chars`.
+
+    Groups characters whose top edge is within `tol` pt into one line, so a set
+    of chars sharing a baseline counts once. Returns the sorted list of cluster
+    centres, i.e. one entry per rendered text line.
+    """
+    tops = sorted(c["top"] for c in chars)
+    lines = []
+    for t in tops:
+        if not lines or (t - lines[-1]) > tol:
+            lines.append(t)
+    return lines
+
+
+def wrap_line_counts(pdf_path, row_marker, cell_marker):
+    """Prove wrapping happened by measuring, per DATA ROW, how many text baselines
+    the long cell content occupies.
+
+    `row_marker` is a token that appears exactly ONCE per data row (e.g. the unique
+    trailing 'FULLNAME' token in the candidate column) - its baselines delimit the
+    row bands. `cell_marker` is the first token of the long wrapping cell (e.g.
+    'HISTORY' at the start of the detailed-subjects column); we count how many
+    distinct baselines carry that column's chars WITHIN each row band.
+
+    Returns a list with one line-count per rendered data row. A value of 1 means the
+    cell stayed on a single line (a clip/shrink that merely fit the width); a value
+    > 1 proves the text WRAPPED onto multiple lines inside its cell. Also returns the
+    measured row pitch (spacing between consecutive row baselines) so the caller can
+    assert wrapped rows are physically taller than a single-line row.
+    """
+    with pdfplumber.open(pdf_path) as pdf:
+        row_tops = []
+        cell_x0 = None
+        for pg in pdf.pages:
+            words = pg.extract_words(use_text_flow=True)
+            for w in words:
+                if row_marker in w["text"]:
+                    row_tops.append((pg.page_number, w["top"]))
+                if cell_marker in w["text"] and cell_x0 is None:
+                    cell_x0 = w["x0"]
+        # per-row line counts in the long cell's column. Scope strictly to chars that
+        # START at the cell's left edge (cell_x0), so wrapped continuation lines of the
+        # SAME column are counted while neighbouring columns (which start at other x)
+        # are excluded. This distinguishes real wrapping from a single-line clip.
+        counts = []
+        if cell_x0 is not None:
+            row_tops_sorted = sorted(row_tops)
+            for i, (pgno, top) in enumerate(row_tops_sorted):
+                lo = top - 2.0
+                hi = (row_tops_sorted[i + 1][1] - 2.0
+                      if i + 1 < len(row_tops_sorted)
+                      and row_tops_sorted[i + 1][0] == pgno
+                      else top + 60.0)
+                page = pdf.pages[pgno - 1]
+                cell_chars = [
+                    c for c in page.chars
+                    if abs(c["x0"] - cell_x0) < 3.0
+                    and lo <= c["top"] < hi
+                ]
+                counts.append(len(_line_tops(cell_chars)))
+        # row pitch: spacing between consecutive row baselines on the same page
+        pitches = [
+            b[1] - a[1]
+            for a, b in zip(sorted(row_tops), sorted(row_tops)[1:])
+            if a[0] == b[0] and b[1] - a[1] > 0
+        ]
+        pitch = min(pitches) if pitches else 0.0
+        return counts, pitch
+
+
 # --------------------------------------------------------------------------- #
 def main():
     failures = []
@@ -214,9 +289,33 @@ def main():
     render(BEST_STUDENTS, lt_json, lt_pdf, out / "long-text.html")
     lt_pages = rasterize(lt_pdf, out / "long-text-pages")
     ok, detail = text_within_bounds(lt_pdf)
-    print(f"[long-text] pages={lt_pages} text within page bounds={ok}")
     if not ok:
         failures.append(f"long-text: char outside page bounds {detail}")
+    # WRAP PROOF: the long detailed-subjects cell must render across MULTIPLE text
+    # baselines per row (not a single-line clip). We also require the wrapped rows to
+    # be physically TALLER than the single-line ties-fixture row, so a clip/shrink
+    # that merely fit the width would fail both checks.
+    lt_counts, lt_pitch = wrap_line_counts(lt_pdf, "FULLNAME", "HISTORY")
+    _, ties_pitch = wrap_line_counts(ties_pdf, "FULLNAME", "CANDIDATE")
+    multi = sum(1 for n in lt_counts if n >= 2)
+    print(f"[long-text] pages={lt_pages} within-bounds={ok} "
+          f"lines/row={lt_counts} multi-line-rows={multi}/{len(lt_counts)} "
+          f"row-pitch wrapped={lt_pitch:.1f}pt vs single-line={ties_pitch:.1f}pt")
+    if len(lt_counts) != 8:
+        failures.append(f"long-text: expected 8 wrapping rows, measured {len(lt_counts)}")
+    # Prove wrapping two independent ways so a single-line clip cannot pass:
+    #  (a) the long detailed-subjects column must span >=2 baselines on (nearly) every
+    #      row - a clip/shrink to one line would give 1 baseline everywhere.
+    if multi < len(lt_counts) - 1:
+        failures.append(
+            f"long-text: cell did NOT wrap - only {multi}/{len(lt_counts)} rows span "
+            f">=2 baselines (per-row line counts {lt_counts})")
+    #  (b) the wrapped rows must be physically TALLER than a single-line row (measured
+    #      from the single-line ties fixture), which a width-fitting clip could not be.
+    if not (lt_pitch > ties_pitch + 4.0):
+        failures.append(
+            f"long-text: wrapped row pitch {lt_pitch:.1f}pt not taller than "
+            f"single-line pitch {ties_pitch:.1f}pt - wrapping not proven")
 
     # 3) 3-PAGE PAGINATION --------------------------------------------------
     pg_doc, pg_n = build_3_page()

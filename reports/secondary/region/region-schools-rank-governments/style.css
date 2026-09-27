@@ -141,6 +141,12 @@ thead th.crank-h .vert span, thead th.rrank-h .vert span { font-size: 5pt; }
 tbody tr.row { height: 6.87pt; }
 tbody td { font-size: 5.4pt; }
 td.txt { text-align: left; padding-left: 1pt; font-size: 4.9pt; letter-spacing: -0.1pt; }
+/* COUNCIL column: metric-compatible Liberation renders wider than the original's Arial,
+   so a name like "SENGEREMA DC" overflows the fixed 39.5pt column and its trailing "…DC"
+   glues to the next ward in the PDF text layer ("DCKATUNGURU"). A slightly smaller font +
+   tight tracking keep the COUNCIL text inside its own column so the ward stays a separate
+   word. Column width unchanged, so the grid does not move. */
+td.c-council { font-size: 4.4pt; letter-spacing: -0.25pt; }
 td.b { font-weight: bold; }
 td.comp { text-align: left; font-weight: bold; padding-left: 1pt; font-size: 4.7pt; letter-spacing: -0.12pt; }
 tr.pass td, tr.total td { font-weight: bold; }
