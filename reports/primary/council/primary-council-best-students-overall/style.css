@@ -1,0 +1,97 @@
+/*
+ * primary-council-best-students-overall (LEVEL + FUNCTION name; data-driven, not tied to
+ * any council). Primary STD4 "WANAFUNZI KUMI BORA" section-centric top-10 blocks, measured
+ * from THIS report's OWN reference original (US Letter LANDSCAPE, 792 x 612 pt, 4 pages,
+ * 6 sections). Per candidate: 6 subjects with AL (marks) + DRJ (grade) each. All fixed
+ * fills live in :root; this report's original does NOT colour the grade cells (all top
+ * candidates are Daraja A on a white cell), so there is no data-driven colour here.
+ *
+ * REAL fonts registered INLINE so this report is fully self-contained. One family name
+ * per @font-face, NO fallback list.
+ */
+@font-face {
+  font-family: 'Arial'; font-style: normal; font-weight: normal;
+  src: url("../../../../fonts/LiberationSans-Regular.ttf") format('truetype');
+}
+@font-face {
+  font-family: 'Arial'; font-style: normal; font-weight: bold;
+  src: url("../../../../fonts/LiberationSans-Bold.ttf") format('truetype');
+}
+
+:root {
+  --fill-subj: #fce4d6;    /* subject group band */
+  --fill-slot-a: #f2f2f2;  /* subject sub-header cell (alternating) */
+  --fill-slot-b: #fff2cc;  /* subject sub-header cell (alternating) */
+  --fill-wastani: #fff2cc; /* WASTANI column */
+  --fill-ddebf7: #ddebf7;  /* JINSI sliver */
+
+  --ink: #000000;
+  --grid: #000000;
+}
+
+@page {
+  size: Letter landscape;
+  margin: 20pt 0 20pt 0;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; font-family: 'Arial'; color: var(--ink); }
+
+.titles { text-align: center; font-weight: bold; font-size: 8.6pt; line-height: 10.4pt; padding-top: 6pt; }
+.titles .hl { white-space: pre; }
+.titles .exam-name { margin-top: 3pt; margin-bottom: 4pt; }
+
+.section { margin: 0 0 10pt 18.5pt; }
+.section.page-top { break-before: page; margin-top: 20pt; }
+.sec-title { text-align: center; font-weight: bold; font-size: 8.2pt; margin: 6pt 0 3pt 0; }
+
+table.students {
+  width: 741.5pt;             /* 18.5 .. 760 */
+  border-collapse: collapse;
+  table-layout: fixed;
+  border: 0.8pt solid var(--grid);
+}
+
+col.c-sn      { width: 21.0pt; }
+col.c-wil     { width: 44.0pt; }
+col.c-sch     { width: 66.0pt; }
+col.c-own     { width: 41.0pt; }
+col.c-namba   { width: 57.0pt; }
+col.c-cand    { width: 103.0pt; }
+col.c-jinsi   { width: 20.0pt; }
+col.c-al      { width: 18.0pt; }
+col.c-drj     { width: 18.0pt; }
+col.c-jumla   { width: 24.0pt; }
+col.c-wastani { width: 22.0pt; }
+col.c-daraja  { width: 21.0pt; }
+col.c-nafasi  { width: 20.0pt; }
+col.c-comp    { width: 74.0pt; }
+
+th, td {
+  border: 0.4pt solid var(--grid);
+  padding: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 5.4pt;
+  line-height: 1;
+}
+th { white-space: normal; font-weight: bold; }
+thead { display: table-header-group; }
+thead .hg { height: 22pt; }
+thead .hg th.grp { background: var(--fill-subj); font-size: 5.6pt; }
+thead .hs { height: 8pt; }
+thead .hf { height: 7pt; }
+thead .hs th.subj:nth-child(odd) { background: var(--fill-slot-a); }
+thead .hs th.subj:nth-child(even) { background: var(--fill-slot-b); }
+thead th.v-mid { vertical-align: middle; }
+
+tbody tr.row { height: 8.4pt; }
+tbody td { font-size: 5.6pt; }
+td.txt { text-align: left; padding-left: 1pt; font-size: 5.2pt; letter-spacing: -0.1pt; }
+td.b { font-weight: bold; }
+td.comp { text-align: left; font-weight: bold; padding-left: 1pt; font-size: 5.2pt; }
+
+.fill-wastani { background: var(--fill-wastani); }
+thead th.fill-jinsi { background: var(--fill-ddebf7); }
