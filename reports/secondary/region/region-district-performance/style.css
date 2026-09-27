@@ -75,12 +75,11 @@ thead th.nowrap { font-size: 5pt; }
 thead .hg { height: 9pt; }
 thead .hs { height: 7pt; }
 thead .hf { height: 7pt; }
-thead th.rank-h { padding: 0; overflow: visible; }
-.vert { position: relative; margin: 0 auto; height: 100%; width: 8pt; }
+thead th.rank-h { padding: 0; overflow: hidden; }
+.vert { display: flex; align-items: center; justify-content: center; height: 100%; width: 100%; }
 .vert span {
-  position: absolute; left: 50%; top: 50%;
-  font-size: 5.4pt; font-weight: bold; white-space: nowrap;
-  transform: translate(-50%, -50%) rotate(-90deg);
+  writing-mode: vertical-rl; transform: rotate(180deg);
+  font-size: 5.4pt; font-weight: bold; white-space: nowrap; line-height: 1;
 }
 
 /* body rows */

@@ -39,7 +39,7 @@
   size: Letter landscape;
   margin: 51pt 0 18pt 0;
 }
-@page :first { margin-top: 51pt; }
+@page :first { margin-top: 60pt; }
 
 * { box-sizing: border-box; }
 
@@ -58,12 +58,13 @@ table.grid {
   border: 1pt solid var(--grid);
 }
 table.summary { margin-bottom: 4pt; }
-table.summary .hg { height: 12.3pt; }
-table.summary .h-sat { height: 12.2pt; }
-table.summary .h-tp { height: 6pt; }
-table.summary .h-lbl { height: 12pt; }
-table.summary .row { height: 18pt; }
-table.summary .pass { height: 18pt; }
+table.summary .hg { height: 12.2pt; }
+table.summary .h-sat { height: 6.1pt; }
+table.summary .h-tp { height: 6.1pt; }
+table.summary .row { height: 18.1pt; }
+table.summary .pass { height: 18.1pt; }
+table.summary th, table.summary td { font-size: 7pt; }
+table.summary .h-tp th { font-size: 5.6pt; }
 table.main .hg { height: 17.4pt; }
 table.main .h-sat { height: 13.4pt; }
 table.main .h-tp { height: 12pt; }
@@ -109,13 +110,12 @@ thead .h-tp { height: 8pt; }
 thead .h-lbl { height: 4pt; }
 
 /* rotated labels */
-thead th.vlabel { padding: 0; overflow: visible; }
-thead th.rank-h { padding: 0; overflow: visible; }
-.vert { position: relative; margin: 0 auto; height: 100%; width: 12pt; }
+thead th.vlabel { padding: 0; overflow: hidden; }
+thead th.rank-h { padding: 0; overflow: hidden; }
+.vert { display: flex; align-items: center; justify-content: center; height: 100%; width: 100%; }
 .vert span {
-  position: absolute; left: 50%; top: 50%;
-  font-size: 6.5pt; font-weight: bold; white-space: nowrap;
-  transform: translate(-50%, -50%) rotate(-90deg);
+  writing-mode: vertical-rl; transform: rotate(180deg);
+  font-size: 6.5pt; font-weight: bold; white-space: nowrap; line-height: 1;
 }
 th.rank-h .vert span { font-size: 7pt; }
 

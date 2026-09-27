@@ -69,28 +69,29 @@ html, body {
 
 /* ---------- main table ---------- */
 table.rank {
-  width: 727pt;
-  margin: 3pt 0 0 34pt;      /* table left edge at x = 34 pt */
+  width: 726.4pt;            /* 34.4 .. 760.8 (measured boundaries) */
+  margin: 3pt 0 0 34.4pt;    /* table left edge at x = 34.4 pt */
   border-collapse: collapse;
   table-layout: fixed;
   border: 1pt solid var(--grid);
 }
 
-col.w-sn { width: 37pt; }
-col.w-subject { width: 143.5pt; }
-col.w-a { width: 38.5pt; }
-col.w-b { width: 32pt; }
-col.w-c { width: 32pt; }
-col.w-d { width: 32pt; }
-col.w-f { width: 39pt; }
-col.w-total { width: 36.5pt; }
-col.w-ac { width: 36.5pt; }
-col.w-pac { width: 37pt; }
-col.w-ad { width: 37pt; }
-col.w-pad { width: 36pt; }
-col.w-gpa { width: 40pt; }
-col.w-comp { width: 123pt; }
-col.w-rank { width: 27pt; }
+/* per-column widths from measured consecutive-boundary differences */
+col.w-sn { width: 34.1pt; }
+col.w-subject { width: 215.3pt; }
+col.w-a { width: 30.8pt; }
+col.w-b { width: 30.9pt; }
+col.w-c { width: 33.1pt; }
+col.w-d { width: 33.1pt; }
+col.w-f { width: 33.1pt; }
+col.w-total { width: 33.2pt; }
+col.w-ac { width: 33.1pt; }
+col.w-pac { width: 30.8pt; }
+col.w-ad { width: 33.1pt; }
+col.w-pad { width: 30.9pt; }
+col.w-gpa { width: 35.3pt; }
+col.w-comp { width: 94.3pt; }
+col.w-rank { width: 25.3pt; }
 
 th, td {
   border: 0.6pt solid var(--grid);
@@ -111,12 +112,11 @@ thead tr.h1 { height: 15pt; }
 thead tr.h2 { height: 26pt; }
 thead th.grading { font-size: 11pt; }
 thead th.comp-h { font-size: 8pt; }
-thead tr.h1 th.rank-h { padding: 0; vertical-align: middle; overflow: visible; }
-.vert { width: 14pt; height: 26pt; position: relative; margin: 0 auto; }
+thead tr.h1 th.rank-h { padding: 0; vertical-align: middle; overflow: hidden; }
+.vert { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; }
 .vert span {
-  position: absolute; left: 50%; top: 50%;
-  font-size: 8pt; white-space: nowrap;
-  transform: translate(-50%, -50%) rotate(-90deg);
+  writing-mode: vertical-rl; transform: rotate(180deg);
+  font-size: 8pt; white-space: nowrap; line-height: 1;
 }
 
 /* body rows */
