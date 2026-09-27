@@ -4,14 +4,18 @@ Columns: **original | generated | diff** (pink = sub-pixel differences, red = re
 
 Pixel diff = share of pixels that differ at 110 dpi; tolerant = still different when a 1px shift is allowed (ignores sub-pixel anti-aliasing).
 
-| page | pixel diff | tolerant diff | words missing | words extra | fills only in original | fills only in generated |
-|---|---|---|---|---|---|---|
-| 1 | 33.36% | 17.35% | 42 | 62 | - | - |
-| 2 | 39.07% | 20.14% | 34 | 71 | - | - |
-| 3 | 40.86% | 20.54% | 30 | 69 | - | - |
-| 4 | 40.90% | 20.54% | 31 | 68 | - | - |
-| 5 | 40.50% | 20.46% | 27 | 65 | - | - |
-| 6 | 13.33% | 5.71% | 67 | 40 | #f2ceef | - |
+**Verdict** is the stricter >=96%-match bar (position-by-position across colours, borders, data and cell sizes): a page **PASS**es when tolerant diff <= 4% (>=96% pixel match) AND there are zero fills-only diffs both ways AND zero words missing/extra; otherwise **FAIL** with the failing dimension(s) named.
+
+| page | pixel diff | tolerant diff | words missing | words extra | fills only in original | fills only in generated | verdict (>=96%) |
+|---|---|---|---|---|---|---|---|
+| 1 | 33.36% | 17.35% | 42 | 62 | - | - | ❌ FAIL (pixels 17.35%>4%, words 42miss/62extra) |
+| 2 | 39.07% | 20.14% | 34 | 71 | - | - | ❌ FAIL (pixels 20.14%>4%, words 34miss/71extra) |
+| 3 | 40.86% | 20.54% | 30 | 69 | - | - | ❌ FAIL (pixels 20.54%>4%, words 30miss/69extra) |
+| 4 | 40.90% | 20.54% | 31 | 68 | - | - | ❌ FAIL (pixels 20.54%>4%, words 31miss/68extra) |
+| 5 | 40.50% | 20.46% | 27 | 65 | - | - | ❌ FAIL (pixels 20.46%>4%, words 27miss/65extra) |
+| 6 | 13.33% | 5.71% | 67 | 40 | #f2ceef | - | ❌ FAIL (pixels 5.71%>4%, fills 1orig/0gen, words 67miss/40extra) |
+
+**Verdict summary: 0/6 pages meet the >=96% bar** (tolerant diff <= 4% AND zero fill diffs AND zero word diffs).
 
 ## Page 1
 missing: `{'O': 3, 'L': 3, 'E': 3, 'C': 2, 'N': 2, 'I': 2, 'V': 2, 'NYANTAKUPBRWIVAA': 2, 'SC': 1, 'H': 1}`

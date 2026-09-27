@@ -80,9 +80,13 @@ writes `font-family: 'Arial';` (single name). See
 
 Store every value as a **display string**, preserving the original's exact
 number formatting (`70.4` vs `65.00`, `43.937`, `100`). Fixed column fills live
-in the report's CSS `:root`; only the data-driven cell (competency level, via
-`../sars_pdf/grading.py`) changes colour based on GPA band. This mirrors the
-Lakezone example so the output matches the source PDF character-for-character.
+in the report's CSS `:root` and are **measured PER REPORT from that report's own
+`reference/original.pdf`** — the non-competency fills are a fixed but
+per-report palette, **not** identical across different reports, because the
+originals genuinely use different hex values. Only the data-driven cell
+(competency level, via `../sars_pdf/grading.py`) changes colour based on GPA
+band. This mirrors the Lakezone example so the output matches each report's own
+source PDF character-for-character.
 
 ## Data-driven generation
 
@@ -156,38 +160,71 @@ glyph-identical to Monotype Arial/Times, `compare.py` reports a residual
 shows red only along glyph edges. This is expected and is the direct cost of the
 no-genuine-Arial-in-sandbox constraint.
 
-### Reports that could not reach near-zero pixel fidelity, and why
+**Header overflow was CSS sizing, not font width.** Because Liberation matches
+Arial's advance widths, a header that spilled its cell was always a CSS bug, not
+a font-width bug. `council-top-10-schools` printed "COMPETENCY LEVEL" on one
+`white-space:nowrap` line running ~33pt past the page edge while the original
+wraps it to two lines inside the cell; the fix was a single CSS rule
+(`thead th.comp-h { white-space: normal }`) and every page's pixel-diff improved
+with the palette unchanged. Genuine Arial for the Lakezone example is fetched at
+build time and **gitignored** (proprietary). See
+[`secondary/fixtures/README.md`](secondary/fixtures/README.md) for the full
+measurement.
 
-Page count matches the original exactly for every report, and the extracted
-content is verified correct. The remaining diff is **not** a content error:
+### The >=96% verdict, and which pages meet it
 
-- **Dense wide F/M/T division grids** — `council-schools-rank-overall`,
-  `region-schools-rank-overall`, `region-schools-rank-governments`,
-  `region-mobility`, and the multi-page `region-schools-rank-subjectwise`
-  (English) — sit at ~**33–41% pixel-diff**. Their **colours now match**: each
-  reproduces the original's fixed per-column pastel palette (division grids) or
-  fixed section/up-down palette (mobility), so on the repeating main-grid pages
-  `compare.py` reports **zero fills-only-in-original and zero
-  fills-only-in-generated**. The residual pixel-diff is (a) per-glyph
-  Liberation-vs-Arial edge noise across thousands of tiny digits and (b) a small
-  constant vertical row-offset: matching the original's exact rows-per-page
-  pagination fixes the row *count* but leaves the body starting ~2–3pt lower,
-  which shifts every row past the 1px tolerance. Reducing header height to close
-  the offset changes how many rows fit per page and breaks pagination, so the
-  offset is kept in favour of correct pagination. The only fills that still show
-  as "original-only" are the **one-off SUMMARY PERFORMANCE banner** (a decorative
-  multi-colour legend rendered once) and `region-mobility`'s `#c00000` negative-
-  delta ink (rendered as coloured text; pdfplumber counts the original's as a
-  filled glyph path). Both are documented, visually-consistent residuals.
+`scripts/compare.py` now emits a **machine-checkable per-page verdict** against
+the user's stricter bar — *"at least 96% everywhere in colours, borders, data
+and cell sizes"*. A page **PASS**es only when **all three** dimensions clear it
+at once: tolerant pixel diff **<= 4%** (>=96% pixel match, position-by-position)
+**AND** zero fills-only diffs both ways (colours) **AND** zero words
+missing/extra (data). Otherwise it **FAIL**s and the failing dimension(s) are
+named. The verdict is **added on top of** the existing tolerant-diff ruler and
+never weakens it. It prints to stdout and is written into every
+`output/comparison*/README.md` (a `verdict` column plus a per-report **verdict
+summary** line). See [`secondary/INDEX.md`](secondary/INDEX.md) for the
+per-report pass counts and the full PR-body breakdown.
+
+### Reports that could not reach the >=96% bar, and why
+
+Page count matches the original exactly for every report; the extracted content
+is verified correct; palettes are now measured **per report** from each report's
+own original (no shared palette); and the F/M/T grids' **cell-merge topology**
+(colspan/rowspan) now matches each original to ~0.5pt with straight
+`border-collapse` gridlines and independent summary vs. detail tables (Thread C).
+The remaining diff is **not** a content, colour, border or cell-size error:
+
+- **The dominant blocker is the proprietary-font substitution.** The originals
+  embed genuine Monotype Arial/Times, which cannot be redistributed in-sandbox,
+  so we embed **metric-compatible Liberation** faces under the real family names.
+  They match advance widths and geometry exactly but are **not glyph-identical**,
+  so thousands of tiny digits differ along their edges and push the tolerant-diff
+  above 4% even when everything else is correct. This is a **rendering-noise
+  floor, not a defect** — the Lakezone success example, which embeds **genuine
+  Arial**, still reports tolerant-diff 4.8–6.8% (23% on its dense compact page
+  11) and therefore also shows **0/11 pages** passing the strict pixel bar while
+  having **0/0 words and 0 fill mismatches** on every page. Dense wide F/M/T
+  grids sit highest (most digits); sparse reports sit lowest.
+- **Colours now match on the repeating main-grid pages** of every report
+  (fill-diff driven to 0 there). The residual fills-only diffs are limited to:
+  the **one-off decorative SUMMARY / aggregate banner** (a multi-colour legend
+  rendered once, e.g. `council-wards-rank`, `region-schools-rank-governments`
+  last page), the `region-mobility` `#c00000` negative-delta ink (rendered as
+  coloured **text**; pdfplumber counts the original's as a filled glyph path),
+  the `region-top-10` single-`0`-column topology choice, and single **data-driven
+  competency** colours on paginated sections — all documented, none the
+  shared-palette bug that the per-report measurement removed.
 - **`compare.py` tokeniser artifacts** inflate the reported **word-diff** on
   every report with rotated/vertical headers (`RANK`, `COMPETENCY LEVEL`,
   `S/NO.`, `SUMMARY PERFORMANCE`), compact continuation headers, and long
   COUNCIL/SCHOOL/DETAILED SUBJECTS strings that kern into the adjacent cell so
   pdfplumber merges the tokens. These are **visual-identical** metric artifacts,
-  not missing data — see [`secondary/INDEX.md`](secondary/INDEX.md) for the
-  per-report note.
-- Sparse reports (`*-top-10-schools`, `*-best-students-*`,
-  `region-district-performance`, `council-subjects-rank`) sit low (~**9–20%**).
+  not missing data — see [`secondary/INDEX.md`](secondary/INDEX.md).
+- **Pages that DO pass the >=96% bar** are the near-blank / sparse continuation
+  pages where the font-noise floor drops below 4%: `council-best-students-subjectwise`
+  10/30, `council-schools-rank-subjectwise` 8/24, `council-subjects-rank` 1/2 —
+  19 report-pages total. Every other page fails on `pixels` (font noise) and/or
+  `words` (tokeniser), with the honest per-page reason listed in the INDEX.
 
 ### Primary level: future placeholder
 

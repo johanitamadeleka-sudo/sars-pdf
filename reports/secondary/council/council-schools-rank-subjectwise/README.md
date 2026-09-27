@@ -20,8 +20,9 @@ font files under repo `fonts/`:
 | `output/` | generated `report.pdf`, `report.html`, `pages/`, `comparison/` |
 
 Only the **competency-level** cell background is data-driven (via `sars_pdf/grading.py`,
-GPA -> A-F band -> colour). Every other fill is a fixed `:root` colour identical across the
-report family.
+GPA -> A-F band -> colour). Every other fill is a fixed `:root` colour **measured from THIS
+report's own original** — the non-competency fills are a per-report palette, not one shared
+across the report family (different originals use different hex values).
 
 ## Columns
 

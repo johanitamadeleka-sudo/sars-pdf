@@ -1,6 +1,6 @@
 # sars-pdf — School Rank by Subject report (HTML + CSS → PDF)
 
-This project rebuilds the OHONGSS-T **"SCHOOL RANK IN <SUBJECT> LAKEZONEWISE"** report (Lakezone Form Two Mock, August 2026, 11 pages, 16 subject tables) as HTML + CSS and prints it to PDF. The layout, fonts, column fills and colours are the same for every report. Only the data changes.
+This project rebuilds the OHONGSS-T **"SCHOOL RANK IN <SUBJECT> LAKEZONEWISE"** report (Lakezone Form Two Mock, August 2026, 11 pages, 16 subject tables) as HTML + CSS and prints it to PDF. Within **this** Lakezone example the layout, fonts, column fills and colours are the same on every page; only the data changes. (The wider secondary reports under [`reports/`](reports/README.md) each carry their **own** fixed palette measured from their **own** original — the fills are **not** identical across different reports. See [Colours](#colours) below.)
 
 **Acceptance criterion:** the generated PDF must match the original. `scripts/compare.py` measures this (see [Fidelity check](#fidelity-check)).
 
@@ -85,7 +85,19 @@ Values are stored as **display strings** so the output keeps the original number
 
 ## Colours
 
-**Fixed** (the same on every report, in `templates/report.css` `:root`):
+> **Scope of this table.** The palette below is the **fixed** palette for **this
+> Lakezone example** (`templates/report.css` `:root`) — it is the same on every
+> *page* of this report. It is **not** a palette shared across the other
+> reports. Each secondary report under [`reports/`](reports/README.md) carries
+> its **own** fixed palette, **measured per report** from that report's own
+> `reference/original.pdf` (with `pdfplumber` `page.rects`), because the
+> originals genuinely use different hex values. The **only data-driven** colour
+> anywhere is the COMPETENCY LEVEL cell background (via `sars_pdf/grading.py`);
+> every other fill is a fixed, per-report-measured entry. See
+> [`reports/secondary/INDEX.md`](reports/secondary/INDEX.md) for the per-report
+> fill-diff scores.
+
+**Fixed** (for this Lakezone example, in `templates/report.css` `:root`):
 
 | Column(s) | Fill |
 |---|---|
@@ -192,8 +204,11 @@ and its own generated `output/`. There is **no shared report stylesheet** —
 reports that share a structure (e.g. a council report and its region counterpart)
 were built by **copying** the layout as a starting point, not by linking a common
 file. The **only data-driven colour is the COMPETENCY LEVEL cell background**
-(via [`sars_pdf/grading.py`](sars_pdf/grading.py)); every other fill, geometry
-and font is a **fixed, identical palette** expressed in HTML + CSS + Jinja2.
+(via [`sars_pdf/grading.py`](sars_pdf/grading.py)); every other fill is a
+**fixed palette, but one measured PER REPORT from that report's own original** —
+the non-competency fills are **not** identical across different reports, because
+the originals genuinely use different hex values. Geometry and font are likewise
+each expressed in that report's own HTML + CSS + Jinja2.
 
 ### Real fonts, no fallbacks
 

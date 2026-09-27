@@ -11,6 +11,16 @@ Writes (all committed to git so they can be viewed on GitHub):
 Per page it reports pixel-difference %, words missing/extra (pdfplumber) and fill colours
 that appear in only one of the two PDFs. If the original PDF is not present, only the
 generated pages are rendered and the report says so.
+
+Each page also gets a machine-checkable **verdict** against the stricter >=96% bar
+(the user's requirement: at least 96% match everywhere - colours, borders, data, cell
+sizes). A page PASSES when ALL of these hold at once:
+  * tolerant pixel diff <= 4%   (i.e. >=96% of pixels match after a 1px-shift tolerance,
+    which measures position-by-position: colours, borders, cell sizes and data glyphs);
+  * 'fills only in original' is empty AND 'fills only in generated' is empty (colours);
+  * words missing == 0 AND words extra == 0 (data / text).
+Otherwise it FAILs, and the failing dimension(s) are named (pixels / fills / words). The
+verdict is ADDED on top of - it never weakens - the existing tolerant-diff ruler.
 """
 
 import argparse
@@ -23,6 +33,26 @@ from PIL import Image, ImageChops, ImageDraw, ImageFilter
 
 ROOT = Path(__file__).resolve().parent.parent
 DPI = 110
+
+# The stricter ">=96% match everywhere" bar: a page must be within this tolerant
+# pixel-diff AND have zero fill-only and zero word diffs to earn a PASS verdict.
+VERDICT_TOLERANT_MAX = 4.0  # percent; tolerant diff <= 4% == >=96% pixel match
+
+
+def verdict(tpct, orig_only, gen_only, missing, extra):
+    """Machine-checkable PASS/FAIL against the >=96% bar across every dimension.
+
+    Returns (passed: bool, reasons: list[str]). reasons is empty on PASS and
+    otherwise names each failing dimension (pixels / fills / words).
+    """
+    reasons = []
+    if tpct > VERDICT_TOLERANT_MAX:
+        reasons.append(f"pixels {tpct:.2f}%>4%")
+    if orig_only or gen_only:
+        reasons.append(f"fills {len(orig_only)}orig/{len(gen_only)}gen")
+    if missing or extra:
+        reasons.append(f"words {missing}miss/{extra}extra")
+    return (not reasons), reasons
 
 
 def words(page):
@@ -93,9 +123,15 @@ def main():
     md += ["Columns: **original | generated | diff** (pink = sub-pixel differences, red = real differences).", "",
            "Pixel diff = share of pixels that differ at 110 dpi; tolerant = still different when a 1px shift is allowed "
            "(ignores sub-pixel anti-aliasing).", "",
-           "| page | pixel diff | tolerant diff | words missing | words extra | fills only in original | fills only in generated |",
-           "|---|---|---|---|---|---|---|"]
+           "**Verdict** is the stricter >=96%-match bar (position-by-position across colours, borders, data and cell "
+           f"sizes): a page **PASS**es when tolerant diff <= {VERDICT_TOLERANT_MAX:.0f}% (>=96% pixel match) AND there "
+           "are zero fills-only diffs both ways AND zero words missing/extra; otherwise **FAIL** with the failing "
+           "dimension(s) named.", "",
+           "| page | pixel diff | tolerant diff | words missing | words extra | fills only in original | fills only in generated | verdict (>=96%) |",
+           "|---|---|---|---|---|---|---|---|"]
     imgs = []
+    passed_pages = 0
+    total_pages = 0
     with pdfplumber.open(a.original) as ref, pdfplumber.open(a.generated) as gen:
         if len(ref.pages) != len(gen.pages):
             md.insert(2, f"**Page count differs: original {len(ref.pages)} vs generated {len(gen.pages)}**\n")
@@ -109,10 +145,17 @@ def main():
             tdiff = tolerant_diff(ri, gi)
             tpct = 100 * tdiff.histogram()[255] / (tdiff.width * tdiff.height)
             rf, gf = fills(rp), fills(gp)
-            print(f"page {i + 1}: pixel diff {pct:.2f}% (±1px tolerant {tpct:.2f}%) | words missing {sum(missing.values())} "
-                  f"extra {sum(extra.values())}")
-            md.append(f"| {i + 1} | {pct:.2f}% | {tpct:.2f}% | {sum(missing.values())} | {sum(extra.values())} | "
-                      f"{' '.join(sorted(rf - gf)) or '-'} | {' '.join(sorted(gf - rf)) or '-'} |")
+            orig_only, gen_only = rf - gf, gf - rf
+            miss_n, extra_n = sum(missing.values()), sum(extra.values())
+            ok, reasons = verdict(tpct, orig_only, gen_only, miss_n, extra_n)
+            total_pages += 1
+            passed_pages += ok
+            vtext = "PASS" if ok else "FAIL: " + ", ".join(reasons)
+            print(f"page {i + 1}: pixel diff {pct:.2f}% (±1px tolerant {tpct:.2f}%) | words missing {miss_n} "
+                  f"extra {extra_n} | verdict {vtext}")
+            md.append(f"| {i + 1} | {pct:.2f}% | {tpct:.2f}% | {miss_n} | {extra_n} | "
+                      f"{' '.join(sorted(orig_only)) or '-'} | {' '.join(sorted(gen_only)) or '-'} | "
+                      f"{'✅ PASS' if ok else '❌ FAIL (' + ', '.join(reasons) + ')'} |")
             overlay = ri.copy()
             overlay.paste((255, 170, 170), mask=diff)
             overlay.paste((255, 0, 0), mask=tdiff)
@@ -127,7 +170,11 @@ def main():
             if extra:
                 detail.append(f"extra: `{dict(extra.most_common(10))}`")
             imgs += [f"## Page {i + 1}", *detail, "", f"![page {i + 1}](page_{i + 1:02d}.png)", ""]
+    summary = (f"**Verdict summary: {passed_pages}/{total_pages} pages meet the >=96% bar** "
+               f"(tolerant diff <= {VERDICT_TOLERANT_MAX:.0f}% AND zero fill diffs AND zero word diffs).")
+    md += ["", summary]
     (a.out / "README.md").write_text("\n".join(md + [""] + imgs) + "\n")
+    print(f"=== verdict: {passed_pages}/{total_pages} pages PASS the >=96% bar ===")
     print(f"side-by-side images + README.md in {a.out}/")
 
 
