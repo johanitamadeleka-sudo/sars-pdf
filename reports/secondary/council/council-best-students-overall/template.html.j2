@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>{{ doc.document.report_title }}</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+{#
+  Council best students overall (LEVEL + FUNCTION name). Section-centric: stacked top-10
+  tables. Fully self-contained (own template + own style.css, inline @font-face, no shared
+  stylesheet). Data-driven and location-agnostic. Competency-level colour is not used here
+  (no competency column); every colour/fill is a fixed identical palette.
+
+  Columns: C/NO | SCHOOL NAME | CANDIDATE FULL NAME | SEX | AGGT | DIVISION | POSITION
+           | DETAILED SUBJECTS
+#}
+<div class="titles">
+  {% for line in doc.document.ministry %}
+  <div class="hl ministry">{{ line }}</div>
+  {% endfor %}
+  <div class="hl exam-name">{{ doc.document.exam_name }}</div>
+</div>
+
+{% for s in doc.sections %}
+<div class="section{% if not loop.first %} keep-together{% endif %}{% if loop.index0 % 2 == 0 and not loop.first %} page-top{% endif %}">
+  {% if s.banner %}
+  <div class="banner">{{ doc.document.report_title }}</div>
+  {% else %}
+  <div class="sec-title">{{ s.title }}</div>
+  {% endif %}
+  <table class="students">
+    <colgroup>
+      <col class="w-cno"><col class="w-school"><col class="w-cand">
+      <col class="w-sex"><col class="w-aggt"><col class="w-div"><col class="w-pos">
+      <col class="w-det">
+    </colgroup>
+    <thead>
+      <tr>
+        <th rowspan="2" class="v-mid">C/NO</th>
+        <th rowspan="2" class="v-mid">SCHOOL NAME</th>
+        <th rowspan="2" class="v-mid">CANDIDATE FULL  NAME</th>
+        <th class="vcol"><div class="vert"><span>SEX</span></div></th>
+        <th class="vcol"><div class="vert"><span>AGGT</span></div></th>
+        <th class="vcol"><div class="vert"><span>DIVISION</span></div></th>
+        <th class="vcol"><div class="vert"><span>POSITION</span></div></th>
+        <th rowspan="2" class="v-mid">DETAILED SUBJECTS</th>
+      </tr>
+      <tr class="h-spacer"><th></th><th></th><th></th><th></th></tr>
+    </thead>
+    <tbody>
+      {% for r in s.rows %}
+      <tr class="row">
+        <td class="c-cno">{{ r.cno }}</td>
+        <td class="txt">{{ r.school }}</td>
+        <td class="txt">{{ r.candidate }}</td>
+        <td>{{ r.sex }}</td>
+        <td>{{ r.aggt }}</td>
+        <td>{{ r.division }}</td>
+        <td class="c-pos">{{ r.position }}</td>
+        <td class="txt det">{{ r.detailed }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endfor %}
+</body>
+</html>

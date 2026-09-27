@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>{{ doc.document.report_title }}</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+{#
+  Council best students subjectwise (LEVEL + FUNCTION name). Section-centric: one top-10
+  table per subject. Fully self-contained (own template + own style.css, inline @font-face,
+  no shared stylesheet). Data-driven and location-agnostic. The COMPETENCY LEVEL background
+  is the ONLY data-driven colour (driven by the GRADE letter via grading.py).
+
+  Columns: S/NO. | ID NO. | SCHOOL | CATEGORY | CANDIDATE FULL NAME | SEX | MARKS | GRADE
+           | POSITION | COMPETENCY LEVEL
+#}
+{% for s in doc.sections %}
+<div class="section{% if not loop.first %} own-page{% endif %}">
+  <div class="titles">
+    {% if loop.first %}
+    {% for line in doc.document.ministry %}
+    <div class="hl ministry">{{ line }}</div>
+    {% endfor %}
+    <div class="hl exam-name">{{ doc.document.exam_name }}</div>
+    <div class="hl report-title">{{ doc.document.report_title }}</div>
+    {% endif %}
+    <div class="hl sec-title{% if loop.first %} sec-title-first{% endif %}">TOP TEN BEST STUDENTS IN {{ s.subject }}  SUBJECT DISTRICTWISE</div>
+  </div>
+  <table class="students">
+    <colgroup>
+      <col class="w-sn"><col class="w-id"><col class="w-school"><col class="w-cat">
+      <col class="w-cand"><col class="w-sex"><col class="w-marks"><col class="w-grade">
+      <col class="w-pos"><col class="w-comp">
+    </colgroup>
+    <thead>
+      <tr>
+        <th rowspan="2" class="v-mid">S/NO.</th>
+        <th rowspan="2" class="v-mid">ID NO.</th>
+        <th rowspan="2" class="v-mid">SCHOOL</th>
+        <th rowspan="2" class="v-mid">CATEGORY</th>
+        <th rowspan="2" class="v-mid">CANDIDATE FULL NAME</th>
+        <th class="vcol"><div class="vert"><span>SEX</span></div></th>
+        <th class="vcol"><div class="vert"><span>MARKS</span></div></th>
+        <th class="vcol"><div class="vert"><span>GRADE</span></div></th>
+        <th class="vcol"><div class="vert"><span>POSITION</span></div></th>
+        <th rowspan="2" class="v-mid">COMPETENCY LEVEL</th>
+      </tr>
+      <tr class="h-spacer"><th></th><th></th><th></th><th></th></tr>
+    </thead>
+    <tbody>
+      {% for r in s.rows %}
+      <tr class="row">
+        <td class="c-sn">{{ r.sn }}</td>
+        <td class="txt">{{ r.id }}</td>
+        <td class="txt">{{ r.school }}</td>
+        <td class="txt">{{ r.category }}</td>
+        <td class="txt">{{ r.candidate }}</td>
+        <td>{{ r.sex }}</td>
+        <td>{{ r.marks }}</td>
+        <td>{{ r.grade }}</td>
+        <td class="c-pos">{{ r.position }}</td>
+        <td class="txt comp{% if r.level %} lvl-{{ r.level | lower }}{% endif %}">{{ r.competency }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endfor %}
+{% for i in range(doc.document.trailing_blank_pages) %}
+<div class="blank-page"></div>
+{% endfor %}
+</body>
+</html>

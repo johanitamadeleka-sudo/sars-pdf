@@ -73,6 +73,25 @@ def build_context(doc):
         # subject-centric model: a flat list of tables that flow across page breaks.
         for table in doc["tables"]:
             decorate_table(table, document)
+    if "rows" in doc:
+        # flat one-row-per-item model (e.g. subjects-rank / wards-rank): a single table.
+        for row in doc["rows"]:
+            row["level"] = competency_letter(row.get("competency"), row.get("gpa"))
+    if isinstance(doc.get("overall"), dict):
+        o = doc["overall"]
+        o["level"] = competency_letter(o.get("competency"), o.get("gpa"))
+    if "sections" in doc:
+        # section-centric model (e.g. top-10 blocks, best-students-subjectwise):
+        # each section has its own rows; compute competency level per row. Some section
+        # reports carry a single-letter GRADE column instead of a "Grade X (...)" label -
+        # use it directly when present.
+        for section in doc["sections"]:
+            for row in section.get("rows", []):
+                grade = (row.get("grade") or "").strip().upper()
+                if len(grade) == 1 and grade in "ABCDF":
+                    row["level"] = grade
+                else:
+                    row["level"] = competency_letter(row.get("competency"), row.get("gpa"))
     return doc
 
 

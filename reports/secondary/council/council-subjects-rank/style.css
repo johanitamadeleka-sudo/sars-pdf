@@ -1,0 +1,161 @@
+/*
+ * council-subjects-rank (LEVEL + FUNCTION name; data-driven, not tied to any council).
+ * Layout measured from the reference PDF (US Letter LANDSCAPE, 792 x 612 pt).
+ * One row per subject. Columns:
+ *   S/NO. | SUBJECT NAME | A B C D F | TOTAL | A-C %A-C A-D %A-D | GPA | COMPETENCY | RANK
+ * All fixed fills live in :root; only .lvl-* (competency level) is data-driven (grading.py).
+ *
+ * REAL fonts registered INLINE so this report is fully self-contained (own template + own
+ * CSS, no shared stylesheet). One family name per @font-face, NO fallback list.
+ */
+@font-face {
+  font-family: 'Arial'; font-style: normal; font-weight: normal;
+  src: url("../../../../fonts/LiberationSans-Regular.ttf") format('truetype');
+}
+@font-face {
+  font-family: 'Arial'; font-style: normal; font-weight: bold;
+  src: url("../../../../fonts/LiberationSans-Bold.ttf") format('truetype');
+}
+@font-face {
+  font-family: 'Arial Narrow'; font-style: normal; font-weight: bold;
+  src: url("../../../../fonts/LiberationSansNarrow-Bold.ttf") format('truetype');
+}
+
+:root {
+  --fill-abcd: #e2efda;
+  --fill-f-h: #ff0000;      /* F header is red */
+  --fill-f: #f8cbad;        /* F cells are peach */
+  --fill-total-h: #ddebf7;
+  --fill-ac-h: #66ff99;
+  --fill-pac-h: #66ffcc;
+  --fill-ac: #ccffcc;
+  --fill-ad: #ddebf7;
+  --fill-gpa-h: #e2efda;
+  --fill-gpa: #ffffcc;
+  --fill-rank: #fce4d6;
+
+  --lvl-a: #00b050;  --lvl-a-ink: #000000;
+  --lvl-b: #92d050;  --lvl-b-ink: #000000;
+  --lvl-c: #ffff00;  --lvl-c-ink: #000000;
+  --lvl-d: #ffc000;  --lvl-d-ink: #000000;
+  --lvl-f: #ff0000;  --lvl-f-ink: #ffc7ce;
+
+  --ink: #000000;
+  --grid: #000000;
+}
+
+@page {
+  size: Letter landscape;
+  margin: 55pt 0 56pt 0;
+}
+@page :first { margin-top: 55pt; }
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0; padding: 0;
+  font-family: 'Arial';
+  color: var(--ink);
+}
+
+.titles {
+  text-align: center;
+  font-weight: bold;
+  font-size: 11pt;
+  line-height: 17.4pt;
+}
+.titles .hl { white-space: pre; }
+.titles .report-title { line-height: 18.8pt; }
+
+/* ---------- main table ---------- */
+table.rank {
+  width: 727pt;
+  margin: 3pt 0 0 34pt;      /* table left edge at x = 34 pt */
+  border-collapse: collapse;
+  table-layout: fixed;
+  border: 1pt solid var(--grid);
+}
+
+col.w-sn { width: 37pt; }
+col.w-subject { width: 143.5pt; }
+col.w-a { width: 38.5pt; }
+col.w-b { width: 32pt; }
+col.w-c { width: 32pt; }
+col.w-d { width: 32pt; }
+col.w-f { width: 39pt; }
+col.w-total { width: 36.5pt; }
+col.w-ac { width: 36.5pt; }
+col.w-pac { width: 37pt; }
+col.w-ad { width: 37pt; }
+col.w-pad { width: 36pt; }
+col.w-gpa { width: 40pt; }
+col.w-comp { width: 123pt; }
+col.w-rank { width: 27pt; }
+
+th, td {
+  border: 0.6pt solid var(--grid);
+  padding: 0 2pt;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: center;
+  vertical-align: middle;
+}
+
+thead { display: table-row-group; }
+thead th { font-weight: bold; font-size: 9pt; }
+thead tr.h1 { height: 15pt; }
+thead tr.h2 { height: 26pt; }
+thead th.grading { font-size: 11pt; }
+thead th.comp-h { font-size: 8pt; }
+thead tr.h1 th.rank-h { padding: 0; vertical-align: middle; overflow: visible; }
+.vert { width: 14pt; height: 26pt; position: relative; margin: 0 auto; }
+.vert span {
+  position: absolute; left: 50%; top: 50%;
+  font-size: 8pt; white-space: nowrap;
+  transform: translate(-50%, -50%) rotate(-90deg);
+}
+
+/* body rows */
+tbody tr.row { height: 18.2pt; }
+tbody td { font-size: 9pt; line-height: 1; }
+td.txt { text-align: left; padding-left: 3pt; }
+td.b { font-weight: bold; }
+td.c-total { font-weight: bold; }
+td.comp { text-align: left; font-weight: bold; padding-left: 3pt; }
+
+/* fills */
+.fill-f-h { background: var(--fill-f-h); }
+.fill-f { background: var(--fill-f); }
+.fill-total-h { background: var(--fill-total-h); }
+.fill-abcd { background: var(--fill-abcd); }
+.fill-ac-h { background: var(--fill-ac-h); }
+.fill-pac-h { background: var(--fill-pac-h); }
+.fill-ac { background: var(--fill-ac); }
+.fill-ad { background: var(--fill-ad); }
+.fill-gpa-h { background: var(--fill-gpa-h); }
+.fill-gpa { background: var(--fill-gpa); }
+.fill-rank { background: var(--fill-rank); }
+
+.lvl-a { background: var(--lvl-a); color: var(--lvl-a-ink); }
+.lvl-b { background: var(--lvl-b); color: var(--lvl-b-ink); }
+.lvl-c { background: var(--lvl-c); color: var(--lvl-c-ink); }
+.lvl-d { background: var(--lvl-d); color: var(--lvl-d-ink); }
+.lvl-f { background: var(--lvl-f); color: var(--lvl-f-ink); }
+
+/* ---------- overall block (2x2 grid spanning the table width) ---------- */
+table.overall-tbl {
+  width: 700pt;                /* 34..734 (label + value columns, RANK col excluded) */
+  margin: 0 0 0 34pt;
+  border-collapse: collapse;
+  table-layout: fixed;
+  border: 1pt solid var(--grid);
+}
+col.ov-w-label { width: 180.5pt; }   /* 34 .. 214.5 */
+col.ov-w-value { width: 519.5pt; }   /* 214.5 .. 734 */
+table.overall-tbl td {
+  border: 0.6pt solid var(--grid);
+  font-weight: bold; font-size: 9pt; text-align: center;
+}
+tr.ov-row { height: 20.7pt; }
+td.ov-label { }
+td.ov-value { }
