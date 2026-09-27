@@ -18,12 +18,24 @@
 }
 
 :root {
-  --fill-cand: #fce9d9;
-  --fill-gpa-h: #d2fbe6;
-  --fill-sat: #ffffcc;
-  --fill-0: #8fd968;
-  --fill-3: #29ff8a;
-  --fill-4: #d2fbe6;
+  /* MEASURED per column from this report's OWN original.pdf page 1. */
+  --fill-reg: #c0e6f5;      /* REGISTERED F/M/T cells */
+  --fill-cand: #ffffcc;     /* SAT sub-band + SAT % */
+  --fill-gpa-h: #d2fce6;    /* GPA PERFORMANCE header + GPA cells */
+  --fill-sat: #ffffcc;      /* SAT % cells */
+  --fill-0: #daf2d0;        /* 0 (DIV-0) cells */
+  --fill-0pct: #8ed973;     /* 0 % cells */
+  --fill-3: #ccffff;        /* I-III F/M/T cells */
+  --fill-3pct: #29ff8a;     /* I-III % cells */
+  --fill-4: #c1f0c8;        /* I-IV F/M/T cells */
+  --fill-4pct: #d2fce6;     /* I-IV % cells */
+  --fill-rank: #f2f2f2;     /* R/RANK cells */
+  /* group-header (hs) tints */
+  --fill-reg-h: #f2ceef;    /* REGISTERED group header */
+  --fill-0-h2: #fbe2d5;     /* 0 group header */
+  --fill-0pct-h: #ff0000;   /* 0 % group header (red) */
+  --fill-3-h2: #c1f0c8;     /* I-III group header */
+  --fill-3pct-h: #65ffab;   /* I-III % group header */
 
   --lvl-a: #00b050;  --lvl-a-ink: #000000;
   --lvl-b: #92d050;  --lvl-b-ink: #000000;
@@ -133,9 +145,19 @@ td.c-rank { }
 .fill-cand-h { background: var(--fill-cand); }
 .fill-gpa-h, .fill-gpa { background: var(--fill-gpa-h); }
 .fill-sat { background: var(--fill-sat); }
+.fill-reg { background: var(--fill-reg); }
 .fill-0, .fill-0-h { background: var(--fill-0); }
+.fill-0pct { background: var(--fill-0pct); }
 .fill-3, .fill-3-h { background: var(--fill-3); }
+.fill-3pct { background: var(--fill-3pct); }
 .fill-4, .fill-4-h { background: var(--fill-4); }
+.fill-4pct { background: var(--fill-4pct); }
+.fill-rank { background: var(--fill-rank); }
+.fill-reg-h { background: var(--fill-reg-h); }
+.fill-0-h2 { background: var(--fill-0-h2); }
+.fill-0pct-h { background: var(--fill-0pct-h); }
+.fill-3-h2 { background: var(--fill-3-h2); }
+.fill-3pct-h { background: var(--fill-3pct-h); }
 
 .lvl-a { background: var(--lvl-a); color: var(--lvl-a-ink); }
 .lvl-b { background: var(--lvl-b); color: var(--lvl-b-ink); }
