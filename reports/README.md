@@ -92,3 +92,95 @@ a template that renders **any future data of the same shape** into the same
 report. Verify with the fidelity harness: render `data.json` to a PDF, then run
 `../scripts/compare.py reference/original.pdf output/report.pdf` and drive the
 pixel-diff and word-diff toward zero, exactly as the Lakezone example does.
+
+## Build + compare everything
+
+Regenerate and compare **all** secondary reports in one step (each report writes
+into its own `output/`; sources are never modified):
+
+```bash
+python ../scripts/build_all.py                 # every report under reports/secondary/**
+python ../scripts/build_all.py --level council # council only
+python ../scripts/build_all.py --level region  # region only
+```
+
+`build_all.py` discovers every self-contained report directory (a dir that owns
+`template.html.j2` + `style.css` and has a `data.json`, or the multi-source
+`data_<tag>.json` + `reference/original_<tag>.pdf` shape used by
+`region-schools-rank-subjectwise`). For a single report, use
+[`../scripts/render_and_compare.py <report-dir>`](../scripts/render_and_compare.py).
+
+The **verdict at a glance** — source PDF, scope, page count and latest
+pixel/word diff for every report — lives in
+[`secondary/INDEX.md`](secondary/INDEX.md).
+
+## Decisions / blockers
+
+For the PR body. These record deliberate choices and the reports that could not
+reach near-zero pixel fidelity, and why.
+
+### Fonts: real files, metric-compatible substitution (no fallback chains)
+
+The source PDFs embed genuine **Monotype** faces — `ArialMT`, `Arial-BoldMT`,
+`ArialNarrow-Bold`, `TimesNewRomanPS-BoldMT` (region PDFs use subsetted CIDFonts
+of the same visual families). Those fonts are **proprietary** and no genuine
+licensed Arial/Times file can be obtained or redistributed in-sandbox. The user
+requires **real fonts with NO fallback chains**.
+
+Decision: acquire **real, open font files** that are **metric-compatible** with
+the originals and register them under the **exact family names** the CSS uses,
+so each `@font-face` maps one family name to one real file with **no
+comma-separated fallback**:
+
+| Family name in CSS | Real file shipped in `../fonts/` | Stands in for |
+|---|---|---|
+| `Arial` (Regular / Bold) | `LiberationSans-Regular.ttf` / `LiberationSans-Bold.ttf` | ArialMT / Arial-BoldMT |
+| `Arial Narrow` (Bold) | `LiberationSansNarrow-Bold.ttf` | ArialNarrow-Bold |
+| `Times New Roman` (Bold) | `LiberationSerif-Bold.ttf` | TimesNewRomanPS-BoldMT |
+
+Liberation is SIL OFL 1.1 licensed (see
+[`../fonts/README.md`](../fonts/README.md) and
+`../fonts/LICENSE-Liberation.txt`). Every generated PDF embeds these **real
+Liberation glyphs** (verified with `pymupdf get_fonts()` — never Noto). If a
+genuinely licensed Arial/Times file becomes available, drop it into `../fonts/`
+under the same family name and re-render; nothing else changes.
+
+> WeasyPrint gotcha: `@font-face` is ignored unless a **single shared**
+> `FontConfiguration` is passed to BOTH the `CSS(...)` object and
+> `write_pdf(...)`. `sars_pdf/render.py` wires this; without it text silently
+> falls back to Noto Sans.
+
+**Residual consequence:** because Liberation is metric-compatible but not
+glyph-identical to Monotype Arial/Times, `compare.py` reports a residual
+**pixel-diff** even though geometry and colours align exactly. The diff overlay
+shows red only along glyph edges. This is expected and is the direct cost of the
+no-genuine-Arial-in-sandbox constraint.
+
+### Reports that could not reach near-zero pixel fidelity, and why
+
+Page count matches the original exactly for every report, and the extracted
+content is verified correct. The remaining diff is **not** a content error:
+
+- **Dense wide F/M/T division grids** — `council-schools-rank-overall`,
+  `region-schools-rank-overall`, `region-schools-rank-governments`,
+  `region-mobility`, and the multi-page `region-schools-rank-subjectwise`
+  (English) — sit at ~**35–45% pixel-diff**. These pages pack thousands of tiny
+  digits; the per-glyph Liberation-vs-Arial edge noise accumulates across the
+  grid even though rows/columns/colours align to within ~1pt.
+- **`compare.py` tokeniser artifacts** inflate the reported **word-diff** on
+  every report with rotated/vertical headers (`RANK`, `COMPETENCY LEVEL`,
+  `S/NO.`, `SUMMARY PERFORMANCE`), compact continuation headers, and long
+  COUNCIL/SCHOOL/DETAILED SUBJECTS strings that kern into the adjacent cell so
+  pdfplumber merges the tokens. These are **visual-identical** metric artifacts,
+  not missing data — see [`secondary/INDEX.md`](secondary/INDEX.md) for the
+  per-report note.
+- Sparse reports (`*-top-10-schools`, `*-best-students-*`,
+  `region-district-performance`, `council-subjects-rank`) sit low (~**9–20%**).
+
+### Primary level: future placeholder
+
+`../reports/primary/` is an intentional **placeholder** for the future PRIMARY
+school level. It mirrors this secondary structure and follows the same
+conventions (level+function naming, self-contained per report, real fonts, no
+fallback, display strings, data-driven). No primary implementation is scheduled
+in the current task — see [`primary/README.md`](primary/README.md).
