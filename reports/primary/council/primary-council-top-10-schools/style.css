@@ -1,0 +1,91 @@
+/*
+ * primary-council-top-10-schools (LEVEL + FUNCTION name; data-driven, not tied to any
+ * council). Primary STD4 "SHULE KUMI BORA" section-centric top-10 blocks by marks (ALAMA),
+ * measured from THIS report's OWN reference original (US Letter LANDSCAPE, 792 x 612 pt,
+ * 2 pages, 4 sections incl. SHULE KUMI DUNI). Per school: 6 subjects with AL (average) +
+ * DRJ (grade). All fixed fills live in :root; this report's original does NOT colour the
+ * grade / competency cells, so there is no data-driven colour here.
+ *
+ * REAL fonts registered INLINE so this report is fully self-contained. One family name
+ * per @font-face, NO fallback list.
+ */
+@font-face {
+  font-family: 'Arial'; font-style: normal; font-weight: normal;
+  src: url("../../../../fonts/LiberationSans-Regular.ttf") format('truetype');
+}
+@font-face {
+  font-family: 'Arial'; font-style: normal; font-weight: bold;
+  src: url("../../../../fonts/LiberationSans-Bold.ttf") format('truetype');
+}
+
+:root {
+  --fill-subj: #fce4d6;
+  --fill-slot-a: #f2f2f2;
+  --fill-slot-b: #fff2cc;
+  --fill-comp-h: #f2f2f2;
+
+  --ink: #000000;
+  --grid: #000000;
+}
+
+@page {
+  size: Letter landscape;
+  margin: 20pt 0 20pt 0;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; font-family: 'Arial'; color: var(--ink); }
+
+.titles { text-align: center; font-weight: bold; font-size: 8.6pt; line-height: 10.4pt; padding-top: 6pt; }
+.titles .hl { white-space: pre; }
+.titles .exam-name { margin-top: 3pt; margin-bottom: 4pt; }
+
+.section { margin: 0 0 14pt 50pt; }
+.section.page-top { break-before: page; margin-top: 20pt; }
+.sec-title { text-align: center; font-weight: bold; font-size: 8.4pt; margin: 8pt 0 4pt 0; }
+
+table.schools {
+  width: 685.0pt;             /* 50 .. 735 */
+  border-collapse: collapse;
+  table-layout: fixed;
+  border: 0.8pt solid var(--grid);
+}
+
+col.c-sn      { width: 21.0pt; }
+col.c-wil     { width: 53.0pt; }
+col.c-sch     { width: 78.0pt; }
+col.c-own     { width: 43.0pt; }
+col.c-al      { width: 24.0pt; }
+col.c-drj     { width: 24.0pt; }
+col.c-ufaulu  { width: 37.0pt; }
+col.c-wastani { width: 27.0pt; }
+col.c-daraja  { width: 24.0pt; }
+col.c-comp    { width: 92.0pt; }
+col.c-nafasi  { width: 22.0pt; }
+
+th, td {
+  border: 0.4pt solid var(--grid);
+  padding: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 6.0pt;
+  line-height: 1;
+}
+th { white-space: normal; font-weight: bold; }
+thead { display: table-header-group; }
+thead .hg { height: 22pt; }
+thead .hg th.grp { background: var(--fill-subj); font-size: 6.0pt; }
+thead .hs { height: 9pt; }
+thead .hf { height: 8pt; }
+thead .hs th.subj:nth-child(odd) { background: var(--fill-slot-a); }
+thead .hs th.subj:nth-child(even) { background: var(--fill-slot-b); }
+thead th.fill-comp-h { background: var(--fill-comp-h); }
+thead th.v-mid { vertical-align: middle; }
+
+tbody tr.row { height: 11.4pt; }
+tbody td { font-size: 6.2pt; }
+td.txt { text-align: left; padding-left: 1pt; font-size: 5.8pt; letter-spacing: -0.1pt; }
+td.b { font-weight: bold; }
+td.comp { text-align: left; font-weight: bold; padding-left: 1pt; font-size: 5.8pt; }
