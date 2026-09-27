@@ -37,8 +37,13 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add output
-          git diff --cached --quiet || git commit -m "Update generated report and comparison [bot]"
-          git push
+          # Both jobs push to the same branch: only push when there is a commit, and
+          # rebase onto whatever the other job pushed first (they touch disjoint paths).
+          if ! git diff --cached --quiet; then
+            git commit -m "Update generated report and comparison [bot]"
+            git pull --rebase origin "$GITHUB_REF_NAME"
+            git push
+          fi
 
   # The secondary council + region reports. Each report is self-contained; the
   # repo fonts/ dir carries the real fonts, with fonts-liberation as a fallback
@@ -68,5 +73,8 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add reports/secondary
-          git diff --cached --quiet || git commit -m "Update secondary reports and comparisons [bot]"
-          git push
+          if ! git diff --cached --quiet; then
+            git commit -m "Update secondary reports and comparisons [bot]"
+            git pull --rebase origin "$GITHUB_REF_NAME"
+            git push
+          fi
