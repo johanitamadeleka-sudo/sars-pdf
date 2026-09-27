@@ -1,3 +1,13 @@
 __pycache__/
 *.pyc
 .venv/
+
+# Genuine Microsoft Arial (lakezone success example) is proprietary/licensed:
+# fetched on demand by scripts/fetch_fonts.py, never committed. The OFL-licensed
+# Liberation *.ttf faces used by the secondary reports ARE committed.
+fonts/arial.ttf
+fonts/arialbd.ttf
+fonts/ArialNarrow-Bold.ttf
+
+# build log
+buildall.log

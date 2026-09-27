@@ -6,17 +6,17 @@ Pixel diff = share of pixels that differ at 110 dpi; tolerant = still different 
 
 | page | pixel diff | tolerant diff | words missing | words extra | fills only in original | fills only in generated |
 |---|---|---|---|---|---|---|
-| 1 | 9.82% | 4.83% | 0 | 0 | #65ffab #d2fce6 #d8e4bc #ebf1de #f2dcdb #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
-| 2 | 10.90% | 6.53% | 0 | 0 | #65ffab #d8e4bc #ebf1de #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
-| 3 | 9.92% | 5.27% | 0 | 0 | #65ffab #d8e4bc #ebf1de #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
-| 4 | 10.86% | 6.70% | 0 | 0 | #65ffab #d8e4bc #ebf1de #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
-| 5 | 10.89% | 6.85% | 0 | 0 | #65ffab #d8e4bc #ebf1de #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
-| 6 | 10.61% | 6.11% | 0 | 0 | #65ffab #d8e4bc #ebf1de #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
-| 7 | 10.73% | 6.14% | 0 | 0 | #65ffab #d8e4bc #ebf1de #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
-| 8 | 10.72% | 6.13% | 0 | 0 | #65ffab #d8e4bc #ebf1de #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
-| 9 | 10.63% | 6.12% | 0 | 0 | #65ffab #d8e4bc #ebf1de #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
-| 10 | 9.90% | 5.22% | 0 | 0 | #65ffab #d8e4bc #ebf1de #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
-| 11 | 28.36% | 23.29% | 0 | 0 | #65ffab #d8e4bc #ebf1de #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
+| 1 | 9.70% | 4.81% | 0 | 0 | - | - |
+| 2 | 10.95% | 6.66% | 0 | 0 | - | - |
+| 3 | 9.91% | 5.33% | 0 | 0 | - | - |
+| 4 | 10.76% | 6.65% | 0 | 0 | - | - |
+| 5 | 10.83% | 6.78% | 0 | 0 | - | - |
+| 6 | 10.53% | 6.05% | 0 | 0 | - | - |
+| 7 | 10.62% | 6.06% | 0 | 0 | - | - |
+| 8 | 10.66% | 6.08% | 0 | 0 | - | - |
+| 9 | 10.57% | 6.07% | 0 | 0 | - | - |
+| 10 | 9.86% | 5.23% | 0 | 0 | - | - |
+| 11 | 28.22% | 23.18% | 0 | 0 | - | - |
 
 ## Page 1
 

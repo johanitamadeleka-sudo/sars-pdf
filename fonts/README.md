@@ -36,10 +36,24 @@ If a genuinely licensed Arial/Times file becomes available, drop it in here and
 repoint the matching `@font-face` `src` in each report's `style.css`; no other
 change is needed because the CSS references the family name, not the vendor.
 
+## Lakezone success example — genuine Arial
+
+The lakezone reference report (`templates/report.css`, rendered to
+`output/report.pdf`) registers the **genuine Microsoft Arial** files under the
+family name `R Arial` (normal -> `arial.ttf`, bold -> `arialbd.ttf`), with **one
+family name and no comma fallback**. These are the freely distributed "core fonts
+for the web" files; install them with `python scripts/fetch_fonts.py` (needs
+`cabextract`). They are not committed to git (licence), so the fetch script pulls
+them on demand. WeasyPrint embeds them (verified: `pymupdf get_fonts` shows
+`R-Arial` / `R-Arial-Bold`, never Noto) because `sars_pdf/render.py` passes one
+shared `FontConfiguration()` to `write_pdf()`.
+
 ## Files in this directory
 
 | File | Backs CSS family | Source |
 |---|---|---|
+| `arial.ttf`                      | `R Arial` (normal, lakezone) | Microsoft core fonts (arial32.exe; not committed) |
+| `arialbd.ttf`                    | `R Arial` (bold, lakezone)   | Microsoft core fonts (arial32.exe; not committed) |
 | `LiberationSans-Regular.ttf`     | `Arial` (normal)          | liberation-fonts 2.1.5 |
 | `LiberationSans-Bold.ttf`        | `Arial` (bold)            | liberation-fonts 2.1.5 |
 | `LiberationSansNarrow-Bold.ttf`  | `Arial Narrow` (bold)     | Debian `fonts-liberation` 1:1.07.4-11 (Narrow was dropped after the 1.07.x line) |
