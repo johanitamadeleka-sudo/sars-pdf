@@ -1,14 +1,16 @@
-"""Regenerate and compare EVERY secondary report in one command.
+"""Regenerate and compare EVERY report in one command.
 
-Discovers each self-contained report directory under ``reports/secondary/**`` and,
+Discovers each self-contained report directory under ``reports/secondary/**`` and
+``reports/primary/**`` and,
 for each, renders its own template + CSS with WeasyPrint and runs the fidelity
 comparison against its reference original PDF. It writes artifacts into each
 report's own ``output/`` folder (report.pdf/.html, page PNGs, comparison PNGs +
 comparison/README.md) exactly as ``scripts/render_and_compare.py`` does for a
 single report.
 
-    python scripts/build_all.py                 # build+compare all secondary reports
-    python scripts/build_all.py --level council  # only council reports
+    python scripts/build_all.py                  # build+compare ALL reports (secondary + primary)
+    python scripts/build_all.py --level primary  # only primary-level reports
+    python scripts/build_all.py --level council  # only the council scope of every level
     python scripts/build_all.py --no-compare     # render only (skip compare.py)
 
 A report directory is any directory that is fully self-contained, i.e. it holds
@@ -28,7 +30,12 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-SECONDARY = ROOT / "reports" / "secondary"
+REPORTS = ROOT / "reports"
+# Each level is a self-contained report tree under reports/<level>/<scope>/<report>/.
+# Discovery walks every level so a bare `build_all.py` builds all of them.
+LEVELS = ["secondary", "primary"]
+# Scope names used to restrict discovery within a level (reports/<level>/<scope>/).
+SCOPES = ["council", "region"]
 
 
 def is_report_dir(d: Path) -> bool:
@@ -38,15 +45,26 @@ def is_report_dir(d: Path) -> bool:
     return bool(list(d.glob("data*.json")))
 
 
-def discover(level: str | None):
-    """Yield every report directory under reports/secondary/[level]."""
-    roots = [SECONDARY / level] if level else sorted(p for p in SECONDARY.iterdir() if p.is_dir())
-    for root in roots:
-        if not root.is_dir():
+def discover(level: str | None = None, scope: str | None = None):
+    """Yield every report directory under reports/<level>/<scope>/.
+
+    ``level`` restricts to one of ``LEVELS`` (e.g. 'primary'); when None, every
+    level is walked. ``scope`` restricts to one of ``SCOPES`` (e.g. 'council')
+    within each walked level; when None, every scope under the level is walked.
+    """
+    levels = [level] if level else LEVELS
+    for lvl in levels:
+        level_root = REPORTS / lvl
+        if not level_root.is_dir():
             continue
-        for d in sorted(root.iterdir()):
-            if d.is_dir() and is_report_dir(d):
-                yield d
+        scope_roots = ([level_root / scope] if scope
+                       else sorted(p for p in level_root.iterdir() if p.is_dir()))
+        for root in scope_roots:
+            if not root.is_dir():
+                continue
+            for d in sorted(root.iterdir()):
+                if d.is_dir() and is_report_dir(d):
+                    yield d
 
 
 def jobs_for(rd: Path):
@@ -104,15 +122,25 @@ def render_and_compare(rd: Path, do_compare: bool) -> bool:
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--level", choices=["council", "region"], default=None,
-                    help="restrict to one level under reports/secondary/ (default: all)")
+    ap.add_argument("--level", choices=LEVELS + SCOPES, default=None,
+                    help="restrict to one level (primary/secondary) or, for "
+                         "backwards compatibility, one scope (council/region) "
+                         "across all levels (default: all)")
+    ap.add_argument("--scope", choices=SCOPES, default=None,
+                    help="restrict to one scope (council/region) within the level(s)")
     ap.add_argument("--no-compare", action="store_true",
                     help="render only; skip the fidelity comparison")
     a = ap.parse_args(argv)
 
-    report_dirs = list(discover(a.level))
+    # --level historically accepted a scope name (council/region); honour that by
+    # treating a scope value there as a scope filter across all levels.
+    level = a.level if a.level in LEVELS else None
+    scope = a.scope or (a.level if a.level in SCOPES else None)
+
+    report_dirs = list(discover(level, scope))
     if not report_dirs:
-        print("no report directories found under", SECONDARY)
+        where = REPORTS / level if level else REPORTS
+        print("no report directories found under", where)
         return 1
 
     print(f"found {len(report_dirs)} report directories")

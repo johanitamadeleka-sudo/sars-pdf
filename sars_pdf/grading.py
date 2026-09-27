@@ -14,6 +14,11 @@ GPA_BANDS = [
 ]
 
 _LEVEL_RE = re.compile(r"Grade\s+([A-F])\b")
+# Primary STD4 (Darasa la IV) reports label the competency level in Swahili,
+# e.g. "Daraja A (Bora Sana)". Match that additionally so the primary
+# competency-level colour is selected correctly. Secondary/lakezone labels use
+# the English "Grade X" form above and are unaffected.
+_DARAJA_RE = re.compile(r"Daraja\s+([A-F])\b")
 
 
 def competency_from_gpa(gpa):
@@ -33,6 +38,9 @@ def competency_letter(competency=None, gpa=None):
     """
     if competency:
         m = _LEVEL_RE.search(competency)
+        if m:
+            return m.group(1)
+        m = _DARAJA_RE.search(competency)
         if m:
             return m.group(1)
     if gpa not in (None, ""):
