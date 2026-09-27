@@ -22,17 +22,21 @@
 }
 
 :root {
-  --fill-abcd: #e2efda;
-  --fill-f-h: #ff0000;      /* F header is red */
-  --fill-f: #f8cbad;        /* F cells are peach */
-  --fill-total-h: #ddebf7;
-  --fill-ac-h: #66ff99;
-  --fill-pac-h: #66ffcc;
-  --fill-ac: #ccffcc;
-  --fill-ad: #ddebf7;
-  --fill-gpa-h: #e2efda;
-  --fill-gpa: #ffffcc;
-  --fill-rank: #fce4d6;
+  /* MEASURED from this report's OWN original.pdf page 1 (distinct palette from council). */
+  --fill-banner: #caedfb;   /* title banner band */
+  --fill-abcd: #f2f2f2;     /* A B C D header (grey) */
+  --fill-f-h: #f1a983;      /* F header */
+  --fill-f: #fbe2d5;        /* F cells */
+  --fill-total-h: #c1f0c8;  /* TOTAL header */
+  --fill-ac-h: #65ffab;     /* A-C + %A-C header AND cells */
+  --fill-ac: #65ffab;       /* A-C, %A-C cells */
+  --fill-ad-h: #f2ceef;     /* A-D + %A-D header */
+  --fill-ad: #d2fce6;       /* A-D, %A-D cells */
+  --fill-gpa-h: #83e28e;    /* GPA header */
+  --fill-gpa: #ffffcc;      /* GPA cells */
+  --fill-comp-h: #ffffcc;   /* COMPETENCY header */
+  --fill-rank: #daf2d0;     /* RANK header */
+  --fill-rank-cell: #f2f2f2;/* RANK cells */
 
   --lvl-a: #00b050;  --lvl-a-ink: #000000;
   --lvl-b: #92d050;  --lvl-b-ink: #000000;
@@ -65,7 +69,7 @@ html, body {
   line-height: 14.5pt;
 }
 .titles .hl { white-space: pre; }
-.titles .report-title { line-height: 15.5pt; }
+.titles .report-title { line-height: 15.5pt; background: var(--fill-banner); }
 
 /* ---------- main table ---------- */
 table.rank {
@@ -133,12 +137,14 @@ td.comp { text-align: left; font-weight: bold; padding-left: 3pt; }
 .fill-total-h { background: var(--fill-total-h); }
 .fill-abcd { background: var(--fill-abcd); }
 .fill-ac-h { background: var(--fill-ac-h); }
-.fill-pac-h { background: var(--fill-pac-h); }
 .fill-ac { background: var(--fill-ac); }
+.fill-ad-h { background: var(--fill-ad-h); }
 .fill-ad { background: var(--fill-ad); }
 .fill-gpa-h { background: var(--fill-gpa-h); }
 .fill-gpa { background: var(--fill-gpa); }
+.fill-comp-h { background: var(--fill-comp-h); }
 .fill-rank { background: var(--fill-rank); }
+.fill-rank-cell { background: var(--fill-rank-cell); }
 
 .lvl-a { background: var(--lvl-a); color: var(--lvl-a-ink); }
 .lvl-b { background: var(--lvl-b); color: var(--lvl-b-ink); }

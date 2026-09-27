@@ -101,6 +101,7 @@ td.hali { text-align: left; font-weight: bold; font-style: italic; padding-left:
 
 .fill-grp { background: var(--fill-grp); }
 .fill-iii { background: var(--fill-iii); }
+.fill-iii-pct { background: #65ffab; } /* FTNA/MOCK %(I-III) sub-header (measured green) */
 .fill-gpa-h { background: var(--fill-gpa-h); }
 .fill-peach { background: var(--fill-peach); }
 .fill-grey { background: var(--fill-grey); }

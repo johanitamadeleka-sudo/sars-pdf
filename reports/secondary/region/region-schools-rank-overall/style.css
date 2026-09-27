@@ -157,6 +157,16 @@ tr.pass td.txt, tr.total td.txt { text-align: left; padding-left: 1pt; }
 .fill-4-pct { background: var(--fill-4-pct); }
 .fill-rrank { background: var(--fill-rrank); }
 
+/* SUMMARY-block-only decorative fills, measured from the original's summary band
+   (a distinct palette from the per-school detail grid). */
+.fill-sum-label { background: #e8e8e8; }  /* NO. OF SCHOOLS IN REGION label */
+.fill-sum-band { background: #ffffcc; }   /* summary aggregate value band */
+table.summary .srow td.fill-z { background: #f1a983; }  /* summary 0-div aggregate */
+table.summary .srow td.fill-3 { background: #65ffab; }  /* summary I-III aggregate */
+table.summary .hf .fill-z-pct { background: #ff0000; } /* summary 0 % sub-header (red) */
+table.summary .hf .fill-3 { background: #ccffff; }     /* summary I-III F/M/T sub-header */
+table.summary .hf .fill-z { background: #f2ceef; }     /* summary 0 F/M/T sub-header */
+
 .lvl-a { background: var(--lvl-a); color: var(--lvl-a-ink); }
 .lvl-b { background: var(--lvl-b); color: var(--lvl-b-ink); }
 .lvl-c { background: var(--lvl-c); color: var(--lvl-c-ink); }

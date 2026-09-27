@@ -16,7 +16,11 @@
 }
 
 :root {
-  --fill-cno: #ffffcc;     /* C/NO column cream fill */
+  /* MEASURED from this report's OWN original.pdf page 1. */
+  --fill-cno: #ffffcc;      /* C/NO column cream fill */
+  --fill-banner: #caedfb;   /* section-title banner band */
+  --fill-sex-h: #fbe2d5;    /* SEX + DIVISION vertical headers */
+  --fill-aggt-h: #c1f0c8;   /* AGGT vertical header */
   --ink: #000000;
   --grid: #000000;
 }
@@ -40,7 +44,12 @@ html, body { margin: 0; padding: 0; font-family: 'Arial'; color: var(--ink); }
 .sec-title {
   text-align: center; font-weight: bold; font-size: 10pt;
   margin-bottom: 6pt; margin-top: 6pt;
+  background: var(--fill-banner);
+  border: 0.5pt solid var(--grid);
+  padding: 2pt 0;
 }
+.fill-sex-h { background: var(--fill-sex-h); }
+.fill-aggt-h { background: var(--fill-aggt-h); }
 .section:first-child .sec-title { margin-top: 6pt; }
 
 table.students {
