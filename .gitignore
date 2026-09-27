@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+.venv/
+# Microsoft Arial fonts are licensed; fetched by scripts/fetch_fonts.py, never committed
+fonts/*.ttf

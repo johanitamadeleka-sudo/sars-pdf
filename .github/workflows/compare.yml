@@ -1,0 +1,41 @@
+name: Build report and compare with original
+
+on:
+  push:
+    paths:
+      - "reference/original.pdf"
+      - "data/**"
+      - "templates/**"
+      - "sars_pdf/**"
+      - "scripts/**"
+      - "fonts/**"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  compare:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: System fonts and Pango
+        run: sudo apt-get update && sudo apt-get install -y cabextract libpango-1.0-0 libpangoft2-1.0-0
+      - run: pip install -r requirements.txt
+      - name: Fetch real fonts (Arial, Arial Bold, Arial Narrow Bold)
+        run: python scripts/fetch_fonts.py
+      - name: Render report
+        run: python -m sars_pdf.render data/lakezone_f2_mock_aug2026.json --pdf output/report.pdf --html output/report.html
+      - name: Compare with original
+        run: python scripts/compare.py
+      - name: Commit output and comparison
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add output
+          git diff --cached --quiet || git commit -m "Update generated report and comparison [bot]"
+          git push

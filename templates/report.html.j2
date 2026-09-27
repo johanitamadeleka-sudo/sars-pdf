@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>{{ doc.document.exam_name | trim }}</title>
+<link rel="stylesheet" href="report.css">
+</head>
+<body>
+{% set G = doc.geo %}
+{% for page in doc.pages %}
+<section class="page">
+  {% for t in page.tables %}
+  {% set L = t.layout %}
+  {% for line in t.heads %}
+  <div class="hl" style="top: {{ '%.2f' % (L.title_top + loop.index0 * G.pitch) }}pt">{{ line }}</div>
+  {% endfor %}
+  <div class="hl" style="top: {{ '%.2f' % L.subject_top }}pt; font-size: {{ L.subject_size }}pt">{{ t.title }}</div>
+
+  <table class="rank" style="top: {{ '%.2f' % L.table_top }}pt">
+    <colgroup>
+      {% for w in G.widths %}<col style="width: {{ w }}pt">{% endfor %}
+    </colgroup>
+    {% for row in t.grid %}
+    <tr class="{{ row.band }}{% if row.last %} last{% endif %}" style="height: {{ row.height }}pt">
+      {% for c in row.cells %}
+      <td{% if c.span > 1 %} colspan="{{ c.span }}"{% endif %}{% if c.rowspan > 1 %} rowspan="{{ c.rowspan }}"{% endif %}
+          class="f-{{ c.font }} a-{{ c.align }} s{{ (c.size * 100) | round | int }} {{ c.cls }}"
+          style="font-size: {{ c.size }}pt; border-width: {{ c.bt }}pt {{ c.br }}pt {{ c.bb }}pt {{ c.bl }}pt{% if c.fill %}; background: {{ c.fill }}{% endif %}">
+        {%- if c.cls != 'rank-h' %}{{ c.text }}{% endif -%}
+      </td>
+      {% endfor %}
+    </tr>
+    {% endfor %}
+  </table>
+  {# rotated rank label, anchored at the bottom of the header like the original #}
+  {% set narrow = t.style.rank_label_font == 'narrow' %}
+  <div class="rank-label f-{{ 'NB' if narrow else 'B' }}"
+       style="left: {{ '%.2f' % (G.X[19] + (5.20 if narrow else 5.35)) }}pt;
+              top: {{ '%.2f' % (L.table_top + L.rows[0] + L.rows[1] - 1.38) }}pt;
+              font-size: {{ 6.11 if narrow else 5.27 }}pt">{{ t.rank_label }}</div>
+  {% endfor %}
+</section>
+{% endfor %}
+</body>
+</html>

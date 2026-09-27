@@ -1,0 +1,83 @@
+/*
+ * OHONGSS-T "SCHOOL RANK IN <SUBJECT>" report - page and typography.
+ * Geometry (grid lines, row heights, border widths) and fills are computed per cell
+ * by sars_pdf/render.py from values measured on the original; this file holds the
+ * fonts and the text offsets that reproduce Excel's cell layout.
+ */
+
+/* Real fonts of the original: Arial, Arial Bold, Arial Narrow Bold (see scripts/fetch_fonts.py). */
+@font-face { font-family: "R Arial"; src: url("../fonts/arial.ttf"); }
+@font-face { font-family: "R Arial Bold"; src: url("../fonts/arialbd.ttf"); }
+@font-face { font-family: "R Arial Narrow Bold"; src: url("../fonts/ArialNarrow-Bold.ttf"); }
+/* Only used for a character the real Arial Narrow Bold file does not contain. */
+@font-face { font-family: "Fallback Narrow Bold"; src: url("../fonts/fallback/LiberationSansNarrow-Bold.ttf"); }
+
+@page { size: 612pt 792pt; margin: 0; }
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; color: #000; font-kerning: none; font-feature-settings: "kern" 0, "liga" 0; }  /* Excel does not kern */
+
+.page {
+  position: relative;
+  width: 612pt;
+  height: 792pt;
+  overflow: hidden;
+  page-break-after: always;
+}
+.page:last-child { page-break-after: auto; }
+
+.f-R  { font-family: "R Arial"; font-weight: normal; }
+.f-B  { font-family: "R Arial Bold"; font-weight: normal; }
+.f-NB { font-family: "R Arial Narrow Bold", "Fallback Narrow Bold"; font-weight: normal; }
+
+/* heading lines: Arial Bold 6.11pt, centred (spaces included) on x = 307.75pt */
+.hl {
+  position: absolute;
+  left: 7.75pt;
+  width: 600pt;
+  margin-top: -0.062em;  /* places the glyph tops where the original has them */
+  font-family: "R Arial Bold";
+  font-size: 6.11pt;
+  line-height: 1;
+  text-align: center;
+  white-space: pre;
+}
+
+table.rank {
+  position: absolute;
+  left: 31.56pt;
+  width: 551.67pt;
+  table-layout: fixed;
+  border-collapse: collapse;
+  margin-top: -0.42pt;   /* grid line centre = box edge + half the 0.84pt outer border */
+  margin-left: -0.42pt;
+}
+
+td {
+  border-style: solid;
+  border-color: #000;
+  padding: 0 0 0.70pt 0.9pt;   /* Excel: bottom aligned; centred text sits 0.45pt right of centre */
+  line-height: 1;
+  vertical-align: bottom;
+  white-space: pre;
+  overflow: hidden;
+}
+td.a-center { text-align: center; }
+td.a-left   { text-align: left; padding-left: 0.96pt; }
+tr.h1 td, tr.h2 td { padding-bottom: 0.72pt; }
+tr.ov td { padding-bottom: 0.66pt; }
+tr.last td { padding-bottom: 1.18pt; }
+tr.body td.s611 { padding-bottom: 0.57pt; }
+tr.last td.s611 { padding-bottom: 0.74pt; }
+/* measured per-size corrections (Excel places small text slightly higher) */
+tr.ov td.s527, tr.ov td.s575, tr.ov td.s479 { padding-bottom: 1.06pt; }
+tr.h2 td.s527 { padding-bottom: 1.08pt; }
+
+/* rotated Z/RANK: baseline vertical, reading bottom to top */
+.rank-label {
+  position: absolute;
+  line-height: 0;
+  white-space: pre;
+  transform-origin: 0 0;
+  transform: rotate(-90deg);
+}
