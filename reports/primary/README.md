@@ -82,6 +82,9 @@ extractor `scripts/extract_primary_council_<function>.py`:
 | `primary-council-subjects-rank` | MWANZA CC SUBJECT SUMMARY.pdf | 1 | `council-subjects-rank` (one row per subject) |
 | `primary-council-wards-rank` | MWANZA CC KATA RANK GRADING.pdf | 1 | `council-wards-rank` (per-ward WAV/WAS/JML grid) |
 | `primary-council-schools-rank-overall` | MWANZA CC SCHOOL RANK IN GRADE.pdf | 3 | `council-schools-rank-overall` (all-schools division/grade grid) |
+| `primary-council-schools-rank-ownership` | MWANZA CC SCHOOL RANK SERIKALI.pdf + BINAFSI.pdf (`data_serikali`/`data_binafsi`) | 2 + 2 | `council-schools-rank-overall` (division/grade grid, filtered by ownership) |
+| `primary-council-best-students-overall` | MWANZA CC 10 BEST STUDENTS.pdf | 4 | `council-best-students-overall` (section-centric per-candidate 6-subject AL/DRJ grid) |
+| `primary-council-top-10-schools` | MWANZA CC 10 BEST SCHOOLS ALAMA.pdf | 2 | `council-top-10-schools` (section-centric top-10 schools by marks) |
 
 Each reproduces the primary STD4 layout: `WAV`/`WAS`/`JML` triplets, the
 `Daraja X (...)` competency label (the only data-driven cell colour, via
@@ -91,10 +94,20 @@ decorative SUMMARY/aggregate banner cells, documented in `INDEX.md`). Fonts are
 the metric-compatible Liberation faces registered as `Arial`/`Arial Bold`
 (never Noto). Generated page counts match each source exactly.
 
-**Not yet consolidated:** the government-only (`SCHOOL RANK SERIKALI`) and
-private-only (`SCHOOL RANK BINAFSI`) variants share the report TYPE but have a
-DIFFERENT physical column layout (different x-centres, no shared UMILIKI column),
-so they are not driven as `data_<tag>` variants of
-`primary-council-schools-rank-overall`; each needs its own measured header
-x-centres. Likewise the marks (`ALAMA`), top-10 (`10 BEST SCHOOLS/STUDENTS`) and
-per-subject (`KIMASOMO`) council sources remain to be built.
+The government-only (`SCHOOL RANK SERIKALI`) and private-only (`SCHOOL RANK
+BINAFSI`) variants share the report TYPE but have DIFFERENT physical column
+layouts from each other (the SERIKALI grid carries a `KATA` column; the BINAFSI
+grid omits it, and every numeric x-centre is shifted) and from `IN GRADE` (no
+shared `UMILIKI` column). They are therefore consolidated into their OWN report
+dir `primary-council-schools-rank-ownership`, driven by
+`data_serikali.json`/`data_binafsi.json`, each with its OWN measured header
+x-centres in `scripts/extract_primary_council_schools_rank_ownership.py` — not as
+tag reuse of the `IN GRADE` mapping.
+
+**Not yet built (remaining council structures for a follow-up pass):**
+`10 BEST SCHOOLS GRADING` (division/grade top-10, a different structure from the
+`ALAMA` marks top-10 already built), the `10 BEST SCHOOLS KIMASOMO
+OVERALL/SERIKALI` per-subject top-10, `SCHOOL RANK UFAULU ALAMA` (multi-section
+A/B/C/D/E/ABS marks grid), the `KATA RANK ALAMA` per-ward marks variant, and the
+`UFAULU WA MASOMO` subject-performance grid. Each needs its own bespoke
+coordinate extractor + per-report palette/grid measurement.
