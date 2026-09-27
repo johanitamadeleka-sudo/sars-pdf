@@ -1,0 +1,6 @@
+weasyprint>=62
+jinja2>=3.1
+# fidelity check (scripts/compare.py)
+pdfplumber>=0.11
+pypdfium2>=4.30
+pillow>=10
