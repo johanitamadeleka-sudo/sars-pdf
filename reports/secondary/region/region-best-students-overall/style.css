@@ -1,0 +1,95 @@
+/*
+ * region-best-students-overall (LEVEL + FUNCTION name; data-driven, not tied to any region).
+ * Section-centric top-10 tables (one section per page) measured from the reference PDF
+ * (US Letter LANDSCAPE, 792 x 612 pt). Region variant of the council best-students-overall:
+ * adds S/NO. and COUNCIL columns. No competency column - all colours are fixed in CSS.
+ *
+ * REAL fonts registered INLINE: fully self-contained, no shared stylesheet.
+ */
+@font-face {
+  font-family: 'Arial'; font-style: normal; font-weight: normal;
+  src: url("../../../../fonts/LiberationSans-Regular.ttf") format('truetype');
+}
+@font-face {
+  font-family: 'Arial'; font-style: normal; font-weight: bold;
+  src: url("../../../../fonts/LiberationSans-Bold.ttf") format('truetype');
+}
+
+:root {
+  --fill-cno: #ffffcc;     /* C/NO column cream fill */
+  --ink: #000000;
+  --grid: #000000;
+}
+
+@page {
+  size: Letter landscape;
+  margin: 52pt 0 18pt 0;
+}
+@page :first { margin-top: 52pt; }
+
+/* titles repeat on every section page (each section is its own page). */
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; font-family: 'Arial'; color: var(--ink); }
+
+.titles { text-align: center; font-weight: bold; font-size: 9pt; line-height: 10.4pt; }
+.titles .hl { white-space: pre; }
+
+.section { padding: 0 17.9pt; }
+.section.page-top { page-break-before: always; }
+.sec-title {
+  text-align: center; font-weight: bold; font-size: 10pt;
+  margin-bottom: 6pt; margin-top: 6pt;
+}
+.section:first-child .sec-title { margin-top: 6pt; }
+
+table.students {
+  width: 758.1pt;          /* 17.9 .. 776.0 */
+  border-collapse: collapse;
+  table-layout: fixed;
+  border: 0.6pt solid var(--grid);
+}
+
+col.w-sno { width: 24.1pt; }
+col.w-council { width: 50.2pt; }
+col.w-cno { width: 46.0pt; }
+col.w-school { width: 72.2pt; }
+col.w-cand { width: 114.7pt; }
+col.w-sex { width: 19.5pt; }
+col.w-aggt { width: 20.4pt; }
+col.w-div { width: 20.4pt; }
+col.w-pos { width: 20.4pt; }
+col.w-det { width: 370.2pt; }
+
+th, td {
+  border: 0.5pt solid var(--grid);
+  padding: 0 2pt;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 8pt;
+  line-height: 1;
+}
+thead { display: table-row-group; }
+thead th { font-weight: bold; font-size: 8pt; }
+thead th.cno-h { background: var(--fill-cno); }
+thead th.v-mid { vertical-align: middle; }
+thead th.vcol { padding: 0; overflow: visible; }
+thead tr.h-spacer th { height: 0; font-size: 0; padding: 0; border: 0; }
+
+.vert { position: relative; margin: 0 auto; width: 12pt; height: 30pt; }
+.vert span {
+  position: absolute; left: 50%; top: 50%;
+  font-size: 7pt; font-weight: bold; white-space: nowrap;
+  transform: translate(-50%, -50%) rotate(-90deg);
+}
+
+tbody tr.row { height: 12.3pt; }
+tbody td { font-size: 7.4pt; }
+td.txt { text-align: left; padding-left: 2pt; letter-spacing: -0.1pt; }
+td.cand { font-size: 6.6pt; letter-spacing: -0.2pt; }
+td.det { font-size: 5.9pt; letter-spacing: 0; word-spacing: 0.4pt; }
+td.c-cno { font-size: 6.8pt; background: var(--fill-cno); }
+td.c-sno { font-size: 7.4pt; }
+td.c-pos { font-weight: bold; }
