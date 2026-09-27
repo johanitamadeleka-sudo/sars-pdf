@@ -1,0 +1,135 @@
+/*
+ * primary-council-schools-rank-ownership (LEVEL + FUNCTION name; data-driven, not tied to
+ * any council). Primary STD4 schools rank division/grade grid filtered by OWNERSHIP
+ * (SERIKALI = government, BINAFSI = private), measured from THIS report's OWN reference
+ * originals (US Letter LANDSCAPE, 792 x 612 pt, 2 pages each). Same TYPE as
+ * primary-council-schools-rank-overall but with NO UMILIKI column and a single NAFASI
+ * column; the SERIKALI grid additionally carries a KATA column (has_kata). WAV=girls /
+ * WAS=boys / JML=total triplets. All fixed fills live in :root; only .lvl-* (KUNDI LA
+ * UMAHIRI competency) is data-driven (grading.py, Daraja-aware).
+ *
+ * REAL fonts registered INLINE so this report is fully self-contained. One family name
+ * per @font-face, NO fallback list.
+ */
+@font-face {
+  font-family: 'Arial'; font-style: normal; font-weight: normal;
+  src: url("../../../../fonts/LiberationSans-Regular.ttf") format('truetype');
+}
+@font-face {
+  font-family: 'Arial'; font-style: normal; font-weight: bold;
+  src: url("../../../../fonts/LiberationSans-Bold.ttf") format('truetype');
+}
+
+:root {
+  --fill-reg: #ddebf7;
+  --fill-fanya: #e2efda;
+  --fill-sifanya: #fce4d6;
+  --fill-a: #d9e1f2;
+  --fill-b: #fff2cc;
+  --fill-c: #d6dce4;
+  --fill-d: #f8cbad;
+  --fill-ad: #c6e0b4;
+  --fill-adpct: #a9d08e;
+  --fill-e: #d1f5f9;
+  --fill-wastani: #fff2cc;
+  --fill-sn: #f2f2f2;
+
+  --lvl-a: #00b050;  --lvl-a-ink: #000000;
+  --lvl-b: #92d050;  --lvl-b-ink: #000000;
+  --lvl-c: #ffff00;  --lvl-c-ink: #000000;
+  --lvl-d: #ffc000;  --lvl-d-ink: #000000;
+  --lvl-f: #ff0000;  --lvl-f-ink: #ffc7ce;
+
+  --ink: #000000;
+  --grid: #000000;
+}
+
+@page {
+  size: Letter landscape;
+  /* bottom margin sized so page 1 breaks at ~46 schools and page 2 holds the rest,
+     matching the original's own pagination (it stops well short of the page edge). */
+  margin: 22pt 0 74pt 0;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; font-family: 'Arial'; color: var(--ink); }
+
+.titles { text-align: center; font-weight: bold; font-size: 8.6pt; line-height: 10.2pt; padding-top: 8pt; }
+.titles .hl { white-space: pre; }
+.titles .exam-name { margin-top: 2pt; }
+.titles .report-title { font-size: 8.6pt; margin-top: 10pt; margin-bottom: 6pt; }
+
+table.grid {
+  width: 741.6pt;             /* 18.5 .. 760.1 (serikali); binafsi ~753 */
+  margin: 3pt 0 0 18.5pt;
+  border-collapse: collapse;
+  table-layout: fixed;
+  border: 0.8pt solid var(--grid);
+}
+
+/* semantic column widths (measured from the SERIKALI original; the BINAFSI variant
+   omits the KATA col and its JINA column absorbs that width). */
+col.c-sn      { width: 14.0pt; }
+col.c-council { width: 37.6pt; }
+col.c-kata    { width: 36.7pt; }
+col.c-school  { width: 49.0pt; }
+col.c-n       { width: 16.4pt; }
+col.c-wastani { width: 32.2pt; }
+col.c-comp    { width: 62.6pt; }
+col.c-nafasi  { width: 16.2pt; }
+
+th, td {
+  border: 0.4pt solid var(--grid);
+  padding: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 5.0pt;
+  line-height: 1;
+}
+th { white-space: normal; font-weight: bold; }
+thead { display: table-header-group; }
+thead th { font-weight: bold; font-size: 5.2pt; }
+thead th.grp { font-size: 5.6pt; }
+thead th.v-mid { vertical-align: middle; }
+thead .hg { height: 13pt; }
+thead .hs { height: 7pt; }
+thead .hf { height: 7pt; }
+table.summary { margin-top: 3pt; margin-bottom: 4pt; }
+table.main { margin-top: 16pt; }
+table.summary .hg { height: 6.2pt; }
+table.summary .hs { height: 6.2pt; }
+table.summary .hf { height: 6.2pt; }
+table.summary .srow { height: 7.8pt; }
+table.summary .pass { height: 7.9pt; }
+tr.pass td { font-weight: bold; }
+tr.pass td.txt { text-align: left; padding-left: 1pt; }
+
+tbody tr.row { height: 7.2pt; }
+table.grid tbody tr.total { height: 8pt; }
+tbody td { font-size: 5.0pt; }
+td.txt { text-align: left; padding-left: 1pt; font-size: 4.7pt; letter-spacing: -0.1pt; }
+td.b { font-weight: bold; }
+td.comp { text-align: left; font-weight: bold; padding-left: 1pt; font-size: 4.8pt; }
+tr.total td { font-weight: bold; }
+tr.total td.txt { text-align: left; padding-left: 1pt; }
+
+.fill-reg { background: var(--fill-reg); }
+.fill-fanya { background: var(--fill-fanya); }
+.fill-sifanya { background: var(--fill-sifanya); }
+.fill-a { background: var(--fill-a); }
+.fill-b { background: var(--fill-b); }
+.fill-c { background: var(--fill-c); }
+.fill-d { background: var(--fill-d); }
+.fill-ad { background: var(--fill-ad); }
+.fill-adpct { background: var(--fill-adpct); }
+.fill-e { background: var(--fill-e); }
+.fill-wastani { background: var(--fill-wastani); }
+.fill-sn { background: var(--fill-sn); }
+
+.lvl-a { background: var(--lvl-a); color: var(--lvl-a-ink); }
+.lvl-b { background: var(--lvl-b); color: var(--lvl-b-ink); }
+.lvl-c { background: var(--lvl-c); color: var(--lvl-c-ink); }
+.lvl-d { background: var(--lvl-d); color: var(--lvl-d-ink); }
+.lvl-f { background: var(--lvl-f); color: var(--lvl-f-ink); }

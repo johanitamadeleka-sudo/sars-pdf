@@ -80,6 +80,13 @@ def build_context(doc):
     if isinstance(doc.get("overall"), dict):
         o = doc["overall"]
         o["level"] = competency_letter(o.get("competency"), o.get("gpa"))
+    # Aggregate blocks used by the primary division grids: the summary band and the
+    # JUMLA total row each carry a competency label whose cell colour is data-driven.
+    # (No secondary/lakezone doc carries these top-level keys, so this is additive.)
+    for key in ("summary", "total"):
+        agg = doc.get(key)
+        if isinstance(agg, dict):
+            agg["level"] = competency_letter(agg.get("competency"), agg.get("gpa"))
     if "sections" in doc:
         # section-centric model (e.g. top-10 blocks, best-students-subjectwise):
         # each section has its own rows; compute competency level per row. Some section
