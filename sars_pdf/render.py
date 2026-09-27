@@ -11,6 +11,7 @@ from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
+from .fit import fit_style
 from .grading import competency_letter
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -102,6 +103,12 @@ def render_html(doc, template_dir=TEMPLATES, template_name="report.html.j2"):
         trim_blocks=True,
         lstrip_blocks=True,
     )
+    # opt-in helpers (only templates that call them are affected):
+    #   fit()   - shrink-to-fit for fixed-pitch grid cells (sars_pdf/fit.py)
+    #   level() - competency letter for rows build_context() does not decorate
+    #             (e.g. a summary block or TOTAL row), same rule as grading.py
+    env.globals["fit"] = fit_style
+    env.globals["level"] = competency_letter
     return env.get_template(template_name).render(doc=build_context(doc))
 
 
@@ -134,15 +141,10 @@ def main(argv=None):
         args.html.write_text(html, encoding="utf-8")
 
     # imported lazily so HTML-only use needs no native libs
-    from weasyprint import HTML
-    from weasyprint.text.fonts import FontConfiguration
+    from .rules import write_pdf
 
-    # CRITICAL (see fonts/README.md + FEAT-001 findings): @font-face is only honoured
-    # when ONE shared FontConfiguration is passed to write_pdf. Otherwise WeasyPrint
-    # silently falls back to Noto Sans instead of the registered real fonts.
-    font_config = FontConfiguration()
     args.pdf.parent.mkdir(parents=True, exist_ok=True)
-    HTML(string=html, base_url=str(template_dir)).write_pdf(args.pdf, font_config=font_config)
+    write_pdf(html, args.pdf, template_dir)
     print(f"wrote {args.pdf}")
 
 

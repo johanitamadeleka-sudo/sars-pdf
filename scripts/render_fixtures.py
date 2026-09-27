@@ -67,11 +67,9 @@ def render(report_dir, fixture_json, out_pdf, out_html):
     out_html.parent.mkdir(parents=True, exist_ok=True)
     out_html.write_text(html, encoding="utf-8")
 
-    from weasyprint import HTML
-    from weasyprint.text.fonts import FontConfiguration
-    font_config = FontConfiguration()
+    from sars_pdf.rules import write_pdf
     out_pdf.parent.mkdir(parents=True, exist_ok=True)
-    HTML(string=html, base_url=str(template_dir)).write_pdf(out_pdf, font_config=font_config)
+    write_pdf(html, out_pdf, template_dir)
 
 
 def rasterize(pdf_path, pages_dir):
