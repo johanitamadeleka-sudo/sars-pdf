@@ -1,0 +1,165 @@
+/*
+ * primary-council-wards-rank (LEVEL + FUNCTION name; data-driven, not tied to any council).
+ * Primary STD4 per-ward (KATA) division/grade grid measured from THIS report's OWN
+ * reference original (US Letter LANDSCAPE, 792 x 612 pt). A SUMMARY block (+ ASILIMIA %)
+ * sits above the main per-KATA table (+ JUMLA total row). Swahili/abbrev headers with
+ * WAV=girls / WAS=boys / JML=total triplets. All fixed fills live in :root; only .lvl-*
+ * (competency / KUNDI LA UMAHIRI) is data-driven (grading.py, Daraja-aware).
+ *
+ * REAL fonts registered INLINE so this report is fully self-contained (own template + own
+ * CSS, no shared stylesheet). One family name per @font-face, NO fallback list.
+ */
+@font-face {
+  font-family: 'Arial'; font-style: normal; font-weight: normal;
+  src: url("../../../../fonts/LiberationSans-Regular.ttf") format('truetype');
+}
+@font-face {
+  font-family: 'Arial'; font-style: normal; font-weight: bold;
+  src: url("../../../../fonts/LiberationSans-Bold.ttf") format('truetype');
+}
+
+:root {
+  /* MEASURED from this report's OWN original.pdf page 1 (pdfplumber page.rects). */
+  --fill-reg: #ddebf7;     /* WALIOSAJILIWA group */
+  --fill-fanya: #e2efda;   /* WALIOFANYA group */
+  --fill-sifanya: #fce4d6; /* WASIOFANYA group */
+  --fill-a: #d9e1f2;       /* A group */
+  --fill-b: #fff2cc;       /* B group */
+  --fill-c: #d6dce4;       /* C group */
+  --fill-d: #f8cbad;       /* D group */
+  --fill-ad: #c6e0b4;      /* UFAULU (A-D) group */
+  --fill-e: #d1f5f9;       /* E group */
+  --fill-wastani: #ffffcc; /* WASTANI WA UFAULU column */
+  --fill-shule: #f2f2f2;   /* IDADI YA SHULE value cells */
+  --fill-nafasi: #ffe699;  /* NAFASI KIKATA header band */
+
+  --lvl-a: #00b050;  --lvl-a-ink: #000000;
+  --lvl-b: #92d050;  --lvl-b-ink: #000000;
+  --lvl-c: #ffff00;  --lvl-c-ink: #000000;
+  --lvl-d: #ffc000;  --lvl-d-ink: #000000;
+  --lvl-f: #ff0000;  --lvl-f-ink: #ffc7ce;
+
+  --ink: #000000;
+  --grid: #000000;
+}
+
+@page {
+  size: Letter landscape;
+  margin: 66.5pt 0 18pt 0;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; font-family: 'Arial'; color: var(--ink); }
+
+.titles { text-align: center; font-weight: bold; font-size: 8pt; line-height: 8pt; }
+.titles .hl { white-space: pre; }
+.titles .report-title { font-size: 8pt; margin-top: 3pt; }
+
+/* ---------- shared grid geometry ---------- */
+table.grid {
+  width: 739.4pt;              /* 18.5 .. 757.9 */
+  margin: 0 0 0 18.5pt;
+  border-collapse: collapse;
+  table-layout: fixed;
+  border: 0.8pt solid var(--grid);
+}
+table.summary { margin-top: 0; margin-bottom: 2.2pt; }
+
+/* per-column widths (35 columns, measured boundaries) */
+col:nth-child(1)  { width: 14.7pt; }
+col:nth-child(2)  { width: 51.7pt; }
+col:nth-child(3)  { width: 38.3pt; }
+col:nth-child(4)  { width: 17.2pt; }
+col:nth-child(5)  { width: 17.1pt; }
+col:nth-child(6)  { width: 19.9pt; }
+col:nth-child(7)  { width: 17.2pt; }
+col:nth-child(8)  { width: 17.2pt; }
+col:nth-child(9)  { width: 19.8pt; }
+col:nth-child(10) { width: 17.3pt; }
+col:nth-child(11) { width: 17.1pt; }
+col:nth-child(12) { width: 16.2pt; }
+col:nth-child(13) { width: 17.2pt; }
+col:nth-child(14) { width: 17.1pt; }
+col:nth-child(15) { width: 16.2pt; }
+col:nth-child(16) { width: 17.2pt; }
+col:nth-child(17) { width: 17.2pt; }
+col:nth-child(18) { width: 17.1pt; }
+col:nth-child(19) { width: 17.2pt; }
+col:nth-child(20) { width: 17.2pt; }
+col:nth-child(21) { width: 17.1pt; }
+col:nth-child(22) { width: 17.2pt; }
+col:nth-child(23) { width: 17.1pt; }
+col:nth-child(24) { width: 17.2pt; }
+col:nth-child(25) { width: 17.2pt; }
+col:nth-child(26) { width: 17.1pt; }
+col:nth-child(27) { width: 19.6pt; }
+col:nth-child(28) { width: 19.9pt; }
+col:nth-child(29) { width: 17.2pt; }
+col:nth-child(30) { width: 17.2pt; }
+col:nth-child(31) { width: 16.1pt; }
+col:nth-child(32) { width: 19.9pt; }
+col:nth-child(33) { width: 36.8pt; }
+col:nth-child(34) { width: 65.9pt; }
+col:nth-child(35) { width: 23.8pt; }
+
+th, td {
+  border: 0.4pt solid var(--grid);
+  padding: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 5.6pt;
+  line-height: 1;
+}
+th { white-space: normal; font-weight: bold; }
+thead { display: table-header-group; }
+thead th { font-weight: bold; font-size: 5.8pt; white-space: normal; }
+thead th.grp { font-size: 6.2pt; }
+thead th.v-mid { vertical-align: middle; }
+thead .hg { height: 14.6pt; }
+thead .hs { height: 11pt; }
+thead .hf { height: 8.4pt; }
+table.summary .hg { height: 10.4pt; }
+table.summary .hs { height: 10.5pt; }
+table.summary .hf { height: 10.4pt; }
+table.summary .srow { height: 11.1pt; }
+table.summary .srow td, table.summary .pass td { line-height: 0.9; padding-top: 0; padding-bottom: 0; }
+table.summary .pass { height: 10.4pt; }
+
+thead th.nafasi-h { padding: 0; overflow: hidden; }
+.vert { display: flex; align-items: center; justify-content: center; height: 100%; width: 100%; }
+.vert span {
+  writing-mode: vertical-rl; transform: rotate(180deg);
+  font-size: 5.6pt; font-weight: bold; white-space: nowrap; line-height: 1;
+}
+
+/* body rows */
+tbody tr.row { height: 8.05pt; }
+table.main tbody tr.total { height: 16.3pt; }
+tbody td { font-size: 5.8pt; }
+td.txt { text-align: left; padding-left: 1.5pt; }
+td.b { font-weight: bold; }
+td.comp { text-align: left; font-weight: bold; padding-left: 1.5pt; font-size: 5.6pt; white-space: nowrap; }
+tr.total td { font-weight: bold; }
+tr.total td.txt { text-align: left; padding-left: 1.5pt; }
+
+/* fills (fixed palette, per measured column group) */
+.fill-reg { background: var(--fill-reg); }
+.fill-fanya { background: var(--fill-fanya); }
+.fill-sifanya { background: var(--fill-sifanya); }
+.fill-a { background: var(--fill-a); }
+.fill-b { background: var(--fill-b); }
+.fill-c { background: var(--fill-c); }
+.fill-d { background: var(--fill-d); }
+.fill-ad { background: var(--fill-ad); }
+.fill-e { background: var(--fill-e); }
+.fill-wastani { background: var(--fill-wastani); }
+.fill-shule { background: var(--fill-shule); }
+.fill-nafasi { background: var(--fill-nafasi); }
+
+.lvl-a { background: var(--lvl-a); color: var(--lvl-a-ink); }
+.lvl-b { background: var(--lvl-b); color: var(--lvl-b-ink); }
+.lvl-c { background: var(--lvl-c); color: var(--lvl-c-ink); }
+.lvl-d { background: var(--lvl-d); color: var(--lvl-d-ink); }
+.lvl-f { background: var(--lvl-f); color: var(--lvl-f-ink); }

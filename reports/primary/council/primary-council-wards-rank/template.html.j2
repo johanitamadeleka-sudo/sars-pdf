@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>{{ doc.document.report_title }}</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+{#
+  Primary council wards (KATA) rank - division/grade grid (LEVEL + FUNCTION name).
+  Fully self-contained (own template + own style.css, inline @font-face, no shared
+  stylesheet). Data-driven and location-agnostic. Competency-level (KUNDI LA UMAHIRI)
+  background is the ONLY data-driven colour.
+
+  WAV/WAS/JML triplet grid. A SUMMARY block (+ ASILIMIA %) sits above the main per-KATA
+  table (+ JUMLA total row). Columns:
+    NA | KATA | IDADI YA SHULE
+    WALIOSAJILIWA(WAV WAS JML) WALIOFANYA(WAV WAS JML) WASIOFANYA(WAV WAS JML)
+    A(WAV WAS JML) B(WAV WAS JML) C(WAV WAS JML) D(WAV WAS JML)
+    UFAULU(A-D)(WAV WAS JML %) E(WAV WAS JML %)
+    WASTANI WA UFAULU | KUNDI LA UMAHIRI | NAFASI KIKATA
+#}
+<div class="titles">
+  {% for line in doc.document.ministry %}
+  <div class="hl ministry">{{ line }}</div>
+  {% endfor %}
+  <div class="hl exam-name">{{ doc.document.exam_name }}</div>
+  <div class="hl report-title">{{ doc.document.report_title }}</div>
+</div>
+
+{% macro cols() %}
+<colgroup>
+  <col><col><col>
+  <col><col><col>  <col><col><col>  <col><col><col>
+  <col><col><col>  <col><col><col>  <col><col><col>  <col><col><col>
+  <col><col><col><col>  <col><col><col><col>
+  <col><col><col>
+</colgroup>
+{% endmacro %}
+
+{# emit the 26 candidate/division numeric cells of a grid row #}
+{% macro nums(r) %}
+  <td class="fill-reg">{{ r.reg_f }}</td><td class="fill-reg">{{ r.reg_m }}</td><td class="fill-reg b">{{ r.reg_t }}</td>
+  <td class="fill-fanya">{{ r.fanya_f }}</td><td class="fill-fanya">{{ r.fanya_m }}</td><td class="fill-fanya b">{{ r.fanya_t }}</td>
+  <td class="fill-sifanya">{{ r.sifanya_f }}</td><td class="fill-sifanya">{{ r.sifanya_m }}</td><td class="fill-sifanya b">{{ r.sifanya_t }}</td>
+  <td class="fill-a">{{ r.a_f }}</td><td class="fill-a">{{ r.a_m }}</td><td class="fill-a b">{{ r.a_t }}</td>
+  <td class="fill-b">{{ r.b_f }}</td><td class="fill-b">{{ r.b_m }}</td><td class="fill-b b">{{ r.b_t }}</td>
+  <td class="fill-c">{{ r.c_f }}</td><td class="fill-c">{{ r.c_m }}</td><td class="fill-c b">{{ r.c_t }}</td>
+  <td class="fill-d">{{ r.d_f }}</td><td class="fill-d">{{ r.d_m }}</td><td class="fill-d b">{{ r.d_t }}</td>
+  <td class="fill-ad">{{ r.ad_f }}</td><td class="fill-ad">{{ r.ad_m }}</td><td class="fill-ad b">{{ r.ad_t }}</td><td class="fill-ad b">{{ r.ad_pct }}</td>
+  <td class="fill-e">{{ r.e_f }}</td><td class="fill-e">{{ r.e_m }}</td><td class="fill-e b">{{ r.e_t }}</td><td class="fill-e b">{{ r.e_pct }}</td>
+{% endmacro %}
+
+{% macro fmt_heads(with_pct=true) %}
+<tr class="hf">
+  <th>WAV</th><th>WAS</th><th>JML</th>
+  <th>WAV</th><th>WAS</th><th>JML</th>
+  <th>WAV</th><th>WAS</th><th>JML</th>
+  <th>WAV</th><th>WAS</th><th>JML</th>
+  <th>WAV</th><th>WAS</th><th>JML</th>
+  <th>WAV</th><th>WAS</th><th>JML</th>
+  <th>WAV</th><th>WAS</th><th>JML</th>
+  <th>WAV</th><th>WAS</th><th>JML</th><th>%</th>
+  <th>WAV</th><th>WAS</th><th>JML</th><th>%</th>
+</tr>
+{% endmacro %}
+
+{# ---------- summary block ---------- #}
+{% if doc.summary %}
+<table class="grid summary">
+  {{ cols() }}
+  <tbody>
+    <tr class="hg">
+      <th rowspan="3" colspan="3" class="grp v-mid fill-shule">IDADI YA SHULE</th>
+      <th colspan="9" class="grp">IDADI YA WATAHINIWA</th>
+      <th colspan="18" class="grp">UFAULU KIMADARAJA</th>
+      <th rowspan="3" class="grp v-mid fill-wastani">WASTANI WA UFAULU</th>
+      <th rowspan="3" class="grp v-mid">KUNDI LA UMAHIRI</th>
+    </tr>
+    <tr class="hs">
+      <th colspan="3" class="fill-reg">WALIOSAJILIWA</th>
+      <th colspan="3" class="fill-fanya">WALIOFANYA</th>
+      <th colspan="3" class="fill-sifanya">WASIOFANYA</th>
+      <th colspan="3" class="fill-a">A</th>
+      <th colspan="3" class="fill-b">B</th>
+      <th colspan="3" class="fill-c">C</th>
+      <th colspan="3" class="fill-d">D</th>
+      <th colspan="4" class="fill-ad">UFAULU(A-D)</th>
+      <th colspan="4" class="fill-e">E</th>
+    </tr>
+    {{ fmt_heads() }}
+    <tr class="row srow">
+      <td colspan="3" class="b fill-shule">{{ doc.summary.shule }}</td>
+      {{ nums(doc.summary) }}
+      <td class="b fill-wastani">{{ doc.summary.wastani }}</td>
+      <td class="comp">{{ doc.summary.competency }}</td>
+    </tr>
+    {% if doc.pct_pass %}
+    <tr class="pass">
+      <td colspan="3" class="txt">ASILIMIA (%)</td>
+      <td colspan="3" class="b">{{ doc.pct_pass.fanya }}</td>
+      <td colspan="3" class="b">{{ doc.pct_pass.sifanya }}</td>
+      <td colspan="3" class="b">{{ doc.pct_pass.a }}</td>
+      <td colspan="3" class="b">{{ doc.pct_pass.b }}</td>
+      <td colspan="3" class="b">{{ doc.pct_pass.c }}</td>
+      <td colspan="3" class="b">{{ doc.pct_pass.d }}</td>
+      <td colspan="4" class="b">{{ doc.pct_pass.ad }}</td>
+      <td colspan="4" class="b">{{ doc.pct_pass.e }}</td>
+      <td colspan="2"></td>
+    </tr>
+    {% endif %}
+  </tbody>
+</table>
+{% endif %}
+
+{# ---------- main per-KATA table ---------- #}
+<table class="grid main">
+  {{ cols() }}
+  <thead>
+    <tr class="hg">
+      <th rowspan="3" class="v-mid">NA</th>
+      <th rowspan="3" class="v-mid">KATA</th>
+      <th rowspan="3" class="grp v-mid fill-shule">IDADI YA SHULE</th>
+      <th colspan="9" class="grp">IDADI YA WATAHINIWA</th>
+      <th colspan="18" class="grp">UFAULU KIMADARAJA</th>
+      <th rowspan="3" class="grp v-mid fill-wastani">WASTANI WA UFAULU</th>
+      <th rowspan="3" class="grp v-mid">KUNDI LA UMAHIRI</th>
+      <th rowspan="3" class="nafasi-h fill-nafasi"><div class="vert"><span>NAFASI KIKATA</span></div></th>
+    </tr>
+    <tr class="hs">
+      <th colspan="3" class="fill-reg">WALIOSAJILIWA</th>
+      <th colspan="3" class="fill-fanya">WALIOFANYA</th>
+      <th colspan="3" class="fill-sifanya">WASIOFANYA</th>
+      <th colspan="3" class="fill-a">A</th>
+      <th colspan="3" class="fill-b">B</th>
+      <th colspan="3" class="fill-c">C</th>
+      <th colspan="3" class="fill-d">D</th>
+      <th colspan="4" class="fill-ad">UFAULU(A-D)</th>
+      <th colspan="4" class="fill-e">E</th>
+    </tr>
+    {{ fmt_heads() }}
+  </thead>
+  <tbody>
+    {% for r in doc.rows %}
+    <tr class="row">
+      <td>{{ r.sn }}</td>
+      <td class="txt">{{ r.ward }}</td>
+      <td class="b fill-shule">{{ r.shule }}</td>
+      {{ nums(r) }}
+      <td class="b fill-wastani">{{ r.wastani }}</td>
+      <td class="comp">{{ r.competency }}</td>
+      <td class="b">{{ r.nafasi }}</td>
+    </tr>
+    {% endfor %}
+    {% if doc.total %}
+    <tr class="row total">
+      <td colspan="2" class="txt">JUMLA</td>
+      <td class="b fill-shule">{{ doc.total.shule }}</td>
+      {{ nums(doc.total) }}
+      <td class="b fill-wastani">{{ doc.total.wastani }}</td>
+      <td class="comp">{{ doc.total.competency }}</td>
+      <td></td>
+    </tr>
+    {% endif %}
+  </tbody>
+</table>
+</body>
+</html>
