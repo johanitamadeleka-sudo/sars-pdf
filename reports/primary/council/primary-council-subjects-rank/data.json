@@ -36,7 +36,8 @@
     "ad_t": "15566",
     "e_f": "81",
     "e_m": "55",
-    "e_t": "136"
+    "e_t": "136",
+    "level": null
   },
   "asilimia": {
     "a": "15.96%",
@@ -253,6 +254,7 @@
     "tot_t": "94657",
     "wastani": "34.18",
     "nafasi": "",
-    "competency": "Daraja B (Vizuri Sana)"
+    "competency": "Daraja B (Vizuri Sana)",
+    "level": "B"
   }
 }

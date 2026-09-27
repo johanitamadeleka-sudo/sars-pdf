@@ -19,9 +19,13 @@ Extraction is coordinate based (pymupdf words), never hand-typed.
 """
 
 import json
+import sys
 from pathlib import Path
 
 import pymupdf
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from sars_pdf.grading import competency_letter
 
 ROOT = Path(__file__).resolve().parent.parent
 SRCDIR = ROOT / "primary_council_pdf" / "primary_council_pdf"
@@ -266,6 +270,12 @@ def main():
         }
         data = {"document": document, "summary": summary, "pct_pass": pct_pass,
                 "rows": rows, "total": total}
+        # Stamp an explicit competency letter into the aggregate blocks so their
+        # cell colour is data-driven with no shared render.py change (extraction is
+        # the single source of truth).
+        for agg in (summary, total):
+            if isinstance(agg, dict):
+                agg["level"] = competency_letter(agg.get("competency"), agg.get("gpa"))
         out = OUTDIR / f"data_{tag}.json"
         out.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
         dst = ref / f"original_{tag}.pdf"

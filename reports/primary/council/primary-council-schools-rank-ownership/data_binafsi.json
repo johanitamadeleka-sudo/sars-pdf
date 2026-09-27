@@ -42,7 +42,8 @@
     "e_t": "6",
     "e_pct": "0.18",
     "wastani": "231.8544",
-    "competency": "Daraja B (Vizuri Sana)"
+    "competency": "Daraja B (Vizuri Sana)",
+    "level": "B"
   },
   "pct_pass": {
     "fanya": "92.68",
@@ -3322,6 +3323,7 @@
     "e_pct": "0.18",
     "wastani": "231.854",
     "competency": "Daraja B (Vizuri Sana)",
-    "nafasi": ""
+    "nafasi": "",
+    "level": "B"
   }
 }

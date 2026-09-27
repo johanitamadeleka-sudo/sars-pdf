@@ -42,7 +42,8 @@
     "e_t": "130",
     "e_pct": "1.05",
     "wastani": "173.7304",
-    "competency": "Daraja C (Vizuri)"
+    "competency": "Daraja C (Vizuri)",
+    "level": "C"
   },
   "pct_pass": {
     "fanya": "93.19",
@@ -3284,6 +3285,7 @@
     "e_pct": "1.05",
     "wastani": "173.730",
     "competency": "Daraja C (Vizuri)",
-    "nafasi": ""
+    "nafasi": "",
+    "level": "C"
   }
 }
