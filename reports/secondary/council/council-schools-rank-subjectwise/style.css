@@ -1,0 +1,200 @@
+/*
+ * council-schools-rank-subjectwise  (LEVEL + FUNCTION name; data-driven, not tied to
+ * any particular council). Layout measured from the reference PDF (US Letter,
+ * 612 x 792 pt, PORTRAIT). Column set has NO region/council/centre/av/grd:
+ *   S/N | SCHOOL NAME | A B C D F | TOTAL | A-C %A-C A-D %A-D | GPA | COMPETENCY | C/RANK
+ * All fixed fills live in :root; only .lvl-* (competency level) is data-driven (grading.py).
+ *
+ * REAL fonts, NO fallback chain: each 'Arial' @font-face below maps to one real file.
+ */
+
+/* REAL fonts registered inline so this report is fully self-contained (own template +
+   own CSS, no shared stylesheet include). One family name per @font-face, NO fallback
+   list. Files are the repo-local metric-compatible Liberation faces (see fonts/README.md
+   for the Arial/Times licensing decision). Only the competency-level background differs
+   between reports; every other colour/fill below is identical across the family. */
+@font-face {
+  font-family: 'Arial'; font-style: normal; font-weight: normal;
+  src: url("../../../../fonts/LiberationSans-Regular.ttf") format('truetype');
+}
+@font-face {
+  font-family: 'Arial'; font-style: normal; font-weight: bold;
+  src: url("../../../../fonts/LiberationSans-Bold.ttf") format('truetype');
+}
+@font-face {
+  font-family: 'Arial Narrow'; font-style: normal; font-weight: bold;
+  src: url("../../../../fonts/LiberationSansNarrow-Bold.ttf") format('truetype');
+}
+@font-face {
+  font-family: 'Times New Roman'; font-style: normal; font-weight: bold;
+  src: url("../../../../fonts/LiberationSerif-Bold.ttf") format('truetype');
+}
+
+:root {
+  /* fixed column fills */
+  --fill-abcd: #e2efda;     /* A B C D header */
+  --fill-f: #f8cbad;        /* F (header + cells) */
+  --fill-total-h: #ddebf7;  /* TOTAL header */
+  --fill-ac-h: #66ff99;     /* A-C header */
+  --fill-pac-h: #66ffcc;    /* %A-C header */
+  --fill-ac: #ccffff;       /* A-C, %A-C cells */
+  --fill-ad: #b7dee8;       /* A-D, %A-D (header + cells) */
+  --fill-gpa-h: #daeef3;    /* GPA header */
+  --fill-rank: #fce4d6;     /* C/RANK header */
+
+  /* competency level fills - the only conditional colours */
+  --lvl-a: #00b050;  --lvl-a-ink: #000000;
+  --lvl-b: #92d050;  --lvl-b-ink: #000000;
+  --lvl-c: #ffff00;  --lvl-c-ink: #000000;
+  --lvl-d: #ffc000;  --lvl-d-ink: #000000;
+  --lvl-f: #ff0000;  --lvl-f-ink: #ffc7ce;
+
+  --ink: #000000;
+  --grid: #000000;
+}
+
+@page {
+  size: Letter portrait;
+  /* Top margin = header band start on the reference. The reference's very first page
+     starts higher (header top y~62) than every later page (y~73), so the first page
+     fits 54 rows and later pages 52-53. Bottom margin (~18pt) matches the reference's
+     last body row bottom (y~773.8 on a 792pt page) so flow breaks at the same row.
+     A top margin (not block padding) means a block at page top gets this gap while a
+     block STACKED below another only gets its own small margin-top. */
+  margin: 60pt 0 18.2pt 0;
+}
+@page :first {
+  margin-top: 59pt;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial';
+  color: var(--ink);
+}
+
+/* Each subject is its own block; rows flow across page breaks, a new subject starts
+   a new block. The title block repeats only at the start of each subject (matching
+   the reference, whose continuation pages carry the table body with no header). */
+/* Each subject is its own block. `page-break-inside: avoid` reproduces the reference
+   pagination without hard-coding page numbers: a big subject (too tall for one page)
+   still starts on a fresh page and overflows onto the next, so the following subject
+   begins on a new page; small subjects that fit stack several to a page. Data-driven:
+   works for any council's data of this shape. */
+.block {
+  padding: 0 11pt 0 31.1pt;      /* table left edge at x = 31.1 pt (matches reference) */
+  margin-top: 11pt;              /* gap between stacked subjects (page-top gap = @page margin) */
+  page-break-inside: auto;       /* small subjects flow/pack; big ones get .own-page below */
+}
+.block:first-child { margin-top: 0; }
+/* Multi-page subjects occupy their own page span: they begin on a fresh page and the
+   following subject also starts fresh (matches the reference, where every big subject
+   is a 2-page unit and small subjects stack). Small subjects have no such class. */
+.block.own-page { page-break-before: always; page-break-after: always; page-break-inside: auto; }
+.block:first-child.own-page { page-break-before: avoid; }
+
+/* Trailing empty page: the reference source PDF ends with one blank page. */
+.trailing-page { page-break-before: always; height: 1pt; }
+
+/* ---------- titles ---------- */
+.titles {
+  text-align: center;
+  font-weight: bold;
+  font-size: 7.4pt;
+  line-height: 11.3pt;
+  padding-top: 0;
+}
+.titles .hl { white-space: pre; }
+.titles .subject { font-size: 7.4pt; line-height: 12.3pt; }
+
+/* ---------- table ---------- */
+table.rank {
+  width: 558.9pt;
+  border-collapse: collapse;
+  table-layout: fixed;
+  border: 0.9pt solid var(--grid);
+  margin-top: 1.5pt;
+}
+
+col.w-sn { width: 24.7pt; }      /* 31.5 .. 56.2 */
+col.w-school { width: 127.8pt; } /* 56.2 .. 184.0 */
+col.w-a { width: 24.0pt; }       /* 184 .. 208 */
+col.w-b { width: 24.0pt; }
+col.w-c { width: 23.9pt; }
+col.w-d { width: 23.6pt; }       /* 256 .. 279.6 */
+col.w-f { width: 29.9pt; }       /* 279.6 .. 309.5 */
+col.w-total { width: 29.2pt; }   /* 309.5 .. 338.7 */
+col.w-ac { width: 26.3pt; }      /* 338.7 .. 365 */
+col.w-pac { width: 28.0pt; }     /* 365 .. 393 */
+col.w-ad { width: 26.0pt; }      /* 393 .. 419 */
+col.w-pad { width: 29.0pt; }     /* 419 .. 448 */
+col.w-gpa { width: 34.3pt; }     /* 448 .. 482.3 */
+col.w-comp { width: 94.7pt; }    /* 482.3 .. 577 */
+col.w-rank { width: 13.4pt; }    /* 577 .. 590.4 */
+
+th, td {
+  border: 0.5pt solid var(--grid);
+  padding: 0 1pt;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* header. The reference does NOT repeat the column header on a subject's continuation
+   page, so stop WeasyPrint from repeating <thead> on every page the table spans. */
+thead { display: table-row-group; }
+thead th { font-weight: bold; font-size: 7pt; }
+thead tr.h1 { height: 18.0pt; }
+thead tr.h2 { height: 16.1pt; }
+thead tr.h1 th { vertical-align: middle; }
+thead th.grading { font-size: 8pt; vertical-align: middle; border-bottom: 0.5pt solid var(--grid); }
+thead th.tiny { font-size: 5.6pt; }
+thead th.comp-h { font-size: 6pt; text-align: center; }
+thead tr.h1 th.rank-h { padding: 0; vertical-align: middle; overflow: visible; }
+.vert { width: 12pt; height: 12pt; position: relative; margin: 0 auto; }
+.vert span {
+  position: absolute;
+  left: 50%; top: 50%;
+  font-size: 6pt;
+  white-space: nowrap;
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+/* body rows */
+tbody tr.row { height: 11.28pt; }
+tbody td { font-size: 6.6pt; line-height: 1; }
+td.txt { text-align: left; }
+td.c-sn { font-size: 6.6pt; }
+td.b { font-weight: bold; }
+td.c-total { font-weight: bold; }
+td.c-rank { font-size: 6pt; }
+
+td.comp { text-align: left; font-weight: bold; font-size: 6pt; padding-left: 1pt; }
+
+/* overall row */
+tr.overall { height: 11.3pt; }
+tr.overall td { font-size: 6.6pt; font-weight: bold; }
+td.ov-label { font-weight: bold; font-size: 7pt; text-align: center; }
+td.ov-comp { font-weight: bold; font-size: 6pt; text-align: left; padding-left: 1pt; }
+
+/* fills */
+.fill-f { background: var(--fill-f); }
+.fill-total-h { background: var(--fill-total-h); }
+.fill-abcd { background: var(--fill-abcd); }
+.fill-ac-h { background: var(--fill-ac-h); }
+.fill-pac-h { background: var(--fill-pac-h); }
+.fill-ac { background: var(--fill-ac); }
+.fill-ad { background: var(--fill-ad); }
+.fill-gpa-h { background: var(--fill-gpa-h); }
+.fill-rank { background: var(--fill-rank); }
+
+/* competency level: the only data-dependent colour */
+.lvl-a { background: var(--lvl-a); color: var(--lvl-a-ink); }
+.lvl-b { background: var(--lvl-b); color: var(--lvl-b-ink); }
+.lvl-c { background: var(--lvl-c); color: var(--lvl-c-ink); }
+.lvl-d { background: var(--lvl-d); color: var(--lvl-d-ink); }
+.lvl-f { background: var(--lvl-f); color: var(--lvl-f-ink); }

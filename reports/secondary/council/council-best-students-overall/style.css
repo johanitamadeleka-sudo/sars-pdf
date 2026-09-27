@@ -1,0 +1,99 @@
+/*
+ * council-best-students-overall (LEVEL + FUNCTION name; data-driven, not tied to any council).
+ * Section-centric top-10 tables measured from the reference PDF (US Letter LANDSCAPE).
+ * Columns: C/NO | SCHOOL | CANDIDATE | SEX | AGGT | DIVISION | POSITION | DETAILED SUBJECTS
+ * No competency column - all colours are fixed in CSS.
+ *
+ * REAL fonts registered INLINE: fully self-contained, no shared stylesheet.
+ */
+@font-face {
+  font-family: 'Arial'; font-style: normal; font-weight: normal;
+  src: url("../../../../fonts/LiberationSans-Regular.ttf") format('truetype');
+}
+@font-face {
+  font-family: 'Arial'; font-style: normal; font-weight: bold;
+  src: url("../../../../fonts/LiberationSans-Bold.ttf") format('truetype');
+}
+
+:root {
+  --fill-banner: #d2f6f9;  /* pale-cyan banner bar (first section) */
+  --fill-cno: #ffffcc;     /* C/NO column cream fill */
+  --ink: #000000;
+  --grid: #000000;
+}
+
+@page {
+  size: Letter landscape;
+  margin: 52pt 0 18pt 0;
+}
+@page :first { margin-top: 52pt; }
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; font-family: 'Arial'; color: var(--ink); }
+
+.titles { text-align: center; font-weight: bold; font-size: 9pt; line-height: 12.2pt; }
+.titles .hl { white-space: pre; }
+
+.section { margin-top: 6pt; padding: 0 17pt; }
+.section:first-child { margin-top: 0; }
+.keep-together { page-break-inside: avoid; }
+.page-top { page-break-before: always; }
+
+.banner {
+  text-align: center; font-weight: bold; font-size: 10pt;
+  margin-bottom: 6pt; padding: 4pt 0;
+  background: var(--fill-banner);
+  border: 0.5pt solid var(--grid);
+}
+.sec-title {
+  text-align: center; font-weight: bold; font-size: 10pt;
+  margin-bottom: 6pt; margin-top: 12pt;
+}
+
+table.students {
+  width: 749.4pt;          /* 17.8 .. 767.2 */
+  border-collapse: collapse;
+  table-layout: fixed;
+  border: 0.6pt solid var(--grid);
+}
+
+col.w-cno { width: 48.4pt; }
+col.w-school { width: 69.4pt; }
+col.w-cand { width: 128.2pt; }
+col.w-sex { width: 20.7pt; }
+col.w-aggt { width: 21.5pt; }
+col.w-div { width: 21.6pt; }
+col.w-pos { width: 21.6pt; }
+col.w-det { width: 418pt; }
+
+th, td {
+  border: 0.5pt solid var(--grid);
+  padding: 0 2pt;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 8pt;
+  line-height: 1;
+}
+thead { display: table-row-group; }
+thead th { font-weight: bold; font-size: 8pt; }
+thead th:first-child { background: var(--fill-cno); }
+thead th.v-mid { vertical-align: middle; }
+thead th.vcol { padding: 0; overflow: visible; }
+thead tr.h-spacer th { height: 0; font-size: 0; padding: 0; border: 0; }
+
+.vert { position: relative; margin: 0 auto; width: 12pt; height: 30pt; }
+.vert span {
+  position: absolute; left: 50%; top: 50%;
+  font-size: 7pt; font-weight: bold; white-space: nowrap;
+  transform: translate(-50%, -50%) rotate(-90deg);
+}
+
+tbody tr.row { height: 12.3pt; }
+tbody td { font-size: 7.4pt; }
+td.txt { text-align: left; padding-left: 2pt; letter-spacing: -0.1pt; }
+td.txt:nth-child(3) { font-size: 6.9pt; letter-spacing: -0.2pt; }
+td.det { font-size: 6.7pt; letter-spacing: -0.15pt; }
+td.c-cno { font-size: 7pt; background: var(--fill-cno); }
+td.c-pos { font-weight: bold; }

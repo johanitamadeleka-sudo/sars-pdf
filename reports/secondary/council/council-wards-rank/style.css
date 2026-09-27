@@ -1,0 +1,151 @@
+/*
+ * council-wards-rank (LEVEL + FUNCTION name; data-driven, not tied to any council).
+ * Division-performance grid measured from the reference PDF (US Letter LANDSCAPE, 792 x 612 pt).
+ * Two tables share column geometry: a SUMMARY block (+ %PASS row) above the main per-ward
+ * table (+ TOTAL row). All fixed fills live in :root; only .lvl-* (competency) is data-driven.
+ *
+ * REAL fonts registered INLINE so this report is fully self-contained (own template + own
+ * CSS, no shared stylesheet). One family name per @font-face, NO fallback list.
+ */
+@font-face {
+  font-family: 'Arial'; font-style: normal; font-weight: normal;
+  src: url("../../../../fonts/LiberationSans-Regular.ttf") format('truetype');
+}
+@font-face {
+  font-family: 'Arial'; font-style: normal; font-weight: bold;
+  src: url("../../../../fonts/LiberationSans-Bold.ttf") format('truetype');
+}
+
+:root {
+  --fill-cand: #fce9d9;    /* NUMBER OF CANDIDATES group header */
+  --fill-gpa-grp: #ebf0de; /* GPA PERFORMANCE group header + NO. OF SCHOOLS cells */
+  --fill-3: #64ffab;       /* I-III cells + header */
+  --fill-4: #daedf3;       /* I-IV cells */
+  --fill-0: #fbd4b4;       /* DIV-0 cells + header */
+  --fill-0-h: #fbd4b4;
+  --fill-rank: #fce4d6;
+
+  --lvl-a: #00b050;  --lvl-a-ink: #000000;
+  --lvl-b: #92d050;  --lvl-b-ink: #000000;
+  --lvl-c: #ffff00;  --lvl-c-ink: #000000;
+  --lvl-d: #ffc000;  --lvl-d-ink: #000000;
+  --lvl-f: #ff0000;  --lvl-f-ink: #ffc7ce;
+
+  --ink: #000000;
+  --grid: #000000;
+}
+
+@page {
+  size: Letter landscape;
+  margin: 51pt 0 18pt 0;
+}
+@page :first { margin-top: 51pt; }
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0; padding: 0; font-family: 'Arial'; color: var(--ink); }
+
+.titles { text-align: center; font-weight: bold; font-size: 11pt; line-height: 12.2pt; }
+.titles .hl { white-space: pre; }
+.titles .report-title { font-size: 11pt; margin-top: 9pt; }
+
+/* ---------- shared grid geometry ---------- */
+table.grid {
+  width: 763.8pt;              /* 11.3 .. 775.1 */
+  margin: 0 0 0 11.3pt;
+  border-collapse: collapse;
+  table-layout: fixed;
+  border: 1pt solid var(--grid);
+}
+table.summary { margin-bottom: 4pt; }
+table.summary .hg { height: 12.3pt; }
+table.summary .h-sat { height: 12.2pt; }
+table.summary .h-tp { height: 6pt; }
+table.summary .h-lbl { height: 12pt; }
+table.summary .row { height: 18pt; }
+table.summary .pass { height: 18pt; }
+table.main .hg { height: 17.4pt; }
+table.main .h-sat { height: 13.4pt; }
+table.main .h-tp { height: 12pt; }
+table.main .h-lbl { height: 7pt; }
+
+col.w-sn { width: 31.3pt; }
+col.w-ward { width: 71.5pt; }
+col.w-sch { width: 57.5pt; }
+col.w-reg { width: 44.2pt; }
+col.w-sat-t { width: 34.1pt; }
+col.w-sat-p { width: 25.9pt; }
+col.w-i { width: 29.1pt; }
+col.w-ii { width: 35.3pt; }
+col.w-iii { width: 35.2pt; }
+col.w-3t { width: 29.3pt; }
+col.w-3p { width: 35.2pt; }
+col.w-iv { width: 35.6pt; }
+col.w-4t { width: 29.0pt; }
+col.w-4p { width: 35.2pt; }
+col.w-0t { width: 29.3pt; }
+col.w-0p { width: 35.2pt; }
+col.w-gpa { width: 48.2pt; }
+col.w-comp { width: 100.6pt; }
+col.w-rank { width: 21.7pt; }
+
+th, td {
+  border: 0.5pt solid var(--grid);
+  padding: 0 1pt;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 8pt;
+}
+thead { display: table-row-group; }
+thead th { font-weight: bold; }
+thead th.grp { font-size: 8pt; }
+thead th.tiny { font-size: 6pt; }
+thead th.v-mid { vertical-align: middle; }
+thead .hg { height: 12.5pt; }
+thead .h-sat { height: 12.2pt; }
+thead .h-tp { height: 8pt; }
+thead .h-lbl { height: 4pt; }
+
+/* rotated labels */
+thead th.vlabel { padding: 0; overflow: visible; }
+thead th.rank-h { padding: 0; overflow: visible; }
+.vert { position: relative; margin: 0 auto; height: 100%; width: 12pt; }
+.vert span {
+  position: absolute; left: 50%; top: 50%;
+  font-size: 6.5pt; font-weight: bold; white-space: nowrap;
+  transform: translate(-50%, -50%) rotate(-90deg);
+}
+th.rank-h .vert span { font-size: 7pt; }
+
+/* body rows */
+tbody tr.row { height: 12.2pt; }
+tbody td { font-size: 8pt; line-height: 1; }
+td.c-sn { }
+td.txt { text-align: left; padding-left: 2pt; }
+td.b { font-weight: bold; }
+td.comp { text-align: left; font-weight: bold; padding-left: 2pt; }
+td.no_schools, tbody td:first-child { }
+
+tr.pass td, tr.total td { font-weight: bold; }
+tr.pass td.txt { text-align: left; padding-left: 2pt; }
+
+/* fills */
+.fill-cand-h { background: var(--fill-cand); }
+.fill-gpa-grp { background: var(--fill-gpa-grp); }
+.fill-3, .fill-3-h { background: var(--fill-3); }
+.fill-4 { background: var(--fill-4); }
+.fill-0, .fill-0-h { background: var(--fill-0); }
+.fill-rank { background: var(--fill-rank); }
+
+/* NO. OF SCHOOLS column cells use the pale-green GPA-group fill */
+col.w-sch { }
+tbody td:nth-child(3) { background: var(--fill-gpa-grp); }
+table.summary tbody td:nth-child(1) { background: var(--fill-gpa-grp); }
+
+.lvl-a { background: var(--lvl-a); color: var(--lvl-a-ink); }
+.lvl-b { background: var(--lvl-b); color: var(--lvl-b-ink); }
+.lvl-c { background: var(--lvl-c); color: var(--lvl-c-ink); }
+.lvl-d { background: var(--lvl-d); color: var(--lvl-d-ink); }
+.lvl-f { background: var(--lvl-f); color: var(--lvl-f-ink); }

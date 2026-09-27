@@ -37,19 +37,19 @@
           <th rowspan="2">COUNCIL</th>
           <th rowspan="2" class="nowrap">CENTRE NO.</th>
           <th rowspan="2" class="nowrap">SCHOOL NAME</th>
-          <th rowspan="2" class="fill-av">AV</th>
-          <th rowspan="2" class="fill-av">GRD</th>
+          <th rowspan="2" class="fill-avh">AV</th>
+          <th rowspan="2" class="fill-avh">GRD</th>
           <th colspan="10" class="grading">GRADING PERFORMANCE</th>
-          <th rowspan="2" class="fill-gpa-h">GPA</th>
+          <th rowspan="2" class="{% if s.sn_header_fill %}fill-gpa-h1{% else %}fill-gpa-h{% endif %}">GPA</th>
           <th rowspan="2" class="comp-h">COMPENTENCY LEVEL</th>
           <th rowspan="2" class="fill-rank rank-h"><div class="vert"><span>{{ t.rank_label }}</span></div></th>
         </tr>
         <tr class="h2">
           <th class="fill-abcd">A</th><th class="fill-abcd">B</th><th class="fill-abcd">C</th><th class="fill-abcd">D</th>
-          <th class="fill-f">F</th>
+          <th class="fill-fh">F</th>
           <th class="fill-total-h tiny">TOTAL</th>
           <th class="fill-ac-h">A-C</th><th class="fill-pac-h">%A-C</th>
-          <th class="fill-ad">A-D</th><th class="fill-ad">%A-D</th>
+          <th class="fill-ad-h">A-D</th><th class="fill-ad-h">%A-D</th>
         </tr>
       </thead>
       <tbody>
@@ -76,18 +76,19 @@
         {% endfor %}
         {% if t.overall %}
         {% set o = t.overall %}
+        {% set p1f = s.sn_header_fill %}
         <tr class="overall">
           <td colspan="5" class="ov-label">{{ t.overall_label }}</td>
           <td class="fill-av b">{{ o.av }}</td>
           <td class="fill-av b">{{ o.grd }}</td>
-          <td class="b">{{ o.a }}</td><td class="b">{{ o.b }}</td><td class="b">{{ o.c }}</td><td class="b">{{ o.d }}</td>
-          <td class="b">{{ o.f }}</td>
-          <td class="b">{{ o.total }}</td>
+          <td class="b{% if p1f %} fill-ov-abcd{% endif %}">{{ o.a }}</td><td class="b{% if p1f %} fill-ov-abcd{% endif %}">{{ o.b }}</td><td class="b{% if p1f %} fill-ov-abcd{% endif %}">{{ o.c }}</td><td class="b{% if p1f %} fill-ov-abcd{% endif %}">{{ o.d }}</td>
+          <td class="b{% if p1f %} fill-f{% endif %}">{{ o.f }}</td>
+          <td class="b{% if p1f %} fill-ov-total{% endif %}">{{ o.total }}</td>
           <td class="b">{{ o.a_c }}</td>
           <td class="b">{{ o.pct_a_c }}</td>
           <td class="b">{{ o.a_d }}</td>
           <td class="b">{{ o.pct_a_d }}</td>
-          <td class="b">{{ o.gpa }}</td>
+          <td class="b{% if p1f %} fill-ov-gpa{% endif %}">{{ o.gpa }}</td>
           <td colspan="2" class="ov-comp ov-{{ s.overall_competency_size }}{% if o.level %} lvl-{{ o.level | lower }}{% endif %}">{{ o.competency }}</td>
         </tr>
         {% endif %}

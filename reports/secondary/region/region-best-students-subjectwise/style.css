@@ -1,0 +1,102 @@
+/*
+ * region-best-students-subjectwise (LEVEL + FUNCTION name; data-driven, not tied to any
+ * region). Section-centric: one top-10-per-subject table per page (23 subjects), measured
+ * from the reference PDF (US Letter LANDSCAPE, 792 x 612 pt). Region variant of the council
+ * best-students-subjectwise: adds a COUNCIL column. The competency-level background is the
+ * ONLY data-driven colour (from the single GRADE letter via grading.py); all other fills
+ * are a fixed identical palette.
+ *
+ * REAL fonts registered INLINE: fully self-contained, no shared stylesheet.
+ */
+@font-face {
+  font-family: 'Arial'; font-style: normal; font-weight: normal;
+  src: url("../../../../fonts/LiberationSans-Regular.ttf") format('truetype');
+}
+@font-face {
+  font-family: 'Arial'; font-style: normal; font-weight: bold;
+  src: url("../../../../fonts/LiberationSans-Bold.ttf") format('truetype');
+}
+
+:root {
+  --lvl-a: #00b050;  --lvl-a-ink: #000000;
+  --lvl-b: #92d050;  --lvl-b-ink: #000000;
+  --lvl-c: #ffff00;  --lvl-c-ink: #000000;
+  --lvl-d: #ffc000;  --lvl-d-ink: #000000;
+  --lvl-f: #ff0000;  --lvl-f-ink: #ffc7ce;
+
+  --ink: #000000;
+  --grid: #000000;
+}
+
+@page {
+  size: Letter landscape;
+  margin: 54pt 0 18pt 0;
+}
+@page :first { margin-top: 54pt; }
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; font-family: 'Arial'; color: var(--ink); }
+
+.section { padding: 0 50.3pt; }
+.section.own-page { page-break-before: always; }
+
+.titles { text-align: center; font-weight: bold; }
+.titles .hl { white-space: pre; }
+.titles .ministry, .titles .exam-name { font-size: 11pt; line-height: 14.8pt; }
+.titles .sec-title { font-size: 11pt; line-height: 14.8pt; margin: 12pt 0 8pt 0; }
+
+table.students {
+  width: 684.1pt;          /* 50.3 .. 734.4 */
+  border-collapse: collapse;
+  table-layout: fixed;
+  border: 0.6pt solid var(--grid);
+}
+
+col.w-sn { width: 34.5pt; }
+col.w-council { width: 70.7pt; }
+col.w-school { width: 89.1pt; }
+col.w-cat { width: 77.7pt; }
+col.w-cand { width: 166.2pt; }
+col.w-sex { width: 24.0pt; }
+col.w-marks { width: 34.6pt; }
+col.w-grade { width: 34.2pt; }
+col.w-pos { width: 34.2pt; }
+col.w-comp { width: 99.5pt; }
+
+th, td {
+  border: 0.5pt solid var(--grid);
+  padding: 0 2pt;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 8pt;
+  line-height: 1;
+}
+thead { display: table-row-group; }
+thead th { font-weight: bold; font-size: 8pt; }
+thead th.v-mid { vertical-align: middle; }
+thead th.vcol { padding: 0; overflow: visible; }
+thead tr.h-spacer th { height: 0; font-size: 0; padding: 0; border: 0; }
+
+.vert { position: relative; margin: 0 auto; width: 12pt; height: 34pt; }
+.vert span {
+  position: absolute; left: 50%; top: 50%;
+  font-size: 7.5pt; font-weight: bold; white-space: nowrap;
+  transform: translate(-50%, -50%) rotate(-90deg);
+}
+
+tbody tr.row { height: 13.4pt; }
+tbody td { font-size: 8pt; }
+td.txt { text-align: left; padding-left: 2pt; letter-spacing: -0.15pt; }
+td.txt:nth-child(3) { font-size: 7.2pt; }
+td.txt:nth-child(4) { font-size: 7.2pt; }
+td.c-sn { }
+td.c-pos { font-weight: bold; }
+td.comp { text-align: left; font-weight: bold; padding-left: 2pt; }
+
+.lvl-a { background: var(--lvl-a); color: var(--lvl-a-ink); }
+.lvl-b { background: var(--lvl-b); color: var(--lvl-b-ink); }
+.lvl-c { background: var(--lvl-c); color: var(--lvl-c-ink); }
+.lvl-d { background: var(--lvl-d); color: var(--lvl-d-ink); }
+.lvl-f { background: var(--lvl-f); color: var(--lvl-f-ink); }

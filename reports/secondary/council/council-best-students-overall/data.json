@@ -1,0 +1,968 @@
+{
+  "document": {
+    "page_size": "Letter-landscape",
+    "ministry": [
+      "THE PRIME MINISTER'S OFFICE",
+      "REGIONAL ADMINISTRATION AND LOCAL GOVERNMENT",
+      "MWANZA REGION"
+    ],
+    "exam_name": "REGIONAL FORM TWO MOCK ASSESSMENT RESULTS, JULY 2026",
+    "report_title": "MWANZA CC TOP TEN BEST STUDENTS OVERALL COUNCILWISE"
+  },
+  "sections": [
+    {
+      "title": "TOP TEN BEST STUDENTS OVERALL COUNCILWISE",
+      "banner": true,
+      "rows": [
+        {
+          "cno": "S5344-0004",
+          "school": "MUSABE GIRLS",
+          "candidate": "ADETHA AMWESIGA TALEMWA",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "1",
+          "detailed": "HTM - 97'A' BUSI - 80'A' GEO - 91'A' KISW - 85'A' ENGL - 78'A' PHY - 88'A' CHEM - 93'A' BIO - 83'A' BASIC MATH - 92'A' COM - 85'A'"
+        },
+        {
+          "cno": "S5344-0113",
+          "school": "MUSABE GIRLS",
+          "candidate": "MARIA CHRISTOPHER KALOKOLA",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "2",
+          "detailed": "HTM - 96'A' BUSI - 85'A' GEO - 85'A' KISW - 84'A' ENGL - 83'A' BASIC MATH - 87'A' HIST - 85'A' B/K - 92'A' CHI - 84'A'"
+        },
+        {
+          "cno": "S5343-0191",
+          "school": "MUSABE BOYS",
+          "candidate": "REGINALD ELINIONGOZE KIMAMBO",
+          "sex": "M",
+          "aggt": "7",
+          "division": "I",
+          "position": "3",
+          "detailed": "HTM - 84'A' BUSI - 72'B' GEO - 92'A' KISW - 90'A' ENGL - 84'A' PHY - 77'A' CHEM - 91'A' BIO - 92'A' BASIC MATH - 88'A' COM - 81'A'"
+        },
+        {
+          "cno": "S5343-0103",
+          "school": "MUSABE BOYS",
+          "candidate": "GODBLESS AMANYA MBELWA",
+          "sex": "M",
+          "aggt": "7",
+          "division": "I",
+          "position": "4",
+          "detailed": "HTM - 84'A' BUSI - 83'A' GEO - 92'A' KISW - 90'A' ENGL - 77'A' PHY - 76'A' CHEM - 87'A' BIO - 82'A' BASIC MATH - 84'A' CHI - 88'A'"
+        },
+        {
+          "cno": "S5343-0152",
+          "school": "MUSABE BOYS",
+          "candidate": "LIONEL LINUS LYAKURWA",
+          "sex": "M",
+          "aggt": "7",
+          "division": "I",
+          "position": "5",
+          "detailed": "HTM - 88'A' BUSI - 81'A' GEO - 82'A' KISW - 95'A' ENGL - 67'B' PHY - 75'A' CHEM - 93'A' BIO - 80'A' BASIC MATH - 96'A'"
+        },
+        {
+          "cno": "S5343-0190",
+          "school": "MUSABE BOYS",
+          "candidate": "RAYMOND RUBEN RAPHAEL",
+          "sex": "M",
+          "aggt": "7",
+          "division": "I",
+          "position": "6",
+          "detailed": "HTM - 88'A' BUSI - 79'A' GEO - 85'A' KISW - 88'A' ENGL - 80'A' PHY - 78'A' CHEM - 92'A' BIO - 79'A' BASIC MATH - 84'A' COM - 86'A'"
+        },
+        {
+          "cno": "S5714-0033",
+          "school": "NASCO",
+          "candidate": "REBEKA KENEDY CHIGURU",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "7",
+          "detailed": "HTM - 97'A' BUSI - 90'A' GEO - 90'A' KISW - 98'A' ENGL - 77'A' PHY - 60'C' CHEM - 92'A' BIO - 86'A' BASIC MATH - 77'A' HIST - 69'B'"
+        },
+        {
+          "cno": "S5344-0072",
+          "school": "MUSABE GIRLS",
+          "candidate": "FLAVIAH MAJURA MAIJO",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "8",
+          "detailed": "HTM - 97'A' BUSI - 81'A' GEO - 91'A' KISW - 76'A' ENGL - 82'A' PHY - 76'A' CHEM - 89'A' BIO - 86'A' BASIC MATH - 92'A' HIST - 61'C'"
+        },
+        {
+          "cno": "S5343-0169",
+          "school": "MUSABE BOYS",
+          "candidate": "MURTADHAA RAMADHANI NDIHOLEYE",
+          "sex": "M",
+          "aggt": "7",
+          "division": "I",
+          "position": "9",
+          "detailed": "HTM - 83'A' BUSI - 65'B' GEO - 81'A' KISW - 93'A' ENGL - 75'A' PHY - 80'A' CHEM - 92'A' BIO - 86'A' BASIC MATH - 88'A' COM - 84'A'"
+        },
+        {
+          "cno": "-",
+          "school": "",
+          "candidate": "",
+          "sex": "",
+          "aggt": "",
+          "division": "",
+          "position": "10",
+          "detailed": ""
+        }
+      ]
+    },
+    {
+      "title": "TOP TEN BEST FEMALE STUDENTS OVERALL COUNCILWISE",
+      "banner": false,
+      "rows": [
+        {
+          "cno": "S5344-0004",
+          "school": "MUSABE GIRLS",
+          "candidate": "ADETHA AMWESIGA TALEMWA",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "1",
+          "detailed": "HTM - 97'A' BUSI - 80'A' GEO - 91'A' KISW - 85'A' ENGL - 78'A' PHY - 88'A' CHEM - 93'A' BIO - 83'A' BASIC MATH - 92'A' COM - 85'A'"
+        },
+        {
+          "cno": "S5344-0113",
+          "school": "MUSABE GIRLS",
+          "candidate": "MARIA CHRISTOPHER KALOKOLA",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "2",
+          "detailed": "HTM - 96'A' BUSI - 85'A' GEO - 85'A' KISW - 84'A' ENGL - 83'A' BASIC MATH - 87'A' HIST - 85'A' B/K - 92'A' CHI - 84'A'"
+        },
+        {
+          "cno": "S5714-0033",
+          "school": "NASCO",
+          "candidate": "REBEKA KENEDY CHIGURU",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "3",
+          "detailed": "HTM - 97'A' BUSI - 90'A' GEO - 90'A' KISW - 98'A' ENGL - 77'A' PHY - 60'C' CHEM - 92'A' BIO - 86'A' BASIC MATH - 77'A' HIST - 69'B'"
+        },
+        {
+          "cno": "S5344-0072",
+          "school": "MUSABE GIRLS",
+          "candidate": "FLAVIAH MAJURA MAIJO",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "4",
+          "detailed": "HTM - 97'A' BUSI - 81'A' GEO - 91'A' KISW - 76'A' ENGL - 82'A' PHY - 76'A' CHEM - 89'A' BIO - 86'A' BASIC MATH - 92'A' HIST - 61'C'"
+        },
+        {
+          "cno": "S5344-0115",
+          "school": "MUSABE GIRLS",
+          "candidate": "MARIA ROBERT MAKALA",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "5",
+          "detailed": "HTM - 98'A' BUSI - 70'B' GEO - 84'A' KISW - 75'A' ENGL - 80'A' PHY - 85'A' CHEM - 80'A' BIO - 85'A' BASIC MATH - 86'A'"
+        },
+        {
+          "cno": "S5344-0108",
+          "school": "MUSABE GIRLS",
+          "candidate": "LINDA KHATIBU THEODOLA",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "6",
+          "detailed": "HTM - 86'A' BUSI - 67'B' GEO - 77'A' KISW - 83'A' ENGL - 78'A' PHY - 80'A' CHEM - 93'A' BIO - 89'A' BASIC MATH - 88'A'"
+        },
+        {
+          "cno": "S5344-0153",
+          "school": "MUSABE GIRLS",
+          "candidate": "PROMISE ZACHARIA KAHEMA",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "7",
+          "detailed": "HTM - 95'A' BUSI - 77'A' GEO - 94'A' KISW - 66'B' ENGL - 75'A' PHY - 78'A' CHEM - 85'A' BIO - 84'A' BASIC MATH - 93'A' COM - 75'A'"
+        },
+        {
+          "cno": "S5344-0138",
+          "school": "MUSABE GIRLS",
+          "candidate": "NATHALIA HASSAN BOKI",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "8",
+          "detailed": "HTM - 96'A' BUSI - 67'B' GEO - 82'A' KISW - 73'B' ENGL - 81'A' BIO - 70'B' BASIC MATH - 84'A' HIST - 88'A' B/K - 85.5'A' CHI - 91'A'"
+        },
+        {
+          "cno": "S5344-0033",
+          "school": "MUSABE GIRLS",
+          "candidate": "CHRISTINA DARIO DAUSON",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "9",
+          "detailed": "HTM - 84'A' BUSI - 74'B' GEO - 87'A' KISW - 76'A' ENGL - 90'A' PHY - 71'B' CHEM - 78'A' BIO - 90'A' BASIC MATH - 80'A'"
+        },
+        {
+          "cno": "S5344-0176",
+          "school": "MUSABE GIRLS",
+          "candidate": "STELLAH WALTER ATHONY",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "9",
+          "detailed": "HTM - 98'A' BUSI - 88'A' GEO - 87'A' KISW - 76'A' ENGL - 74'B' PHY - 70'B' CHEM - 79'A' BIO - 81'A' BASIC MATH - 77'A'"
+        }
+      ]
+    },
+    {
+      "title": "TOP TEN BEST MALE STUDENTS OVERALL COUNCILWISE",
+      "banner": false,
+      "rows": [
+        {
+          "cno": "S5343-0191",
+          "school": "MUSABE BOYS",
+          "candidate": "REGINALD ELINIONGOZE KIMAMBO",
+          "sex": "M",
+          "aggt": "7",
+          "division": "I",
+          "position": "1",
+          "detailed": "HTM - 84'A' BUSI - 72'B' GEO - 92'A' KISW - 90'A' ENGL - 84'A' PHY - 77'A' CHEM - 91'A' BIO - 92'A' BASIC MATH - 88'A' COM - 81'A'"
+        },
+        {
+          "cno": "S5343-0103",
+          "school": "MUSABE BOYS",
+          "candidate": "GODBLESS AMANYA MBELWA",
+          "sex": "M",
+          "aggt": "7",
+          "division": "I",
+          "position": "2",
+          "detailed": "HTM - 84'A' BUSI - 83'A' GEO - 92'A' KISW - 90'A' ENGL - 77'A' PHY - 76'A' CHEM - 87'A' BIO - 82'A' BASIC MATH - 84'A' CHI - 88'A'"
+        },
+        {
+          "cno": "S5343-0152",
+          "school": "MUSABE BOYS",
+          "candidate": "LIONEL LINUS LYAKURWA",
+          "sex": "M",
+          "aggt": "7",
+          "division": "I",
+          "position": "3",
+          "detailed": "HTM - 88'A' BUSI - 81'A' GEO - 82'A' KISW - 95'A' ENGL - 67'B' PHY - 75'A' CHEM - 93'A' BIO - 80'A' BASIC MATH - 96'A'"
+        },
+        {
+          "cno": "S5343-0190",
+          "school": "MUSABE BOYS",
+          "candidate": "RAYMOND RUBEN RAPHAEL",
+          "sex": "M",
+          "aggt": "7",
+          "division": "I",
+          "position": "4",
+          "detailed": "HTM - 88'A' BUSI - 79'A' GEO - 85'A' KISW - 88'A' ENGL - 80'A' PHY - 78'A' CHEM - 92'A' BIO - 79'A' BASIC MATH - 84'A' COM - 86'A'"
+        },
+        {
+          "cno": "S5343-0169",
+          "school": "MUSABE BOYS",
+          "candidate": "MURTADHAA RAMADHANI NDIHOLEYE",
+          "sex": "M",
+          "aggt": "7",
+          "division": "I",
+          "position": "5",
+          "detailed": "HTM - 83'A' BUSI - 65'B' GEO - 81'A' KISW - 93'A' ENGL - 75'A' PHY - 80'A' CHEM - 92'A' BIO - 86'A' BASIC MATH - 88'A' COM - 84'A'"
+        },
+        {
+          "cno": "S5343-0225",
+          "school": "MUSABE BOYS",
+          "candidate": "ZACHARIA RENATUS ZACHARIA",
+          "sex": "M",
+          "aggt": "7",
+          "division": "I",
+          "position": "6",
+          "detailed": "HTM - 86'A' BUSI - 79'A' GEO - 84'A' KISW - 88'A' ENGL - 71'B' PHY - 71'B' CHEM - 91'A' BIO - 82'A' BASIC MATH - 83'A' COM - 92'A'"
+        },
+        {
+          "cno": "S5343-0210",
+          "school": "MUSABE BOYS",
+          "candidate": "SAYI MJUNI KAIJAGE",
+          "sex": "M",
+          "aggt": "7",
+          "division": "I",
+          "position": "7",
+          "detailed": "HTM - 87'A' BUSI - 77'A' GEO - 97'A' KISW - 94'A' ENGL - 72'B' PHY - 84'A' CHEM - 87'A' BIO - 80'A' BASIC MATH - 61'C' COM - 86'A'"
+        },
+        {
+          "cno": "S1756-0050",
+          "school": "FAMG",
+          "candidate": "KAHANYA CHANDIKA GERVAS",
+          "sex": "M",
+          "aggt": "7",
+          "division": "I",
+          "position": "8",
+          "detailed": "HTM - 96'A' BUSI - 65'B' GEO - 84'A' KISW - 85'A' ENGL - 78'A' PHY - 71'B' CHEM - 94'A' BIO - 85'A' BASIC MATH - 86'A' B/K - 80'A'"
+        },
+        {
+          "cno": "S5343-0189",
+          "school": "MUSABE BOYS",
+          "candidate": "RASHID ABUBAKARY RASHID",
+          "sex": "M",
+          "aggt": "7",
+          "division": "I",
+          "position": "9",
+          "detailed": "HTM - 84'A' BUSI - 70'B' GEO - 81'A' KISW - 95'A' ENGL - 75'A' PHY - 62'C' CHEM - 92'A' BIO - 88'A' BASIC MATH - 94'A'"
+        },
+        {
+          "cno": "S1756-0034",
+          "school": "FAMG",
+          "candidate": "GODGIVEN RAPHAEL CHASAMA",
+          "sex": "M",
+          "aggt": "7",
+          "division": "I",
+          "position": "10",
+          "detailed": "HTM - 93'A' BUSI - 88'A' GEO - 82'A' KISW - 82'A' ENGL - 80'A' PHY - 61'C' CHEM - 90'A' BIO - 65'B' BASIC MATH - 98'A'"
+        }
+      ]
+    },
+    {
+      "title": "TOP TEN BEST STUDENTS FOR GOVERNMENT SCHOOLS",
+      "banner": false,
+      "rows": [
+        {
+          "cno": "S7317-0213",
+          "school": "STANSLAUS MABULA",
+          "candidate": "VICENT ROBERT KALAMU",
+          "sex": "M",
+          "aggt": "7",
+          "division": "I",
+          "position": "1",
+          "detailed": "HTM - 92'A' BUSI - 75'A' GEO - 67'B' KISW - 76'A' ENGL - 58'C' PHY - 82'A' CHEM - 83'A' BIO - 79'A' BASIC MATH - 66'B' HIST - 75'A'"
+        },
+        {
+          "cno": "S7778-0104",
+          "school": "KAKEBE",
+          "candidate": "JOSEPH JAMES SIAH",
+          "sex": "M",
+          "aggt": "8",
+          "division": "I",
+          "position": "2",
+          "detailed": "HTM - 85'A' BUSI - 51'C' GEO - 74'B' KISW - 83'A' ENGL - 79'A' PHY - 67'B' CHEM - 91'A' BIO - 89'A' BASIC MATH - 77'A'"
+        },
+        {
+          "cno": "S3036-0027",
+          "school": "LUCHELELE",
+          "candidate": "GLORIA DAMSA GILI",
+          "sex": "F",
+          "aggt": "8",
+          "division": "I",
+          "position": "3",
+          "detailed": "HTM - 82'A' BUSI - 65'B' GEO - 86'A' KISW - 85'A' ENGL - 65'B' PHY - 51'C' CHEM - 78'A' BIO - 84'A' BASIC MATH - 75'A'"
+        },
+        {
+          "cno": "S3034-0305",
+          "school": "MTONI",
+          "candidate": "WAMBURA KASOA RAMADHAN",
+          "sex": "M",
+          "aggt": "8",
+          "division": "I",
+          "position": "4",
+          "detailed": "HTM - 75'A' BUSI - 43'D' GEO - 60'C' KISW - 69'B' ENGL - 75'A' PHY - 77'A' CHEM - 86'A' BIO - 77'A' BASIC MATH - 81'A'"
+        },
+        {
+          "cno": "S3278-0101",
+          "school": "BUHONGWA",
+          "candidate": "HILDA THOMAS NTUNGWANAYO",
+          "sex": "F",
+          "aggt": "9",
+          "division": "I",
+          "position": "5",
+          "detailed": "HTM - 72'B' BUSI - 84'A' GEO - 80'A' KISW - 81'A' ENGL - 72'B' PHY - 66'B' CHEM - 80'A' BIO - 70'B' BASIC MATH - 83'A'"
+        },
+        {
+          "cno": "S3049-0239",
+          "school": "IGELEGELE",
+          "candidate": "NIKOLAUS JONH MADARAKA",
+          "sex": "M",
+          "aggt": "9",
+          "division": "I",
+          "position": "6",
+          "detailed": "HTM - 78'A' BUSI - 68'B' GEO - 55'C' KISW - 74'B' ENGL - 65'B' PHY - 76'A' CHEM - 88'A' BIO - 92'A' BASIC MATH - 83'A'"
+        },
+        {
+          "cno": "S6620-0223",
+          "school": "KASESE",
+          "candidate": "DAVID KINGI EDWARD",
+          "sex": "M",
+          "aggt": "9",
+          "division": "I",
+          "position": "7",
+          "detailed": "HTM - 92'A' BUSI - 72'B' GEO - 48'C' KISW - 87'A' ENGL - 87'A' PHY - 70'B' CHEM - 81'A' BIO - 65'B' BASIC MATH - 75'A'"
+        },
+        {
+          "cno": "S2872-0162",
+          "school": "LWANHIMA",
+          "candidate": "BONIPHACE VICENT MELEKA",
+          "sex": "M",
+          "aggt": "9",
+          "division": "I",
+          "position": "8",
+          "detailed": "HTM - 90'A' BUSI - 61'C' GEO - 86'A' KISW - 78'A' ENGL - 67'B' PHY - 56'C' CHEM - 88'A' BIO - 65'B' BASIC MATH - 78'A'"
+        },
+        {
+          "cno": "S3278-0070",
+          "school": "BUHONGWA",
+          "candidate": "FATMA MASHAKA MALULU",
+          "sex": "F",
+          "aggt": "9",
+          "division": "I",
+          "position": "9",
+          "detailed": "HTM - 82'A' BUSI - 86'A' GEO - 78'A' KISW - 79'A' ENGL - 71'B' PHY - 66'B' CHEM - 68'B' BIO - 82'A' BASIC MATH - 55'C'"
+        },
+        {
+          "cno": "S7317-0208",
+          "school": "STANSLAUS MABULA",
+          "candidate": "SAMWEL RAPHAEL MICHAEL",
+          "sex": "M",
+          "aggt": "9",
+          "division": "I",
+          "position": "10",
+          "detailed": "HTM - 83'A' BUSI - 51'C' GEO - 80'A' KISW - 74'B' ENGL - 55'C' PHY - 73'B' CHEM - 75'A' BIO - 76'A' BASIC MATH - 70'B' HIST - 93'A'"
+        }
+      ]
+    },
+    {
+      "title": "TOP TEN BEST FEMALE STUDENTS FOR GOVERNMENT SCHOOLS",
+      "banner": false,
+      "rows": [
+        {
+          "cno": "S3036-0027",
+          "school": "LUCHELELE",
+          "candidate": "GLORIA DAMSA GILI",
+          "sex": "F",
+          "aggt": "8",
+          "division": "I",
+          "position": "1",
+          "detailed": "HTM - 82'A' BUSI - 65'B' GEO - 86'A' KISW - 85'A' ENGL - 65'B' PHY - 51'C' CHEM - 78'A' BIO - 84'A' BASIC MATH - 75'A'"
+        },
+        {
+          "cno": "S3278-0101",
+          "school": "BUHONGWA",
+          "candidate": "HILDA THOMAS NTUNGWANAYO",
+          "sex": "F",
+          "aggt": "9",
+          "division": "I",
+          "position": "2",
+          "detailed": "HTM - 72'B' BUSI - 84'A' GEO - 80'A' KISW - 81'A' ENGL - 72'B' PHY - 66'B' CHEM - 80'A' BIO - 70'B' BASIC MATH - 83'A'"
+        },
+        {
+          "cno": "S3278-0070",
+          "school": "BUHONGWA",
+          "candidate": "FATMA MASHAKA MALULU",
+          "sex": "F",
+          "aggt": "9",
+          "division": "I",
+          "position": "3",
+          "detailed": "HTM - 82'A' BUSI - 86'A' GEO - 78'A' KISW - 79'A' ENGL - 71'B' PHY - 66'B' CHEM - 68'B' BIO - 82'A' BASIC MATH - 55'C'"
+        },
+        {
+          "cno": "S3036-0025",
+          "school": "LUCHELELE",
+          "candidate": "FATUMA SULTAN YUSUPH",
+          "sex": "F",
+          "aggt": "10",
+          "division": "I",
+          "position": "4",
+          "detailed": "HTM - 92'A' BUSI - 63'C' GEO - 87'A' KISW - 85'A' ENGL - 61'C' PHY - 48'C' CHEM - 83'A' BIO - 75'A' BASIC MATH - 66'B'"
+        },
+        {
+          "cno": "S1835-0171",
+          "school": "MAHINA",
+          "candidate": "LOYCE JEREMIA YOHANA",
+          "sex": "F",
+          "aggt": "11",
+          "division": "I",
+          "position": "5",
+          "detailed": "HTM - 96'A' BUSI - 68'B' GEO - 75'A' KISW - 73'B' ENGL - 68'B' PHY - 62'C' CHEM - 55'C' BIO - 75'A' BASIC MATH - 66'B'"
+        },
+        {
+          "cno": "S0546-0246",
+          "school": "PAMBA",
+          "candidate": "HELLEN DAVID MTINDA",
+          "sex": "F",
+          "aggt": "11",
+          "division": "I",
+          "position": "6",
+          "detailed": "HTM - 93'A' BUSI - 71'B' GEO - 56'C' KISW - 79'A' ENGL - 29'F' PHY - 62'C' CHEM - 76'A' BIO - 84'A' BASIC MATH - 68'B' COM - 53'C'"
+        },
+        {
+          "cno": "S0333-0294",
+          "school": "MWANZA",
+          "candidate": "JENIFA JACKSON ARON",
+          "sex": "F",
+          "aggt": "12",
+          "division": "I",
+          "position": "7",
+          "detailed": "HTM - 75'A' BUSI - 55'C' GEO - 45'C' KISW - 51'C' ENGL - 66'B' PHY - 71'B' CHEM - 75'A' BIO - 63'C' BASIC MATH - 87'A' FOO - 72.5'B'"
+        },
+        {
+          "cno": "S7317-0018",
+          "school": "STANSLAUS MABULA",
+          "candidate": "CLEMENSIA PHILEMON MBANGA",
+          "sex": "F",
+          "aggt": "12",
+          "division": "I",
+          "position": "8",
+          "detailed": "HTM - 76'A' BUSI - 68'B' GEO - 75'A' KISW - 79'A' ENGL - 56'C' PHY - 51'C' CHEM - 73'B' BIO - 61'C' BASIC MATH - 30'D' HIST - 65'B'"
+        },
+        {
+          "cno": "S1143-0040",
+          "school": "BUTIMBA DAY",
+          "candidate": "GRACE KANUTI MTATIFIKORO",
+          "sex": "F",
+          "aggt": "12",
+          "division": "I",
+          "position": "9",
+          "detailed": "HTM - 76'A' BUSI - 48'C' GEO - 45'C' KISW - 75'A' ENGL - 67'B' PHY - 56'C' CHEM - 56'C' BIO - 75'A' BASIC MATH - 40.5'D' COM - 75'A'"
+        },
+        {
+          "cno": "S0333-0025",
+          "school": "MWANZA",
+          "candidate": "ELIZABETH SAIMON BARNABA",
+          "sex": "F",
+          "aggt": "13",
+          "division": "I",
+          "position": "10",
+          "detailed": "HTM - 93'A' BUSI - 60'C' GEO - 43'D' KISW - 76'A' ENGL - 63'C' PHY - 65'B' CHEM - 88'A' BIO - 45'C' BASIC MATH - 67'B'"
+        }
+      ]
+    },
+    {
+      "title": "TOP TEN BEST MALE STUDENTS FOR GOVERNMENT SCHOOLS",
+      "banner": false,
+      "rows": [
+        {
+          "cno": "S7317-0213",
+          "school": "STANSLAUS MABULA",
+          "candidate": "VICENT ROBERT KALAMU",
+          "sex": "M",
+          "aggt": "7",
+          "division": "I",
+          "position": "1",
+          "detailed": "HTM - 92'A' BUSI - 75'A' GEO - 67'B' KISW - 76'A' ENGL - 58'C' PHY - 82'A' CHEM - 83'A' BIO - 79'A' BASIC MATH - 66'B' HIST - 75'A'"
+        },
+        {
+          "cno": "S7778-0104",
+          "school": "KAKEBE",
+          "candidate": "JOSEPH JAMES SIAH",
+          "sex": "M",
+          "aggt": "8",
+          "division": "I",
+          "position": "2",
+          "detailed": "HTM - 85'A' BUSI - 51'C' GEO - 74'B' KISW - 83'A' ENGL - 79'A' PHY - 67'B' CHEM - 91'A' BIO - 89'A' BASIC MATH - 77'A'"
+        },
+        {
+          "cno": "S3034-0305",
+          "school": "MTONI",
+          "candidate": "WAMBURA KASOA RAMADHAN",
+          "sex": "M",
+          "aggt": "8",
+          "division": "I",
+          "position": "3",
+          "detailed": "HTM - 75'A' BUSI - 43'D' GEO - 60'C' KISW - 69'B' ENGL - 75'A' PHY - 77'A' CHEM - 86'A' BIO - 77'A' BASIC MATH - 81'A'"
+        },
+        {
+          "cno": "S3049-0239",
+          "school": "IGELEGELE",
+          "candidate": "NIKOLAUS JONH MADARAKA",
+          "sex": "M",
+          "aggt": "9",
+          "division": "I",
+          "position": "4",
+          "detailed": "HTM - 78'A' BUSI - 68'B' GEO - 55'C' KISW - 74'B' ENGL - 65'B' PHY - 76'A' CHEM - 88'A' BIO - 92'A' BASIC MATH - 83'A'"
+        },
+        {
+          "cno": "S6620-0223",
+          "school": "KASESE",
+          "candidate": "DAVID KINGI EDWARD",
+          "sex": "M",
+          "aggt": "9",
+          "division": "I",
+          "position": "5",
+          "detailed": "HTM - 92'A' BUSI - 72'B' GEO - 48'C' KISW - 87'A' ENGL - 87'A' PHY - 70'B' CHEM - 81'A' BIO - 65'B' BASIC MATH - 75'A'"
+        },
+        {
+          "cno": "S2872-0162",
+          "school": "LWANHIMA",
+          "candidate": "BONIPHACE VICENT MELEKA",
+          "sex": "M",
+          "aggt": "9",
+          "division": "I",
+          "position": "6",
+          "detailed": "HTM - 90'A' BUSI - 61'C' GEO - 86'A' KISW - 78'A' ENGL - 67'B' PHY - 56'C' CHEM - 88'A' BIO - 65'B' BASIC MATH - 78'A'"
+        },
+        {
+          "cno": "S7317-0208",
+          "school": "STANSLAUS MABULA",
+          "candidate": "SAMWEL RAPHAEL MICHAEL",
+          "sex": "M",
+          "aggt": "9",
+          "division": "I",
+          "position": "7",
+          "detailed": "HTM - 83'A' BUSI - 51'C' GEO - 80'A' KISW - 74'B' ENGL - 55'C' PHY - 73'B' CHEM - 75'A' BIO - 76'A' BASIC MATH - 70'B' HIST - 93'A'"
+        },
+        {
+          "cno": "S7319-0418",
+          "school": "BULALE",
+          "candidate": "NELSON ANISETH KAWAU",
+          "sex": "M",
+          "aggt": "9",
+          "division": "I",
+          "position": "8",
+          "detailed": "HTM - 74'B' BUSI - 56'C' GEO - 57'C' KISW - 79'A' ENGL - 72'B' PHY - 76'A' CHEM - 81'A' BIO - 78'A' BASIC MATH - 76'A'"
+        },
+        {
+          "cno": "S1910-0353",
+          "school": "IGOMA",
+          "candidate": "EMMANUEL ZONGORE WAKEYA",
+          "sex": "M",
+          "aggt": "9",
+          "division": "I",
+          "position": "9",
+          "detailed": "HTM - 77'A' BUSI - 81'A' GEO - 91'A' KISW - 76'A' ENGL - 49'C' PHY - 66'B' CHEM - 80'A' BIO - 68'B' BASIC MATH - 31'D'"
+        },
+        {
+          "cno": "S6620-0340",
+          "school": "KASESE",
+          "candidate": "WARREN GILBERT MWANSASU",
+          "sex": "M",
+          "aggt": "10",
+          "division": "I",
+          "position": "10",
+          "detailed": "HTM - 88'A' BUSI - 62'C' GEO - 75'A' KISW - 77'A' ENGL - 63'C' PHY - 78'A' CHEM - 72'B' BIO - 59'C' BASIC MATH - 100'A'"
+        }
+      ]
+    },
+    {
+      "title": "TOP TEN BEST STUDENTS FOR PRIVATE SCHOOLS",
+      "banner": false,
+      "rows": [
+        {
+          "cno": "S5344-0004",
+          "school": "MUSABE GIRLS",
+          "candidate": "ADETHA AMWESIGA TALEMWA",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "1",
+          "detailed": "HTM - 97'A' BUSI - 80'A' GEO - 91'A' KISW - 85'A' ENGL - 78'A' PHY - 88'A' CHEM - 93'A' BIO - 83'A' BASIC MATH - 92'A' COM - 85'A'"
+        },
+        {
+          "cno": "S5344-0113",
+          "school": "MUSABE GIRLS",
+          "candidate": "MARIA CHRISTOPHER KALOKOLA",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "2",
+          "detailed": "HTM - 96'A' BUSI - 85'A' GEO - 85'A' KISW - 84'A' ENGL - 83'A' BASIC MATH - 87'A' HIST - 85'A' B/K - 92'A' CHI - 84'A'"
+        },
+        {
+          "cno": "S5343-0191",
+          "school": "MUSABE BOYS",
+          "candidate": "REGINALD ELINIONGOZE KIMAMBO",
+          "sex": "M",
+          "aggt": "7",
+          "division": "I",
+          "position": "3",
+          "detailed": "HTM - 84'A' BUSI - 72'B' GEO - 92'A' KISW - 90'A' ENGL - 84'A' PHY - 77'A' CHEM - 91'A' BIO - 92'A' BASIC MATH - 88'A' COM - 81'A'"
+        },
+        {
+          "cno": "S5343-0103",
+          "school": "MUSABE BOYS",
+          "candidate": "GODBLESS AMANYA MBELWA",
+          "sex": "M",
+          "aggt": "7",
+          "division": "I",
+          "position": "4",
+          "detailed": "HTM - 84'A' BUSI - 83'A' GEO - 92'A' KISW - 90'A' ENGL - 77'A' PHY - 76'A' CHEM - 87'A' BIO - 82'A' BASIC MATH - 84'A' CHI - 88'A'"
+        },
+        {
+          "cno": "S5343-0152",
+          "school": "MUSABE BOYS",
+          "candidate": "LIONEL LINUS LYAKURWA",
+          "sex": "M",
+          "aggt": "7",
+          "division": "I",
+          "position": "5",
+          "detailed": "HTM - 88'A' BUSI - 81'A' GEO - 82'A' KISW - 95'A' ENGL - 67'B' PHY - 75'A' CHEM - 93'A' BIO - 80'A' BASIC MATH - 96'A'"
+        },
+        {
+          "cno": "S5343-0190",
+          "school": "MUSABE BOYS",
+          "candidate": "RAYMOND RUBEN RAPHAEL",
+          "sex": "M",
+          "aggt": "7",
+          "division": "I",
+          "position": "6",
+          "detailed": "HTM - 88'A' BUSI - 79'A' GEO - 85'A' KISW - 88'A' ENGL - 80'A' PHY - 78'A' CHEM - 92'A' BIO - 79'A' BASIC MATH - 84'A' COM - 86'A'"
+        },
+        {
+          "cno": "S5714-0033",
+          "school": "NASCO",
+          "candidate": "REBEKA KENEDY CHIGURU",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "7",
+          "detailed": "HTM - 97'A' BUSI - 90'A' GEO - 90'A' KISW - 98'A' ENGL - 77'A' PHY - 60'C' CHEM - 92'A' BIO - 86'A' BASIC MATH - 77'A' HIST - 69'B'"
+        },
+        {
+          "cno": "S5344-0072",
+          "school": "MUSABE GIRLS",
+          "candidate": "FLAVIAH MAJURA MAIJO",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "8",
+          "detailed": "HTM - 97'A' BUSI - 81'A' GEO - 91'A' KISW - 76'A' ENGL - 82'A' PHY - 76'A' CHEM - 89'A' BIO - 86'A' BASIC MATH - 92'A' HIST - 61'C'"
+        },
+        {
+          "cno": "S5343-0169",
+          "school": "MUSABE BOYS",
+          "candidate": "MURTADHAA RAMADHANI NDIHOLEYE",
+          "sex": "M",
+          "aggt": "7",
+          "division": "I",
+          "position": "9",
+          "detailed": "HTM - 83'A' BUSI - 65'B' GEO - 81'A' KISW - 93'A' ENGL - 75'A' PHY - 80'A' CHEM - 92'A' BIO - 86'A' BASIC MATH - 88'A' COM - 84'A'"
+        },
+        {
+          "cno": "S5343-0225",
+          "school": "MUSABE BOYS",
+          "candidate": "ZACHARIA RENATUS ZACHARIA",
+          "sex": "M",
+          "aggt": "7",
+          "division": "I",
+          "position": "10",
+          "detailed": "HTM - 86'A' BUSI - 79'A' GEO - 84'A' KISW - 88'A' ENGL - 71'B' PHY - 71'B' CHEM - 91'A' BIO - 82'A' BASIC MATH - 83'A' COM - 92'A'"
+        }
+      ]
+    },
+    {
+      "title": "TOP TEN BEST FEMALE STUDENTS FOR PRIVATE SCHOOLS",
+      "banner": false,
+      "rows": [
+        {
+          "cno": "S5344-0004",
+          "school": "MUSABE GIRLS",
+          "candidate": "ADETHA AMWESIGA TALEMWA",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "1",
+          "detailed": "HTM - 97'A' BUSI - 80'A' GEO - 91'A' KISW - 85'A' ENGL - 78'A' PHY - 88'A' CHEM - 93'A' BIO - 83'A' BASIC MATH - 92'A' COM - 85'A'"
+        },
+        {
+          "cno": "S5344-0113",
+          "school": "MUSABE GIRLS",
+          "candidate": "MARIA CHRISTOPHER KALOKOLA",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "2",
+          "detailed": "HTM - 96'A' BUSI - 85'A' GEO - 85'A' KISW - 84'A' ENGL - 83'A' BASIC MATH - 87'A' HIST - 85'A' B/K - 92'A' CHI - 84'A'"
+        },
+        {
+          "cno": "S5714-0033",
+          "school": "NASCO",
+          "candidate": "REBEKA KENEDY CHIGURU",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "3",
+          "detailed": "HTM - 97'A' BUSI - 90'A' GEO - 90'A' KISW - 98'A' ENGL - 77'A' PHY - 60'C' CHEM - 92'A' BIO - 86'A' BASIC MATH - 77'A' HIST - 69'B'"
+        },
+        {
+          "cno": "S5344-0072",
+          "school": "MUSABE GIRLS",
+          "candidate": "FLAVIAH MAJURA MAIJO",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "4",
+          "detailed": "HTM - 97'A' BUSI - 81'A' GEO - 91'A' KISW - 76'A' ENGL - 82'A' PHY - 76'A' CHEM - 89'A' BIO - 86'A' BASIC MATH - 92'A' HIST - 61'C'"
+        },
+        {
+          "cno": "S5344-0115",
+          "school": "MUSABE GIRLS",
+          "candidate": "MARIA ROBERT MAKALA",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "5",
+          "detailed": "HTM - 98'A' BUSI - 70'B' GEO - 84'A' KISW - 75'A' ENGL - 80'A' PHY - 85'A' CHEM - 80'A' BIO - 85'A' BASIC MATH - 86'A'"
+        },
+        {
+          "cno": "S5344-0108",
+          "school": "MUSABE GIRLS",
+          "candidate": "LINDA KHATIBU THEODOLA",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "6",
+          "detailed": "HTM - 86'A' BUSI - 67'B' GEO - 77'A' KISW - 83'A' ENGL - 78'A' PHY - 80'A' CHEM - 93'A' BIO - 89'A' BASIC MATH - 88'A'"
+        },
+        {
+          "cno": "S5344-0153",
+          "school": "MUSABE GIRLS",
+          "candidate": "PROMISE ZACHARIA KAHEMA",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "7",
+          "detailed": "HTM - 95'A' BUSI - 77'A' GEO - 94'A' KISW - 66'B' ENGL - 75'A' PHY - 78'A' CHEM - 85'A' BIO - 84'A' BASIC MATH - 93'A' COM - 75'A'"
+        },
+        {
+          "cno": "S5344-0138",
+          "school": "MUSABE GIRLS",
+          "candidate": "NATHALIA HASSAN BOKI",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "8",
+          "detailed": "HTM - 96'A' BUSI - 67'B' GEO - 82'A' KISW - 73'B' ENGL - 81'A' BIO - 70'B' BASIC MATH - 84'A' HIST - 88'A' B/K - 85.5'A' CHI - 91'A'"
+        },
+        {
+          "cno": "S5344-0033",
+          "school": "MUSABE GIRLS",
+          "candidate": "CHRISTINA DARIO DAUSON",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "9",
+          "detailed": "HTM - 84'A' BUSI - 74'B' GEO - 87'A' KISW - 76'A' ENGL - 90'A' PHY - 71'B' CHEM - 78'A' BIO - 90'A' BASIC MATH - 80'A'"
+        },
+        {
+          "cno": "S5344-0176",
+          "school": "MUSABE GIRLS",
+          "candidate": "STELLAH WALTER ATHONY",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "10",
+          "detailed": "HTM - 98'A' BUSI - 88'A' GEO - 87'A' KISW - 76'A' ENGL - 74'B' PHY - 70'B' CHEM - 79'A' BIO - 81'A' BASIC MATH - 77'A'"
+        }
+      ]
+    },
+    {
+      "title": "TOP TEN BEST MALE STUDENTS FOR PRIVATE SCHOOLS",
+      "banner": false,
+      "rows": [
+        {
+          "cno": "S5343-0191",
+          "school": "MUSABE BOYS",
+          "candidate": "REGINALD ELINIONGOZE KIMAMBO",
+          "sex": "M",
+          "aggt": "7",
+          "division": "I",
+          "position": "1",
+          "detailed": "HTM - 84'A' BUSI - 72'B' GEO - 92'A' KISW - 90'A' ENGL - 84'A' PHY - 77'A' CHEM - 91'A' BIO - 92'A' BASIC MATH - 88'A' COM - 81'A'"
+        },
+        {
+          "cno": "S5343-0103",
+          "school": "MUSABE BOYS",
+          "candidate": "GODBLESS AMANYA MBELWA",
+          "sex": "M",
+          "aggt": "7",
+          "division": "I",
+          "position": "2",
+          "detailed": "HTM - 84'A' BUSI - 83'A' GEO - 92'A' KISW - 90'A' ENGL - 77'A' PHY - 76'A' CHEM - 87'A' BIO - 82'A' BASIC MATH - 84'A' CHI - 88'A'"
+        },
+        {
+          "cno": "S5343-0152",
+          "school": "MUSABE BOYS",
+          "candidate": "LIONEL LINUS LYAKURWA",
+          "sex": "M",
+          "aggt": "7",
+          "division": "I",
+          "position": "3",
+          "detailed": "HTM - 88'A' BUSI - 81'A' GEO - 82'A' KISW - 95'A' ENGL - 67'B' PHY - 75'A' CHEM - 93'A' BIO - 80'A' BASIC MATH - 96'A'"
+        },
+        {
+          "cno": "S5343-0190",
+          "school": "MUSABE BOYS",
+          "candidate": "RAYMOND RUBEN RAPHAEL",
+          "sex": "M",
+          "aggt": "7",
+          "division": "I",
+          "position": "4",
+          "detailed": "HTM - 88'A' BUSI - 79'A' GEO - 85'A' KISW - 88'A' ENGL - 80'A' PHY - 78'A' CHEM - 92'A' BIO - 79'A' BASIC MATH - 84'A' COM - 86'A'"
+        },
+        {
+          "cno": "S5343-0169",
+          "school": "MUSABE BOYS",
+          "candidate": "MURTADHAA RAMADHANI NDIHOLEYE",
+          "sex": "M",
+          "aggt": "7",
+          "division": "I",
+          "position": "5",
+          "detailed": "HTM - 83'A' BUSI - 65'B' GEO - 81'A' KISW - 93'A' ENGL - 75'A' PHY - 80'A' CHEM - 92'A' BIO - 86'A' BASIC MATH - 88'A' COM - 84'A'"
+        },
+        {
+          "cno": "S5343-0225",
+          "school": "MUSABE BOYS",
+          "candidate": "ZACHARIA RENATUS ZACHARIA",
+          "sex": "M",
+          "aggt": "7",
+          "division": "I",
+          "position": "6",
+          "detailed": "HTM - 86'A' BUSI - 79'A' GEO - 84'A' KISW - 88'A' ENGL - 71'B' PHY - 71'B' CHEM - 91'A' BIO - 82'A' BASIC MATH - 83'A' COM - 92'A'"
+        },
+        {
+          "cno": "S5343-0210",
+          "school": "MUSABE BOYS",
+          "candidate": "SAYI MJUNI KAIJAGE",
+          "sex": "M",
+          "aggt": "7",
+          "division": "I",
+          "position": "7",
+          "detailed": "HTM - 87'A' BUSI - 77'A' GEO - 97'A' KISW - 94'A' ENGL - 72'B' PHY - 84'A' CHEM - 87'A' BIO - 80'A' BASIC MATH - 61'C' COM - 86'A'"
+        },
+        {
+          "cno": "S1756-0050",
+          "school": "FAMG",
+          "candidate": "KAHANYA CHANDIKA GERVAS",
+          "sex": "M",
+          "aggt": "7",
+          "division": "I",
+          "position": "8",
+          "detailed": "HTM - 96'A' BUSI - 65'B' GEO - 84'A' KISW - 85'A' ENGL - 78'A' PHY - 71'B' CHEM - 94'A' BIO - 85'A' BASIC MATH - 86'A' B/K - 80'A'"
+        },
+        {
+          "cno": "S5343-0189",
+          "school": "MUSABE BOYS",
+          "candidate": "RASHID ABUBAKARY RASHID",
+          "sex": "M",
+          "aggt": "7",
+          "division": "I",
+          "position": "9",
+          "detailed": "HTM - 84'A' BUSI - 70'B' GEO - 81'A' KISW - 95'A' ENGL - 75'A' PHY - 62'C' CHEM - 92'A' BIO - 88'A' BASIC MATH - 94'A'"
+        },
+        {
+          "cno": "S1756-0034",
+          "school": "FAMG",
+          "candidate": "GODGIVEN RAPHAEL CHASAMA",
+          "sex": "M",
+          "aggt": "7",
+          "division": "I",
+          "position": "10",
+          "detailed": "HTM - 93'A' BUSI - 88'A' GEO - 82'A' KISW - 82'A' ENGL - 80'A' PHY - 61'C' CHEM - 90'A' BIO - 65'B' BASIC MATH - 98'A'"
+        }
+      ]
+    }
+  ]
+}

@@ -146,7 +146,84 @@ For each page it reports pixel-difference %, missing/extra words, and fill colou
 
 **Automatic:** `.github/workflows/compare.yml` runs on every push that touches `reference/original.pdf`, data, templates or code. It rebuilds the PDF, runs the comparison and commits `output/` back to the branch. So uploading `reference/original.pdf` through the GitHub web UI is enough to get the side-by-side results.
 
+## Beyond the success example: the `reports/` tree
+
+The Lakezone report above is the **documented success example** and stays exactly
+where it is (`data/`, `templates/`, `sars_pdf/`, `scripts/compare.py`,
+`output/`). The wider work — reproducing the council- and region-level SARS mock
+reports the same way — lives under [`reports/`](reports/README.md), organised by
+**school level**:
+
+```
+reports/
+  _shared/fonts.css            # @font-face for the real fonts (see below)
+  secondary/                   # SECONDARY level — built now (council + region)
+    INDEX.md                   # fidelity verdict for every secondary report
+    council/<level-plus-function>/   # one self-contained report per subdir
+    region/<level-plus-function>/
+  primary/README.md            # PRIMARY level — documented placeholder for the future
+```
+
+**Secondary is done now; primary is future.** `reports/primary/` is an
+intentional placeholder that mirrors the secondary structure.
+
+### Naming: LEVEL + FUNCTION, never the instance
+
+Each report directory (and its template) is named by **school level + what it
+does** — e.g. `council-schools-rank-subjectwise`, `region-top-10-schools`,
+`region-district-performance`. It is **never** named after the sampled location.
+The sample PDFs came from one council and one region:
+
+- **`MWANZA CC`** is the **council name** of the PDFs sampled for testing — it is
+  **not** a template name.
+- **`Mwanza`** is likewise just the sampled **region instance** name.
+
+Those strings appear only inside each report's `data.json` values. Keeping the
+directory/template names level+function means the same template renders **any
+future data of the same shape** (a different council's or region's numbers)
+without edits — the real goal is a reusable template, not a one-off copy of one
+PDF.
+
+### Fully self-contained per report
+
+Every report is its **own unit**: its own `template.html.j2`, its own `style.css`
+with **inline `@font-face`**, its own `data.json` and `reference/original.pdf`,
+and its own generated `output/`. There is **no shared report stylesheet** —
+reports that share a structure (e.g. a council report and its region counterpart)
+were built by **copying** the layout as a starting point, not by linking a common
+file. The **only data-driven colour is the COMPETENCY LEVEL cell background**
+(via [`sars_pdf/grading.py`](sars_pdf/grading.py)); every other fill, geometry
+and font is a **fixed, identical palette** expressed in HTML + CSS + Jinja2.
+
+### Real fonts, no fallbacks
+
+The source PDFs embed genuine Monotype Arial/Times, which cannot be legally
+redistributed in-sandbox. Each report's CSS therefore writes a **single family
+name with no fallback list** (`font-family: 'Arial';`) and
+[`reports/_shared/fonts.css`](reports/_shared/fonts.css) / the inline
+`@font-face` maps that name to a **real, metric-compatible open font file**
+(Liberation Sans → Arial, Liberation Sans Narrow → Arial Narrow, Liberation Serif
+→ Times New Roman) shipped in [`fonts/`](fonts/README.md). This is a deliberate
+licensing decision, documented as a blocker for the PR in
+[`reports/README.md` › Decisions / blockers](reports/README.md#decisions--blockers).
+If a genuinely licensed Arial/Times file becomes available it drops in under the
+same family name with no other change.
+
+### Render + compare workflow
+
+Same fidelity discipline as the Lakezone example — render `data.json` to a PDF,
+then diff it against the report's `reference/original.pdf`:
+
+```bash
+python scripts/render_and_compare.py reports/secondary/council/council-subjects-rank  # one report
+python scripts/build_all.py                                                           # ALL secondary reports
+```
+
+The verdict for every report (source PDF, scope, page count, latest pixel/word
+diff) is in [`reports/secondary/INDEX.md`](reports/secondary/INDEX.md).
+
 ## Next steps
 
 - Build a data layer that computes rows from raw candidate results (A–F counts, totals, %, GPA, rank, competency via `grading.py`) and writes this JSON for any number of subjects and scopes (zone/region/council/ward).
 - Calibrate the colours and fonts against `reference/original.pdf` with `compare.py`.
+- Fill in `reports/primary/` when the primary school level is scheduled, mirroring the secondary layout.

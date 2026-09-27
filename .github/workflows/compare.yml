@@ -8,12 +8,15 @@ on:
       - "templates/**"
       - "sars_pdf/**"
       - "scripts/**"
+      - "reports/**"
+      - "fonts/**"
   workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
+  # The documented SUCCESS EXAMPLE: the top-level Lakezone report. Unchanged.
   compare:
     if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
@@ -35,4 +38,35 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add output
           git diff --cached --quiet || git commit -m "Update generated report and comparison [bot]"
+          git push
+
+  # The secondary council + region reports. Each report is self-contained; the
+  # repo fonts/ dir carries the real fonts, with fonts-liberation as a fallback
+  # install so WeasyPrint always has the metric-compatible faces available.
+  compare-secondary:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: System fonts and Pango
+        run: sudo apt-get update && sudo apt-get install -y fonts-liberation libpango-1.0-0 libpangoft2-1.0-0
+      - name: Install repo fonts
+        run: |
+          if [ -d fonts ]; then
+            mkdir -p ~/.local/share/fonts
+            cp fonts/*.ttf ~/.local/share/fonts/ 2>/dev/null || true
+            fc-cache -f ~/.local/share/fonts || true
+          fi
+      - run: pip install -r requirements.txt
+      - name: Render and compare all secondary reports
+        run: python scripts/build_all.py
+      - name: Commit secondary outputs and comparisons
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add reports/secondary
+          git diff --cached --quiet || git commit -m "Update secondary reports and comparisons [bot]"
           git push

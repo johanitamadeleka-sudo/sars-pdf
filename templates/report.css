@@ -2,20 +2,41 @@
  * Layout + palette for the OHONGSS-T "SCHOOL RANK IN <SUBJECT>" report.
  * Geometry is measured from the reference PDF (US Letter, 612 x 792 pt).
  * All fixed colours live in :root. Only .lvl-* (competency level) is data-driven.
+ *
+ * Real fonts of the original (genuine Microsoft Arial + Arial Bold, installed via
+ * scripts/fetch_fonts.py), registered under a single family name with NO comma
+ * fallback chain. WeasyPrint embeds these because render.py passes one shared
+ * FontConfiguration() to write_pdf(); font-weight:bold selects the Bold face.
  */
 
+@font-face {
+  font-family: "R Arial"; font-style: normal; font-weight: normal;
+  src: url("../fonts/arial.ttf") format("truetype");
+}
+@font-face {
+  font-family: "R Arial"; font-style: normal; font-weight: bold;
+  src: url("../fonts/arialbd.ttf") format("truetype");
+}
+
 :root {
-  /* fixed column fills */
-  --fill-av: #ffffcc;       /* AV, GRD (header + cells) */
-  --fill-abcd: #e2efda;     /* A B C D header */
-  --fill-f: #f8cbad;        /* F (header + cells) */
-  --fill-total-h: #ddebf7;  /* TOTAL header */
-  --fill-ac-h: #66ff99;     /* A-C header */
-  --fill-pac-h: #66ffcc;    /* %A-C header */
+  /* fixed column fills - measured from reference/original.pdf (pdfplumber fills) */
+  --fill-avh: #ffffcc;      /* AV, GRD header */
+  --fill-av: #ebf1de;       /* AV, GRD body + overall cells */
+  --fill-abcd: #d8e4bc;     /* A B C D header */
+  --fill-fh: #fabf8f;       /* F header */
+  --fill-f: #fcd5b4;        /* F body cells */
+  --fill-total-h: #b7dee8;  /* TOTAL header */
+  --fill-ac-h: #65ffab;     /* A-C header */
+  --fill-pac-h: #65ffab;    /* %A-C header */
   --fill-ac: #ccffff;       /* A-C, %A-C cells */
-  --fill-ad: #b7dee8;       /* A-D, %A-D (header + cells) */
+  --fill-ad-h: #ccffff;     /* A-D, %A-D header */
+  --fill-ad: #b7dee8;       /* A-D, %A-D body cells */
   --fill-gpa-h: #daeef3;    /* GPA header */
-  --fill-rank: #fce4d6;     /* Z/RANK header (and S/N header on page 1) */
+  --fill-gpa-h1: #d2fce6;   /* GPA header on page 1 */
+  --fill-rank: #fde9d9;     /* Z/RANK header (and S/N header on page 1) */
+  --fill-ov-abcd: #daeef3;  /* page-1 overall row A-D cells */
+  --fill-ov-total: #f2dcdb; /* page-1 overall row TOTAL cell */
+  --fill-ov-gpa: #d2fce6;   /* page-1 overall row GPA cell */
 
   /* competency level fills - the only conditional colours */
   --lvl-a: #00b050;  --lvl-a-ink: #000000;
@@ -38,7 +59,7 @@
 html, body {
   margin: 0;
   padding: 0;
-  font-family: Arial, "Liberation Sans", Arimo, Helvetica, sans-serif;
+  font-family: "R Arial";
   color: var(--ink);
 }
 
@@ -142,16 +163,23 @@ td.ov-comp { font-weight: bold; font-size: 6pt; }
 td.ov-comp.ov-small { font-size: 3.9pt; }
 
 /* fills */
+.fill-avh { background: var(--fill-avh); }
 .fill-av { background: var(--fill-av); }
 .fill-abcd { background: var(--fill-abcd); }
+.fill-fh { background: var(--fill-fh); }
 .fill-f { background: var(--fill-f); }
 .fill-total-h { background: var(--fill-total-h); }
 .fill-ac-h { background: var(--fill-ac-h); }
 .fill-pac-h { background: var(--fill-pac-h); }
 .fill-ac { background: var(--fill-ac); }
+.fill-ad-h { background: var(--fill-ad-h); }
 .fill-ad { background: var(--fill-ad); }
 .fill-gpa-h { background: var(--fill-gpa-h); }
+.fill-gpa-h1 { background: var(--fill-gpa-h1); }
 .fill-rank { background: var(--fill-rank); }
+.fill-ov-abcd { background: var(--fill-ov-abcd); }
+.fill-ov-total { background: var(--fill-ov-total); }
+.fill-ov-gpa { background: var(--fill-ov-gpa); }
 
 /* competency level: the only data-dependent colour */
 .lvl-a { background: var(--lvl-a); color: var(--lvl-a-ink); }
