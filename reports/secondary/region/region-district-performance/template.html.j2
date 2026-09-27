@@ -25,9 +25,9 @@
   <td>{{ r.ii_f }}</td><td>{{ r.ii_m }}</td><td class="b">{{ r.ii_t }}</td>
   <td>{{ r.iii_f }}</td><td>{{ r.iii_m }}</td><td class="b">{{ r.iii_t }}</td>
   <td>{{ r.iv_f }}</td><td>{{ r.iv_m }}</td><td class="b">{{ r.iv_t }}</td>
-  <td>{{ r.z_f }}</td><td>{{ r.z_m }}</td><td class="b fill-0">{{ r.z_t }}</td><td class="b fill-0">{{ r.z_pct }}</td>
-  <td>{{ r.d3_f }}</td><td>{{ r.d3_m }}</td><td class="b fill-3">{{ r.d3_t }}</td><td class="b fill-3">{{ r.d3_pct }}</td>
-  <td>{{ r.d4_f }}</td><td>{{ r.d4_m }}</td><td class="b fill-4">{{ r.d4_t }}</td><td class="b fill-4">{{ r.d4_pct }}</td>
+  <td class="fill-0">{{ r.z_f }}</td><td class="fill-0">{{ r.z_m }}</td><td class="b fill-0">{{ r.z_t }}</td><td class="b fill-0-pct">{{ r.z_pct }}</td>
+  <td class="fill-3">{{ r.d3_f }}</td><td class="fill-3">{{ r.d3_m }}</td><td class="b fill-3">{{ r.d3_t }}</td><td class="b fill-3-pct">{{ r.d3_pct }}</td>
+  <td class="fill-4">{{ r.d4_f }}</td><td class="fill-4">{{ r.d4_m }}</td><td class="b fill-4">{{ r.d4_t }}</td><td class="b fill-4-pct">{{ r.d4_pct }}</td>
   <td class="b fill-gpa">{{ r.gpa }}</td>
 {% endmacro %}
 
@@ -85,7 +85,7 @@
         <td class="txt">{{ r.district }}</td>
         {{ nums(r, reg) }}
         <td class="comp{% if r.level %} lvl-{{ r.level | lower }}{% endif %}">{{ r.competency }}</td>
-        <td class="b c-rank">{{ r.rank }}</td>
+        <td class="b c-rank fill-sch">{{ r.rank }}</td>
       </tr>
       {% endfor %}
       {% if s.total %}
@@ -93,7 +93,7 @@
         <td class="txt b" colspan="2">TOTAL</td>
         {{ nums(s.total, reg) }}
         <td class="comp{% if s.total.level %} lvl-{{ s.total.level | lower }}{% endif %}">{{ s.total.competency }}</td>
-        <td class="b c-rank">{{ s.total.rank }}</td>
+        <td class="b c-rank fill-sch">{{ s.total.rank }}</td>
       </tr>
       {% endif %}
     </tbody>
