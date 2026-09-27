@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>{{ doc.document.report_title }}</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+{#
+  Council schools rank, subjectwise. Data-driven and location-agnostic: every label
+  (ministry lines, exam name, report title, subject, scope) comes from data.json, so
+  any council's data of this shape renders through this template unchanged.
+
+  Column set: S/N | SCHOOL NAME | A B C D F | TOTAL | A-C %A-C A-D %A-D | GPA
+              | COMPETENCY LEVEL | C/RANK   (NO region/council/centre/av/grd)
+#}
+{% for t in doc.tables %}
+<div class="block{% if t.multipage %} own-page{% endif %}">
+  <div class="titles">
+    {% for line in doc.document.ministry %}
+    <div class="hl ministry">{{ line }}</div>
+    {% endfor %}
+    <div class="hl exam-name">{{ doc.document.exam_name }}</div>
+    <div class="hl report-title">{{ doc.document.report_title }}</div>
+    <div class="hl subject">{{ t.title }}</div>
+  </div>
+
+  <table class="rank">
+    <colgroup>
+      <col class="w-sn"><col class="w-school">
+      <col class="w-a"><col class="w-b"><col class="w-c"><col class="w-d"><col class="w-f">
+      <col class="w-total"><col class="w-ac"><col class="w-pac"><col class="w-ad"><col class="w-pad">
+      <col class="w-gpa"><col class="w-comp"><col class="w-rank">
+    </colgroup>
+    <thead>
+      <tr class="h1">
+        <th rowspan="2" class="c-sn">S/N</th>
+        <th rowspan="2" class="nowrap">SCHOOL NAME</th>
+        <th colspan="10" class="grading">GRADING PERFORMANCE</th>
+        <th rowspan="2" class="fill-gpa-h">GPA</th>
+        <th rowspan="2" class="comp-h">COMPENTENCY LEVEL</th>
+        <th rowspan="2" class="fill-rank rank-h"><div class="vert"><span>{{ t.rank_label }}</span></div></th>
+      </tr>
+      <tr class="h2">
+        <th class="fill-abcd">A</th><th class="fill-abcd">B</th><th class="fill-abcd">C</th><th class="fill-abcd">D</th>
+        <th class="fill-f">F</th>
+        <th class="fill-total-h tiny">TOTAL</th>
+        <th class="fill-ac-h">A-C</th><th class="fill-pac-h">%A-C</th>
+        <th class="fill-ad">A-D</th><th class="fill-ad">%A-D</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for r in t.rows %}
+      <tr class="row">
+        <td class="c-sn">{{ r.sn }}</td>
+        <td class="txt">{{ r.school_name }}</td>
+        <td>{{ r.a }}</td><td>{{ r.b }}</td><td>{{ r.c }}</td><td>{{ r.d }}</td>
+        <td class="fill-f b">{{ r.f }}</td>
+        <td class="c-total">{{ r.total }}</td>
+        <td class="fill-ac b">{{ r.a_c }}</td>
+        <td class="fill-ac b">{{ r.pct_a_c }}</td>
+        <td class="fill-ad b">{{ r.a_d }}</td>
+        <td class="fill-ad b">{{ r.pct_a_d }}</td>
+        <td class="b">{{ r.gpa }}</td>
+        <td class="comp{% if r.level %} lvl-{{ r.level | lower }}{% endif %}">{{ r.competency }}</td>
+        <td class="b c-rank">{{ r.rank }}</td>
+      </tr>
+      {% endfor %}
+      {% if t.overall %}
+      {% set o = t.overall %}
+      <tr class="overall">
+        <td colspan="2" class="ov-label">{{ t.overall_label }}</td>
+        <td class="b">{{ o.a }}</td><td class="b">{{ o.b }}</td><td class="b">{{ o.c }}</td><td class="b">{{ o.d }}</td>
+        <td class="b">{{ o.f }}</td>
+        <td class="b">{{ o.total }}</td>
+        <td class="b">{{ o.a_c }}</td>
+        <td class="b">{{ o.pct_a_c }}</td>
+        <td class="b">{{ o.a_d }}</td>
+        <td class="b">{{ o.pct_a_d }}</td>
+        <td class="b">{{ o.gpa }}</td>
+        <td colspan="2" class="ov-comp{% if o.level %} lvl-{{ o.level | lower }}{% endif %}">{{ o.competency }}</td>
+      </tr>
+      {% endif %}
+    </tbody>
+  </table>
+</div>
+{% endfor %}
+{% if doc.document.trailing_blank_page %}
+{# The reference source PDF ends with one empty page; reproduce it for exact page count. #}
+<div class="trailing-page"></div>
+{% endif %}
+</body>
+</html>
