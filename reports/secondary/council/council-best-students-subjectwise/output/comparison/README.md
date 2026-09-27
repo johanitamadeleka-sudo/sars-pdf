@@ -4,38 +4,42 @@ Columns: **original | generated | diff** (pink = sub-pixel differences, red = re
 
 Pixel diff = share of pixels that differ at 110 dpi; tolerant = still different when a 1px shift is allowed (ignores sub-pixel anti-aliasing).
 
-| page | pixel diff | tolerant diff | words missing | words extra | fills only in original | fills only in generated |
-|---|---|---|---|---|---|---|
-| 1 | 10.49% | 6.39% | 19 | 4 | - | - |
-| 2 | 9.16% | 7.11% | 19 | 4 | - | - |
-| 3 | 9.14% | 7.07% | 19 | 4 | - | - |
-| 4 | 9.06% | 7.04% | 19 | 4 | - | - |
-| 5 | 10.30% | 8.76% | 19 | 4 | - | - |
-| 6 | 9.25% | 7.12% | 22 | 7 | - | - |
-| 7 | 10.02% | 8.30% | 21 | 8 | - | - |
-| 8 | 9.69% | 7.51% | 19 | 4 | - | - |
-| 9 | 10.12% | 8.43% | 19 | 4 | - | - |
-| 10 | 9.69% | 7.97% | 20 | 6 | - | - |
-| 11 | 9.52% | 7.41% | 21 | 5 | - | - |
-| 12 | 9.40% | 7.27% | 19 | 4 | - | - |
-| 13 | 9.27% | 7.14% | 19 | 4 | - | - |
-| 14 | 10.03% | 7.86% | 29 | 24 | - | - |
-| 15 | 9.19% | 7.09% | 19 | 4 | - | - |
-| 16 | 9.19% | 7.19% | 19 | 4 | - | - |
-| 17 | 10.22% | 8.37% | 19 | 4 | - | - |
-| 18 | 8.75% | 6.78% | 19 | 4 | - | - |
-| 19 | 8.97% | 6.89% | 19 | 4 | - | - |
-| 20 | 8.87% | 6.87% | 19 | 4 | - | - |
-| 21 | 0.00% | 0.00% | 0 | 0 | - | - |
-| 22 | 0.00% | 0.00% | 0 | 0 | - | - |
-| 23 | 0.00% | 0.00% | 0 | 0 | - | - |
-| 24 | 0.00% | 0.00% | 0 | 0 | - | - |
-| 25 | 0.00% | 0.00% | 0 | 0 | - | - |
-| 26 | 0.00% | 0.00% | 0 | 0 | - | - |
-| 27 | 0.00% | 0.00% | 0 | 0 | - | - |
-| 28 | 0.00% | 0.00% | 0 | 0 | - | - |
-| 29 | 0.00% | 0.00% | 0 | 0 | - | - |
-| 30 | 0.00% | 0.00% | 0 | 0 | - | - |
+**Verdict** is the stricter >=96%-match bar (position-by-position across colours, borders, data and cell sizes): a page **PASS**es when tolerant diff <= 4% (>=96% pixel match) AND there are zero fills-only diffs both ways AND zero words missing/extra; otherwise **FAIL** with the failing dimension(s) named.
+
+| page | pixel diff | tolerant diff | words missing | words extra | fills only in original | fills only in generated | verdict (>=96%) |
+|---|---|---|---|---|---|---|---|
+| 1 | 10.49% | 6.39% | 19 | 4 | - | - | ❌ FAIL (pixels 6.39%>4%, words 19miss/4extra) |
+| 2 | 9.16% | 7.11% | 19 | 4 | - | - | ❌ FAIL (pixels 7.11%>4%, words 19miss/4extra) |
+| 3 | 9.14% | 7.07% | 19 | 4 | - | - | ❌ FAIL (pixels 7.07%>4%, words 19miss/4extra) |
+| 4 | 9.06% | 7.04% | 19 | 4 | - | - | ❌ FAIL (pixels 7.04%>4%, words 19miss/4extra) |
+| 5 | 10.30% | 8.76% | 19 | 4 | - | - | ❌ FAIL (pixels 8.76%>4%, words 19miss/4extra) |
+| 6 | 9.25% | 7.12% | 22 | 7 | - | - | ❌ FAIL (pixels 7.12%>4%, words 22miss/7extra) |
+| 7 | 10.02% | 8.30% | 21 | 8 | - | - | ❌ FAIL (pixels 8.30%>4%, words 21miss/8extra) |
+| 8 | 9.69% | 7.51% | 19 | 4 | - | - | ❌ FAIL (pixels 7.51%>4%, words 19miss/4extra) |
+| 9 | 10.12% | 8.43% | 19 | 4 | - | - | ❌ FAIL (pixels 8.43%>4%, words 19miss/4extra) |
+| 10 | 9.69% | 7.97% | 20 | 6 | - | - | ❌ FAIL (pixels 7.97%>4%, words 20miss/6extra) |
+| 11 | 9.52% | 7.41% | 21 | 5 | - | - | ❌ FAIL (pixels 7.41%>4%, words 21miss/5extra) |
+| 12 | 9.40% | 7.27% | 19 | 4 | - | - | ❌ FAIL (pixels 7.27%>4%, words 19miss/4extra) |
+| 13 | 9.27% | 7.14% | 19 | 4 | - | - | ❌ FAIL (pixels 7.14%>4%, words 19miss/4extra) |
+| 14 | 10.03% | 7.86% | 29 | 24 | - | - | ❌ FAIL (pixels 7.86%>4%, words 29miss/24extra) |
+| 15 | 9.19% | 7.09% | 19 | 4 | - | - | ❌ FAIL (pixels 7.09%>4%, words 19miss/4extra) |
+| 16 | 9.19% | 7.19% | 19 | 4 | - | - | ❌ FAIL (pixels 7.19%>4%, words 19miss/4extra) |
+| 17 | 10.22% | 8.37% | 19 | 4 | - | - | ❌ FAIL (pixels 8.37%>4%, words 19miss/4extra) |
+| 18 | 8.75% | 6.78% | 19 | 4 | - | - | ❌ FAIL (pixels 6.78%>4%, words 19miss/4extra) |
+| 19 | 8.97% | 6.89% | 19 | 4 | - | - | ❌ FAIL (pixels 6.89%>4%, words 19miss/4extra) |
+| 20 | 8.87% | 6.87% | 19 | 4 | - | - | ❌ FAIL (pixels 6.87%>4%, words 19miss/4extra) |
+| 21 | 0.00% | 0.00% | 0 | 0 | - | - | ✅ PASS |
+| 22 | 0.00% | 0.00% | 0 | 0 | - | - | ✅ PASS |
+| 23 | 0.00% | 0.00% | 0 | 0 | - | - | ✅ PASS |
+| 24 | 0.00% | 0.00% | 0 | 0 | - | - | ✅ PASS |
+| 25 | 0.00% | 0.00% | 0 | 0 | - | - | ✅ PASS |
+| 26 | 0.00% | 0.00% | 0 | 0 | - | - | ✅ PASS |
+| 27 | 0.00% | 0.00% | 0 | 0 | - | - | ✅ PASS |
+| 28 | 0.00% | 0.00% | 0 | 0 | - | - | ✅ PASS |
+| 29 | 0.00% | 0.00% | 0 | 0 | - | - | ✅ PASS |
+| 30 | 0.00% | 0.00% | 0 | 0 | - | - | ✅ PASS |
+
+**Verdict summary: 10/30 pages meet the >=96% bar** (tolerant diff <= 4% AND zero fill diffs AND zero word diffs).
 
 ## Page 1
 missing: `{'O': 2, 'S': 2, 'E': 2, 'R': 2, 'A': 2, 'N': 1, 'K': 1, 'D': 1, 'IT': 1, 'X': 1}`

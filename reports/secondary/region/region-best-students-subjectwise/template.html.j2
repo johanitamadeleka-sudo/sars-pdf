@@ -34,7 +34,7 @@
     </colgroup>
     <thead>
       <tr>
-        <th rowspan="2" class="v-mid">S/NO.</th>
+        <th rowspan="2" class="v-mid fill-cream">S/NO.</th>
         <th rowspan="2" class="v-mid">COUNCIL</th>
         <th rowspan="2" class="v-mid">SCHOOL</th>
         <th rowspan="2" class="v-mid">CATEGORY</th>
@@ -57,7 +57,7 @@
         <td class="txt">{{ r.candidate }}</td>
         <td>{{ r.sex }}</td>
         <td>{{ r.marks }}</td>
-        <td>{{ r.grade }}</td>
+        <td class="fill-cream">{{ r.grade }}</td>
         <td class="c-pos">{{ r.position }}</td>
         <td class="txt comp{% if r.level %} lvl-{{ r.level | lower }}{% endif %}">{{ r.competency }}</td>
       </tr>

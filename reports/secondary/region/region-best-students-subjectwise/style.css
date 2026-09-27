@@ -18,6 +18,10 @@
 }
 
 :root {
+  /* MEASURED from this report's OWN original.pdf page 1. */
+  --fill-banner: #caedfb;  /* section-title banner band */
+  --fill-cream: #ffffcc;   /* S/NO. header + GRADE column cream fill */
+
   --lvl-a: #00b050;  --lvl-a-ink: #000000;
   --lvl-b: #92d050;  --lvl-b-ink: #000000;
   --lvl-c: #ffff00;  --lvl-c-ink: #000000;
@@ -43,7 +47,8 @@ html, body { margin: 0; padding: 0; font-family: 'Arial'; color: var(--ink); }
 .titles { text-align: center; font-weight: bold; }
 .titles .hl { white-space: pre; }
 .titles .ministry, .titles .exam-name { font-size: 11pt; line-height: 14.8pt; }
-.titles .sec-title { font-size: 11pt; line-height: 14.8pt; margin: 12pt 0 8pt 0; }
+.titles .sec-title { font-size: 11pt; line-height: 14.8pt; margin: 12pt 0 8pt 0; background: var(--fill-banner); }
+.fill-cream { background: var(--fill-cream); }
 
 table.students {
   width: 684.1pt;          /* 50.3 .. 734.4 */

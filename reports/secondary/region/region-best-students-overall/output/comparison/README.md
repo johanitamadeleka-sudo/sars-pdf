@@ -4,17 +4,21 @@ Columns: **original | generated | diff** (pink = sub-pixel differences, red = re
 
 Pixel diff = share of pixels that differ at 110 dpi; tolerant = still different when a 1px shift is allowed (ignores sub-pixel anti-aliasing).
 
-| page | pixel diff | tolerant diff | words missing | words extra | fills only in original | fills only in generated |
-|---|---|---|---|---|---|---|
-| 1 | 10.65% | 7.54% | 6 | 3 | #c1f0c8 #caedfb #fbe2d5 | - |
-| 2 | 10.84% | 7.85% | 16 | 3 | #c1f0c8 #caedfb #e8efd3 #fbe2d5 | - |
-| 3 | 11.71% | 9.29% | 12 | 6 | #c1f0c8 #caedfb #e8efd3 #fbe2d5 | - |
-| 4 | 10.77% | 8.16% | 30 | 5 | #c1f0c8 #caedfb #e8efd3 #fbe2d5 | - |
-| 5 | 9.84% | 5.89% | 25 | 8 | #c1f0c8 #caedfb #e8efd3 #fbe2d5 | - |
-| 6 | 10.81% | 8.02% | 58 | 23 | #c1f0c8 #caedfb #e8efd3 #fbe2d5 | - |
-| 7 | 10.04% | 6.18% | 34 | 12 | #c1f0c8 #caedfb #fbe2d5 #ffcc99 | - |
-| 8 | 11.00% | 7.90% | 8 | 4 | #c1f0c8 #caedfb #fbe2d5 #ffcc99 | - |
-| 9 | 10.69% | 7.84% | 30 | 10 | #c1f0c8 #caedfb #e8efd3 #fbe2d5 | - |
+**Verdict** is the stricter >=96%-match bar (position-by-position across colours, borders, data and cell sizes): a page **PASS**es when tolerant diff <= 4% (>=96% pixel match) AND there are zero fills-only diffs both ways AND zero words missing/extra; otherwise **FAIL** with the failing dimension(s) named.
+
+| page | pixel diff | tolerant diff | words missing | words extra | fills only in original | fills only in generated | verdict (>=96%) |
+|---|---|---|---|---|---|---|---|
+| 1 | 10.62% | 7.23% | 6 | 3 | - | - | ❌ FAIL (pixels 7.23%>4%, words 6miss/3extra) |
+| 2 | 10.90% | 7.71% | 16 | 3 | #e8efd3 | - | ❌ FAIL (pixels 7.71%>4%, fills 1orig/0gen, words 16miss/3extra) |
+| 3 | 12.06% | 9.89% | 12 | 6 | #e8efd3 | - | ❌ FAIL (pixels 9.89%>4%, fills 1orig/0gen, words 12miss/6extra) |
+| 4 | 10.86% | 7.87% | 30 | 5 | #e8efd3 | - | ❌ FAIL (pixels 7.87%>4%, fills 1orig/0gen, words 30miss/5extra) |
+| 5 | 10.57% | 7.57% | 25 | 8 | #e8efd3 | - | ❌ FAIL (pixels 7.57%>4%, fills 1orig/0gen, words 25miss/8extra) |
+| 6 | 10.82% | 7.90% | 58 | 23 | #e8efd3 | - | ❌ FAIL (pixels 7.90%>4%, fills 1orig/0gen, words 58miss/23extra) |
+| 7 | 10.63% | 7.66% | 34 | 12 | #ffcc99 | - | ❌ FAIL (pixels 7.66%>4%, fills 1orig/0gen, words 34miss/12extra) |
+| 8 | 10.96% | 7.62% | 8 | 4 | #ffcc99 | - | ❌ FAIL (pixels 7.62%>4%, fills 1orig/0gen, words 8miss/4extra) |
+| 9 | 10.69% | 7.65% | 30 | 10 | #e8efd3 | - | ❌ FAIL (pixels 7.65%>4%, fills 1orig/0gen, words 30miss/10extra) |
+
+**Verdict summary: 0/9 pages meet the >=96% bar** (tolerant diff <= 4% AND zero fill diffs AND zero word diffs).
 
 ## Page 1
 missing: `{'DC': 3, 'S4572-0095': 1, 'S5836-0049': 1, 'S4572-0092': 1}`

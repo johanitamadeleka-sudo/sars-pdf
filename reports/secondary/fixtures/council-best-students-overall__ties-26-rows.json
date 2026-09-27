@@ -1,0 +1,279 @@
+{
+  "document": {
+    "page_size": "Letter-landscape",
+    "ministry": [
+      "THE PRIME MINISTER'S OFFICE",
+      "REGIONAL ADMINISTRATION AND LOCAL GOVERNMENT",
+      "MWANZA REGION"
+    ],
+    "exam_name": "SYNTHETIC FIXTURE - TIES (26 ROWS INCLUDING TIED RANKS)",
+    "report_title": "MWANZA CC TOP TEN BEST STUDENTS OVERALL COUNCILWISE"
+  },
+  "sections": [
+    {
+      "title": "TIES FIXTURE - TOP 10 WITH 26 TIED ROWS (SYNTHETIC)",
+      "rows": [
+        {
+          "cno": "01",
+          "school": "SYNTHETIC SCHOOL 01",
+          "candidate": "CANDIDATE NUMBER 01 FULLNAME",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "1",
+          "detailed": "HTM - 97'A' BUSI - 80'A' GEO - 91'A' KISW - 85'A' ENGL - 78'A' PHY - 88'A' CHEM - 93'A' BIO - 83'A' BASIC MATH - 92'A' COM - 85'A'"
+        },
+        {
+          "cno": "02",
+          "school": "SYNTHETIC SCHOOL 02",
+          "candidate": "CANDIDATE NUMBER 02 FULLNAME",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "2",
+          "detailed": "HTM - 97'A' BUSI - 80'A' GEO - 91'A' KISW - 85'A' ENGL - 78'A' PHY - 88'A' CHEM - 93'A' BIO - 83'A' BASIC MATH - 92'A' COM - 85'A'"
+        },
+        {
+          "cno": "03",
+          "school": "SYNTHETIC SCHOOL 03",
+          "candidate": "CANDIDATE NUMBER 03 FULLNAME",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "3",
+          "detailed": "HTM - 97'A' BUSI - 80'A' GEO - 91'A' KISW - 85'A' ENGL - 78'A' PHY - 88'A' CHEM - 93'A' BIO - 83'A' BASIC MATH - 92'A' COM - 85'A'"
+        },
+        {
+          "cno": "04",
+          "school": "SYNTHETIC SCHOOL 04",
+          "candidate": "CANDIDATE NUMBER 04 FULLNAME",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "4",
+          "detailed": "HTM - 97'A' BUSI - 80'A' GEO - 91'A' KISW - 85'A' ENGL - 78'A' PHY - 88'A' CHEM - 93'A' BIO - 83'A' BASIC MATH - 92'A' COM - 85'A'"
+        },
+        {
+          "cno": "05",
+          "school": "SYNTHETIC SCHOOL 05",
+          "candidate": "CANDIDATE NUMBER 05 FULLNAME",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "5",
+          "detailed": "HTM - 97'A' BUSI - 80'A' GEO - 91'A' KISW - 85'A' ENGL - 78'A' PHY - 88'A' CHEM - 93'A' BIO - 83'A' BASIC MATH - 92'A' COM - 85'A'"
+        },
+        {
+          "cno": "06",
+          "school": "SYNTHETIC SCHOOL 06",
+          "candidate": "CANDIDATE NUMBER 06 FULLNAME",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "5",
+          "detailed": "HTM - 97'A' BUSI - 80'A' GEO - 91'A' KISW - 85'A' ENGL - 78'A' PHY - 88'A' CHEM - 93'A' BIO - 83'A' BASIC MATH - 92'A' COM - 85'A'"
+        },
+        {
+          "cno": "07",
+          "school": "SYNTHETIC SCHOOL 07",
+          "candidate": "CANDIDATE NUMBER 07 FULLNAME",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "5",
+          "detailed": "HTM - 97'A' BUSI - 80'A' GEO - 91'A' KISW - 85'A' ENGL - 78'A' PHY - 88'A' CHEM - 93'A' BIO - 83'A' BASIC MATH - 92'A' COM - 85'A'"
+        },
+        {
+          "cno": "08",
+          "school": "SYNTHETIC SCHOOL 08",
+          "candidate": "CANDIDATE NUMBER 08 FULLNAME",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "6",
+          "detailed": "HTM - 97'A' BUSI - 80'A' GEO - 91'A' KISW - 85'A' ENGL - 78'A' PHY - 88'A' CHEM - 93'A' BIO - 83'A' BASIC MATH - 92'A' COM - 85'A'"
+        },
+        {
+          "cno": "09",
+          "school": "SYNTHETIC SCHOOL 09",
+          "candidate": "CANDIDATE NUMBER 09 FULLNAME",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "7",
+          "detailed": "HTM - 97'A' BUSI - 80'A' GEO - 91'A' KISW - 85'A' ENGL - 78'A' PHY - 88'A' CHEM - 93'A' BIO - 83'A' BASIC MATH - 92'A' COM - 85'A'"
+        },
+        {
+          "cno": "10",
+          "school": "SYNTHETIC SCHOOL 10",
+          "candidate": "CANDIDATE NUMBER 10 FULLNAME",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "8",
+          "detailed": "HTM - 97'A' BUSI - 80'A' GEO - 91'A' KISW - 85'A' ENGL - 78'A' PHY - 88'A' CHEM - 93'A' BIO - 83'A' BASIC MATH - 92'A' COM - 85'A'"
+        },
+        {
+          "cno": "11",
+          "school": "SYNTHETIC SCHOOL 11",
+          "candidate": "CANDIDATE NUMBER 11 FULLNAME",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "9",
+          "detailed": "HTM - 97'A' BUSI - 80'A' GEO - 91'A' KISW - 85'A' ENGL - 78'A' PHY - 88'A' CHEM - 93'A' BIO - 83'A' BASIC MATH - 92'A' COM - 85'A'"
+        },
+        {
+          "cno": "12",
+          "school": "SYNTHETIC SCHOOL 12",
+          "candidate": "CANDIDATE NUMBER 12 FULLNAME",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "10",
+          "detailed": "HTM - 97'A' BUSI - 80'A' GEO - 91'A' KISW - 85'A' ENGL - 78'A' PHY - 88'A' CHEM - 93'A' BIO - 83'A' BASIC MATH - 92'A' COM - 85'A'"
+        },
+        {
+          "cno": "13",
+          "school": "SYNTHETIC SCHOOL 13",
+          "candidate": "CANDIDATE NUMBER 13 FULLNAME",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "12",
+          "detailed": "HTM - 97'A' BUSI - 80'A' GEO - 91'A' KISW - 85'A' ENGL - 78'A' PHY - 88'A' CHEM - 93'A' BIO - 83'A' BASIC MATH - 92'A' COM - 85'A'"
+        },
+        {
+          "cno": "14",
+          "school": "SYNTHETIC SCHOOL 14",
+          "candidate": "CANDIDATE NUMBER 14 FULLNAME",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "12",
+          "detailed": "HTM - 97'A' BUSI - 80'A' GEO - 91'A' KISW - 85'A' ENGL - 78'A' PHY - 88'A' CHEM - 93'A' BIO - 83'A' BASIC MATH - 92'A' COM - 85'A'"
+        },
+        {
+          "cno": "15",
+          "school": "SYNTHETIC SCHOOL 15",
+          "candidate": "CANDIDATE NUMBER 15 FULLNAME",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "11",
+          "detailed": "HTM - 97'A' BUSI - 80'A' GEO - 91'A' KISW - 85'A' ENGL - 78'A' PHY - 88'A' CHEM - 93'A' BIO - 83'A' BASIC MATH - 92'A' COM - 85'A'"
+        },
+        {
+          "cno": "16",
+          "school": "SYNTHETIC SCHOOL 16",
+          "candidate": "CANDIDATE NUMBER 16 FULLNAME",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "12",
+          "detailed": "HTM - 97'A' BUSI - 80'A' GEO - 91'A' KISW - 85'A' ENGL - 78'A' PHY - 88'A' CHEM - 93'A' BIO - 83'A' BASIC MATH - 92'A' COM - 85'A'"
+        },
+        {
+          "cno": "17",
+          "school": "SYNTHETIC SCHOOL 17",
+          "candidate": "CANDIDATE NUMBER 17 FULLNAME",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "13",
+          "detailed": "HTM - 97'A' BUSI - 80'A' GEO - 91'A' KISW - 85'A' ENGL - 78'A' PHY - 88'A' CHEM - 93'A' BIO - 83'A' BASIC MATH - 92'A' COM - 85'A'"
+        },
+        {
+          "cno": "18",
+          "school": "SYNTHETIC SCHOOL 18",
+          "candidate": "CANDIDATE NUMBER 18 FULLNAME",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "14",
+          "detailed": "HTM - 97'A' BUSI - 80'A' GEO - 91'A' KISW - 85'A' ENGL - 78'A' PHY - 88'A' CHEM - 93'A' BIO - 83'A' BASIC MATH - 92'A' COM - 85'A'"
+        },
+        {
+          "cno": "19",
+          "school": "SYNTHETIC SCHOOL 19",
+          "candidate": "CANDIDATE NUMBER 19 FULLNAME",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "15",
+          "detailed": "HTM - 97'A' BUSI - 80'A' GEO - 91'A' KISW - 85'A' ENGL - 78'A' PHY - 88'A' CHEM - 93'A' BIO - 83'A' BASIC MATH - 92'A' COM - 85'A'"
+        },
+        {
+          "cno": "20",
+          "school": "SYNTHETIC SCHOOL 20",
+          "candidate": "CANDIDATE NUMBER 20 FULLNAME",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "16",
+          "detailed": "HTM - 97'A' BUSI - 80'A' GEO - 91'A' KISW - 85'A' ENGL - 78'A' PHY - 88'A' CHEM - 93'A' BIO - 83'A' BASIC MATH - 92'A' COM - 85'A'"
+        },
+        {
+          "cno": "21",
+          "school": "SYNTHETIC SCHOOL 21",
+          "candidate": "CANDIDATE NUMBER 21 FULLNAME",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "17",
+          "detailed": "HTM - 97'A' BUSI - 80'A' GEO - 91'A' KISW - 85'A' ENGL - 78'A' PHY - 88'A' CHEM - 93'A' BIO - 83'A' BASIC MATH - 92'A' COM - 85'A'"
+        },
+        {
+          "cno": "22",
+          "school": "SYNTHETIC SCHOOL 22",
+          "candidate": "CANDIDATE NUMBER 22 FULLNAME",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "18",
+          "detailed": "HTM - 97'A' BUSI - 80'A' GEO - 91'A' KISW - 85'A' ENGL - 78'A' PHY - 88'A' CHEM - 93'A' BIO - 83'A' BASIC MATH - 92'A' COM - 85'A'"
+        },
+        {
+          "cno": "23",
+          "school": "SYNTHETIC SCHOOL 23",
+          "candidate": "CANDIDATE NUMBER 23 FULLNAME",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "19",
+          "detailed": "HTM - 97'A' BUSI - 80'A' GEO - 91'A' KISW - 85'A' ENGL - 78'A' PHY - 88'A' CHEM - 93'A' BIO - 83'A' BASIC MATH - 92'A' COM - 85'A'"
+        },
+        {
+          "cno": "24",
+          "school": "SYNTHETIC SCHOOL 24",
+          "candidate": "CANDIDATE NUMBER 24 FULLNAME",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "20",
+          "detailed": "HTM - 97'A' BUSI - 80'A' GEO - 91'A' KISW - 85'A' ENGL - 78'A' PHY - 88'A' CHEM - 93'A' BIO - 83'A' BASIC MATH - 92'A' COM - 85'A'"
+        },
+        {
+          "cno": "25",
+          "school": "SYNTHETIC SCHOOL 25",
+          "candidate": "CANDIDATE NUMBER 25 FULLNAME",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "21",
+          "detailed": "HTM - 97'A' BUSI - 80'A' GEO - 91'A' KISW - 85'A' ENGL - 78'A' PHY - 88'A' CHEM - 93'A' BIO - 83'A' BASIC MATH - 92'A' COM - 85'A'"
+        },
+        {
+          "cno": "26",
+          "school": "SYNTHETIC SCHOOL 26",
+          "candidate": "CANDIDATE NUMBER 26 FULLNAME",
+          "sex": "F",
+          "aggt": "7",
+          "division": "I",
+          "position": "22",
+          "detailed": "HTM - 97'A' BUSI - 80'A' GEO - 91'A' KISW - 85'A' ENGL - 78'A' PHY - 88'A' CHEM - 93'A' BIO - 83'A' BASIC MATH - 92'A' COM - 85'A'"
+        }
+      ]
+    }
+  ]
+}

@@ -31,16 +31,21 @@
 }
 
 :root {
-  /* fixed column fills */
-  --fill-abcd: #e2efda;     /* A B C D header */
-  --fill-f: #f8cbad;        /* F (header + cells) */
-  --fill-total-h: #ddebf7;  /* TOTAL header */
-  --fill-ac-h: #66ff99;     /* A-C header */
-  --fill-pac-h: #66ffcc;    /* %A-C header */
+  /* fixed column fills - MEASURED from this report's OWN original.pdf page 1
+     (pdfplumber page.rects non_stroking_color), not the generalized lakezone palette. */
+  --fill-band: #dce6f1;     /* full-width top band above the table (GRADING PERFORMANCE) */
+  --fill-abcd: #d8e4bc;     /* A B C D header */
+  --fill-f-h: #fabf8f;      /* F header */
+  --fill-f: #fcd5b4;        /* F cells */
+  --fill-total-h: #b7dee8;  /* TOTAL header */
+  --fill-ac-h: #65ffab;     /* A-C + %A-C header */
+  --fill-pac-h: #65ffab;    /* %A-C header (same span colour as A-C header) */
   --fill-ac: #ccffff;       /* A-C, %A-C cells */
-  --fill-ad: #b7dee8;       /* A-D, %A-D (header + cells) */
-  --fill-gpa-h: #daeef3;    /* GPA header */
-  --fill-rank: #fce4d6;     /* C/RANK header */
+  --fill-ad-h: #ccffff;     /* A-D + %A-D header */
+  --fill-ad: #b7dee8;       /* A-D, %A-D cells */
+  --fill-gpa-h: #d2fce6;    /* GPA header on the FIRST table (page 1) */
+  --fill-gpa-h2: #daeef3;   /* GPA header on every SUBSEQUENT subject table */
+  --fill-rank: #fde9d9;     /* S/N + C/RANK header */
 
   /* competency level fills - the only conditional colours */
   --lvl-a: #00b050;  --lvl-a-ink: #000000;
@@ -109,6 +114,13 @@ html, body {
 }
 .titles .hl { white-space: pre; }
 .titles .subject { font-size: 7.4pt; line-height: 12.3pt; }
+/* The original draws the full-width pale-blue band (#dce6f1) behind the final title
+   line ONLY on the first table (page 1); later subject tables have no band. */
+.first-block .titles .subject { background: var(--fill-band); }
+/* GPA header colour: #d2fce6 on the first table, #daeef3 on every later table
+   (measured per-page from the original - a fixed per-table flag, not generalized). */
+.gpa-h { background: var(--fill-gpa-h2); }
+.first-block .gpa-h { background: var(--fill-gpa-h); }
 
 /* ---------- table ---------- */
 table.rank {
@@ -182,12 +194,15 @@ td.ov-label { font-weight: bold; font-size: 7pt; text-align: center; }
 td.ov-comp { font-weight: bold; font-size: 6pt; text-align: left; padding-left: 1pt; }
 
 /* fills */
+.fill-band { background: var(--fill-band); }
+.fill-f-h { background: var(--fill-f-h); }
 .fill-f { background: var(--fill-f); }
 .fill-total-h { background: var(--fill-total-h); }
 .fill-abcd { background: var(--fill-abcd); }
 .fill-ac-h { background: var(--fill-ac-h); }
 .fill-pac-h { background: var(--fill-pac-h); }
 .fill-ac { background: var(--fill-ac); }
+.fill-ad-h { background: var(--fill-ad-h); }
 .fill-ad { background: var(--fill-ad); }
 .fill-gpa-h { background: var(--fill-gpa-h); }
 .fill-rank { background: var(--fill-rank); }

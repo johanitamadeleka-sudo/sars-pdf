@@ -31,6 +31,15 @@
   --fill-3-pct: #65ffab;   /* I-III % */
   --fill-crank: #ebf1de;   /* C/RANK column pale green */
 
+  /* SUMMARY-block-only header/aggregate fills, measured from the original's decorative
+     summary band (distinct from the main table's palette). */
+  --fill-sum-label: #eeece1; /* NO. OF SCHOOLS IN COUNCIL label */
+  --fill-sum-reg: #daeef3;   /* summary REGISTERED/SAT sub-band */
+  --fill-sum-band: #ffffcc;  /* summary aggregate value band */
+  --fill-sum-pink: #f2dcdb;  /* summary 0-div sub-header */
+  --fill-sum-red: #da9694;   /* summary 0-div aggregate */
+  --fill-sum-cy: #ccffff;    /* summary I-III sub-band */
+
   --lvl-a: #00b050;  --lvl-a-ink: #000000;
   --lvl-b: #92d050;  --lvl-b-ink: #000000;
   --lvl-c: #ffff00;  --lvl-c-ink: #000000;
@@ -49,9 +58,9 @@
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; font-family: 'Arial'; color: var(--ink); }
 
-.titles { text-align: center; font-weight: bold; font-size: 8pt; line-height: 7.5pt; }
+.titles { text-align: center; font-weight: bold; font-size: 7.4pt; line-height: 7.4pt; }
 .titles .hl { white-space: pre; }
-.titles .report-title { font-size: 8pt; margin-top: 7pt; }
+.titles .report-title { font-size: 7.4pt; margin-top: 6pt; }
 
 /* ---------- shared grid geometry ---------- */
 table.grid {
@@ -61,7 +70,7 @@ table.grid {
   table-layout: fixed;
   border: 0.8pt solid var(--grid);
 }
-table.summary { margin-top: 6pt; margin-bottom: 14pt; }
+table.summary { margin-top: 3.2pt; margin-bottom: 14pt; }
 
 /* per-column widths (39 columns, measured boundaries) */
 col:nth-child(1)  { width: 12.9pt; }
@@ -114,26 +123,35 @@ th, td {
   font-size: 5.4pt;
   line-height: 1;
 }
-thead { display: table-row-group; }
+/* table-header-group so WeasyPrint repeats the column-header band on every printed
+   page when the row set spans more than one page (content-driven pagination, no
+   hard-coded rows-per-page). On the real single-page instance this is visually
+   identical to table-row-group, so the fidelity comparison is unchanged. */
+thead { display: table-header-group; }
 thead th { font-weight: bold; font-size: 5.6pt; }
 thead th.grp { font-size: 6pt; }
 thead th.v-mid { vertical-align: middle; }
-thead .hg { height: 8pt; }
-thead .hs { height: 6.5pt; }
-thead .hf { height: 6.5pt; }
-table.summary .hlbl { height: 3pt; }
+thead .hg { height: 9.1pt; }
+thead .hs { height: 6.6pt; }
+thead .hf { height: 6.7pt; }
+/* summary block: 3 header bands (6.6pt) then a taller aggregate row + % PASS row */
+table.summary .hg { height: 6.6pt; }
+table.summary .hs { height: 6.6pt; }
+table.summary .hf { height: 6.7pt; }
+table.summary .srow { height: 9.8pt; }
+table.summary .pass { height: 9pt; }
 
-thead th.vlabel, thead th.crank-h, thead th.rrank-h { padding: 0; overflow: visible; }
-.vert { position: relative; margin: 0 auto; height: 100%; width: 8pt; }
+thead th.vlabel, thead th.crank-h, thead th.rrank-h { padding: 0; overflow: hidden; }
+.vert { display: flex; align-items: center; justify-content: center; height: 100%; width: 100%; }
 .vert span {
-  position: absolute; left: 50%; top: 50%;
-  font-size: 5.4pt; font-weight: bold; white-space: nowrap;
-  transform: translate(-50%, -50%) rotate(-90deg);
+  writing-mode: vertical-rl; transform: rotate(180deg);
+  font-size: 5.4pt; font-weight: bold; white-space: nowrap; line-height: 1;
 }
 thead th.crank-h .vert span, thead th.rrank-h .vert span { font-size: 5pt; }
 
 /* body rows */
 tbody tr.row { height: 6.6pt; }
+table.main tbody tr.total { height: 9pt; }
 tbody td { font-size: 5.4pt; }
 td.c-sn { }
 td.txt { text-align: left; padding-left: 1pt; font-size: 4.9pt; letter-spacing: -0.1pt; }
@@ -154,6 +172,15 @@ tr.pass td.txt, tr.total td.txt { text-align: left; padding-left: 1pt; }
 .fill-3 { background: var(--fill-3); }
 .fill-3-pct { background: var(--fill-3-pct); }
 .fill-crank { background: var(--fill-crank); }
+.fill-sum-label { background: var(--fill-sum-label); }
+.fill-sum-reg { background: var(--fill-sum-reg); }
+.fill-sum-band { background: var(--fill-sum-band); }
+.fill-sum-pink { background: var(--fill-sum-pink); }
+.fill-sum-red { background: var(--fill-sum-red); }
+.fill-sum-cy { background: var(--fill-sum-cy); }
+/* summary aggregate row: the 0-div (DIV-0) cells are a distinct reddish tint (#da9694)
+   in the original's summary band, not the pale peach used in the per-school detail rows. */
+table.summary .srow td.fill-z { background: var(--fill-sum-red); }
 
 .lvl-a { background: var(--lvl-a); color: var(--lvl-a-ink); }
 .lvl-b { background: var(--lvl-b); color: var(--lvl-b-ink); }

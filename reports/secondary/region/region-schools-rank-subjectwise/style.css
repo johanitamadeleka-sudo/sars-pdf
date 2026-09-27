@@ -24,16 +24,20 @@
 }
 
 :root {
-  --fill-abcd: #e2efda;
-  --fill-f: #f8cbad;
-  --fill-total-h: #ddebf7;
-  --fill-ac-h: #66ff99;
-  --fill-pac-h: #66ffcc;
-  --fill-ac: #ccffff;
-  --fill-ad: #b7dee8;
-  --fill-gpa-h: #daeef3;
-  --fill-rank: #fce4d6;
-  --fill-crank: #fce4d6;
+  /* MEASURED from this report's OWN originals (edk + english share the same palette). */
+  --fill-banner: #caedfb;   /* full-width subject/title banner */
+  --fill-abcd: #f2f2f2;     /* A B C D header (grey) */
+  --fill-f-h: #f2ceef;      /* F header */
+  --fill-f: #f7c7ac;        /* F cells */
+  --fill-total-h: #fbe2d5;  /* TOTAL header */
+  --fill-ac-h: #65ffab;     /* A-C + %A-C header */
+  --fill-pac-h: #65ffab;    /* %A-C header (same span) */
+  --fill-ac: #ccffff;       /* A-C, %A-C cells */
+  --fill-ad-h: #ccffff;     /* A-D + %A-D header */
+  --fill-ad: #ffffcc;       /* A-D, %A-D cells */
+  --fill-gpa-h: #d2fce6;    /* GPA header */
+  --fill-rank: #daf2d0;     /* S/N + R/RANK header */
+  --fill-crank: #daf2d0;    /* C/RANK header */
 
   --lvl-a: #00b050;  --lvl-a-ink: #000000;
   --lvl-b: #92d050;  --lvl-b-ink: #000000;
@@ -77,7 +81,7 @@ html, body {
 }
 .titles .hl { white-space: pre; }
 .titles .exam-name { line-height: 11pt; }
-.titles .subject { line-height: 12pt; }
+.titles .subject { line-height: 12pt; background: var(--fill-banner); }
 
 /* ---------- table ---------- */
 table.rank {
@@ -149,19 +153,20 @@ td.ov-label { font-weight: bold; font-size: 7pt; text-align: center; }
 td.ov-comp { font-weight: bold; font-size: 6pt; text-align: left; padding-left: 1.5pt; }
 
 /* fills */
+.fill-f-h { background: var(--fill-f-h); }
 .fill-f { background: var(--fill-f); }
 .fill-total-h { background: var(--fill-total-h); }
 .fill-abcd { background: var(--fill-abcd); }
 .fill-ac-h { background: var(--fill-ac-h); }
 .fill-pac-h { background: var(--fill-pac-h); }
 .fill-ac { background: var(--fill-ac); }
+.fill-ad-h { background: var(--fill-ad-h); }
 .fill-ad { background: var(--fill-ad); }
 .fill-gpa-h { background: var(--fill-gpa-h); }
 .fill-rank { background: var(--fill-rank); }
 .fill-crank { background: var(--fill-crank); }
 
-.lvl-a { background: var(--lvl-a); color: var(--lvl-a-ink); }
-.lvl-b { background: var(--lvl-b); color: var(--lvl-b-ink); }
-.lvl-c { background: var(--lvl-c); color: var(--lvl-c-ink); }
-.lvl-d { background: var(--lvl-d); color: var(--lvl-d-ink); }
-.lvl-f { background: var(--lvl-f); color: var(--lvl-f-ink); }
+/* This report's originals (edk + english) do NOT paint the competency-level cell
+   background - the competency text is shown on a white cell. Level is still data-driven
+   (grading.py); this report simply omits the background paint. */
+.lvl-a, .lvl-b, .lvl-c, .lvl-d, .lvl-f { background: transparent; }

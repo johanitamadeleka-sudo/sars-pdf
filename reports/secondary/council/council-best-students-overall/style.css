@@ -16,8 +16,12 @@
 }
 
 :root {
-  --fill-banner: #d2f6f9;  /* pale-cyan banner bar (first section) */
+  /* MEASURED from this report's OWN original.pdf page 1. */
+  --fill-banner: #d2f6fa;  /* pale-cyan banner bar (first section) */
   --fill-cno: #ffffcc;     /* C/NO column cream fill */
+  --fill-sex-h: #f2f2f2;   /* SEX vertical header */
+  --fill-ag-h: #daeef3;    /* AGGT + DIVISION vertical headers */
+  --fill-pos-h: #fde9d9;   /* POSITION vertical header */
   --ink: #000000;
   --grid: #000000;
 }
@@ -76,10 +80,17 @@ th, td {
   font-size: 8pt;
   line-height: 1;
 }
-thead { display: table-row-group; }
+/* table-header-group so the column-header band repeats on every page when a
+   section's rows overflow one page (e.g. a Top-10 list that has >10 rows because
+   of ranking ties). Visually identical to table-row-group on the real single-page
+   sections, so the fidelity comparison against the original is unchanged. */
+thead { display: table-header-group; }
 thead th { font-weight: bold; font-size: 8pt; }
 thead th:first-child { background: var(--fill-cno); }
 thead th.v-mid { vertical-align: middle; }
+.fill-sex-h { background: var(--fill-sex-h); }
+.fill-ag-h { background: var(--fill-ag-h); }
+.fill-pos-h { background: var(--fill-pos-h); }
 thead th.vcol { padding: 0; overflow: visible; }
 thead tr.h-spacer th { height: 0; font-size: 0; padding: 0; border: 0; }
 
@@ -92,6 +103,22 @@ thead tr.h-spacer th { height: 0; font-size: 0; padding: 0; border: 0; }
 
 tbody tr.row { height: 12.3pt; }
 tbody td { font-size: 7.4pt; }
+/* LONG-TEXT WRAP POLICY (documented, consistent, opt-in).
+   The real original renders each free-text cell on a single line with hidden overflow
+   (its own strings fit), so by default these columns stay `white-space: nowrap` to
+   reproduce the original exactly. When the document sets "wrap_text": true the template
+   adds .wrap-text to <body>, which switches the free-text columns (SCHOOL NAME,
+   CANDIDATE FULL NAME, DETAILED SUBJECTS) to WRAP inside their fixed cell width instead
+   of clipping/overflowing: word-break/overflow-wrap break a very long unbroken token
+   rather than spill past the cell border, and the row grows taller to fit. This keeps
+   the real-data fidelity byte-identical while proving oversized synthetic strings wrap. */
+body.wrap-text td.txt,
+body.wrap-text td.det {
+  white-space: normal;
+  overflow: hidden;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
 td.txt { text-align: left; padding-left: 2pt; letter-spacing: -0.1pt; }
 td.txt:nth-child(3) { font-size: 6.9pt; letter-spacing: -0.2pt; }
 td.det { font-size: 6.7pt; letter-spacing: -0.15pt; }

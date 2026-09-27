@@ -95,8 +95,8 @@
   {{ cols() }}
   <tbody>
     <tr class="hg">
-      <th rowspan="6" class="vlabel"><div class="vert"><span>SUMMARY PERFORMANCE</span></div></th>
-      <th rowspan="4" colspan="3" class="nowrap">NO. OF SCHOOLS IN COUNCIL</th>
+      <th rowspan="5" class="vlabel"><div class="vert"><span>SUMMARY PERFORMANCE</span></div></th>
+      <th rowspan="4" colspan="3" class="nowrap fill-sum-label">NO. OF SCHOOLS IN COUNCIL</th>
       <th colspan="7" class="grp fill-cand-h">NUMBER OF CANDIDATES</th>
       <th colspan="23" class="grp">DIVISION PERFORMANCE</th>
       <th colspan="3" class="grp fill-gpa-h">GPA PERFORMANCE</th>
@@ -105,16 +105,15 @@
       <th colspan="3" class="fill-cand-h">REGISTERED</th>
       <th colspan="4" class="fill-cand-h">SAT</th>
       <th colspan="3">I</th><th colspan="3">II</th><th colspan="3">III</th><th colspan="3">IV</th>
-      <th colspan="4">0</th>
-      <th colspan="4">I-III</th>
+      <th colspan="4" class="fill-sum-pink">0</th>
+      <th colspan="4" class="fill-sum-cy">I-III</th>
       <th colspan="4">I-IV</th>
       <th rowspan="2" class="v-mid fill-gpa-h">GPA</th>
       <th rowspan="2" colspan="2" class="v-mid">COMPENTENCY LEVEL</th>
     </tr>
     {{ fmt_heads() }}
-    <tr class="hlbl"></tr>
-    <tr class="row">
-      <td colspan="3" class="b">{{ doc.summary.no_schools }}</td>
+    <tr class="row srow">
+      <td colspan="3" class="b fill-sum-band">{{ doc.summary.no_schools }}</td>
       {{ nums(doc.summary) }}
       <td colspan="3" class="comp{% if doc.summary.level %} lvl-{{ doc.summary.level | lower }}{% endif %}">{{ doc.summary.competency }}</td>
     </tr>

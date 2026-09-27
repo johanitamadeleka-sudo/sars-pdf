@@ -4,19 +4,23 @@ Columns: **original | generated | diff** (pink = sub-pixel differences, red = re
 
 Pixel diff = share of pixels that differ at 110 dpi; tolerant = still different when a 1px shift is allowed (ignores sub-pixel anti-aliasing).
 
-| page | pixel diff | tolerant diff | words missing | words extra | fills only in original | fills only in generated |
-|---|---|---|---|---|---|---|
-| 1 | 9.96% | 4.81% | 0 | 0 | - | - |
-| 2 | 11.25% | 6.69% | 0 | 0 | - | - |
-| 3 | 10.17% | 5.26% | 0 | 0 | - | - |
-| 4 | 10.98% | 6.62% | 0 | 0 | - | - |
-| 5 | 11.05% | 6.74% | 2 | 1 | - | - |
-| 6 | 10.72% | 5.94% | 0 | 0 | - | - |
-| 7 | 10.81% | 5.93% | 0 | 0 | - | - |
-| 8 | 10.83% | 5.94% | 0 | 0 | - | - |
-| 9 | 10.79% | 5.98% | 0 | 0 | - | - |
-| 10 | 10.07% | 5.10% | 0 | 0 | - | - |
-| 11 | 28.95% | 23.61% | 0 | 0 | - | - |
+**Verdict** is the stricter >=96%-match bar (position-by-position across colours, borders, data and cell sizes): a page **PASS**es when tolerant diff <= 4% (>=96% pixel match) AND there are zero fills-only diffs both ways AND zero words missing/extra; otherwise **FAIL** with the failing dimension(s) named.
+
+| page | pixel diff | tolerant diff | words missing | words extra | fills only in original | fills only in generated | verdict (>=96%) |
+|---|---|---|---|---|---|---|---|
+| 1 | 9.96% | 4.81% | 0 | 0 | - | - | ❌ FAIL (pixels 4.81%>4%) |
+| 2 | 11.25% | 6.69% | 0 | 0 | - | - | ❌ FAIL (pixels 6.69%>4%) |
+| 3 | 10.17% | 5.26% | 0 | 0 | - | - | ❌ FAIL (pixels 5.26%>4%) |
+| 4 | 10.98% | 6.62% | 0 | 0 | - | - | ❌ FAIL (pixels 6.62%>4%) |
+| 5 | 11.05% | 6.74% | 2 | 1 | - | - | ❌ FAIL (pixels 6.74%>4%, words 2miss/1extra) |
+| 6 | 10.72% | 5.94% | 0 | 0 | - | - | ❌ FAIL (pixels 5.94%>4%) |
+| 7 | 10.81% | 5.93% | 0 | 0 | - | - | ❌ FAIL (pixels 5.93%>4%) |
+| 8 | 10.83% | 5.94% | 0 | 0 | - | - | ❌ FAIL (pixels 5.94%>4%) |
+| 9 | 10.79% | 5.98% | 0 | 0 | - | - | ❌ FAIL (pixels 5.98%>4%) |
+| 10 | 10.07% | 5.10% | 0 | 0 | - | - | ❌ FAIL (pixels 5.10%>4%) |
+| 11 | 28.95% | 23.61% | 0 | 0 | - | - | ❌ FAIL (pixels 23.61%>4%) |
+
+**Verdict summary: 0/11 pages meet the >=96% bar** (tolerant diff <= 4% AND zero fill diffs AND zero word diffs).
 
 ## Page 1
 

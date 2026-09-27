@@ -25,15 +25,18 @@
 </div>
 
 {% set bold = [2,6,9,12,15,18,19,22,23,26,27] %}
-{% set yellow = [3] %}
+{% set reg = [0,1,2] %}
+{% set satpct = [3] %}
 {% set green0 = [19] %}
-{% set green3 = [22,23] %}
-{% set green4 = [26,27] %}
+{% set green3 = [20,21,22] %}
+{% set green3pct = [23] %}
+{% set green4 = [24,25,26] %}
+{% set green4pct = [27] %}
 
 {% macro nums(r) %}
   {% for i in range(doc.document.num_count) %}
   {% set key = 'n' ~ i %}
-  <td class="{% if i in bold %}b {% endif %}{% if i in yellow %}fill-sat {% endif %}{% if i in green0 %}fill-0 {% endif %}{% if i in green3 %}fill-3 {% endif %}{% if i in green4 %}fill-4 {% endif %}{% if i == 28 %}fill-gpa b{% endif %}">{{ r[key] }}</td>
+  <td class="{% if i in bold %}b {% endif %}{% if i in reg %}fill-reg {% endif %}{% if i in satpct %}fill-sat {% endif %}{% if i in green0 %}fill-0 {% endif %}{% if i in green3 %}fill-3 {% endif %}{% if i in green3pct %}fill-3pct {% endif %}{% if i in green4 %}fill-4 {% endif %}{% if i in green4pct %}fill-4pct {% endif %}{% if i == 28 %}fill-gpa b{% endif %}">{{ r[key] }}</td>
   {% endfor %}
 {% endmacro %}
 
@@ -57,34 +60,34 @@
         <th rowspan="3" class="rrank-h"><div class="vert"><span>R/RANK</span></div></th>
       </tr>
       <tr class="hs">
-        <th colspan="3" class="fill-cand-h">REGISTERED</th>
+        <th colspan="3" class="fill-reg-h">REGISTERED</th>
         <th colspan="4" class="fill-cand-h">SAT</th>
         <th colspan="3">I</th><th colspan="3">II</th><th colspan="3">III</th><th colspan="3">IV</th>
-        <th class="fill-0-h">0</th>
-        <th colspan="4" class="fill-3-h">I-III</th>
+        <th class="fill-0-h2">0</th>
+        <th colspan="3" class="fill-3-h2">I-III</th><th class="fill-3pct-h"></th>
         <th colspan="4" class="fill-4-h">I-IV</th>
         <th rowspan="2" class="v-mid fill-gpa-h">GPA</th>
         <th rowspan="2" class="v-mid">COMPETENCY LEVEL</th>
       </tr>
       <tr class="hf">
-        <th>F</th><th>M</th><th>T</th>
-        <th>%</th><th>F</th><th>M</th><th>T</th>
+        <th class="fill-reg">F</th><th class="fill-reg">M</th><th class="fill-reg">T</th>
+        <th class="fill-sat">%</th><th>F</th><th>M</th><th>T</th>
         <th>F</th><th>M</th><th>T</th><th>F</th><th>M</th><th>T</th>
         <th>F</th><th>M</th><th>T</th><th>F</th><th>M</th><th>T</th>
-        <th>T</th>
-        <th>F</th><th>M</th><th>T</th><th>%</th>
-        <th>F</th><th>M</th><th>T</th><th>%</th>
+        <th class="fill-0">T</th>
+        <th class="fill-3">F</th><th class="fill-3">M</th><th class="fill-3">T</th><th class="fill-3pct">%</th>
+        <th class="fill-4">F</th><th class="fill-4">M</th><th class="fill-4">T</th><th class="fill-4pct">%</th>
       </tr>
     </thead>
     <tbody>
       {% for r in s.rows %}
       <tr class="row">
         <td class="c-sn">{{ r.sn }}</td>
-        <td class="txt">{{ r.council }}</td>
+        <td class="txt c-council">{{ r.council }}</td>
         <td class="txt">{{ r.school }}</td>
         {{ nums(r) }}
         <td class="txt comp{% if r.level %} lvl-{{ r.level | lower }}{% endif %}">{{ r.competency }}</td>
-        <td class="b c-rank">{{ r.rank }}</td>
+        <td class="b c-rank fill-rank">{{ r.rank }}</td>
       </tr>
       {% endfor %}
     </tbody>

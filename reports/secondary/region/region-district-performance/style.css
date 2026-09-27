@@ -16,18 +16,27 @@
 }
 
 :root {
-  --fill-cand: #fce9d9;
-  --fill-gpa-h: #d2fbe6;
-  --fill-sat: #dce6f0;
-  --fill-0: #d2fbe6;
-  --fill-3: #64ffab;
-  --fill-4: #d2fbe6;
-  --fill-sch: #f2f2f2;
+  /* MEASURED per column from this report's OWN original.pdf page 1. */
+  --fill-banner: #fff2cc;   /* full-width title banner band */
+  --fill-cand: #ebeef1;     /* NUMBER OF CANDIDATES / SAT group header */
+  --fill-gpa-h: #e0f8e3;    /* GPA header */
+  --fill-gpa: #ffffcc;      /* GPA cells */
+  --fill-sat: #ffffcc;      /* SAT % cells */
+  --fill-0: #fce4d6;        /* 0-div F/M/T cells */
+  --fill-0-pct: #f8cbad;    /* 0-div % cells */
+  --fill-3: #e0f8e3;        /* I-III F/M/T cells */
+  --fill-3-pct: #ededed;    /* I-III % cells */
+  --fill-4: #e0f8e3;        /* I-IV F/M/T cells */
+  --fill-4-pct: #ffffcc;    /* I-IV % cells */
+  --fill-sch: #f2f2f2;      /* NO. OF SCHOOLS + RANK cells */
+  /* group-header tints */
+  --fill-0-h: #f4b084;      /* 0 group header */
+  --fill-3-h: #fff2cc;      /* I-III group header */
 
   --lvl-a: #00b050;  --lvl-a-ink: #000000;
   --lvl-b: #92d050;  --lvl-b-ink: #000000;
   --lvl-c: #ffff00;  --lvl-c-ink: #000000;
-  --lvl-d: #ffc000;  --lvl-d-ink: #000000;
+  --lvl-d: #eeb500;  --lvl-d-ink: #000000;  /* this original's level-D orange (measured) */
   --lvl-f: #ff0000;  --lvl-f-ink: #ffc7ce;
 
   --ink: #000000;
@@ -45,7 +54,7 @@ html, body { margin: 0; padding: 0; font-family: 'Arial'; color: var(--ink); }
 .titles { text-align: center; font-weight: bold; }
 .titles .hl { white-space: pre; }
 .titles .ministry, .titles .exam-name { font-size: 8pt; line-height: 7.8pt; }
-.titles .sec-title { font-size: 9pt; margin: 6pt 0 4pt; }
+.titles .sec-title { font-size: 9pt; margin: 6pt 0 4pt; background: var(--fill-banner); }
 
 .section { }
 .section.own-page { page-break-before: always; }
@@ -75,12 +84,11 @@ thead th.nowrap { font-size: 5pt; }
 thead .hg { height: 9pt; }
 thead .hs { height: 7pt; }
 thead .hf { height: 7pt; }
-thead th.rank-h { padding: 0; overflow: visible; }
-.vert { position: relative; margin: 0 auto; height: 100%; width: 8pt; }
+thead th.rank-h { padding: 0; overflow: hidden; }
+.vert { display: flex; align-items: center; justify-content: center; height: 100%; width: 100%; }
 .vert span {
-  position: absolute; left: 50%; top: 50%;
-  font-size: 5.4pt; font-weight: bold; white-space: nowrap;
-  transform: translate(-50%, -50%) rotate(-90deg);
+  writing-mode: vertical-rl; transform: rotate(180deg);
+  font-size: 5.4pt; font-weight: bold; white-space: nowrap; line-height: 1;
 }
 
 /* body rows */
@@ -94,12 +102,21 @@ tr.total td { font-weight: bold; }
 
 /* fills */
 .fill-cand-h { background: var(--fill-cand); }
-.fill-gpa-h, .fill-gpa { background: var(--fill-gpa-h); }
+.fill-gpa-h { background: var(--fill-gpa-h); }
+.fill-gpa { background: var(--fill-gpa); }
 .fill-sat { background: var(--fill-sat); }
 .fill-sch { background: var(--fill-sch); }
-.fill-0, .fill-0-h { background: var(--fill-0); }
-.fill-3, .fill-3-h { background: var(--fill-3); }
-.fill-4, .fill-4-h { background: var(--fill-4); }
+.fill-0 { background: var(--fill-0); }
+.fill-0-pct { background: var(--fill-0-pct); }
+.fill-0-h { background: var(--fill-0-h); }
+.fill-3 { background: var(--fill-3); }
+.fill-3-pct { background: var(--fill-3-pct); }
+.fill-3-h { background: var(--fill-3-h); }
+.fill-4 { background: var(--fill-4); }
+.fill-4-pct { background: var(--fill-4-pct); }
+.fill-4-h { background: var(--fill-3-h); }
+/* the TOTAL/aggregate row's GPA cell is a distinct pale green in the original */
+tr.total td.fill-gpa { background: #e2efda; }
 
 .lvl-a { background: var(--lvl-a); color: var(--lvl-a-ink); }
 .lvl-b { background: var(--lvl-b); color: var(--lvl-b-ink); }

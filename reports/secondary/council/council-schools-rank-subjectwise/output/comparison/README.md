@@ -4,32 +4,36 @@ Columns: **original | generated | diff** (pink = sub-pixel differences, red = re
 
 Pixel diff = share of pixels that differ at 110 dpi; tolerant = still different when a 1px shift is allowed (ignores sub-pixel anti-aliasing).
 
-| page | pixel diff | tolerant diff | words missing | words extra | fills only in original | fills only in generated |
-|---|---|---|---|---|---|---|
-| 1 | 22.70% | 8.27% | 5 | 1 | #65ffab #d2fce6 #d8e4bc #dce6f1 #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #daeef3 #ddebf7 #e2efda #f8cbad #fce4d6 |
-| 2 | 3.76% | 1.32% | 0 | 0 | #d2fce6 #daeef3 #f2dcdb #fcd5b4 | #f8cbad |
-| 3 | 24.77% | 16.69% | 5 | 21 | #65ffab #d8e4bc #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
-| 4 | 4.35% | 2.31% | 17 | 0 | #fcd5b4 | #f8cbad |
-| 5 | 20.93% | 9.17% | 5 | 4 | #65ffab #d8e4bc #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
-| 6 | 3.63% | 1.43% | 0 | 0 | #fcd5b4 | #f8cbad |
-| 7 | 25.43% | 16.48% | 5 | 21 | #65ffab #d8e4bc #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
-| 8 | 4.31% | 1.84% | 17 | 0 | #fcd5b4 | #f8cbad |
-| 9 | 24.48% | 14.82% | 5 | 4 | #65ffab #d8e4bc #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
-| 10 | 3.85% | 1.38% | 0 | 0 | #fcd5b4 | #f8cbad |
-| 11 | 23.69% | 14.85% | 5 | 4 | #65ffab #d8e4bc #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
-| 12 | 3.48% | 1.38% | 0 | 0 | #fcd5b4 | #f8cbad |
-| 13 | 24.33% | 14.68% | 5 | 4 | #65ffab #d8e4bc #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
-| 14 | 3.59% | 1.36% | 0 | 0 | #fcd5b4 | #f8cbad |
-| 15 | 23.86% | 15.20% | 5 | 4 | #65ffab #d8e4bc #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
-| 16 | 3.58% | 1.44% | 0 | 0 | #fcd5b4 | #f8cbad |
-| 17 | 23.94% | 15.25% | 5 | 4 | #65ffab #d8e4bc #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
-| 18 | 3.70% | 1.51% | 0 | 0 | #fcd5b4 | #f8cbad |
-| 19 | 23.45% | 15.61% | 5 | 4 | #65ffab #d8e4bc #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
-| 20 | 3.45% | 1.41% | 0 | 0 | #fcd5b4 | #f8cbad |
-| 21 | 24.09% | 18.19% | 42 | 12 | #00b050 #65ffab #d8e4bc #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
-| 22 | 27.26% | 21.53% | 21 | 36 | #65ffab #d8e4bc #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
-| 23 | 21.87% | 17.87% | 15 | 11 | #65ffab #d8e4bc #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
-| 24 | 0.00% | 0.00% | 0 | 0 | - | - |
+**Verdict** is the stricter >=96%-match bar (position-by-position across colours, borders, data and cell sizes): a page **PASS**es when tolerant diff <= 4% (>=96% pixel match) AND there are zero fills-only diffs both ways AND zero words missing/extra; otherwise **FAIL** with the failing dimension(s) named.
+
+| page | pixel diff | tolerant diff | words missing | words extra | fills only in original | fills only in generated | verdict (>=96%) |
+|---|---|---|---|---|---|---|---|
+| 1 | 22.68% | 8.26% | 5 | 1 | - | - | ❌ FAIL (pixels 8.26%>4%, words 5miss/1extra) |
+| 2 | 3.76% | 1.33% | 0 | 0 | #d2fce6 #daeef3 #f2dcdb | - | ❌ FAIL (fills 3orig/0gen) |
+| 3 | 24.71% | 16.62% | 5 | 21 | - | - | ❌ FAIL (pixels 16.62%>4%, words 5miss/21extra) |
+| 4 | 4.35% | 2.32% | 17 | 0 | - | - | ❌ FAIL (words 17miss/0extra) |
+| 5 | 20.90% | 9.17% | 5 | 4 | - | - | ❌ FAIL (pixels 9.17%>4%, words 5miss/4extra) |
+| 6 | 3.63% | 1.43% | 0 | 0 | - | - | ✅ PASS |
+| 7 | 25.34% | 16.38% | 5 | 21 | - | - | ❌ FAIL (pixels 16.38%>4%, words 5miss/21extra) |
+| 8 | 4.31% | 1.85% | 17 | 0 | - | - | ❌ FAIL (words 17miss/0extra) |
+| 9 | 24.45% | 14.82% | 5 | 4 | - | - | ❌ FAIL (pixels 14.82%>4%, words 5miss/4extra) |
+| 10 | 3.85% | 1.38% | 0 | 0 | - | - | ✅ PASS |
+| 11 | 23.66% | 14.85% | 5 | 4 | - | - | ❌ FAIL (pixels 14.85%>4%, words 5miss/4extra) |
+| 12 | 3.49% | 1.38% | 0 | 0 | - | - | ✅ PASS |
+| 13 | 24.30% | 14.69% | 5 | 4 | - | - | ❌ FAIL (pixels 14.69%>4%, words 5miss/4extra) |
+| 14 | 3.59% | 1.37% | 0 | 0 | - | - | ✅ PASS |
+| 15 | 23.83% | 15.22% | 5 | 4 | - | - | ❌ FAIL (pixels 15.22%>4%, words 5miss/4extra) |
+| 16 | 3.58% | 1.45% | 0 | 0 | - | - | ✅ PASS |
+| 17 | 23.91% | 15.26% | 5 | 4 | - | - | ❌ FAIL (pixels 15.26%>4%, words 5miss/4extra) |
+| 18 | 3.70% | 1.51% | 0 | 0 | - | - | ✅ PASS |
+| 19 | 23.42% | 15.60% | 5 | 4 | - | - | ❌ FAIL (pixels 15.60%>4%, words 5miss/4extra) |
+| 20 | 3.45% | 1.41% | 0 | 0 | - | - | ✅ PASS |
+| 21 | 23.99% | 18.32% | 42 | 12 | #00b050 | - | ❌ FAIL (pixels 18.32%>4%, fills 1orig/0gen, words 42miss/12extra) |
+| 22 | 26.95% | 21.56% | 21 | 36 | - | - | ❌ FAIL (pixels 21.56%>4%, words 21miss/36extra) |
+| 23 | 21.51% | 17.80% | 15 | 11 | - | - | ❌ FAIL (pixels 17.80%>4%, words 15miss/11extra) |
+| 24 | 0.00% | 0.00% | 0 | 0 | - | - | ✅ PASS |
+
+**Verdict summary: 8/24 pages meet the >=96% bar** (tolerant diff <= 4% AND zero fill diffs AND zero word diffs).
 
 ## Page 1
 missing: `{'K': 1, 'N': 1, 'A': 1, 'R': 1, '/C': 1}`

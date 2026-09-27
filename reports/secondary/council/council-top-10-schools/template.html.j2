@@ -26,19 +26,23 @@
 
 {% macro nums(r) %}
   <td>{{ r.reg_f }}</td><td>{{ r.reg_m }}</td><td class="b">{{ r.reg_t }}</td>
-  <td>{{ r.sat_f }}</td><td>{{ r.sat_m }}</td><td class="b">{{ r.sat_t }}</td><td class="b">{{ r.sat_pct }}</td>
+  <td class="fill-sat">{{ r.sat_f }}</td><td class="fill-sat">{{ r.sat_m }}</td><td class="b fill-sat">{{ r.sat_t }}</td><td class="b fill-satpct">{{ r.sat_pct }}</td>
   <td>{{ r.i_f }}</td><td>{{ r.i_m }}</td><td class="b">{{ r.i_t }}</td>
   <td>{{ r.ii_f }}</td><td>{{ r.ii_m }}</td><td class="b">{{ r.ii_t }}</td>
   <td>{{ r.iii_f }}</td><td>{{ r.iii_m }}</td><td class="b">{{ r.iii_t }}</td>
   <td>{{ r.iv_f }}</td><td>{{ r.iv_m }}</td><td class="b">{{ r.iv_t }}</td>
-  <td class="fill-0">{{ r.z_f }}</td><td class="fill-0">{{ r.z_m }}</td><td class="b fill-0">{{ r.z_t }}</td><td class="b fill-0">{{ r.z_pct }}</td>
-  <td>{{ r.d3_f }}</td><td>{{ r.d3_m }}</td><td class="b fill-3">{{ r.d3_t }}</td><td class="b fill-3">{{ r.d3_pct }}</td>
-  <td>{{ r.d4_f }}</td><td>{{ r.d4_m }}</td><td class="b">{{ r.d4_t }}</td><td class="b">{{ r.d4_pct }}</td>
-  <td class="b">{{ r.gpa }}</td>
+  <td class="fill-0">{{ r.z_f }}</td><td class="fill-0">{{ r.z_m }}</td><td class="b fill-0">{{ r.z_t }}</td><td class="b fill-0pct">{{ r.z_pct }}</td>
+  <td class="fill-3">{{ r.d3_f }}</td><td class="fill-3">{{ r.d3_m }}</td><td class="b fill-3">{{ r.d3_t }}</td><td class="b fill-3pct">{{ r.d3_pct }}</td>
+  <td class="fill-4">{{ r.d4_f }}</td><td class="fill-4">{{ r.d4_m }}</td><td class="b fill-4">{{ r.d4_t }}</td><td class="b fill-4pct">{{ r.d4_pct }}</td>
+  <td class="b fill-4pct">{{ r.gpa }}</td>
 {% endmacro %}
 
+{% set bpp = doc.document.blocks_per_page | default(2) %}
 {% for s in doc.sections %}
-<div class="section{% if loop.index0 % 2 == 0 and not loop.first %} page-top{% endif %}">
+{# page break before a block whose position starts a new page-group of `bpp` blocks;
+   data-driven (blocks_per_page), not a hard-coded section index. A block that itself
+   overflows a page still flows onto the next page with its <thead> repeated. #}
+<div class="section{% if not loop.first and loop.index0 % bpp == 0 %} page-top{% endif %}">
   <div class="sec-title">{{ s.title }}</div>
   <table class="grid">
     <colgroup>
@@ -58,29 +62,29 @@
       <tr class="hg">
         <th rowspan="3" class="c-sn">S/NO.</th>
         <th rowspan="3" class="v-mid">SCHOOL NAME</th>
-        <th colspan="7" class="grp fill-cand-h">NUMBER OF CANDIDATES</th>
+        <th colspan="7" class="grp">NUMBER OF CANDIDATES</th>
         <th colspan="23" class="grp">DIVISION PERFORMANCE</th>
         <th colspan="2" class="grp fill-gpa-h">GPA PERFORMANCE</th>
-        <th rowspan="3" class="crank-h"><div class="vert"><span>C/RANK</span></div></th>
+        <th rowspan="3" class="crank-h fill-crank-h"><div class="vert"><span>C/RANK</span></div></th>
       </tr>
       <tr class="hs">
-        <th colspan="3" class="fill-cand-h">REGISTERED</th>
-        <th colspan="4" class="fill-cand-h">SAT</th>
-        <th colspan="3">I</th><th colspan="3">II</th><th colspan="3">III</th><th colspan="3">IV</th>
-        <th colspan="4" class="fill-0-h">0</th>
-        <th colspan="4" class="fill-3-h">I-III</th>
-        <th colspan="4" class="fill-4-h">I-IV</th>
+        <th colspan="3" class="fill-reg-h">REGISTERED</th>
+        <th colspan="3" class="fill-sat-h">SAT</th><th class="fill-satpct">%</th>
+        <th colspan="3" class="fill-div-h">I</th><th colspan="3" class="fill-div-h">II</th><th colspan="3" class="fill-div-h">III</th><th colspan="3" class="fill-div-h">IV</th>
+        <th colspan="3" class="fill-0-h">0</th><th class="fill-0pct-h"></th>
+        <th colspan="3" class="fill-3-h">I-III</th><th class="fill-3pct-h"></th>
+        <th colspan="3" class="fill-4-h">I-IV</th><th class="fill-4pct"></th>
         <th rowspan="2" class="v-mid fill-gpa-h">GPA</th>
-        <th rowspan="2" class="v-mid">COMPETENCY LEVEL</th>
+        <th rowspan="2" class="v-mid comp-h">COMPETENCY LEVEL</th>
       </tr>
       <tr class="hf">
         <th>F</th><th>M</th><th>T</th>
-        <th>F</th><th>M</th><th>T</th><th>%</th>
+        <th class="fill-sat">F</th><th class="fill-sat">M</th><th class="fill-sat">T</th><th class="fill-satpct">%</th>
         <th>F</th><th>M</th><th>T</th><th>F</th><th>M</th><th>T</th>
         <th>F</th><th>M</th><th>T</th><th>F</th><th>M</th><th>T</th>
-        <th>F</th><th>M</th><th>T</th><th class="fill-0pct-h">%</th>
-        <th>F</th><th>M</th><th>T</th><th>%</th>
-        <th>F</th><th>M</th><th>T</th><th>%</th>
+        <th class="fill-0">F</th><th class="fill-0">M</th><th class="fill-0">T</th><th class="fill-0pct">%</th>
+        <th class="fill-3">F</th><th class="fill-3">M</th><th class="fill-3">T</th><th class="fill-3pct">%</th>
+        <th class="fill-4">F</th><th class="fill-4">M</th><th class="fill-4">T</th><th class="fill-4pct">%</th>
       </tr>
     </thead>
     <tbody>
@@ -90,7 +94,7 @@
         <td class="txt">{{ r.school }}</td>
         {{ nums(r) }}
         <td class="txt comp{% if r.level %} lvl-{{ r.level | lower }}{% endif %}">{{ r.competency }}</td>
-        <td class="b c-rank">{{ r.crank }}</td>
+        <td class="b c-rank fill-crank">{{ r.crank }}</td>
       </tr>
       {% endfor %}
     </tbody>

@@ -40,11 +40,11 @@
       <th rowspan="3" class="fill-rank rank-h"><div class="vert"><span>RANK</span></div></th>
     </tr>
     <tr class="h2">
-      <th class="fill-abcd">A</th><th class="fill-abcd">B</th><th class="fill-abcd">C</th><th class="fill-abcd">D</th>
+      <th>A</th><th>B</th><th>C</th><th>D</th>
       <th class="fill-f-h">F</th>
       <th class="fill-total-h">TOTAL</th>
-      <th class="fill-ac-h">A-C</th><th class="fill-pac-h">%A-C</th>
-      <th class="fill-ad">A-D</th><th class="fill-ad">%A-D</th>
+      <th class="fill-ac-h">A-C</th><th class="fill-ac-h">%A-C</th>
+      <th class="fill-ad-h">A-D</th><th class="fill-ad-h">%A-D</th>
     </tr>
   </thead>
   <tbody>
@@ -61,7 +61,7 @@
       <td class="fill-ad b">{{ r.pct_a_d }}</td>
       <td class="fill-gpa b">{{ r.gpa }}</td>
       <td class="comp{% if r.level %} lvl-{{ r.level | lower }}{% endif %}">{{ r.competency }}</td>
-      <td class="b c-rank">{{ r.rank }}</td>
+      <td class="b c-rank fill-rank-cell">{{ r.rank }}</td>
     </tr>
     {% endfor %}
   </tbody>

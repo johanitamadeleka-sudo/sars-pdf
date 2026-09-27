@@ -53,7 +53,7 @@ html, body { margin: 0; padding: 0; font-family: 'Arial'; color: var(--ink); }
 
 table.mob {
   width: 576.9pt;              /* 13.0 .. 589.9 */
-  margin: 6pt 0 0 13.0pt;
+  margin: 2pt 0 0 13.0pt;
   border-collapse: collapse;
   table-layout: fixed;
   border: 0.8pt solid var(--grid);
@@ -88,12 +88,11 @@ thead { display: table-header-group; }
 thead th { font-weight: bold; font-size: 6.4pt; }
 thead th.grp { font-size: 7pt; }
 thead th.v-mid { vertical-align: middle; }
-thead .h1 { height: 12pt; }
-thead .h2 { height: 9pt; }
-thead .h3 { height: 8pt; }
-thead .h4 { height: 3pt; }
+thead .h1 { height: 24pt; }
+thead .h2 { height: 11.7pt; }
+thead .h3 { height: 11pt; }
 
-tbody tr.row { height: 11.78pt; }
+tbody tr.row { height: 11.6pt; }
 tbody td { font-size: 6.4pt; }
 td.txt { text-align: left; padding-left: 1.5pt; font-size: 5.8pt; letter-spacing: -0.15pt; }
 td.c-sno { }
@@ -102,6 +101,7 @@ td.hali { text-align: left; font-weight: bold; font-style: italic; padding-left:
 
 .fill-grp { background: var(--fill-grp); }
 .fill-iii { background: var(--fill-iii); }
+.fill-iii-pct { background: #65ffab; } /* FTNA/MOCK %(I-III) sub-header (measured green) */
 .fill-gpa-h { background: var(--fill-gpa-h); }
 .fill-peach { background: var(--fill-peach); }
 .fill-grey { background: var(--fill-grey); }
@@ -120,7 +120,7 @@ td.hali { text-align: left; font-weight: bold; font-style: italic; padding-left:
 /* section header band (POSITIVE MOBILITY) */
 .section-band {
   background: var(--fill-section); color: var(--ink-section);
-  text-align: center; font-weight: bold; font-size: 11pt;
-  padding: 3pt 0; margin: 4pt 0 0 13.0pt; width: 576.9pt;
+  text-align: center; font-weight: bold; font-size: 9.5pt;
+  padding: 1.5pt 0; margin: 3pt 0 0 13.0pt; width: 576.9pt;
   border: 0.8pt solid var(--grid);
 }

@@ -4,34 +4,38 @@ Columns: **original | generated | diff** (pink = sub-pixel differences, red = re
 
 Pixel diff = share of pixels that differ at 110 dpi; tolerant = still different when a 1px shift is allowed (ignores sub-pixel anti-aliasing).
 
-| page | pixel diff | tolerant diff | words missing | words extra | fills only in original | fills only in generated |
-|---|---|---|---|---|---|---|
-| 1 | 33.02% | 14.49% | 34 | 22 | #65ffab #ccffff #e8e8e8 #f2ceef #ff0000 #ffffcc | - |
-| 2 | 40.64% | 19.00% | 22 | 49 | - | - |
-| 3 | 40.38% | 18.88% | 32 | 54 | - | - |
-| 4 | 36.90% | 17.54% | 19 | 46 | #9eeaea #b5e6a2 #f2ceef #f7c7ac | - |
+**Verdict** is the stricter >=96%-match bar (position-by-position across colours, borders, data and cell sizes): a page **PASS**es when tolerant diff <= 4% (>=96% pixel match) AND there are zero fills-only diffs both ways AND zero words missing/extra; otherwise **FAIL** with the failing dimension(s) named.
+
+| page | pixel diff | tolerant diff | words missing | words extra | fills only in original | fills only in generated | verdict (>=96%) |
+|---|---|---|---|---|---|---|---|
+| 1 | 34.08% | 16.44% | 17 | 6 | - | - | ❌ FAIL (pixels 16.44%>4%, words 17miss/6extra) |
+| 2 | 41.87% | 21.50% | 42 | 38 | - | - | ❌ FAIL (pixels 21.50%>4%, words 42miss/38extra) |
+| 3 | 41.69% | 21.47% | 69 | 66 | - | - | ❌ FAIL (pixels 21.47%>4%, words 69miss/66extra) |
+| 4 | 39.58% | 21.01% | 5 | 122 | #9eeaea #b5e6a2 #f2ceef #f7c7ac | - | ❌ FAIL (pixels 21.01%>4%, fills 4orig/0gen, words 5miss/122extra) |
+
+**Verdict summary: 0/4 pages meet the >=96% bar** (tolerant diff <= 4% AND zero fill diffs AND zero word diffs).
 
 ## Page 1
-missing: `{'DC': 13, '3920': 1, '8053210721470235774': 1, '97.70': 1, 'KATUNGURU': 1, 'SAVANA': 1, 'NYITUNDU': 1, 'BITOTO': 1, 'SIGU': 1, "ISUNGANG'HOLO": 1}`
-extra: `{'I': 2, 'PERFORMANCE': 1, 'GPA': 1, 'REGIS': 1, 'TERED': 1, 'II': 1, 'V': 1, '39208053210721470235774': 1, 'DCKATUNGURU': 1, 'DCSAVANA': 1}`
+missing: `{'97.70': 2, '54302': 1, '28414': 1, '22856': 1, '51270': 1, '93.73': 1, '2258': 1, '4060': 1, '8053210721470235774': 1, '643': 1}`
+extra: `{'PERFORMANCE': 1, 'GPA': 1, '5430228414228565127093.73': 1, '22584060': 1, '8053210721470235774643': 1, '97.703.823': 1}`
 
 ![page 1](page_01.png)
 
 ## Page 2
-missing: `{'DC': 11, 'ISOLE': 1, 'NYAMPULUKANO': 1, 'TUNYENYE': 1, 'IBISABAGENI': 1, 'BUSISI': 1, 'NYANCHENCHE': 1, 'IGAKA': 1, 'MWALIGA': 1, 'NYAMAZUGO': 1}`
+missing: `{'0': 2, '1': 2, '2': 2, '146': 2, '211': 2, '150': 2, 'GOVERNMENT': 1, '6': 1, '14': 1, 'Grade': 1}`
 extra: `{'F': 9, 'M': 9, 'T': 9, '%': 4, 'PERFORMANCE': 1, 'GPA': 1, 'S/NO.': 1, 'COUNCIL': 1, 'SCHOOL': 1, 'NAME': 1}`
 
 ![page 2](page_02.png)
 
 ## Page 3
-missing: `{'DC': 16, 'BUYAGU': 1, 'NEW': 1, 'BUTONGA': 1, 'SIMA': 1, 'LUSIKWI': 1, 'KISHINDA': 1, 'NYAMAHONA': 1, 'KABUSURI': 1, 'NGOMA': 1}`
-extra: `{'F': 9, 'M': 9, 'T': 9, '%': 4, 'PERFORMANCE': 1, 'GPA': 1, 'S/NO.': 1, 'COUNCIL': 1, 'SCHOOL': 1, 'NAME': 1}`
+missing: `{'3': 3, '4': 3, '5': 2, '9': 2, '2': 2, '226': 2, '17': 2, '10': 2, '227': 2, '0': 1}`
+extra: `{'F': 9, 'M': 9, 'T': 9, '%': 4, '146': 2, '211': 2, '150': 2, 'PERFORMANCE': 1, 'GPA': 1, 'S/NO.': 1}`
 
 ![page 3](page_03.png)
 
 ## Page 4
-missing: `{'DC': 7, 'NYAMTELELA': 1, 'NYAMPANDE': 1, 'KAHUMULO': 1, 'CHAMABANDA': 1, 'KIJUKA': 1, 'TAMABU': 1, 'NYAMATONGO': 1, '3920': 1, '8053': 1}`
-extra: `{'F': 9, 'M': 9, 'T': 9, '%': 4, 'PERFORMANCE': 1, 'GPA': 1, 'S/NO.': 1, 'COUNCIL': 1, 'SCHOOL': 1, 'NAME': 1}`
+missing: `{'3920': 1, '8053': 1, '21072': 1, '14702': 1, '35774': 1}`
+extra: `{'F': 9, 'M': 9, 'T': 9, '%': 4, '2': 4, '0': 3, '4': 3, '1': 3, '3': 3, '226': 2}`
 
 ![page 4](page_04.png)
 
