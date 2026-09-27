@@ -15,12 +15,29 @@
 }
 
 :root {
-  --fill-cand: #fce9d9;
-  --fill-gpa-h: #d2fbe6;
-  --fill-0: #d2fbe6;       /* 0 (DIV-0) cells pale green */
-  --fill-0pct-h: #ff0000;  /* the 0 group % header cell is red */
-  --fill-3: #64ffab;       /* I-III T + % cells + header */
-  --fill-4: #d2fbe6;
+  /* FIXED per-column palette MEASURED from this report's OWN original.pdf page 1.
+     Group-header (hs) row and data/F-M-T (hf/body) rows use DIFFERENT tints per column,
+     so header and cell fills are distinct classes. */
+  /* group-header (hs) band tints */
+  --fill-reg-h: #eeece1;   /* REGISTERED group header */
+  --fill-sat-h: #daeef3;   /* SAT F/M/T group header */
+  --fill-satpct: #ffffcc;  /* SAT % (header AND cells) */
+  --fill-div-h: #d2fce6;   /* I/II/III/IV group-header band + GPA header */
+  --fill-0-h: #f2dcdb;     /* 0 (DIV-0) F/M/T group header */
+  --fill-0pct-h: #ff0000;  /* 0 group % header is red */
+  --fill-3-h: #ebf1de;     /* I-III F/M/T group header */
+  --fill-3pct-h: #65ffab;  /* I-III % header */
+  --fill-4-h: #daeef3;     /* I-IV F/M/T group header */
+  --fill-4pct: #d2fce6;    /* I-IV % (header AND cells) + GPA cells */
+  --fill-crank-h: #fde9d9; /* C/RANK header */
+  /* data/F-M-T (hf + body) cell tints */
+  --fill-sat: #dce6f1;     /* SAT F/M/T cells */
+  --fill-0: #fde9d9;       /* 0 (DIV-0) F/M/T cells */
+  --fill-0pct: #fabf8f;    /* 0 % cells */
+  --fill-3: #ccffff;       /* I-III F/M/T cells */
+  --fill-3pct: #29ff8a;    /* I-III % cells */
+  --fill-4: #ebf1de;       /* I-IV F/M/T cells */
+  --fill-crank: #f2f2f2;   /* C/RANK cells */
 
   --lvl-a: #00b050;  --lvl-a-ink: #000000;
   --lvl-b: #92d050;  --lvl-b-ink: #000000;
@@ -130,15 +147,33 @@ td.b { font-weight: bold; }
 td.comp { font-weight: bold; font-size: 5.9pt; letter-spacing: -0.1pt; }
 td.c-rank { font-weight: bold; }
 
-.fill-cand-h { background: var(--fill-cand); }
-.fill-gpa-h { background: var(--fill-gpa-h); }
-.fill-0, .fill-0-h { background: var(--fill-0); }
+/* group-header (hs) fills */
+.fill-reg-h { background: var(--fill-reg-h); }
+.fill-sat-h { background: var(--fill-sat-h); }
+.fill-div-h { background: var(--fill-div-h); }
+.fill-0-h { background: var(--fill-0-h); }
 .fill-0pct-h { background: var(--fill-0pct-h); }
-.fill-3, .fill-3-h { background: var(--fill-3); }
-.fill-4-h { background: var(--fill-4); }
+.fill-3-h { background: var(--fill-3-h); }
+.fill-3pct-h { background: var(--fill-3pct-h); }
+.fill-4-h { background: var(--fill-4-h); }
+.fill-gpa-h { background: var(--fill-div-h); }
+.fill-crank-h { background: var(--fill-crank-h); }
+/* data/F-M-T cell fills */
+.fill-satpct { background: var(--fill-satpct); }
+.fill-sat { background: var(--fill-sat); }
+.fill-0 { background: var(--fill-0); }
+.fill-0pct { background: var(--fill-0pct); }
+.fill-3 { background: var(--fill-3); }
+.fill-3pct { background: var(--fill-3pct); }
+.fill-4 { background: var(--fill-4); }
+.fill-4pct { background: var(--fill-4pct); }
+.fill-crank { background: var(--fill-crank); }
 
-.lvl-a { background: var(--lvl-a); color: var(--lvl-a-ink); }
-.lvl-b { background: var(--lvl-b); color: var(--lvl-b-ink); }
+/* This report's original highlights only the lower competency levels (C/D/F); top
+   grades (A Excellent, B Very Good) are shown with NO cell fill. The level is still
+   data-driven (grading.py), this report just does not paint A/B backgrounds. */
+.lvl-a { color: var(--lvl-a-ink); }
+.lvl-b { color: var(--lvl-b-ink); }
 .lvl-c { background: var(--lvl-c); color: var(--lvl-c-ink); }
 .lvl-d { background: var(--lvl-d); color: var(--lvl-d-ink); }
 .lvl-f { background: var(--lvl-f); color: var(--lvl-f-ink); }

@@ -16,8 +16,12 @@
 }
 
 :root {
-  --fill-banner: #d2f6f9;  /* pale-cyan banner bar (first section) */
+  /* MEASURED from this report's OWN original.pdf page 1. */
+  --fill-banner: #d2f6fa;  /* pale-cyan banner bar (first section) */
   --fill-cno: #ffffcc;     /* C/NO column cream fill */
+  --fill-sex-h: #f2f2f2;   /* SEX vertical header */
+  --fill-ag-h: #daeef3;    /* AGGT + DIVISION vertical headers */
+  --fill-pos-h: #fde9d9;   /* POSITION vertical header */
   --ink: #000000;
   --grid: #000000;
 }
@@ -80,6 +84,9 @@ thead { display: table-row-group; }
 thead th { font-weight: bold; font-size: 8pt; }
 thead th:first-child { background: var(--fill-cno); }
 thead th.v-mid { vertical-align: middle; }
+.fill-sex-h { background: var(--fill-sex-h); }
+.fill-ag-h { background: var(--fill-ag-h); }
+.fill-pos-h { background: var(--fill-pos-h); }
 thead th.vcol { padding: 0; overflow: visible; }
 thead tr.h-spacer th { height: 0; font-size: 0; padding: 0; border: 0; }
 

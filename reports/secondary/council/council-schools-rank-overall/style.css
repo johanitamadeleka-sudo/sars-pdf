@@ -31,6 +31,15 @@
   --fill-3-pct: #65ffab;   /* I-III % */
   --fill-crank: #ebf1de;   /* C/RANK column pale green */
 
+  /* SUMMARY-block-only header/aggregate fills, measured from the original's decorative
+     summary band (distinct from the main table's palette). */
+  --fill-sum-label: #eeece1; /* NO. OF SCHOOLS IN COUNCIL label */
+  --fill-sum-reg: #daeef3;   /* summary REGISTERED/SAT sub-band */
+  --fill-sum-band: #ffffcc;  /* summary aggregate value band */
+  --fill-sum-pink: #f2dcdb;  /* summary 0-div sub-header */
+  --fill-sum-red: #da9694;   /* summary 0-div aggregate */
+  --fill-sum-cy: #ccffff;    /* summary I-III sub-band */
+
   --lvl-a: #00b050;  --lvl-a-ink: #000000;
   --lvl-b: #92d050;  --lvl-b-ink: #000000;
   --lvl-c: #ffff00;  --lvl-c-ink: #000000;
@@ -159,6 +168,15 @@ tr.pass td.txt, tr.total td.txt { text-align: left; padding-left: 1pt; }
 .fill-3 { background: var(--fill-3); }
 .fill-3-pct { background: var(--fill-3-pct); }
 .fill-crank { background: var(--fill-crank); }
+.fill-sum-label { background: var(--fill-sum-label); }
+.fill-sum-reg { background: var(--fill-sum-reg); }
+.fill-sum-band { background: var(--fill-sum-band); }
+.fill-sum-pink { background: var(--fill-sum-pink); }
+.fill-sum-red { background: var(--fill-sum-red); }
+.fill-sum-cy { background: var(--fill-sum-cy); }
+/* summary aggregate row: the 0-div (DIV-0) cells are a distinct reddish tint (#da9694)
+   in the original's summary band, not the pale peach used in the per-school detail rows. */
+table.summary .srow td.fill-z { background: var(--fill-sum-red); }
 
 .lvl-a { background: var(--lvl-a); color: var(--lvl-a-ink); }
 .lvl-b { background: var(--lvl-b); color: var(--lvl-b-ink); }

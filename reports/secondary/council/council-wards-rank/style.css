@@ -17,13 +17,14 @@
 }
 
 :root {
-  --fill-cand: #fce9d9;    /* NUMBER OF CANDIDATES group header */
-  --fill-gpa-grp: #ebf0de; /* GPA PERFORMANCE group header + NO. OF SCHOOLS cells */
-  --fill-3: #64ffab;       /* I-III cells + header */
-  --fill-4: #daedf3;       /* I-IV cells */
-  --fill-0: #fbd4b4;       /* DIV-0 cells + header */
-  --fill-0-h: #fbd4b4;
-  --fill-rank: #fce4d6;
+  /* MEASURED from this report's OWN original.pdf page 1. */
+  --fill-cand: #fde9d9;    /* NUMBER OF CANDIDATES group header */
+  --fill-gpa-grp: #ebf1de; /* GPA PERFORMANCE group header + NO. OF SCHOOLS cells */
+  --fill-3: #65ffab;       /* I-III cells + header */
+  --fill-4: #daeef3;       /* I-IV cells */
+  --fill-0: #fcd5b4;       /* DIV-0 cells + header */
+  --fill-0-h: #fcd5b4;
+  --fill-rank: #fde9d9;
 
   --lvl-a: #00b050;  --lvl-a-ink: #000000;
   --lvl-b: #92d050;  --lvl-b-ink: #000000;
