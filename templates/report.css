@@ -1,172 +1,83 @@
 /*
- * Layout + palette for the OHONGSS-T "SCHOOL RANK IN <SUBJECT>" report.
- * Geometry is measured from the reference PDF (US Letter, 612 x 792 pt).
- * All fixed colours live in :root. Only .lvl-* (competency level) is data-driven.
+ * OHONGSS-T "SCHOOL RANK IN <SUBJECT>" report - page and typography.
+ * Geometry (grid lines, row heights, border widths) and fills are computed per cell
+ * by sars_pdf/render.py from values measured on the original; this file holds the
+ * fonts and the text offsets that reproduce Excel's cell layout.
  */
 
-:root {
-  /* fixed column fills */
-  --fill-av: #ffffcc;       /* AV, GRD (header + cells) */
-  --fill-abcd: #e2efda;     /* A B C D header */
-  --fill-f: #f8cbad;        /* F (header + cells) */
-  --fill-total-h: #ddebf7;  /* TOTAL header */
-  --fill-ac-h: #66ff99;     /* A-C header */
-  --fill-pac-h: #66ffcc;    /* %A-C header */
-  --fill-ac: #ccffff;       /* A-C, %A-C cells */
-  --fill-ad: #b7dee8;       /* A-D, %A-D (header + cells) */
-  --fill-gpa-h: #daeef3;    /* GPA header */
-  --fill-rank: #fce4d6;     /* Z/RANK header (and S/N header on page 1) */
+/* Real fonts of the original: Arial, Arial Bold, Arial Narrow Bold (see scripts/fetch_fonts.py). */
+@font-face { font-family: "R Arial"; src: url("../fonts/arial.ttf"); }
+@font-face { font-family: "R Arial Bold"; src: url("../fonts/arialbd.ttf"); }
+@font-face { font-family: "R Arial Narrow Bold"; src: url("../fonts/ArialNarrow-Bold.ttf"); }
+/* Only used for a character the real Arial Narrow Bold file does not contain. */
+@font-face { font-family: "Fallback Narrow Bold"; src: url("../fonts/fallback/LiberationSansNarrow-Bold.ttf"); }
 
-  /* competency level fills - the only conditional colours */
-  --lvl-a: #00b050;  --lvl-a-ink: #000000;
-  --lvl-b: #92d050;  --lvl-b-ink: #000000;
-  --lvl-c: #ffff00;  --lvl-c-ink: #000000;
-  --lvl-d: #ffc000;  --lvl-d-ink: #000000;
-  --lvl-f: #ff0000;  --lvl-f-ink: #ffc7ce;
-
-  --ink: #000000;
-  --grid: #000000;
-}
-
-@page {
-  size: Letter portrait;
-  margin: 0;
-}
+@page { size: 612pt 792pt; margin: 0; }
 
 * { box-sizing: border-box; }
-
-html, body {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, "Liberation Sans", Arimo, Helvetica, sans-serif;
-  color: var(--ink);
-}
+html, body { margin: 0; padding: 0; color: #000; font-kerning: none; font-feature-settings: "kern" 0, "liga" 0; }  /* Excel does not kern */
 
 .page {
+  position: relative;
   width: 612pt;
   height: 792pt;
-  padding: 69pt 31.5pt 0 31.5pt;   /* table spans x = 31.5 .. 583.1 pt */
-  page-break-after: always;
   overflow: hidden;
+  page-break-after: always;
 }
 .page:last-child { page-break-after: auto; }
-.page-1 { padding-top: 61pt; }
 
-/* ---------- titles ---------- */
-.titles {
-  text-align: center;
-  font-weight: bold;
-  font-size: 5.6pt;
-  line-height: 8.8pt;
-}
-.titles .hl { white-space: pre; }   /* keep the double spaces of the original */
-.titles .subject { font-size: 5.9pt; line-height: 10.5pt; }
-.titles.title-large .subject { font-size: 7.4pt; line-height: 10pt; }
+.f-R  { font-family: "R Arial"; font-weight: normal; }
+.f-B  { font-family: "R Arial Bold"; font-weight: normal; }
+.f-NB { font-family: "R Arial Narrow Bold", "Fallback Narrow Bold"; font-weight: normal; }
 
-/* ---------- table ---------- */
-table.rank {
-  width: 551.6pt;
-  border-collapse: collapse;
-  table-layout: fixed;
-  border: 0.9pt solid var(--grid);
-  margin-top: 1.5pt;
-}
-
-col.w-sn { width: 19.3pt; }
-col.w-region { width: 34.1pt; }
-col.w-council { width: 48.2pt; }
-col.w-centre { width: 40.5pt; }
-col.w-school { width: 58.5pt; }
-col.w-av { width: 20.6pt; }
-col.w-grd { width: 19.3pt; }
-col.w-a, col.w-b, col.w-c { width: 18.6pt; }
-col.w-d { width: 18.0pt; }
-col.w-f { width: 18.6pt; }
-col.w-total { width: 20.6pt; }
-col.w-ac { width: 18.0pt; }
-col.w-pac { width: 23.1pt; }
-col.w-ad { width: 19.3pt; }
-col.w-pad { width: 25.7pt; }
-col.w-gpa { width: 27.0pt; }
-col.w-comp { width: 74.6pt; }
-col.w-rank { width: 10.1pt; }
-
-th, td {
-  border: 0.5pt solid var(--grid);
-  padding: 0 1pt;
-  overflow: hidden;
-  white-space: nowrap;
-  text-align: center;
-  vertical-align: middle;
-}
-
-/* header */
-thead th { font-weight: bold; font-size: 5.3pt; }
-thead tr.h1 th { vertical-align: bottom; padding-bottom: 1.2pt; }
-thead tr.h1 { height: 12.9pt; }
-thead tr.h2 { height: 11.4pt; }
-thead th.grading { font-size: 6.3pt; vertical-align: middle; padding-bottom: 0; border-bottom: 0.5pt solid var(--grid); }
-thead th.tiny { font-size: 3.9pt; }
-thead th.comp-h { font-size: 4.3pt; text-align: center; }
-.page-1 thead th.comp-h { font-size: 4.6pt; }
-thead tr.h1 th.rank-h { padding: 0; vertical-align: middle; overflow: visible; }
-.vert { width: 10pt; height: 9pt;   /* WeasyPrint puts rowspan content height into the last row; keep small, text overflows centred */ position: relative; margin: 0 auto; }
-.vert span {
+/* heading lines: Arial Bold 6.11pt, centred (spaces included) on x = 307.75pt */
+.hl {
   position: absolute;
-  left: 50%; top: 50%;
-  font-size: 4.4pt;
-  white-space: nowrap;
-  transform: translate(-50%, -50%) rotate(-90deg);
+  left: 7.75pt;
+  width: 600pt;
+  margin-top: -0.062em;  /* places the glyph tops where the original has them */
+  font-family: "R Arial Bold";
+  font-size: 6.11pt;
+  line-height: 1;
+  text-align: center;
+  white-space: pre;
 }
 
-/* body rows */
-tbody tr.row { height: 9.07pt; }
-tbody td { font-size: 4.9pt; line-height: 1; }
-td.txt { text-align: left; }
-td.c-sn { font-size: 4.6pt; }
-td.b { font-weight: bold; }
-td.big { font-size: 5.9pt; }
-td.c-rank { font-size: 4.4pt; }
-table.total-bold td.c-total { font-weight: bold; }
-table.centre-left td.c-centre { text-align: left; }
+table.rank {
+  position: absolute;
+  left: 31.56pt;
+  width: 551.67pt;
+  table-layout: fixed;
+  border-collapse: collapse;
+  margin-top: -0.42pt;   /* grid line centre = box edge + half the 0.84pt outer border */
+  margin-left: -0.42pt;
+}
 
-td.comp { text-align: left; font-weight: bold; font-size: 4.3pt; padding-left: 0.8pt; }
-table.comp-large td.comp { font-size: 5.3pt; }
+td {
+  border-style: solid;
+  border-color: #000;
+  padding: 0 0 0.70pt 0.9pt;   /* Excel: bottom aligned; centred text sits 0.45pt right of centre */
+  line-height: 1;
+  vertical-align: bottom;
+  white-space: pre;
+  overflow: hidden;
+}
+td.a-center { text-align: center; }
+td.a-left   { text-align: left; padding-left: 0.96pt; }
+tr.h1 td, tr.h2 td { padding-bottom: 0.72pt; }
+tr.ov td { padding-bottom: 0.66pt; }
+tr.last td { padding-bottom: 1.18pt; }
+tr.body td.s611 { padding-bottom: 0.57pt; }
+tr.last td.s611 { padding-bottom: 0.74pt; }
+/* measured per-size corrections (Excel places small text slightly higher) */
+tr.ov td.s527, tr.ov td.s575, tr.ov td.s479 { padding-bottom: 1.06pt; }
+tr.h2 td.s527 { padding-bottom: 1.08pt; }
 
-/* overall row */
-tr.overall { height: 10.3pt; }
-tr.overall td { font-size: 5.3pt; }
-tr.overall td.fill-av { font-size: 5.6pt; }
-td.ov-label { font-weight: bold; font-size: 5pt; }
-td.ov-comp { font-weight: bold; font-size: 6pt; }
-td.ov-comp.ov-small { font-size: 3.9pt; }
-
-/* fills */
-.fill-av { background: var(--fill-av); }
-.fill-abcd { background: var(--fill-abcd); }
-.fill-f { background: var(--fill-f); }
-.fill-total-h { background: var(--fill-total-h); }
-.fill-ac-h { background: var(--fill-ac-h); }
-.fill-pac-h { background: var(--fill-pac-h); }
-.fill-ac { background: var(--fill-ac); }
-.fill-ad { background: var(--fill-ad); }
-.fill-gpa-h { background: var(--fill-gpa-h); }
-.fill-rank { background: var(--fill-rank); }
-
-/* competency level: the only data-dependent colour */
-.lvl-a { background: var(--lvl-a); color: var(--lvl-a-ink); }
-.lvl-b { background: var(--lvl-b); color: var(--lvl-b-ink); }
-.lvl-c { background: var(--lvl-c); color: var(--lvl-c-ink); }
-.lvl-d { background: var(--lvl-d); color: var(--lvl-d-ink); }
-.lvl-f { background: var(--lvl-f); color: var(--lvl-f-ink); }
-
-/* ---------- compact page (several tables stacked, page 11) ---------- */
-.density-compact { padding-top: 60pt; }
-.density-compact .block { margin-bottom: 7.5pt; }
-.density-compact .titles { line-height: 7.1pt; }
-.density-compact .titles .subject { line-height: 8.6pt; }
-.density-compact thead tr.h1 { height: 10.5pt; }
-.density-compact thead tr.h2 { height: 9pt; }
-.density-compact tbody tr.row { height: 6.3pt; }
-.density-compact tr.overall { height: 7.6pt; }
-.density-compact .vert { height: 7pt; }
+/* rotated Z/RANK: baseline vertical, reading bottom to top */
+.rank-label {
+  position: absolute;
+  line-height: 0;
+  white-space: pre;
+  transform-origin: 0 0;
+  transform: rotate(-90deg);
+}

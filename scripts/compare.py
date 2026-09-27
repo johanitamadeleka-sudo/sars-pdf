@@ -19,7 +19,7 @@ from pathlib import Path
 
 import pdfplumber
 import pypdfium2 as pdfium
-from PIL import Image, ImageChops, ImageDraw
+from PIL import Image, ImageChops, ImageDraw, ImageFilter
 
 ROOT = Path(__file__).resolve().parent.parent
 DPI = 110
@@ -44,6 +44,19 @@ def fills(page):
 
 def raster(pdf, i):
     return pdf[i].render(scale=DPI / 72).to_pil().convert("RGB")
+
+
+def tolerant_diff(a, b, tol=40):
+    """Pixels that differ even when allowed to shift by 1px (ignores sub-pixel anti-aliasing)."""
+    a, b = a.convert("L"), b.convert("L")
+    out = None
+    for x, y in ((a, b), (b, a)):
+        lo, hi = y.filter(ImageFilter.MinFilter(3)), y.filter(ImageFilter.MaxFilter(3))
+        below = ImageChops.subtract(lo, x)   # x darker than any neighbour in y
+        above = ImageChops.subtract(x, hi)   # x lighter than any neighbour in y
+        m = ImageChops.lighter(below, above).point(lambda v: 255 if v > tol else 0)
+        out = m if out is None else ImageChops.lighter(out, m)
+    return out
 
 
 def label(img, text):
@@ -77,9 +90,11 @@ def main():
         return
 
     ref_r = pdfium.PdfDocument(a.original)
-    md += ["Columns: **original | generated | diff** (red = pixels that differ).", "",
-           "| page | pixel diff | words missing | words extra | fills only in original | fills only in generated |",
-           "|---|---|---|---|---|---|"]
+    md += ["Columns: **original | generated | diff** (pink = sub-pixel differences, red = real differences).", "",
+           "Pixel diff = share of pixels that differ at 110 dpi; tolerant = still different when a 1px shift is allowed "
+           "(ignores sub-pixel anti-aliasing).", "",
+           "| page | pixel diff | tolerant diff | words missing | words extra | fills only in original | fills only in generated |",
+           "|---|---|---|---|---|---|---|"]
     imgs = []
     with pdfplumber.open(a.original) as ref, pdfplumber.open(a.generated) as gen:
         if len(ref.pages) != len(gen.pages):
@@ -91,13 +106,16 @@ def main():
             ri, gi = raster(ref_r, i), raster(gen_r, i).resize(raster(ref_r, i).size)
             diff = ImageChops.difference(ri, gi).convert("L").point(lambda v: 255 if v > 40 else 0)
             pct = 100 * diff.histogram()[255] / (diff.width * diff.height)
+            tdiff = tolerant_diff(ri, gi)
+            tpct = 100 * tdiff.histogram()[255] / (tdiff.width * tdiff.height)
             rf, gf = fills(rp), fills(gp)
-            print(f"page {i + 1}: pixel diff {pct:.2f}% | words missing {sum(missing.values())} "
+            print(f"page {i + 1}: pixel diff {pct:.2f}% (±1px tolerant {tpct:.2f}%) | words missing {sum(missing.values())} "
                   f"extra {sum(extra.values())}")
-            md.append(f"| {i + 1} | {pct:.2f}% | {sum(missing.values())} | {sum(extra.values())} | "
+            md.append(f"| {i + 1} | {pct:.2f}% | {tpct:.2f}% | {sum(missing.values())} | {sum(extra.values())} | "
                       f"{' '.join(sorted(rf - gf)) or '-'} | {' '.join(sorted(gf - rf)) or '-'} |")
             overlay = ri.copy()
-            overlay.paste((255, 0, 0), mask=diff)
+            overlay.paste((255, 170, 170), mask=diff)
+            overlay.paste((255, 0, 0), mask=tdiff)
             side = Image.new("RGB", (ri.width * 3, ri.height), "white")
             side.paste(label(ri, "ORIGINAL"), (0, 0))
             side.paste(label(gi, "GENERATED"), (ri.width, 0))

@@ -1,105 +1,113 @@
 # sars-pdf — School Rank by Subject report (HTML + CSS → PDF)
 
-This project rebuilds the OHONGSS-T **"SCHOOL RANK IN <SUBJECT> LAKEZONEWISE"** report (Lakezone Form Two Mock, August 2026, 11 pages, 16 subject tables) as HTML + CSS and prints it to PDF. The layout, fonts, column fills and colours are the same for every report. Only the data changes.
+This project rebuilds the OHONGSS-T **"SCHOOL RANK IN <SUBJECT> LAKEZONEWISE"** report (Lakezone Form Two Mock, August 2026, 11 pages, 16 subject tables) in HTML + CSS and prints it to PDF with WeasyPrint. The layout, fonts, borders and column fills are fixed. The only thing that changes colour with the data is the competency level.
 
-**Acceptance criterion:** the generated PDF must match the original. `scripts/compare.py` measures this (see [Fidelity check](#fidelity-check)).
+**Acceptance criterion:** the generated PDF matches `reference/original.pdf`. See [`output/comparison/README.md`](output/comparison/README.md) for the page-by-page results (original | generated | diff).
 
-## Why HTML + CSS (WeasyPrint) and not ReportLab
+## Current match
 
-| | HTML + CSS + WeasyPrint | ReportLab |
-|---|---|---|
-| Complex table (row/col spans, per-column fills, rotated `Z/RANK`) | CSS tables, handled natively | cell coordinates and spans managed by hand |
-| Templating for N subjects / new data | Jinja2 loops, one template | Python layout code |
-| Tuning to match the original | edit CSS variables / widths | edit drawing code |
-| Output | vector PDF with real, selectable text | vector PDF with real, selectable text |
+| Check | Result |
+|---|---|
+| Page count / size | 11 pages, US Letter: same |
+| Text | every word identical on all 11 pages (0 missing, 0 extra) |
+| Fill colours | every fill colour identical on all pages |
+| Fonts | the same real fonts: Arial, Arial Bold, Arial Narrow Bold |
+| Grid lines | same x/y positions and widths (0.48 pt thin, 0.84 pt thick) |
+| Text position | median offset < 0.1 pt; most text within ±0.3 pt |
+| Pixels differing (110 dpi) | ~3.5 % raw, ~1.6 % after allowing a 1 px shift (anti-aliasing) |
 
-We use **WeasyPrint** for printing and **Jinja2** for templating (already in place). The PDF is deterministic, needs no browser, and uses the same fonts on every run.
-
-## Layout
-
-```
-data/lakezone_f2_mock_aug2026.json   # the data from the original PDF (source of truth for the demo)
-templates/report.html.j2             # Jinja2 page/table template
-templates/report.css                 # geometry, fonts, palette (fixed colours in :root)
-sars_pdf/render.py                   # JSON -> HTML -> PDF (CLI)
-sars_pdf/grading.py                  # competency level <- GPA rules (the only conditional colour)
-scripts/compare.py                   # fidelity check against the original PDF
-reference/                           # put original.pdf here
-output/report.pdf, output/report.html  # generated
-```
+The remaining pixel difference comes from Excel's GDI text layout, which rounds some glyph advances (e.g. the `W` in `MWANZA` is 0.5 pt wider in the original).
 
 ## Usage
 
 ```bash
-pip install -r requirements.txt          # WeasyPrint needs Pango (present on most Linux distros)
-# Arial or a metric-compatible font is required, e.g. Liberation Sans:
-#   dnf install liberation-sans-fonts   |   apt install fonts-liberation
+pip install -r requirements.txt           # WeasyPrint needs Pango (present on most Linux distros)
+python scripts/fetch_fonts.py             # real fonts -> fonts/ (needs cabextract)
 python -m sars_pdf.render data/lakezone_f2_mock_aug2026.json --pdf output/report.pdf --html output/report.html
+python scripts/compare.py                 # -> output/pages/, output/comparison/
 ```
 
-## Page heading semantics
+A GitHub Action (`.github/workflows/compare.yml`) does all of this on every push that touches data, templates, code, fonts or `reference/original.pdf`. It then commits `output/` back to the branch.
 
-Each table has a title block with the same meaning on every page:
+## Fonts (real, not substitutes)
+
+| Used for | Font | Source |
+|---|---|---|
+| body text | **Arial** | Microsoft core fonts package (`arial32.exe`), extracted by `fetch_fonts.py` |
+| bold numbers, headings | **Arial Bold** | same |
+| TOTAL, COMPENTENCY LEVEL, competency labels, page-1 headers | **Arial Narrow Bold** | copied from the system if installed, otherwise the real glyphs embedded in `reference/original.pdf` |
+
+Arial Narrow Bold is not freely downloadable, and the copy embedded in the original only contains the characters that report uses. That covers every string the report prints in that font. If some other character is ever needed, only that character falls back to **Liberation Sans Narrow Bold** (`fonts/fallback/`, SIL OFL, metric-compatible). That is the only substitute.
+
+The Microsoft `.ttf` files are licensed and are **not committed**. `fetch_fonts.py` installs them locally and in CI.
+
+## Layout
+
+```
+data/lakezone_f2_mock_aug2026.json   # data + measured per-table layout
+templates/report.html.j2             # Jinja2 template (absolute page layout, one <table> per subject)
+templates/report.css                 # fonts and Excel-style text offsets
+sars_pdf/layout.py                   # fixed geometry: column grid X[], default thick borders, default layout
+sars_pdf/render.py                   # builds every cell (text, font, size, alignment, fill, border widths)
+sars_pdf/grading.py                  # competency level from GPA (the only conditional colour)
+scripts/fetch_fonts.py               # installs the real fonts
+scripts/calibrate.py                 # measures the original -> layout/borders/titles in the JSON
+scripts/compare.py                   # original vs generated: text, fills, pixels, side-by-side images
+reference/original.pdf               # the original report
+output/                              # generated PDF/HTML, page images, comparison (committed)
+```
+
+## Page heading
 
 | Line(s) | Field | Example |
 |---|---|---|
-| 1–2 | `document.ministry` (one entity shown on two lines) | THE PRIME MINISTER'S OFFICE / REGIONAL ADMINISTRATION AND LOCAL GOVERNMENT |
+| 1–2 | `document.ministry` (one entity on two lines) | THE PRIME MINISTER'S OFFICE / REGIONAL ADMINISTRATION AND LOCAL GOVERNMENT |
 | 3 | `document.exam_board` | ORGANIZATION OF HEADS OF NON-GOVERNMENT SECONDARY SCHOOLS-TANZANIA (OHONGSS-T) |
 | 4 | `document.exam_name` | LAKEZONE FORM TWO MOCK  ASSESSMENT AUGUST   2026 |
-| (5) | `table.scope_area`, optional: the region/council/ward being ranked | CHATO |
-| last | `SCHOOL RANK IN {table.subject} {table.scope}` | SCHOOL RANK IN HISTORIA YA TZ NA MAADILI LAKEZONEWISE |
+| (5) | `table.scope_area` (optional) | CHATO |
+| last | `table.title`, default `SCHOOL RANK IN {subject}  {scope}` | SCHOOL RANK IN PHYSICS  LAKEZONEWISE |
 
-`scope` sets the ranking level and the rank column label:
+Strings keep the original's exact spacing, including double spaces and the leading and trailing spaces used for centring. `scope` sets the rank column label: `LAKEZONEWISE`/`ZONEWISE` → `Z/RANK`, `REGIONWISE` → `R/RANK`, `COUNCILWISE` → `C/RANK`, `WARDWISE` → `W/RANK`.
 
-| scope | rank column |
-|---|---|
-| `LAKEZONEWISE` (zone) | `Z/RANK` |
-| `REGIONWISE` | `R/RANK` |
-| `COUNCILWISE` | `C/RANK` |
-| `WARDWISE` | `W/RANK` |
-
-`scope_label` overrides the printed scope text. It is used only to keep the original's typo "GEOGRAPHY LAKEZONEWISE**E**".
-
-## Data model
+## Data model (per table)
 
 ```jsonc
 {
-  "document": { "page_size": "Letter", "ministry": [...], "exam_board": "...", "exam_name": "...",
-                "overall_label": "ZONAL OVERALL  PERFORMANCE" },
-  "pages": [
-    { "page": 1, "density": "normal",          // "compact" = several tables stacked on one page (page 11)
-      "tables": [
-        { "subject": "HISTORIA YA TZ NA MAADILI", "scope": "LAKEZONEWISE",
-          "style": { ... optional per-table quirks, see below ... },
-          "rows": [ { "sn": "001", "region": "MWANZA", "council": "MWANZA CC", "centre_no": "S5344",
-                      "school_name": "MUSABE GIRLS", "av": "72.82", "grd": "B",
-                      "a": "84", "b": "73", "c": "31", "d": "1", "f": "0", "total": "189",
-                      "a_c": "188", "pct_a_c": "99.47", "a_d": "189", "pct_a_d": "100",
-                      "gpa": "1.7302", "competency": "Grade B (Very Good)", "rank": "1" },
-                    { "sn": "008", "blank": true, "a_c": "0", "a_d": "0", "rank": "8" } ],   // empty placeholder row
-          "overall": { "av": "48.10", "grd": "C", ..., "gpa": "3.3", "competency": "Grade C (Good)" } } ] } ]
+  "subject": "PHYSICS", "scope": "LAKEZONEWISE",
+  "rows": [ { "sn": "001", "region": "MWANZA", "council": "MWANZA CC", "centre_no": "S5343",
+              "school_name": "MUSABE BOYS", "av": "53.28", "grd": "C",
+              "a": "10", "b": "34", "c": "75", "d": "36", "f": "9", "total": "164",
+              "a_c": "119", "pct_a_c": "72.56", "a_d": "155", "pct_a_d": "94.51",
+              "gpa": "3.0000", "competency": "Grade C (Good)", "rank": "1" },
+            { "sn": "008", "blank": true, "a_c": "0", "a_d": "0", "rank": "8" } ],
+  "overall": { "av": "34.63", "grd": "D", ..., "gpa": "4.0916", "competency": "Grade D (Satisfactory)" },
+  // optional; defaults in sars_pdf/layout.py and render.py DEFAULT_STYLE
+  "layout":  { "title_top": 71.3, "subject_top": 108.0, "subject_size": 6.11, "table_top": 117.66,
+               "rows": [11.04, 11.04, 8.88, 11.1] },       // header row 1, header row 2, school row, overall row
+  "borders": { "add": ["V20:ov"], "remove": ["V15:h2"] }, // exceptions to the default thick borders
+  "style":   { "centre_align": "left", "total_bold": false, "competency_font": "bold",
+               "overall_competency": { "size": 6.11, "align": "left" } }
 }
 ```
 
-Values are stored as **display strings** so the output keeps the original number formatting exactly (`70.4` vs `65.00`, `43.937`, `100`).
+Values are **display strings**, so the number formatting of the original is kept exactly (`70.4`, `65.00`, `43.937`). For new data, omit `layout`, `borders` and `style` to get the standard layout.
 
 ## Colours
 
-**Fixed** (the same on every report, in `templates/report.css` `:root`):
+**Fixed** (exact values from the original):
 
-| Column(s) | Fill |
-|---|---|
-| AV, GRD (header + cells) | `#ffffcc` |
-| A B C D header | `#e2efda` |
-| F (header + cells) | `#f8cbad` |
-| TOTAL header | `#ddebf7` |
-| A-C header / %A-C header | `#66ff99` / `#66ffcc` |
-| A-C, %A-C cells | `#ccffff` |
-| A-D, %A-D (header + cells) | `#b7dee8` |
-| GPA header | `#daeef3` |
-| Z/RANK header (and S/N header on page 1) | `#fce4d6` |
+| Where | Header | Cells | Overall row |
+|---|---|---|---|
+| AV, GRD | `#ffffcc` | `#ebf1de` | `#ebf1de` |
+| A B C D | `#d8e4bc` | – | – (page 1: `#daeef3`) |
+| F | `#fabf8f` | `#fcd5b4` | – (page 1: `#fcd5b4`) |
+| TOTAL | `#b7dee8` | – | – (page 1: `#f2dcdb`) |
+| A-C, %A-C | `#65ffab` | `#ccffff` | – (page 1: `#ccffff`) |
+| A-D, %A-D | `#ccffff` | `#b7dee8` | – (page 1: `#b7dee8`) |
+| GPA | `#daeef3` (page 1: `#d2fce6`) | – | – (page 1: `#d2fce6`) |
+| Z/RANK (and S/N on page 1) | `#fde9d9` | – | – |
 
-**Conditional:** only the **COMPETENCY LEVEL** cell (school rows and the overall row). The level comes from the `Grade X` label, or from the GPA if the label is missing (`sars_pdf/grading.py`):
+**Conditional:** only the COMPETENCY LEVEL cell. The letter comes from the label, or from the GPA if the label is missing (`sars_pdf/grading.py`). The text is black on every level.
 
 | GPA | Level | Fill |
 |---|---|---|
@@ -109,44 +117,13 @@ Values are stored as **display strings** so the output keeps the original number
 | 3.6 – < 4.6 | Grade D (Satisfactory) | `#ffc000` |
 | ≥ 4.6 | Grade F (Fail) | `#ff0000` |
 
-These GPA bands agree with every row in the original. AV/GRD letter grades are taken from the data, not recalculated, because the original is not consistent at the boundaries (e.g. 29.62 → D, 44.67 → C).
+## Borders
 
-> The hex values were measured from the page images of the original. Once `reference/original.pdf` is committed, `compare.py` prints the exact fill colours used in the original, and the variables in `:root` can be corrected in one place.
+Thin lines are 0.48 pt and thick lines 0.84 pt, positioned on the column grid in `sars_pdf/layout.py`. The standard thick segments (`DEFAULT_THICK`) outline the column groups: AV/GRD | A–TOTAL | A-C/%A-C | A-D/%A-D | GPA, the header and the overall row. Where one of the original's Excel sheets differs (pages 1, 7, 8 and 11), the table's `borders.add/remove` records it. `calibrate.py` writes these values.
 
-## Per-table presentation quirks (`table.style`)
-
-The original was exported from Excel sheets that differ slightly from each other. These flags reproduce the differences:
-
-| key | default | used on |
-|---|---|---|
-| `title_size` | `normal` | `large`: page 1 subject line |
-| `sn_header_fill` | `false` | `true`: page 1 (peach S/N header) |
-| `centre_align` | `center` | `left`: pages 8–11 |
-| `total_bold` | `true` | `false`: pages 8–11 |
-| `competency_size` | `small` | `large`: pages 8–11 |
-| `overall_competency_size` | `normal` | `small`: Chinese Language |
-
-Geometry: US Letter, table x = 31.5–583.1 pt, data rows 9.07 pt (6.3 pt on the compact page), Arial/Liberation Sans.
-
-## Fidelity check
+## Recalibrating against a new original
 
 ```bash
-cp /path/to/original.pdf reference/original.pdf
-python scripts/compare.py reference/original.pdf output/report.pdf
+python scripts/calibrate.py reference/original.pdf data/<file>.json   # layout, borders, exact titles
+python scripts/compare.py
 ```
-
-For each page it reports pixel-difference %, missing/extra words, and fill colours that appear in only one of the two PDFs. Everything is committed to git so it can be viewed on GitHub:
-
-| Path | Content |
-|---|---|
-| `output/report.pdf`, `output/report.html` | generated report |
-| `output/pages/page_NN.png` | generated pages as images |
-| `output/comparison/page_NN.png` | original \| generated \| diff (red = differing pixels) |
-| `output/comparison/README.md` | score table + all side-by-side images |
-
-**Automatic:** `.github/workflows/compare.yml` runs on every push that touches `reference/original.pdf`, data, templates or code. It rebuilds the PDF, runs the comparison and commits `output/` back to the branch. So uploading `reference/original.pdf` through the GitHub web UI is enough to get the side-by-side results.
-
-## Next steps
-
-- Build a data layer that computes rows from raw candidate results (A–F counts, totals, %, GPA, rank, competency via `grading.py`) and writes this JSON for any number of subjects and scopes (zone/region/council/ward).
-- Calibrate the colours and fonts against `reference/original.pdf` with `compare.py`.

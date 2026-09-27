@@ -1,3 +1,1 @@
-Put the original report here as `original.pdf`, then run:
-
-    python scripts/compare.py reference/original.pdf output/report.pdf
+The original report used as the reference for scripts/compare.py and scripts/calibrate.py.

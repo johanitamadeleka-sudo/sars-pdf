@@ -5,8 +5,8 @@
    "THE PRIME MINISTER'S OFFICE",
    "REGIONAL ADMINISTRATION AND LOCAL GOVERNMENT"
   ],
-  "exam_board": "ORGANIZATION OF HEADS OF NON-GOVERNMENT SECONDARY SCHOOLS-TANZANIA (OHONGSS-T)",
-  "exam_name": "LAKEZONE FORM TWO MOCK  ASSESSMENT AUGUST   2026",
+  "exam_board": "ORGANIZATION OF HEADS OF NON-GOVERNMENT SECONDARY SCHOOLS-TANZANIA (OHONGSS-T) ",
+  "exam_name": " LAKEZONE FORM TWO MOCK  ASSESSMENT AUGUST   2026",
   "overall_label": "ZONAL OVERALL  PERFORMANCE"
  },
  "pages": [
@@ -18,8 +18,11 @@
      "subject": "HISTORIA YA TZ NA MAADILI",
      "scope": "LAKEZONEWISE",
      "style": {
-      "title_size": "large",
-      "sn_header_fill": true
+      "header_narrow": true,
+      "comp_header_align": "center",
+      "page1_fills": true,
+      "rank_label_font": "narrow",
+      "overall_label_size": 6.11
      },
      "rows": [
       {
@@ -456,7 +459,39 @@
       "pct_a_d": "83.93",
       "gpa": "3.3",
       "competency": "Grade C (Good)"
-     }
+     },
+     "layout": {
+      "title_top": 62.4,
+      "subject_top": 98.6,
+      "subject_size": 7.07,
+      "table_top": 108.78,
+      "rows": [
+       12.36,
+       12.36,
+       8.88,
+       11.1
+      ]
+     },
+     "borders": {
+      "add": [
+       "Hbot:0-18",
+       "Hhb:0-20",
+       "Htop:0-20",
+       "V13:ov",
+       "V15:ov",
+       "V17:h1",
+       "V17:ov",
+       "V20:h1",
+       "V20:h2",
+       "V7:h1"
+      ],
+      "remove": [
+       "Hbot:0-20",
+       "Hhb:0-19",
+       "Htop:0-19"
+      ]
+     },
+     "title": "SCHOOL RANK IN HISTORIA YA TZ NA MAADILI LAKEZONEWISE"
     }
    ]
   },
@@ -903,7 +938,20 @@
       "pct_a_d": "68.096",
       "gpa": "3.5428",
       "competency": "Grade C (Good)"
-     }
+     },
+     "layout": {
+      "title_top": 71.3,
+      "subject_top": 108.6,
+      "subject_size": 6.11,
+      "table_top": 120.3,
+      "rows": [
+       12.36,
+       12.36,
+       8.88,
+       11.1
+      ]
+     },
+     "title": "SCHOOL RANK IN BUSINESS STUDIES  LAKEZONEWISE"
     }
    ]
   },
@@ -1351,7 +1399,20 @@
       "gpa": "3.6849",
       "competency": "Grade D (Satisfactory)"
      },
-     "scope_label": "LAKEZONEWISEE"
+     "scope_label": "LAKEZONEWISEE",
+     "layout": {
+      "title_top": 71.3,
+      "subject_top": 110.4,
+      "subject_size": 6.11,
+      "table_top": 119.58,
+      "rows": [
+       11.04,
+       11.04,
+       8.88,
+       11.1
+      ]
+     },
+     "title": "SCHOOL RANK IN GEOGRAPHY  LAKEZONEWISEE"
     }
    ]
   },
@@ -1798,7 +1859,20 @@
       "pct_a_d": "94.035",
       "gpa": "2.9024",
       "competency": "Grade C (Good)"
-     }
+     },
+     "layout": {
+      "title_top": 71.3,
+      "subject_top": 109.8,
+      "subject_size": 6.11,
+      "table_top": 125.22,
+      "rows": [
+       11.04,
+       11.04,
+       8.88,
+       11.1
+      ]
+     },
+     "title": "SCHOOL RANK IN KISWAHILI  LAKEZONEWISE"
     }
    ]
   },
@@ -2245,7 +2319,20 @@
       "pct_a_d": "91.906",
       "gpa": "2.5735",
       "competency": "Grade B (Very Good)"
-     }
+     },
+     "layout": {
+      "title_top": 71.3,
+      "subject_top": 109.4,
+      "subject_size": 6.11,
+      "table_top": 124.86,
+      "rows": [
+       11.04,
+       11.04,
+       8.88,
+       11.1
+      ]
+     },
+     "title": "SCHOOL RANK IN ENGLISH LANGUAGE LAKEZONEWISE"
     }
    ]
   },
@@ -2256,7 +2343,12 @@
     {
      "subject": "PHYSICS",
      "scope": "LAKEZONEWISE",
-     "style": {},
+     "style": {
+      "overall_competency": {
+       "size": 6.11,
+       "align": "left"
+      }
+     },
      "rows": [
       {
        "sn": "001",
@@ -2692,7 +2784,20 @@
       "pct_a_d": "56.139",
       "gpa": "4.0916",
       "competency": "Grade D (Satisfactory)"
-     }
+     },
+     "layout": {
+      "title_top": 71.3,
+      "subject_top": 108.0,
+      "subject_size": 6.11,
+      "table_top": 117.66,
+      "rows": [
+       11.04,
+       11.04,
+       8.88,
+       11.1
+      ]
+     },
+     "title": "SCHOOL RANK IN PHYSICS  LAKEZONEWISE"
     }
    ]
   },
@@ -3139,7 +3244,30 @@
       "pct_a_d": "87.096",
       "gpa": "2.9979",
       "competency": "Grade C (Good)"
-     }
+     },
+     "layout": {
+      "title_top": 71.3,
+      "subject_top": 108.0,
+      "subject_size": 6.11,
+      "table_top": 117.66,
+      "rows": [
+       11.04,
+       11.04,
+       8.88,
+       11.1
+      ]
+     },
+     "borders": {
+      "add": [
+       "Hovt:5-20",
+       "V20:ov"
+      ],
+      "remove": [
+       "Hovt:5-18",
+       "V15:h2"
+      ]
+     },
+     "title": "SCHOOL RANK IN CHEMISTRY  LAKEZONEWISE"
     }
    ]
   },
@@ -3153,7 +3281,10 @@
      "style": {
       "centre_align": "left",
       "total_bold": false,
-      "competency_size": "large"
+      "competency_font": "bold",
+      "overall_competency": {
+       "align": "left"
+      }
      },
      "rows": [
       {
@@ -3590,7 +3721,29 @@
       "pct_a_d": "67.674",
       "gpa": "3.8626",
       "competency": "Grade D (Satisfactory)"
-     }
+     },
+     "layout": {
+      "title_top": 71.3,
+      "subject_top": 108.0,
+      "subject_size": 6.11,
+      "table_top": 117.66,
+      "rows": [
+       11.04,
+       11.04,
+       8.88,
+       11.1
+      ]
+     },
+     "borders": {
+      "add": [
+       "Hovt:5-20",
+       "V20:ov"
+      ],
+      "remove": [
+       "Hovt:5-18"
+      ]
+     },
+     "title": "SCHOOL RANK IN BIOLOGY  LAKEZONEWISE"
     }
    ]
   },
@@ -3604,7 +3757,10 @@
      "style": {
       "centre_align": "left",
       "total_bold": false,
-      "competency_size": "large"
+      "competency_font": "bold",
+      "overall_competency": {
+       "size": 6.11
+      }
      },
      "rows": [
       {
@@ -4041,7 +4197,20 @@
       "pct_a_d": "38.739",
       "gpa": "4.2949",
       "competency": "Grade D (Satisfactory)"
-     }
+     },
+     "layout": {
+      "title_top": 71.3,
+      "subject_top": 108.0,
+      "subject_size": 6.11,
+      "table_top": 117.66,
+      "rows": [
+       11.04,
+       11.04,
+       8.88,
+       11.1
+      ]
+     },
+     "title": "SCHOOL RANK IN MATHEMATICS  LAKEZONEWISE"
     }
    ]
   },
@@ -4055,7 +4224,10 @@
      "style": {
       "centre_align": "left",
       "total_bold": false,
-      "competency_size": "large"
+      "competency_font": "bold",
+      "overall_competency": {
+       "size": 6.11
+      }
      },
      "rows": [
       {
@@ -4470,7 +4642,20 @@
       "pct_a_d": "78.757",
       "gpa": "3.4368",
       "competency": "Grade C (Good)"
-     }
+     },
+     "layout": {
+      "title_top": 71.3,
+      "subject_top": 108.0,
+      "subject_size": 6.11,
+      "table_top": 117.66,
+      "rows": [
+       11.52,
+       11.52,
+       8.88,
+       11.1
+      ]
+     },
+     "title": "SCHOOL RANK IN HISTORY  LAKEZONEWISE"
     }
    ]
   },
@@ -4484,7 +4669,10 @@
      "style": {
       "centre_align": "left",
       "total_bold": false,
-      "competency_size": "large"
+      "competency_font": "bold",
+      "overall_competency": {
+       "size": 6.11
+      }
      },
      "rows": [
       {
@@ -4664,7 +4852,26 @@
       "pct_a_d": "73.576",
       "gpa": "3.5008",
       "competency": "Grade C (Good)"
-     }
+     },
+     "layout": {
+      "title_top": 62.4,
+      "subject_top": 98.6,
+      "subject_size": 7.07,
+      "table_top": 108.78,
+      "rows": [
+       11.04,
+       11.04,
+       8.88,
+       11.1
+      ]
+     },
+     "borders": {
+      "add": [],
+      "remove": [
+       "V17:h2"
+      ]
+     },
+     "title": "SCHOOL RANK IN B/KEEPING  LAKEZONEWISE"
     },
     {
      "subject": "BIBLE KNOWLEDGE",
@@ -4672,7 +4879,10 @@
      "style": {
       "centre_align": "left",
       "total_bold": false,
-      "competency_size": "large"
+      "competency_font": "bold",
+      "overall_competency": {
+       "size": 6.11
+      }
      },
      "rows": [
       {
@@ -4779,7 +4989,20 @@
       "pct_a_d": "95.95",
       "gpa": "2.3142",
       "competency": "Grade B (Very Good)"
-     }
+     },
+     "layout": {
+      "title_top": 224.1,
+      "subject_top": 260.9,
+      "subject_size": 6.11,
+      "table_top": 270.54,
+      "rows": [
+       11.04,
+       11.04,
+       8.88,
+       11.1
+      ]
+     },
+     "title": "SCHOOL RANK IN BIBLE KNOWLEDGE  LAKEZONEWISE"
     },
     {
      "subject": "ELIMU YA DINI YA KIISLAMU",
@@ -4787,7 +5010,10 @@
      "style": {
       "centre_align": "left",
       "total_bold": false,
-      "competency_size": "large"
+      "competency_font": "bold",
+      "overall_competency": {
+       "size": 6.11
+      }
      },
      "rows": [
       {
@@ -4850,7 +5076,20 @@
       "pct_a_d": "100",
       "gpa": "2.0371",
       "competency": "Grade B (Very Good)"
-     }
+     },
+     "layout": {
+      "title_top": 350.4,
+      "subject_top": 387.1,
+      "subject_size": 6.11,
+      "table_top": 396.78,
+      "rows": [
+       11.04,
+       11.04,
+       8.88,
+       11.1
+      ]
+     },
+     "title": "SCHOOL RANK IN ELIMU YA DINI YA KIISLAMU  LAKEZONEWISE"
     },
     {
      "subject": "COMPUTER SCIENCE",
@@ -4858,7 +5097,10 @@
      "style": {
       "centre_align": "left",
       "total_bold": false,
-      "competency_size": "large"
+      "competency_font": "bold",
+      "overall_competency": {
+       "size": 6.11
+      }
      },
      "rows": [
       {
@@ -4921,7 +5163,20 @@
       "pct_a_d": "100",
       "gpa": "1.1495",
       "competency": "Grade A (Excellent)"
-     }
+     },
+     "layout": {
+      "title_top": 458.9,
+      "subject_top": 495.6,
+      "subject_size": 6.11,
+      "table_top": 505.26,
+      "rows": [
+       13.2,
+       13.2,
+       8.88,
+       8.94
+      ]
+     },
+     "title": "SCHOOL RANK IN COMPUTER SCIENCE  LAKEZONEWISE"
     },
     {
      "subject": "CHINESE LANGUAGE",
@@ -4929,8 +5184,10 @@
      "style": {
       "centre_align": "left",
       "total_bold": false,
-      "competency_size": "large",
-      "overall_competency_size": "small"
+      "competency_font": "bold",
+      "overall_competency": {
+       "size": 4.79
+      }
      },
      "rows": [
       {
@@ -5000,7 +5257,20 @@
       "pct_a_d": "100",
       "gpa": "1.2245",
       "competency": "Grade A (Excellent)"
-     }
+     },
+     "layout": {
+      "title_top": 569.5,
+      "subject_top": 606.2,
+      "subject_size": 6.11,
+      "table_top": 615.9,
+      "rows": [
+       11.04,
+       11.04,
+       8.88,
+       8.94
+      ]
+     },
+     "title": "SCHOOL RANK IN CHINESE LANGUAGE LAKEZONEWISE"
     },
     {
      "subject": "AGRICULTURE",
@@ -5008,7 +5278,10 @@
      "style": {
       "centre_align": "left",
       "total_bold": false,
-      "competency_size": "large"
+      "competency_font": "bold",
+      "overall_competency": {
+       "size": 6.11
+      }
      },
      "rows": [
       {
@@ -5020,7 +5293,30 @@
       }
      ],
      "overall": null,
-     "scope_area": "CHATO"
+     "scope_area": "CHATO",
+     "layout": {
+      "title_top": 684.7,
+      "subject_top": 730.3,
+      "subject_size": 6.11,
+      "table_top": 739.98,
+      "rows": [
+       11.88,
+       11.88,
+       8.82,
+       null
+      ]
+     },
+     "borders": {
+      "add": [],
+      "remove": [
+       "Hbot:0-20",
+       "Hovt:5-18",
+       "V18:ov",
+       "V5:ov",
+       "V7:ov"
+      ]
+     },
+     "title": "SCHOOL RANK IN AGRICULTURE COUNCILWISE"
     }
    ]
   }

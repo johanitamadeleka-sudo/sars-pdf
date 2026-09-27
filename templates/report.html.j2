@@ -2,98 +2,42 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>{{ doc.document.exam_name }}</title>
+<title>{{ doc.document.exam_name | trim }}</title>
 <link rel="stylesheet" href="report.css">
 </head>
 <body>
-{% set NUM_COLS = ["a", "b", "c", "d", "f", "total", "a_c", "pct_a_c", "a_d", "pct_a_d"] %}
+{% set G = doc.geo %}
 {% for page in doc.pages %}
-<section class="page density-{{ page.density }} page-{{ page.page }}">
+<section class="page">
   {% for t in page.tables %}
-  {% set s = t.style %}
-  <div class="block">
-    <div class="titles{% if s.title_size == 'large' %} title-large{% endif %}">
-      {% for line in doc.document.ministry %}
-      <div class="hl ministry">{{ line }}</div>
-      {% endfor %}
-      <div class="hl exam-board">{{ doc.document.exam_board }}</div>
-      <div class="hl exam-name">{{ doc.document.exam_name }}</div>
-      {% if t.scope_area %}<div class="hl scope-area">{{ t.scope_area }}</div>{% endif %}
-      <div class="hl subject">{{ t.title }}</div>
-    </div>
+  {% set L = t.layout %}
+  {% for line in t.heads %}
+  <div class="hl" style="top: {{ '%.2f' % (L.title_top + loop.index0 * G.pitch) }}pt">{{ line }}</div>
+  {% endfor %}
+  <div class="hl" style="top: {{ '%.2f' % L.subject_top }}pt; font-size: {{ L.subject_size }}pt">{{ t.title }}</div>
 
-    <table class="rank{% if s.total_bold %} total-bold{% endif %} centre-{{ s.centre_align }} comp-{{ s.competency_size }}">
-      <colgroup>
-        <col class="w-sn"><col class="w-region"><col class="w-council"><col class="w-centre"><col class="w-school">
-        <col class="w-av"><col class="w-grd">
-        <col class="w-a"><col class="w-b"><col class="w-c"><col class="w-d"><col class="w-f">
-        <col class="w-total"><col class="w-ac"><col class="w-pac"><col class="w-ad"><col class="w-pad">
-        <col class="w-gpa"><col class="w-comp"><col class="w-rank">
-      </colgroup>
-      <thead>
-        <tr class="h1">
-          <th rowspan="2" class="c-sn{% if s.sn_header_fill %} fill-rank{% endif %}">S/N</th>
-          <th rowspan="2">REGION</th>
-          <th rowspan="2">COUNCIL</th>
-          <th rowspan="2" class="nowrap">CENTRE NO.</th>
-          <th rowspan="2" class="nowrap">SCHOOL NAME</th>
-          <th rowspan="2" class="fill-av">AV</th>
-          <th rowspan="2" class="fill-av">GRD</th>
-          <th colspan="10" class="grading">GRADING PERFORMANCE</th>
-          <th rowspan="2" class="fill-gpa-h">GPA</th>
-          <th rowspan="2" class="comp-h">COMPENTENCY LEVEL</th>
-          <th rowspan="2" class="fill-rank rank-h"><div class="vert"><span>{{ t.rank_label }}</span></div></th>
-        </tr>
-        <tr class="h2">
-          <th class="fill-abcd">A</th><th class="fill-abcd">B</th><th class="fill-abcd">C</th><th class="fill-abcd">D</th>
-          <th class="fill-f">F</th>
-          <th class="fill-total-h tiny">TOTAL</th>
-          <th class="fill-ac-h">A-C</th><th class="fill-pac-h">%A-C</th>
-          <th class="fill-ad">A-D</th><th class="fill-ad">%A-D</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for r in t.rows %}
-        <tr class="row{% if r.blank %} blank{% endif %}">
-          <td class="c-sn">{{ r.sn }}</td>
-          <td class="txt">{{ r.region }}</td>
-          <td class="txt">{{ r.council }}</td>
-          <td class="c-centre">{{ r.centre_no }}</td>
-          <td class="txt">{{ r.school_name }}</td>
-          <td class="fill-av b big">{{ r.av }}</td>
-          <td class="fill-av b big">{{ r.grd }}</td>
-          <td>{{ r.a }}</td><td>{{ r.b }}</td><td>{{ r.c }}</td><td>{{ r.d }}</td>
-          <td class="fill-f b">{{ r.f }}</td>
-          <td class="c-total">{{ r.total }}</td>
-          <td class="fill-ac b">{{ r.a_c }}</td>
-          <td class="fill-ac b">{{ r.pct_a_c }}</td>
-          <td class="fill-ad b">{{ r.a_d }}</td>
-          <td class="fill-ad b">{{ r.pct_a_d }}</td>
-          <td class="b">{{ r.gpa }}</td>
-          <td class="comp{% if r.level %} lvl-{{ r.level | lower }}{% endif %}">{{ r.competency }}</td>
-          <td class="b c-rank">{{ r.rank }}</td>
-        </tr>
-        {% endfor %}
-        {% if t.overall %}
-        {% set o = t.overall %}
-        <tr class="overall">
-          <td colspan="5" class="ov-label">{{ t.overall_label }}</td>
-          <td class="fill-av b">{{ o.av }}</td>
-          <td class="fill-av b">{{ o.grd }}</td>
-          <td class="b">{{ o.a }}</td><td class="b">{{ o.b }}</td><td class="b">{{ o.c }}</td><td class="b">{{ o.d }}</td>
-          <td class="b">{{ o.f }}</td>
-          <td class="b">{{ o.total }}</td>
-          <td class="b">{{ o.a_c }}</td>
-          <td class="b">{{ o.pct_a_c }}</td>
-          <td class="b">{{ o.a_d }}</td>
-          <td class="b">{{ o.pct_a_d }}</td>
-          <td class="b">{{ o.gpa }}</td>
-          <td colspan="2" class="ov-comp ov-{{ s.overall_competency_size }}{% if o.level %} lvl-{{ o.level | lower }}{% endif %}">{{ o.competency }}</td>
-        </tr>
-        {% endif %}
-      </tbody>
-    </table>
-  </div>
+  <table class="rank" style="top: {{ '%.2f' % L.table_top }}pt">
+    <colgroup>
+      {% for w in G.widths %}<col style="width: {{ w }}pt">{% endfor %}
+    </colgroup>
+    {% for row in t.grid %}
+    <tr class="{{ row.band }}{% if row.last %} last{% endif %}" style="height: {{ row.height }}pt">
+      {% for c in row.cells %}
+      <td{% if c.span > 1 %} colspan="{{ c.span }}"{% endif %}{% if c.rowspan > 1 %} rowspan="{{ c.rowspan }}"{% endif %}
+          class="f-{{ c.font }} a-{{ c.align }} s{{ (c.size * 100) | round | int }} {{ c.cls }}"
+          style="font-size: {{ c.size }}pt; border-width: {{ c.bt }}pt {{ c.br }}pt {{ c.bb }}pt {{ c.bl }}pt{% if c.fill %}; background: {{ c.fill }}{% endif %}">
+        {%- if c.cls != 'rank-h' %}{{ c.text }}{% endif -%}
+      </td>
+      {% endfor %}
+    </tr>
+    {% endfor %}
+  </table>
+  {# rotated rank label, anchored at the bottom of the header like the original #}
+  {% set narrow = t.style.rank_label_font == 'narrow' %}
+  <div class="rank-label f-{{ 'NB' if narrow else 'B' }}"
+       style="left: {{ '%.2f' % (G.X[19] + (5.20 if narrow else 5.35)) }}pt;
+              top: {{ '%.2f' % (L.table_top + L.rows[0] + L.rows[1] - 1.38) }}pt;
+              font-size: {{ 6.11 if narrow else 5.27 }}pt">{{ t.rank_label }}</div>
   {% endfor %}
 </section>
 {% endfor %}
