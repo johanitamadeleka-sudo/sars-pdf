@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>{{ doc.document.exam_name }}</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+{#
+  Region schools rank, subjectwise (LEVEL + FUNCTION name). Fully self-contained: own
+  template + own style.css (inline @font-face, single family name, no fallback, no shared
+  stylesheet). Data-driven and location-agnostic - every label (ministry lines, exam name,
+  subject, scope, council names) comes from data.json, so any region's data of this shape
+  renders unchanged. Competency-level background is the ONLY data-driven colour.
+
+  Region variant of the subjectwise-rank shape: adds a COUNCIL column and BOTH C/RANK and
+  R/RANK columns.
+  Column set: S/N | COUNCIL | SCHOOL NAME | A B C D F | TOTAL | A-C %A-C A-D %A-D | GPA
+              | COMPETENCY LEVEL | C/RANK | R/RANK
+#}
+{% for t in doc.tables %}
+<div class="block">
+  <div class="titles">
+    {% for line in doc.document.ministry %}
+    <div class="hl ministry">{{ line }}</div>
+    {% endfor %}
+    <div class="hl exam-name">{{ doc.document.exam_name }}</div>
+    <div class="hl subject">{{ t.title }}</div>
+  </div>
+
+  <table class="rank">
+    <colgroup>
+      <col class="w-sn"><col class="w-council"><col class="w-school">
+      <col class="w-a"><col class="w-b"><col class="w-c"><col class="w-d"><col class="w-f">
+      <col class="w-total"><col class="w-ac"><col class="w-pac"><col class="w-ad"><col class="w-pad">
+      <col class="w-gpa"><col class="w-comp"><col class="w-crank"><col class="w-rrank">
+    </colgroup>
+    <thead>
+      <tr class="h0">
+        <th rowspan="3" class="c-sn">S/N</th>
+        <th rowspan="3" class="nowrap">COUNCIL</th>
+        <th rowspan="3" class="nowrap">SCHOOL NAME</th>
+        <th colspan="10" class="grading">GRADING PERFORMANCE</th>
+        <th rowspan="3" class="fill-gpa-h">GPA</th>
+        <th rowspan="3" class="comp-h">COMPENTENCY LEVEL</th>
+        <th class="fill-crank crank-h"><div class="vert"><span>C/RANK</span></div></th>
+        <th class="fill-rank rank-h"><div class="vert"><span>R/RANK</span></div></th>
+      </tr>
+      <tr class="h2">
+        <th class="fill-abcd">A</th><th class="fill-abcd">B</th><th class="fill-abcd">C</th><th class="fill-abcd">D</th>
+        <th class="fill-f">F</th>
+        <th class="fill-total-h tiny">TOTAL</th>
+        <th class="fill-ac-h">A-C</th><th class="fill-pac-h">%A-C</th>
+        <th class="fill-ad">A-D</th><th class="fill-ad">%A-D</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for r in t.rows %}
+      <tr class="row">
+        <td class="c-sn">{{ r.sn }}</td>
+        <td class="txt council">{{ r.council }}</td>
+        <td class="txt">{{ r.school }}</td>
+        <td>{{ r.a }}</td><td>{{ r.b }}</td><td>{{ r.c }}</td><td>{{ r.d }}</td>
+        <td class="fill-f b">{{ r.f }}</td>
+        <td class="c-total">{{ r.total }}</td>
+        <td class="fill-ac b">{{ r.a_c }}</td>
+        <td class="fill-ac b">{{ r.pct_a_c }}</td>
+        <td class="fill-ad b">{{ r.a_d }}</td>
+        <td class="fill-ad b">{{ r.pct_a_d }}</td>
+        <td class="b">{{ r.gpa }}</td>
+        <td class="comp{% if r.level %} lvl-{{ r.level | lower }}{% endif %}">{{ r.competency }}</td>
+        <td class="b c-rank">{{ r.c_rank }}</td>
+        <td class="b c-rank">{{ r.rank }}</td>
+      </tr>
+      {% endfor %}
+      {% if t.overall %}
+      {% set o = t.overall %}
+      <tr class="overall">
+        <td colspan="3" class="ov-label">{{ o.label }}</td>
+        <td class="b">{{ o.a }}</td><td class="b">{{ o.b }}</td><td class="b">{{ o.c }}</td><td class="b">{{ o.d }}</td>
+        <td class="b">{{ o.f }}</td>
+        <td class="b">{{ o.total }}</td>
+        <td class="b">{{ o.a_c }}</td>
+        <td class="b">{{ o.pct_a_c }}</td>
+        <td class="b">{{ o.a_d }}</td>
+        <td class="b">{{ o.pct_a_d }}</td>
+        <td class="b">{{ o.gpa }}</td>
+        <td colspan="3" class="ov-comp{% if o.level %} lvl-{{ o.level | lower }}{% endif %}">{{ o.competency }}</td>
+      </tr>
+      {% endif %}
+    </tbody>
+  </table>
+</div>
+{% endfor %}
+</body>
+</html>

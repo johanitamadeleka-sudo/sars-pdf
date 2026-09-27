@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>{{ doc.document.report_title }}</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+{#
+  Region subjects rank (LEVEL + FUNCTION name). One row per SUBJECT. Fully self-contained:
+  own template + own style.css (inline @font-face, no shared stylesheet). Data-driven and
+  location-agnostic - every label comes from data.json, so any council's data of this shape
+  renders unchanged. Competency-level background is the ONLY data-driven colour.
+
+  Columns: S/NO. | SUBJECT NAME | A B C D F | TOTAL | A-C %A-C A-D %A-D | GPA
+           | COMPETENCY LEVEL | RANK   (a GRADE PERFORMANCE super-header spans A..%A-D)
+#}
+<div class="titles">
+  {% for line in doc.document.ministry %}
+  <div class="hl ministry">{{ line }}</div>
+  {% endfor %}
+  <div class="hl exam-name">{{ doc.document.exam_name }}</div>
+  <div class="hl report-title">{{ doc.document.report_title }}</div>
+</div>
+
+<table class="rank">
+  <colgroup>
+    <col class="w-sn"><col class="w-subject">
+    <col class="w-a"><col class="w-b"><col class="w-c"><col class="w-d"><col class="w-f">
+    <col class="w-total"><col class="w-ac"><col class="w-pac"><col class="w-ad"><col class="w-pad">
+    <col class="w-gpa"><col class="w-comp"><col class="w-rank">
+  </colgroup>
+  <thead>
+    <tr class="h1">
+      <th rowspan="3" class="c-sn">S/NO.</th>
+      <th rowspan="3" class="nowrap">SUBJECT NAME</th>
+      <th colspan="10" class="grading">GRADE PERFORMANCE</th>
+      <th rowspan="3" class="fill-gpa-h">GPA</th>
+      <th rowspan="3" class="comp-h">COMPENTENCY LEVEL</th>
+      <th rowspan="3" class="fill-rank rank-h"><div class="vert"><span>R/RANK</span></div></th>
+    </tr>
+    <tr class="h2">
+      <th class="fill-abcd">A</th><th class="fill-abcd">B</th><th class="fill-abcd">C</th><th class="fill-abcd">D</th>
+      <th class="fill-f-h">F</th>
+      <th class="fill-total-h">TOTAL</th>
+      <th class="fill-ac-h">A-C</th><th class="fill-pac-h">%A-C</th>
+      <th class="fill-ad">A-D</th><th class="fill-ad">%A-D</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for r in doc.rows %}
+    <tr class="row{% if r.sn == doc.document.page_break_after_sn %} break-after{% endif %}">
+      <td class="c-sn">{{ r.sn }}</td>
+      <td class="txt">{{ r.subject }}</td>
+      <td>{{ r.a }}</td><td>{{ r.b }}</td><td>{{ r.c }}</td><td>{{ r.d }}</td>
+      <td class="fill-f b">{{ r.f }}</td>
+      <td class="c-total">{{ r.total }}</td>
+      <td class="fill-ac b">{{ r.a_c }}</td>
+      <td class="fill-ac b">{{ r.pct_a_c }}</td>
+      <td class="fill-ad b">{{ r.a_d }}</td>
+      <td class="fill-ad b">{{ r.pct_a_d }}</td>
+      <td class="fill-gpa b">{{ r.gpa }}</td>
+      <td class="comp{% if r.level %} lvl-{{ r.level | lower }}{% endif %}">{{ r.competency }}</td>
+      <td class="b c-rank">{{ r.rank }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% if doc.overall %}
+<table class="overall-tbl">
+  <colgroup><col class="ov-w-label"><col class="ov-w-value"></colgroup>
+  <tr class="ov-row">
+    <td class="ov-label">{{ doc.document.overall_gpa_label }}</td>
+    <td class="ov-value b">{{ doc.overall.gpa }}</td>
+  </tr>
+  <tr class="ov-row">
+    <td class="ov-label">COMPETENCY LEVEL</td>
+    <td class="ov-value{% if doc.overall.level %} lvl-{{ doc.overall.level | lower }}{% endif %}">{{ doc.overall.competency }}</td>
+  </tr>
+</table>
+{% endif %}
+</body>
+</html>

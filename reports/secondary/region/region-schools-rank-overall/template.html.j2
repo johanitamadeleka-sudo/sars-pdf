@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>{{ doc.document.report_title }}</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+{#
+  Region schools rank - overall division grid (LEVEL + FUNCTION name). Fully self-contained
+  (own template + own style.css, inline @font-face, no shared stylesheet). Data-driven and
+  location-agnostic. Competency-level background is the ONLY data-driven colour.
+
+  Region variant of the overall grid: the WARD column is replaced by a COUNCIL column.
+  Wide F/M/T triplet grid. A SUMMARY block (+ %PASS) sits above the main per-school table
+  (+ TOTAL row on the last page). Main columns:
+    S/NO. | COUNCIL | SCHOOL NAME | OWNERSHIP
+    REGISTERED(F M T) | SAT(F M T %)
+    I(F M T) II(F M T) III(F M T) IV(F M T) 0(F M T %) I-III(F M T %) I-IV(F M T %)
+    GPA | COMPETENCY | C/RANK | R/RANK
+#}
+<div class="titles">
+  {% for line in doc.document.ministry %}
+  <div class="hl ministry">{{ line }}</div>
+  {% endfor %}
+  <div class="hl exam-name">{{ doc.document.exam_name }}</div>
+  <div class="hl report-title">{{ doc.document.report_title }}</div>
+</div>
+
+{% macro cols() %}
+<colgroup>
+  <col class="w-sn"><col class="w-council"><col class="w-school"><col class="w-own">
+  <col class="t"><col class="t"><col class="t">
+  <col class="t"><col class="t"><col class="t"><col class="p">
+  <col class="t"><col class="t"><col class="t">
+  <col class="t"><col class="t"><col class="t">
+  <col class="t"><col class="t"><col class="t">
+  <col class="t"><col class="t"><col class="t">
+  <col class="t"><col class="t"><col class="t"><col class="p">
+  <col class="t"><col class="t"><col class="t"><col class="p">
+  <col class="t"><col class="t"><col class="t"><col class="p">
+  <col class="w-gpa"><col class="w-comp"><col class="w-crank"><col class="w-rrank">
+</colgroup>
+{% endmacro %}
+
+{% macro nums(r) %}
+  <td>{{ r.reg_f }}</td><td>{{ r.reg_m }}</td><td class="b">{{ r.reg_t }}</td>
+  <td>{{ r.sat_f }}</td><td>{{ r.sat_m }}</td><td class="b">{{ r.sat_t }}</td><td class="b fill-blue">{{ r.sat_pct }}</td>
+  <td>{{ r.i_f }}</td><td>{{ r.i_m }}</td><td class="b">{{ r.i_t }}</td>
+  <td>{{ r.ii_f }}</td><td>{{ r.ii_m }}</td><td class="b">{{ r.ii_t }}</td>
+  <td>{{ r.iii_f }}</td><td>{{ r.iii_m }}</td><td class="b">{{ r.iii_t }}</td>
+  <td>{{ r.iv_f }}</td><td>{{ r.iv_m }}</td><td class="b">{{ r.iv_t }}</td>
+  <td>{{ r.z_f }}</td><td>{{ r.z_m }}</td><td class="b fill-0">{{ r.z_t }}</td><td class="b fill-0">{{ r.z_pct }}</td>
+  <td>{{ r.d3_f }}</td><td>{{ r.d3_m }}</td><td class="b fill-3">{{ r.d3_t }}</td><td class="b fill-3">{{ r.d3_pct }}</td>
+  <td>{{ r.d4_f }}</td><td>{{ r.d4_m }}</td><td class="b fill-4">{{ r.d4_t }}</td><td class="b fill-4">{{ r.d4_pct }}</td>
+  <td class="b fill-gpa">{{ r.gpa }}</td>
+{% endmacro %}
+
+{% macro fmt_heads() %}
+<tr class="hf">
+  <th>F</th><th>M</th><th>T</th>
+  <th>F</th><th>M</th><th>T</th><th>%</th>
+  <th>F</th><th>M</th><th>T</th><th>F</th><th>M</th><th>T</th>
+  <th>F</th><th>M</th><th>T</th><th>F</th><th>M</th><th>T</th>
+  <th>F</th><th>M</th><th>T</th><th>%</th>
+  <th>F</th><th>M</th><th>T</th><th>%</th>
+  <th>F</th><th>M</th><th>T</th><th>%</th>
+</tr>
+{% endmacro %}
+
+{# ---------- summary block ---------- #}
+{% if doc.summary %}
+<table class="grid summary">
+  {{ cols() }}
+  <tbody>
+    <tr class="hg">
+      <th rowspan="6" class="vlabel"><div class="vert"><span>SUMMARY PERFORMANCE</span></div></th>
+      <th rowspan="4" colspan="3" class="nowrap">NO. OF SCHOOLS IN REGION</th>
+      <th colspan="7" class="grp fill-cand-h">NUMBER OF CANDIDATES</th>
+      <th colspan="23" class="grp">DIVISION PERFORMANCE</th>
+      <th colspan="3" class="grp fill-gpa-h">GPA PERFORMANCE</th>
+    </tr>
+    <tr class="hs">
+      <th colspan="3" class="fill-cand-h">REGISTERED</th>
+      <th colspan="4" class="fill-cand-h">SAT</th>
+      <th colspan="3">I</th><th colspan="3">II</th><th colspan="3">III</th><th colspan="3">IV</th>
+      <th colspan="4" class="fill-0-h">0</th>
+      <th colspan="4" class="fill-3-h">I-III</th>
+      <th colspan="4" class="fill-4-h">I-IV</th>
+      <th rowspan="2" class="v-mid fill-gpa-h">GPA</th>
+      <th rowspan="2" colspan="2" class="v-mid">COMPENTENCY LEVEL</th>
+    </tr>
+    {{ fmt_heads() }}
+    <tr class="hlbl"></tr>
+    <tr class="row">
+      <td colspan="3" class="b">{{ doc.summary.no_schools }}</td>
+      {{ nums(doc.summary) }}
+      <td colspan="3" class="comp{% if doc.summary.level %} lvl-{{ doc.summary.level | lower }}{% endif %}">{{ doc.summary.competency }}</td>
+    </tr>
+    <tr class="pass">
+      <td colspan="3" class="txt">% PASS</td>
+      <td colspan="7"></td>
+      <td colspan="3" class="b">{{ doc.pct_pass.i_m }}</td>
+      <td colspan="3" class="b">{{ doc.pct_pass.ii_m }}</td>
+      <td colspan="3" class="b">{{ doc.pct_pass.iii_m }}</td>
+      <td colspan="3" class="b">{{ doc.pct_pass.iv_m }}</td>
+      <td colspan="4" class="b">{{ doc.pct_pass.z_t }}</td>
+      <td colspan="4" class="b">{{ doc.pct_pass.d3_t }}</td>
+      <td colspan="4" class="b">{{ doc.pct_pass.d4_t }}</td>
+      <td colspan="3"></td>
+    </tr>
+  </tbody>
+</table>
+{% endif %}
+
+{# ---------- main per-school table ---------- #}
+<table class="grid main">
+  {{ cols() }}
+  <thead>
+    <tr class="hg">
+      <th rowspan="3" class="c-sn">S/NO.</th>
+      <th rowspan="3" class="v-mid">COUNCIL</th>
+      <th rowspan="3" class="v-mid">SCHOOL NAME</th>
+      <th rowspan="3" class="v-mid">OWNERSHIP</th>
+      <th colspan="7" class="grp fill-cand-h">NUMBER OF CANDIDATES</th>
+      <th colspan="23" class="grp">DIVISION PERFORMANCE</th>
+      <th colspan="2" class="grp fill-gpa-h">GPA PERFORMANCE</th>
+      <th rowspan="3" class="crank-h"><div class="vert"><span>C/RANK</span></div></th>
+      <th rowspan="3" class="rrank-h"><div class="vert"><span>R/RANK</span></div></th>
+    </tr>
+    <tr class="hs">
+      <th colspan="3" class="fill-cand-h">REGISTERED</th>
+      <th colspan="4" class="fill-cand-h">SAT</th>
+      <th colspan="3">I</th><th colspan="3">II</th><th colspan="3">III</th><th colspan="3">IV</th>
+      <th colspan="4" class="fill-0-h">0</th>
+      <th colspan="4" class="fill-3-h">I-III</th>
+      <th colspan="4" class="fill-4-h">I-IV</th>
+      <th rowspan="2" class="v-mid fill-gpa-h">GPA</th>
+      <th rowspan="2" class="v-mid">COMPETENCY LEVEL</th>
+    </tr>
+    {{ fmt_heads() }}
+  </thead>
+  <tbody>
+    {% for r in doc.rows %}
+    <tr class="row">
+      <td class="c-sn">{{ r.sn }}</td>
+      <td class="txt">{{ r.council }}</td>
+      <td class="txt">{{ r.school }}</td>
+      <td class="txt">{{ r.ownership }}</td>
+      {{ nums(r) }}
+      <td class="comp{% if r.level %} lvl-{{ r.level | lower }}{% endif %}">{{ r.competency }}</td>
+      <td class="b fill-crank c-rank">{{ r.crank }}</td>
+      <td class="b c-rank">{{ r.rrank }}</td>
+    </tr>
+    {% endfor %}
+    {% if doc.total %}
+    <tr class="row total">
+      <td colspan="4" class="txt b">TOTAL</td>
+      {{ nums(doc.total) }}
+      <td class="comp{% if doc.total.level %} lvl-{{ doc.total.level | lower }}{% endif %}">{{ doc.total.competency }}</td>
+      <td></td>
+      <td class="b c-rank">{{ doc.total.rrank }}</td>
+    </tr>
+    {% endif %}
+  </tbody>
+</table>
+</body>
+</html>
