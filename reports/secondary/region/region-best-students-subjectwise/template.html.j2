@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Region best students subjectwise</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+{#
+  Region best students subjectwise (LEVEL + FUNCTION name). Section-centric: one top-10
+  table per subject (one section per page). Fully self-contained (own template + own
+  style.css, inline @font-face, no shared stylesheet). Data-driven and location-agnostic.
+  The COMPETENCY LEVEL background is the ONLY data-driven colour (driven by the single
+  GRADE letter via grading.py).
+
+  Region variant of the council best-students-subjectwise: adds a COUNCIL column.
+  Columns: S/NO. | COUNCIL | SCHOOL | CATEGORY | CANDIDATE FULL NAME | SEX | MARKS | GRADE
+           | POSITION | COMPETENCY LEVEL
+#}
+{% for s in doc.sections %}
+<div class="section{% if not loop.first %} own-page{% endif %}">
+  <div class="titles">
+    {% for line in doc.document.ministry %}
+    <div class="hl ministry">{{ line }}</div>
+    {% endfor %}
+    <div class="hl exam-name">{{ doc.document.exam_name }}</div>
+    <div class="hl sec-title">{{ s.title }}</div>
+  </div>
+  <table class="students">
+    <colgroup>
+      <col class="w-sn"><col class="w-council"><col class="w-school"><col class="w-cat">
+      <col class="w-cand"><col class="w-sex"><col class="w-marks"><col class="w-grade">
+      <col class="w-pos"><col class="w-comp">
+    </colgroup>
+    <thead>
+      <tr>
+        <th rowspan="2" class="v-mid">S/NO.</th>
+        <th rowspan="2" class="v-mid">COUNCIL</th>
+        <th rowspan="2" class="v-mid">SCHOOL</th>
+        <th rowspan="2" class="v-mid">CATEGORY</th>
+        <th rowspan="2" class="v-mid">CANDIDATE FULL NAME</th>
+        <th class="vcol"><div class="vert"><span>SEX</span></div></th>
+        <th class="vcol"><div class="vert"><span>MARKS</span></div></th>
+        <th class="vcol"><div class="vert"><span>GRADE</span></div></th>
+        <th class="vcol"><div class="vert"><span>POSITION</span></div></th>
+        <th rowspan="2" class="v-mid">COMPETENCY LEVEL</th>
+      </tr>
+      <tr class="h-spacer"><th></th><th></th><th></th><th></th></tr>
+    </thead>
+    <tbody>
+      {% for r in s.rows %}
+      <tr class="row">
+        <td class="c-sn">{{ r.sno }}</td>
+        <td class="txt">{{ r.council }}</td>
+        <td class="txt">{{ r.school }}</td>
+        <td class="txt">{{ r.category }}</td>
+        <td class="txt">{{ r.candidate }}</td>
+        <td>{{ r.sex }}</td>
+        <td>{{ r.marks }}</td>
+        <td>{{ r.grade }}</td>
+        <td class="c-pos">{{ r.position }}</td>
+        <td class="txt comp{% if r.level %} lvl-{{ r.level | lower }}{% endif %}">{{ r.competency }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endfor %}
+</body>
+</html>
