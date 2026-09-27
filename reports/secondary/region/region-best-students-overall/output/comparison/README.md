@@ -1,18 +1,20 @@
 # Original vs generated
 
-Columns: **original | generated | diff** (red = pixels that differ).
+Columns: **original | generated | diff** (pink = sub-pixel differences, red = real differences).
 
-| page | pixel diff | words missing | words extra | fills only in original | fills only in generated |
-|---|---|---|---|---|---|
-| 1 | 10.65% | 6 | 3 | #c1f0c8 #caedfb #fbe2d5 | - |
-| 2 | 10.84% | 16 | 3 | #c1f0c8 #caedfb #e8efd3 #fbe2d5 | - |
-| 3 | 11.71% | 12 | 6 | #c1f0c8 #caedfb #e8efd3 #fbe2d5 | - |
-| 4 | 10.77% | 30 | 5 | #c1f0c8 #caedfb #e8efd3 #fbe2d5 | - |
-| 5 | 9.84% | 25 | 8 | #c1f0c8 #caedfb #e8efd3 #fbe2d5 | - |
-| 6 | 10.81% | 58 | 23 | #c1f0c8 #caedfb #e8efd3 #fbe2d5 | - |
-| 7 | 10.04% | 34 | 12 | #c1f0c8 #caedfb #fbe2d5 #ffcc99 | - |
-| 8 | 11.00% | 8 | 4 | #c1f0c8 #caedfb #fbe2d5 #ffcc99 | - |
-| 9 | 10.69% | 30 | 10 | #c1f0c8 #caedfb #e8efd3 #fbe2d5 | - |
+Pixel diff = share of pixels that differ at 110 dpi; tolerant = still different when a 1px shift is allowed (ignores sub-pixel anti-aliasing).
+
+| page | pixel diff | tolerant diff | words missing | words extra | fills only in original | fills only in generated |
+|---|---|---|---|---|---|---|
+| 1 | 10.65% | 7.54% | 6 | 3 | #c1f0c8 #caedfb #fbe2d5 | - |
+| 2 | 10.84% | 7.85% | 16 | 3 | #c1f0c8 #caedfb #e8efd3 #fbe2d5 | - |
+| 3 | 11.71% | 9.29% | 12 | 6 | #c1f0c8 #caedfb #e8efd3 #fbe2d5 | - |
+| 4 | 10.77% | 8.16% | 30 | 5 | #c1f0c8 #caedfb #e8efd3 #fbe2d5 | - |
+| 5 | 9.84% | 5.89% | 25 | 8 | #c1f0c8 #caedfb #e8efd3 #fbe2d5 | - |
+| 6 | 10.81% | 8.02% | 58 | 23 | #c1f0c8 #caedfb #e8efd3 #fbe2d5 | - |
+| 7 | 10.04% | 6.18% | 34 | 12 | #c1f0c8 #caedfb #fbe2d5 #ffcc99 | - |
+| 8 | 11.00% | 7.90% | 8 | 4 | #c1f0c8 #caedfb #fbe2d5 #ffcc99 | - |
+| 9 | 10.69% | 7.84% | 30 | 10 | #c1f0c8 #caedfb #e8efd3 #fbe2d5 | - |
 
 ## Page 1
 missing: `{'DC': 3, 'S4572-0095': 1, 'S5836-0049': 1, 'S4572-0092': 1}`

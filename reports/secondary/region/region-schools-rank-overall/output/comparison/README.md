@@ -1,15 +1,17 @@
 # Original vs generated
 
-Columns: **original | generated | diff** (red = pixels that differ).
+Columns: **original | generated | diff** (pink = sub-pixel differences, red = real differences).
 
-| page | pixel diff | words missing | words extra | fills only in original | fills only in generated |
-|---|---|---|---|---|---|
-| 1 | 39.09% | 33 | 12 | #65ffab #9eeaea #b5e6a2 #c1f0c8 #caedfb #ccffff #d2fce6 #daf2d0 #e8e8e8 #f1a983 #f2ceef #f7c7ac #fbe2d5 #ff0000 #ffffcc | #00b050 #64ffab #92d050 #d2fbe6 #dce6f0 #ebf0de #fce9d9 #ffff00 |
-| 2 | 41.37% | 2 | 39 | #9eeaea #b5e6a2 #c1f0c8 #caedfb #d2fce6 #daf2d0 #f7c7ac #fbe2d5 | #64ffab #d2fbe6 #dce6f0 #ebf0de #fce9d9 #ffc000 #ffff00 |
-| 3 | 44.83% | 0 | 38 | #9eeaea #b5e6a2 #c1f0c8 #caedfb #d2fce6 #daf2d0 #f7c7ac #fbe2d5 | #64ffab #d2fbe6 #dce6f0 #ebf0de #fce9d9 #ffc000 |
-| 4 | 44.80% | 0 | 38 | #9eeaea #b5e6a2 #c1f0c8 #caedfb #d2fce6 #daf2d0 #f7c7ac #fbe2d5 | #64ffab #d2fbe6 #dce6f0 #ebf0de #fce9d9 #ffc000 |
-| 5 | 44.52% | 0 | 38 | #9eeaea #b5e6a2 #c1f0c8 #caedfb #d2fce6 #daf2d0 #f7c7ac #fbe2d5 | #64ffab #d2fbe6 #dce6f0 #ebf0de #fce9d9 #ffc000 |
-| 6 | 15.92% | 26 | 40 | #9eeaea #b5e6a2 #c1f0c8 #caedfb #d2fce6 #daf2d0 #f2ceef #f7c7ac #fbe2d5 | #64ffab #d2fbe6 #dce6f0 #ebf0de #fce9d9 #ffc000 |
+Pixel diff = share of pixels that differ at 110 dpi; tolerant = still different when a 1px shift is allowed (ignores sub-pixel anti-aliasing).
+
+| page | pixel diff | tolerant diff | words missing | words extra | fills only in original | fills only in generated |
+|---|---|---|---|---|---|---|
+| 1 | 35.12% | 19.98% | 33 | 12 | #65ffab #ccffff #e8e8e8 #f1a983 #f2ceef #ff0000 #ffffcc | - |
+| 2 | 37.56% | 19.06% | 2 | 39 | - | - |
+| 3 | 39.23% | 19.26% | 0 | 38 | - | - |
+| 4 | 39.27% | 19.28% | 0 | 38 | - | - |
+| 5 | 38.90% | 19.30% | 0 | 38 | - | - |
+| 6 | 14.18% | 7.74% | 26 | 40 | #f2ceef | - |
 
 ## Page 1
 missing: `{'O': 3, 'L': 3, 'E': 3, 'C': 2, 'N': 2, 'NYANTAKUPBRWIVAA': 2, 'SC': 1, 'H': 1, 'U': 1, 'S': 1}`

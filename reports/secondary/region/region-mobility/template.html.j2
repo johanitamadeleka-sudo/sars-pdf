@@ -22,8 +22,8 @@
   <div class="hl ministry">{{ line }}</div>
   {% endfor %}
   <div class="hl exam-name">{{ doc.document.exam_name }}</div>
-  <div class="hl report-title">{{ doc.document.report_title }}</div>
 </div>
+<div class="section-band">{{ doc.document.report_title }}</div>
 
 <table class="mob">
   <colgroup>
@@ -34,21 +34,26 @@
   </colgroup>
   <thead>
     <tr class="h1">
-      <th rowspan="3" class="v-mid">S/NO.</th>
-      <th rowspan="3" class="v-mid">COUNCIL</th>
-      <th rowspan="3" class="v-mid">SCHOOL NAME</th>
-      <th rowspan="3" class="v-mid">OWNERSHIP</th>
-      <th colspan="3" class="grp fill-ftna">FTNA 2025</th>
-      <th colspan="3" class="grp fill-mock">MOCK 2026</th>
-      <th rowspan="3" class="v-mid">CHANYA</th>
-      <th rowspan="3" class="v-mid nowrap">MJONGEO<br>WA GPA</th>
-      <th rowspan="3" class="v-mid nowrap">HALI YA<br>MJONGEO</th>
+      <th rowspan="4" class="v-mid fill-peach">S/NO.</th>
+      <th rowspan="4" class="v-mid fill-grey">COUNCIL</th>
+      <th rowspan="4" class="v-mid fill-grey">SCHOOL NAME</th>
+      <th rowspan="4" class="v-mid fill-peach">OWNERSHIP</th>
+      <th colspan="3" class="grp fill-grp">FTNA 2025</th>
+      <th colspan="3" class="grp fill-grp">MOCK 2026</th>
+      <th colspan="2" class="grp fill-grey nowrap">MJONGEO<br>CHANYA</th>
+      <th rowspan="4" class="v-mid fill-iii nowrap">HALI YA<br>MJONGEO<br>WA GPA</th>
     </tr>
     <tr class="h2">
-      <th class="fill-ftna">TOTAL</th><th class="fill-ftna">%(I-III)</th><th class="fill-ftna">GPA</th>
-      <th class="fill-mock">TOTAL</th><th class="fill-mock">%(I-III)</th><th class="fill-mock">GPA</th>
+      <th colspan="2" class="fill-iii">I-III</th><th rowspan="2" class="v-mid fill-gpa-h">GPA</th>
+      <th colspan="2" class="fill-iii">I-III</th><th rowspan="2" class="v-mid fill-gpa-h">GPA</th>
+      <th rowspan="3" class="v-mid fill-chanya-h">%(I-III)</th>
+      <th rowspan="3" class="v-mid fill-mj-h">GPA</th>
     </tr>
-    <tr class="h3"><th></th><th></th><th></th><th></th><th></th><th></th></tr>
+    <tr class="h3">
+      <th class="fill-iii">TOTAL</th><th class="fill-iii">%</th>
+      <th class="fill-iii">TOTAL</th><th class="fill-iii">%</th>
+    </tr>
+    <tr class="h4"><th></th><th class="fill-pct"></th><th class="fill-gpa"></th><th></th><th class="fill-pct"></th><th class="fill-gpa"></th></tr>
   </thead>
   <tbody>
     {% for r in doc.rows %}
@@ -57,11 +62,11 @@
       <td class="txt">{{ r.council }}</td>
       <td class="txt">{{ r.school }}</td>
       <td class="txt">{{ r.ownership }}</td>
-      <td>{{ r.ftna_total }}</td><td>{{ r.ftna_pct }}</td><td class="b">{{ r.ftna_gpa }}</td>
-      <td>{{ r.mock_total }}</td><td>{{ r.mock_pct }}</td><td class="b">{{ r.mock_gpa }}</td>
-      <td>{{ r.chanya }}</td>
-      <td class="b">{{ r.mjongeo }}</td>
-      <td class="txt hali">{{ r.hali }}</td>
+      <td>{{ r.ftna_total }}</td><td class="fill-pct">{{ r.ftna_pct }}</td><td class="b fill-gpa">{{ r.ftna_gpa }}</td>
+      <td>{{ r.mock_total }}</td><td class="fill-pct">{{ r.mock_pct }}</td><td class="b fill-gpa">{{ r.mock_gpa }}</td>
+      <td class="fill-grey">{{ r.chanya }}</td>
+      <td class="b fill-gpa {% if r.mjongeo.startswith('-') %}mj-down{% else %}mj-up{% endif %}">{{ r.mjongeo }}</td>
+      <td class="txt hali {% if r.hali == 'IMEPANDA' %}hali-up{% else %}hali-down{% endif %}">{{ r.hali }}</td>
     </tr>
     {% endfor %}
   </tbody>

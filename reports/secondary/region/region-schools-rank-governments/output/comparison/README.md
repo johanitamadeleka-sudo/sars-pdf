@@ -1,13 +1,15 @@
 # Original vs generated
 
-Columns: **original | generated | diff** (red = pixels that differ).
+Columns: **original | generated | diff** (pink = sub-pixel differences, red = real differences).
 
-| page | pixel diff | words missing | words extra | fills only in original | fills only in generated |
-|---|---|---|---|---|---|
-| 1 | 35.88% | 34 | 22 | #65ffab #c1f0c8 #caedfb #ccffff #d2fce6 #daf2d0 #e8e8e8 #f1a983 #f2ceef #f2f2f2 #fbe2d5 #ff0000 #ffffcc | #64ffab #92d050 #d2fbe6 #dce6f0 #ebf0de #fce9d9 #ffc000 #ffff00 |
-| 2 | 44.99% | 22 | 49 | #c1f0c8 #caedfb #d2fce6 #daf2d0 #f1a983 #f2f2f2 #fbe2d5 | #64ffab #d2fbe6 #dce6f0 #ebf0de #fce9d9 #ffc000 |
-| 3 | 44.74% | 32 | 54 | #c1f0c8 #caedfb #d2fce6 #daf2d0 #f1a983 #f2f2f2 #fbe2d5 | #64ffab #d2fbe6 #dce6f0 #ebf0de #fce9d9 #ffc000 |
-| 4 | 40.86% | 19 | 46 | #9eeaea #b5e6a2 #c1f0c8 #caedfb #d2fce6 #daf2d0 #f1a983 #f2ceef #f2f2f2 #f7c7ac #fbe2d5 | #64ffab #d2fbe6 #dce6f0 #ebf0de #fce9d9 #ffc000 |
+Pixel diff = share of pixels that differ at 110 dpi; tolerant = still different when a 1px shift is allowed (ignores sub-pixel anti-aliasing).
+
+| page | pixel diff | tolerant diff | words missing | words extra | fills only in original | fills only in generated |
+|---|---|---|---|---|---|---|
+| 1 | 33.02% | 14.49% | 34 | 22 | #65ffab #ccffff #e8e8e8 #f2ceef #ff0000 #ffffcc | - |
+| 2 | 40.64% | 19.00% | 22 | 49 | - | - |
+| 3 | 40.38% | 18.88% | 32 | 54 | - | - |
+| 4 | 36.90% | 17.54% | 19 | 46 | #9eeaea #b5e6a2 #f2ceef #f7c7ac | - |
 
 ## Page 1
 missing: `{'DC': 13, '3920': 1, '8053210721470235774': 1, '97.70': 1, 'KATUNGURU': 1, 'SAVANA': 1, 'NYITUNDU': 1, 'BITOTO': 1, 'SIGU': 1, "ISUNGANG'HOLO": 1}`

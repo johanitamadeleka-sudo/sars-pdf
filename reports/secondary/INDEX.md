@@ -19,15 +19,30 @@ Each report keeps its own side-by-side images and per-page score table under
 
 - **Page count** matches the original **exactly** for every report.
 - **pixel-diff** is `compare.py`'s pixel-difference percentage per page (range
-  shown min–max across the report's pages). It is dominated by
+  shown min–max across the report's pages). **tolerant-diff** (shown per page in
+  each report's own comparison README, and used as the true fidelity ruler — the
+  same one that grades the Lakezone success example) allows a 1px shift to
+  discount sub-pixel anti-aliasing. The residual is dominated by
   **font-substitution glyph-edge noise**: the originals embed genuine Monotype
   Arial/Times, which cannot be obtained or redistributed in-sandbox, so we
   render with metric-compatible Liberation faces registered under the real
   family names (see [`../../fonts/README.md`](../../fonts/README.md) and the
-  [decisions note](../README.md#decisions--blockers)). Geometry and colours
-  align — the diff overlay shows red only along glyph edges. Dense wide F/M/T
-  grids therefore sit higher (thousands of tiny digits differ at the edges);
-  sparse reports sit low.
+  [decisions note](../README.md#decisions--blockers)). Dense wide F/M/T grids
+  therefore sit higher (thousands of tiny digits differ at the edges); sparse
+  reports sit low.
+- **Fills (colours) now match the fixed palette.** The three division-grid
+  reports (`*-schools-rank-overall`, `region-schools-rank-governments`) reproduce
+  the original's per-column pastel tints as **fixed** fills, and `region-mobility`
+  reproduces its section-header, group-header and up/down (IMEPANDA/UMESHUKA) row
+  colour-coding as a **fixed mapping keyed off the data value** (not a free data
+  colour). On the repeating **main-grid** pages of those reports, `compare.py`
+  now reports **zero "fills only in original" and zero "fills only in generated"**.
+  Residual "fills only in original" survive only on the **one-off SUMMARY
+  PERFORMANCE banner** (a decorative multi-colour legend that appears once, on the
+  first/last page) and on `region-mobility` as `#c00000` — the ink of negative
+  MJONGEO deltas, which we render as coloured text (visually identical) but
+  pdfplumber counts the original's as a filled glyph path. These are honest,
+  documented residuals, not competency-colour bleed.
 - **word-diff** is `compare.py`'s **fuzzy tokeniser** total (missing + extra
   across all pages), NOT a true content diff. The residual counts are metric
   artifacts: vertical/rotated headers tokenised char-by-char (e.g. `C/RANK` →
@@ -42,7 +57,7 @@ Each report keeps its own side-by-side images and per-page score table under
 |---|---|---|---|---|---|
 | `council-schools-rank-subjectwise` | MWANZA CC SCHOOLS RANK SUBJECTWISE.pdf | council, per-subject school rank (COUNCILWISE, C/RANK) | 24 | 0.0–27.3% | 162 / 130 |
 | `council-subjects-rank` | MWANZA CC SUBJECTS RANK.pdf | council, one row per subject | 2 | 4.1–18.9% | 4 / 1 |
-| `council-schools-rank-overall` | MWANZA CC SCHOOLS RANK.pdf | council, division-performance grid (F/M/T) | 1 | 36.8% | 208 / 71 |
+| `council-schools-rank-overall` | MWANZA CC SCHOOLS RANK.pdf | council, division-performance grid (F/M/T); fixed per-column tints + data-driven competency | 1 | 34.7% | 208 / 71 |
 | `council-top-10-schools` | MWANZA CC 10 BEST SCHOOLS.pdf | council, top-10 sections (incl. districtwise/govt) | 3 | 19.3–21.8% | 46 / 26 |
 | `council-best-students-overall` | MWANZA CC 10 BEST STUDENTS.pdf | council, top students + detailed subjects | 5 | 8.7–20.6% | 172 / 41 |
 | `council-best-students-subjectwise` | MWANZA CC 10 BEST STUDENTS SUBJECTWISE.pdf | council, top-10 students per subject | 30 | 0.0–10.5% | 398 / 110 |
@@ -55,13 +70,13 @@ Each report keeps its own side-by-side images and per-page score table under
 | `region-schools-rank-subjectwise` (EDK) | Mwanza School Rank-EDK.pdf | region, per-subject school rank + COUNCIL col + C/RANK & R/RANK (REGIONWISE) | 1 | 16.8% | 1 / 0 |
 | `region-schools-rank-subjectwise` (English) | Mwanza School Rank-English Language.pdf | region, per-subject school rank (same template, 2nd source) | 6 | 34.4–41.2% | 12 / 12 |
 | `region-subjects-rank` | Mwanza Overall Subjects Performance.pdf | region, one row per subject (REGIONALWISE) | 2 | 17.8–27.9% | 4 / 2 |
-| `region-schools-rank-overall` | Mwanza schools rank Overall.pdf | region, division grid + COUNCIL col | 6 | 15.9–44.8% | 61 / 205 |
-| `region-schools-rank-governments` | Mwanza Schools Rank For Governments.pdf | region, division grid, government schools only | 4 | 35.9–45.0% | 107 / 171 |
+| `region-schools-rank-overall` | Mwanza schools rank Overall.pdf | region, division grid + COUNCIL col; fixed per-column pastel tints reproduced | 6 | 14.2–39.3% | 61 / 205 |
+| `region-schools-rank-governments` | Mwanza Schools Rank For Governments.pdf | region, division grid, government schools only; fixed per-column pastel tints reproduced | 4 | 33.0–40.6% | 107 / 171 |
 | `region-top-10-schools` | Mwanza Top 10 Schools.pdf | region, top-10 overall + COUNCIL col | 6 | 10.0–11.4% | 14 / 28 |
 | `region-best-students-overall` | Mwanza Best Students-Overall.pdf | region, top students + COUNCIL col + detailed subjects | 9 | 9.8–11.7% | 219 / 74 |
 | `region-best-students-subjectwise` | Mwanza Best students-Subjectwise.pdf | region, top-10 students per subject + COUNCIL col | 23 | 10.8–11.3% | 156 / 71 |
 | `region-district-performance` | Mwanza f2 District Performance.pdf | region only, per-council/district division grid | 5 | 9.1–9.6% | 1 / 27 |
-| `region-mobility` | Mwanza f2 Mock Mobility 2026.pdf | region only, FTNA 2025 vs Mock 2026 (Swahili labels) | 6 | 35.1–39.3% | 152 / 102 |
+| `region-mobility` | Mwanza f2 Mock Mobility 2026.pdf | region only, FTNA 2025 vs Mock 2026 (Swahili labels); fixed section/header fills + IMEPANDA/UMESHUKA up-down colour-coding | 6 | 33.9–36.9% | 248 / 222 |
 
 \* word-diff is the fuzzy-tokeniser total (see [How to read the scores](#how-to-read-the-scores)); it over-counts visually identical rotated headers and cell-adjacency kern merges. Extracted content is verified correct.
 

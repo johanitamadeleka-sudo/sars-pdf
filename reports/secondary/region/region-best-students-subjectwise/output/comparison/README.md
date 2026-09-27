@@ -1,32 +1,34 @@
 # Original vs generated
 
-Columns: **original | generated | diff** (red = pixels that differ).
+Columns: **original | generated | diff** (pink = sub-pixel differences, red = real differences).
 
-| page | pixel diff | words missing | words extra | fills only in original | fills only in generated |
-|---|---|---|---|---|---|
-| 1 | 11.28% | 0 | 0 | #caedfb #ffffcc | - |
-| 2 | 11.16% | 0 | 0 | #caedfb #ffffcc | - |
-| 3 | 10.99% | 0 | 0 | #caedfb #ffffcc | - |
-| 4 | 10.90% | 0 | 0 | #caedfb #ffffcc | - |
-| 5 | 11.14% | 16 | 8 | #caedfb #ffffcc | - |
-| 6 | 10.98% | 0 | 0 | #caedfb #ffffcc | - |
-| 7 | 10.84% | 0 | 0 | #caedfb #ffffcc | - |
-| 8 | 10.94% | 0 | 0 | #caedfb #ffffcc | - |
-| 9 | 11.04% | 0 | 0 | #caedfb #ffffcc | - |
-| 10 | 11.03% | 1 | 1 | #caedfb #ffffcc | - |
-| 11 | 11.18% | 32 | 6 | #00b050 #caedfb #ffffcc | - |
-| 12 | 11.24% | 0 | 0 | #caedfb #ffffcc | - |
-| 13 | 11.22% | 0 | 0 | #caedfb #ffffcc | - |
-| 14 | 11.21% | 20 | 10 | #caedfb #ffffcc | - |
-| 15 | 11.21% | 20 | 10 | #caedfb #ffffcc | - |
-| 16 | 11.02% | 0 | 0 | #caedfb #ffff00 #ffffcc | #92d050 |
-| 17 | 11.20% | 0 | 0 | #caedfb #ffffcc | - |
-| 18 | 11.23% | 0 | 0 | #caedfb #ffffcc | - |
-| 19 | 11.24% | 0 | 0 | #caedfb #ffffcc | #92d050 |
-| 20 | 11.32% | 2 | 1 | #caedfb #ffffcc | - |
-| 21 | 11.33% | 25 | 15 | #caedfb #ffff00 #ffffcc | #92d050 |
-| 22 | 11.03% | 20 | 10 | #caedfb #ffffcc | #92d050 |
-| 23 | 11.17% | 20 | 10 | #caedfb #ffffcc | #92d050 |
+Pixel diff = share of pixels that differ at 110 dpi; tolerant = still different when a 1px shift is allowed (ignores sub-pixel anti-aliasing).
+
+| page | pixel diff | tolerant diff | words missing | words extra | fills only in original | fills only in generated |
+|---|---|---|---|---|---|---|
+| 1 | 11.28% | 9.02% | 0 | 0 | #caedfb #ffffcc | - |
+| 2 | 11.16% | 8.87% | 0 | 0 | #caedfb #ffffcc | - |
+| 3 | 10.99% | 8.75% | 0 | 0 | #caedfb #ffffcc | - |
+| 4 | 10.90% | 8.67% | 0 | 0 | #caedfb #ffffcc | - |
+| 5 | 11.14% | 9.09% | 16 | 8 | #caedfb #ffffcc | - |
+| 6 | 10.98% | 8.79% | 0 | 0 | #caedfb #ffffcc | - |
+| 7 | 10.84% | 8.63% | 0 | 0 | #caedfb #ffffcc | - |
+| 8 | 10.94% | 8.68% | 0 | 0 | #caedfb #ffffcc | - |
+| 9 | 11.04% | 8.75% | 0 | 0 | #caedfb #ffffcc | - |
+| 10 | 11.03% | 8.83% | 1 | 1 | #caedfb #ffffcc | - |
+| 11 | 11.18% | 9.18% | 32 | 6 | #00b050 #caedfb #ffffcc | - |
+| 12 | 11.24% | 8.87% | 0 | 0 | #caedfb #ffffcc | - |
+| 13 | 11.22% | 8.98% | 0 | 0 | #caedfb #ffffcc | - |
+| 14 | 11.21% | 9.08% | 20 | 10 | #caedfb #ffffcc | - |
+| 15 | 11.21% | 9.06% | 20 | 10 | #caedfb #ffffcc | - |
+| 16 | 11.02% | 8.76% | 0 | 0 | #caedfb #ffff00 #ffffcc | #92d050 |
+| 17 | 11.20% | 8.87% | 0 | 0 | #caedfb #ffffcc | - |
+| 18 | 11.23% | 8.85% | 0 | 0 | #caedfb #ffffcc | - |
+| 19 | 11.24% | 8.93% | 0 | 0 | #caedfb #ffffcc | #92d050 |
+| 20 | 11.32% | 9.15% | 2 | 1 | #caedfb #ffffcc | - |
+| 21 | 11.33% | 9.22% | 25 | 15 | #caedfb #ffff00 #ffffcc | #92d050 |
+| 22 | 11.03% | 8.84% | 20 | 10 | #caedfb #ffffcc | #92d050 |
+| 23 | 11.17% | 9.08% | 20 | 10 | #caedfb #ffffcc | #92d050 |
 
 ## Page 1
 

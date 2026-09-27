@@ -23,8 +23,9 @@ It follows the same conventions as the secondary level (see
   by location or proper noun;
 - each report is **self-contained** (its own template, CSS, data, reference,
   output);
-- use the shared real fonts from [`../_shared/fonts.css`](../_shared/fonts.css)
-  with **no fallback chains**;
+- register the real fonts (in [`../../fonts/`](../../fonts/)) with an OWN inline
+  `@font-face` in each report's `style.css`, one family name each and **no
+  fallback chains** (no shared stylesheet, nothing `@import`ed);
 - store data as **display strings**;
 - generation is **data-driven** and verified with `../../scripts/compare.py`.
 

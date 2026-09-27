@@ -16,8 +16,24 @@
 }
 
 :root {
-  --fill-ftna: #fce9d9;
-  --fill-mock: #dce6f0;
+  /* FIXED mobility palette, measured column-by-column from the reference PDF.
+     None of these are data-driven free colours: the up/down HALI fill and the
+     signed MJONGEO ink are a FIXED mapping keyed off the data value (like grading). */
+  --fill-section: #ccffcc;   /* POSITIVE MOBILITY section header band */
+  --ink-section: #7030a0;    /* section-header purple text */
+  --fill-grp: #ddebf7;       /* FTNA 2025 / MOCK 2026 group headers */
+  --fill-iii: #ffff00;       /* I-III / %(I-III) sub-headers (yellow) */
+  --fill-gpa-h: #66ffff;     /* GPA sub-headers (cyan) */
+  --fill-peach: #fce4d6;     /* S/NO. + OWNERSHIP headers */
+  --fill-grey: #f2f2f2;      /* COUNCIL/SCHOOL headers + CHANYA body column */
+  --fill-pct: #ccffcc;       /* %(I-III) body cells (light green) */
+  --fill-gpa: #ffffcc;       /* GPA body cells (pale yellow) */
+  --fill-chanya-h: #e2efda;  /* MJONGEO CHANYA %(I-III) header */
+  --fill-mj-h: #fff2cc;      /* MJONGEO CHANYA GPA header */
+  --fill-up: #00b050;        /* HALI = IMEPANDA (rose) */
+  --fill-down: #ff0000;      /* HALI = UMESHUKA (fell) */
+  --ink-up: #00b050;         /* MJONGEO positive delta ink */
+  --ink-down: #c00000;       /* MJONGEO negative delta ink */
   --ink: #000000;
   --grid: #000000;
 }
@@ -73,15 +89,38 @@ thead th { font-weight: bold; font-size: 6.4pt; }
 thead th.grp { font-size: 7pt; }
 thead th.v-mid { vertical-align: middle; }
 thead .h1 { height: 12pt; }
-thead .h2 { height: 10pt; }
+thead .h2 { height: 9pt; }
 thead .h3 { height: 8pt; }
+thead .h4 { height: 3pt; }
 
 tbody tr.row { height: 11.78pt; }
 tbody td { font-size: 6.4pt; }
 td.txt { text-align: left; padding-left: 1.5pt; font-size: 5.8pt; letter-spacing: -0.15pt; }
 td.c-sno { }
 td.b { font-weight: bold; }
-td.hali { text-align: left; font-weight: bold; }
+td.hali { text-align: left; font-weight: bold; font-style: italic; padding-left: 3pt; }
 
-.fill-ftna { background: var(--fill-ftna); }
-.fill-mock { background: var(--fill-mock); }
+.fill-grp { background: var(--fill-grp); }
+.fill-iii { background: var(--fill-iii); }
+.fill-gpa-h { background: var(--fill-gpa-h); }
+.fill-peach { background: var(--fill-peach); }
+.fill-grey { background: var(--fill-grey); }
+.fill-pct { background: var(--fill-pct); }
+.fill-gpa { background: var(--fill-gpa); }
+.fill-chanya-h { background: var(--fill-chanya-h); }
+.fill-mj-h { background: var(--fill-mj-h); }
+
+/* HALI up/down: FIXED mapping keyed off the data value (not a free data colour) */
+.hali-up { background: var(--fill-up); }
+.hali-down { background: var(--fill-down); }
+/* MJONGEO signed delta ink: FIXED mapping keyed off the sign */
+.mj-up { color: var(--ink-up); }
+.mj-down { color: var(--ink-down); }
+
+/* section header band (POSITIVE MOBILITY) */
+.section-band {
+  background: var(--fill-section); color: var(--ink-section);
+  text-align: center; font-weight: bold; font-size: 11pt;
+  padding: 3pt 0; margin: 4pt 0 0 13.0pt; width: 576.9pt;
+  border: 0.8pt solid var(--grid);
+}

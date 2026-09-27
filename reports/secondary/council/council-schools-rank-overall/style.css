@@ -18,13 +18,18 @@
 }
 
 :root {
-  --fill-cand: #fce9d9;    /* NUMBER OF CANDIDATES group + REGISTERED/SAT sub-headers */
-  --fill-gpa-h: #d2fbe6;   /* GPA PERFORMANCE group + GPA column cells */
-  --fill-blue: #dce6f0;    /* SAT % cells */
-  --fill-0: #d2fbe6;       /* 0 (DIV-0) T + % cells */
-  --fill-3: #64ffab;       /* I-III T + % cells + header */
-  --fill-4: #d2fbe6;       /* I-IV T + % cells */
-  --fill-crank: #ebf0de;   /* C/RANK column pale green */
+  /* FIXED division-grid palette, measured column-by-column from the reference PDF.
+     Only .lvl-* (competency) below is data-driven; every fill here is a fixed tint. */
+  --fill-cand: #fde9d9;    /* NUMBER OF CANDIDATES group + REGISTERED/SAT sub-headers */
+  --fill-gpa-h: #c4d79b;   /* GPA PERFORMANCE header group (summary block only) */
+  --fill-gpa-col: #d2fce6; /* GPA column cell in the summary block */
+  --fill-blue: #dce6f1;    /* SAT % cells */
+  --fill-t: #daeef3;       /* T cells of I, II, III, IV + I-IV % */
+  --fill-z: #fde9d9;       /* 0 (DIV-0) F/M/T band */
+  --fill-z-pct: #fabf8f;   /* 0 (DIV-0) % */
+  --fill-3: #d2fce6;       /* I-III F/M/T band */
+  --fill-3-pct: #65ffab;   /* I-III % */
+  --fill-crank: #ebf1de;   /* C/RANK column pale green */
 
   --lvl-a: #00b050;  --lvl-a-ink: #000000;
   --lvl-b: #92d050;  --lvl-b-ink: #000000;
@@ -138,13 +143,16 @@ td.c-rank { }
 tr.pass td, tr.total td { font-weight: bold; }
 tr.pass td.txt, tr.total td.txt { text-align: left; padding-left: 1pt; }
 
-/* fills */
+/* fills (fixed palette, per measured column) */
 .fill-cand-h { background: var(--fill-cand); }
-.fill-gpa-h, .fill-gpa { background: var(--fill-gpa-h); }
+.fill-gpa-h { background: var(--fill-gpa-h); }
+.fill-gpa-col { background: var(--fill-gpa-col); }
 .fill-blue { background: var(--fill-blue); }
-.fill-0, .fill-0-h { background: var(--fill-0); }
-.fill-3, .fill-3-h { background: var(--fill-3); }
-.fill-4, .fill-4-h { background: var(--fill-4); }
+.fill-t { background: var(--fill-t); }
+.fill-z { background: var(--fill-z); }
+.fill-z-pct { background: var(--fill-z-pct); }
+.fill-3 { background: var(--fill-3); }
+.fill-3-pct { background: var(--fill-3-pct); }
 .fill-crank { background: var(--fill-crank); }
 
 .lvl-a { background: var(--lvl-a); color: var(--lvl-a-ink); }

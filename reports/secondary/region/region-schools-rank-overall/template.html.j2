@@ -45,15 +45,15 @@
 
 {% macro nums(r) %}
   <td>{{ r.reg_f }}</td><td>{{ r.reg_m }}</td><td class="b">{{ r.reg_t }}</td>
-  <td>{{ r.sat_f }}</td><td>{{ r.sat_m }}</td><td class="b">{{ r.sat_t }}</td><td class="b fill-blue">{{ r.sat_pct }}</td>
+  <td>{{ r.sat_f }}</td><td>{{ r.sat_m }}</td><td class="b">{{ r.sat_t }}</td><td class="b">{{ r.sat_pct }}</td>
   <td>{{ r.i_f }}</td><td>{{ r.i_m }}</td><td class="b">{{ r.i_t }}</td>
   <td>{{ r.ii_f }}</td><td>{{ r.ii_m }}</td><td class="b">{{ r.ii_t }}</td>
   <td>{{ r.iii_f }}</td><td>{{ r.iii_m }}</td><td class="b">{{ r.iii_t }}</td>
   <td>{{ r.iv_f }}</td><td>{{ r.iv_m }}</td><td class="b">{{ r.iv_t }}</td>
-  <td>{{ r.z_f }}</td><td>{{ r.z_m }}</td><td class="b fill-0">{{ r.z_t }}</td><td class="b fill-0">{{ r.z_pct }}</td>
-  <td>{{ r.d3_f }}</td><td>{{ r.d3_m }}</td><td class="b fill-3">{{ r.d3_t }}</td><td class="b fill-3">{{ r.d3_pct }}</td>
-  <td>{{ r.d4_f }}</td><td>{{ r.d4_m }}</td><td class="b fill-4">{{ r.d4_t }}</td><td class="b fill-4">{{ r.d4_pct }}</td>
-  <td class="b fill-gpa">{{ r.gpa }}</td>
+  <td class="fill-z">{{ r.z_f }}</td><td class="fill-z">{{ r.z_m }}</td><td class="b fill-z">{{ r.z_t }}</td><td class="b fill-z-pct">{{ r.z_pct }}</td>
+  <td class="fill-3">{{ r.d3_f }}</td><td class="fill-3">{{ r.d3_m }}</td><td class="b fill-3">{{ r.d3_t }}</td><td class="b fill-3-pct">{{ r.d3_pct }}</td>
+  <td>{{ r.d4_f }}</td><td>{{ r.d4_m }}</td><td class="b">{{ r.d4_t }}</td><td class="b fill-4-pct">{{ r.d4_pct }}</td>
+  <td class="b">{{ r.gpa }}</td>
 {% endmacro %}
 
 {% macro fmt_heads() %}
@@ -62,9 +62,9 @@
   <th>F</th><th>M</th><th>T</th><th>%</th>
   <th>F</th><th>M</th><th>T</th><th>F</th><th>M</th><th>T</th>
   <th>F</th><th>M</th><th>T</th><th>F</th><th>M</th><th>T</th>
-  <th>F</th><th>M</th><th>T</th><th>%</th>
-  <th>F</th><th>M</th><th>T</th><th>%</th>
-  <th>F</th><th>M</th><th>T</th><th>%</th>
+  <th class="fill-z">F</th><th class="fill-z">M</th><th class="fill-z">T</th><th class="fill-z-pct">%</th>
+  <th class="fill-3">F</th><th class="fill-3">M</th><th class="fill-3">T</th><th class="fill-3-pct">%</th>
+  <th>F</th><th>M</th><th>T</th><th class="fill-4-pct">%</th>
 </tr>
 {% endmacro %}
 
@@ -84,9 +84,9 @@
       <th colspan="3" class="fill-cand-h">REGISTERED</th>
       <th colspan="4" class="fill-cand-h">SAT</th>
       <th colspan="3">I</th><th colspan="3">II</th><th colspan="3">III</th><th colspan="3">IV</th>
-      <th colspan="4" class="fill-0-h">0</th>
-      <th colspan="4" class="fill-3-h">I-III</th>
-      <th colspan="4" class="fill-4-h">I-IV</th>
+      <th colspan="4">0</th>
+      <th colspan="4">I-III</th>
+      <th colspan="4">I-IV</th>
       <th rowspan="2" class="v-mid fill-gpa-h">GPA</th>
       <th rowspan="2" colspan="2" class="v-mid">COMPENTENCY LEVEL</th>
     </tr>
@@ -125,16 +125,16 @@
       <th colspan="7" class="grp fill-cand-h">NUMBER OF CANDIDATES</th>
       <th colspan="23" class="grp">DIVISION PERFORMANCE</th>
       <th colspan="2" class="grp fill-gpa-h">GPA PERFORMANCE</th>
-      <th rowspan="3" class="crank-h"><div class="vert"><span>C/RANK</span></div></th>
-      <th rowspan="3" class="rrank-h"><div class="vert"><span>R/RANK</span></div></th>
+      <th rowspan="3" class="crank-h fill-rank-h"><div class="vert"><span>C/RANK</span></div></th>
+      <th rowspan="3" class="rrank-h fill-rank-h"><div class="vert"><span>R/RANK</span></div></th>
     </tr>
     <tr class="hs">
       <th colspan="3" class="fill-cand-h">REGISTERED</th>
       <th colspan="4" class="fill-cand-h">SAT</th>
       <th colspan="3">I</th><th colspan="3">II</th><th colspan="3">III</th><th colspan="3">IV</th>
-      <th colspan="4" class="fill-0-h">0</th>
-      <th colspan="4" class="fill-3-h">I-III</th>
-      <th colspan="4" class="fill-4-h">I-IV</th>
+      <th colspan="4">0</th>
+      <th colspan="4">I-III</th>
+      <th colspan="4">I-IV</th>
       <th rowspan="2" class="v-mid fill-gpa-h">GPA</th>
       <th rowspan="2" class="v-mid">COMPETENCY LEVEL</th>
     </tr>
@@ -148,9 +148,9 @@
       <td class="txt">{{ r.school }}</td>
       <td class="txt">{{ r.ownership }}</td>
       {{ nums(r) }}
-      <td class="comp{% if r.level %} lvl-{{ r.level | lower }}{% endif %}">{{ r.competency }}</td>
-      <td class="b fill-crank c-rank">{{ r.crank }}</td>
-      <td class="b c-rank">{{ r.rrank }}</td>
+      <td class="comp">{{ r.competency }}</td>
+      <td class="b c-rank">{{ r.crank }}</td>
+      <td class="b fill-rrank c-rank">{{ r.rrank }}</td>
     </tr>
     {% endfor %}
     {% if doc.total %}
@@ -159,7 +159,7 @@
       {{ nums(doc.total) }}
       <td class="comp{% if doc.total.level %} lvl-{{ doc.total.level | lower }}{% endif %}">{{ doc.total.competency }}</td>
       <td></td>
-      <td class="b c-rank">{{ doc.total.rrank }}</td>
+      <td class="b fill-rrank c-rank">{{ doc.total.rrank }}</td>
     </tr>
     {% endif %}
   </tbody>

@@ -5,7 +5,7 @@
  *   S/N | SCHOOL NAME | A B C D F | TOTAL | A-C %A-C A-D %A-D | GPA | COMPETENCY | C/RANK
  * All fixed fills live in :root; only .lvl-* (competency level) is data-driven (grading.py).
  *
- * REAL fonts, NO fallback chain: fonts.css maps 'Arial' etc. to one real file each.
+ * REAL fonts, NO fallback chain: each 'Arial' @font-face below maps to one real file.
  */
 
 /* REAL fonts registered inline so this report is fully self-contained (own template +

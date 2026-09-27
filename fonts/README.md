@@ -1,8 +1,10 @@
 # fonts/ — real font files (no fallback chains)
 
 The reports render with **real font files** registered via `@font-face`, not with a
-CSS fallback stack. Each family name maps to exactly one file. The registration
-lives in [`../reports/_shared/fonts.css`](../reports/_shared/fonts.css).
+CSS fallback stack. Each family name maps to exactly one file. There is **no shared
+font stylesheet**: every report's own `style.css` carries its own inline `@font-face`
+blocks that point at the files in this directory (the report stays fully
+self-contained — nothing is `@import`ed).
 
 ## What the source PDFs embed
 
@@ -31,7 +33,7 @@ the **SIL Open Font License 1.1** (with the GPLv2 + font exception heritage),
 which permits redistribution and bundling.
 
 If a genuinely licensed Arial/Times file becomes available, drop it in here and
-repoint the matching `@font-face` `src` in `reports/_shared/fonts.css`; no other
+repoint the matching `@font-face` `src` in each report's `style.css`; no other
 change is needed because the CSS references the family name, not the vendor.
 
 ## Files in this directory

@@ -19,13 +19,17 @@
 }
 
 :root {
-  --fill-cand: #fce9d9;
-  --fill-gpa-h: #d2fbe6;
-  --fill-blue: #dce6f0;
-  --fill-0: #d2fbe6;
-  --fill-3: #64ffab;
-  --fill-4: #d2fbe6;
-  --fill-crank: #ebf0de;
+  /* FIXED division-grid palette, measured column-by-column from the reference PDF.
+     Only .lvl-* (competency) below is data-driven; every fill here is a fixed tint. */
+  --fill-cand: #fbe2d5;      /* NUMBER OF CANDIDATES header group */
+  --fill-gpa-h: #d2fce6;     /* GPA header group */
+  --fill-rank-h: #daf2d0;    /* C/RANK + R/RANK header group */
+  --fill-z: #fbe2d5;         /* division 0 : F/M/T band */
+  --fill-z-pct: #f7c7ac;     /* division 0 : % */
+  --fill-3: #b5e6a2;         /* I-III : F/M/T band */
+  --fill-3-pct: #9eeaea;     /* I-III : % */
+  --fill-4-pct: #caedfb;     /* I-IV : % */
+  --fill-rrank: #c1f0c8;     /* R/RANK body column */
 
   --lvl-a: #00b050;  --lvl-a-ink: #000000;
   --lvl-b: #92d050;  --lvl-b-ink: #000000;
@@ -138,14 +142,16 @@ td.comp { text-align: left; font-weight: bold; padding-left: 1pt; font-size: 4.7
 tr.pass td, tr.total td { font-weight: bold; }
 tr.pass td.txt, tr.total td.txt { text-align: left; padding-left: 1pt; }
 
-/* fills */
+/* fills (fixed palette, per measured column) */
 .fill-cand-h { background: var(--fill-cand); }
-.fill-gpa-h, .fill-gpa { background: var(--fill-gpa-h); }
-.fill-blue { background: var(--fill-blue); }
-.fill-0, .fill-0-h { background: var(--fill-0); }
-.fill-3, .fill-3-h { background: var(--fill-3); }
-.fill-4, .fill-4-h { background: var(--fill-4); }
-.fill-crank { background: var(--fill-crank); }
+.fill-gpa-h { background: var(--fill-gpa-h); }
+.fill-rank-h { background: var(--fill-rank-h); }
+.fill-z { background: var(--fill-z); }
+.fill-z-pct { background: var(--fill-z-pct); }
+.fill-3 { background: var(--fill-3); }
+.fill-3-pct { background: var(--fill-3-pct); }
+.fill-4-pct { background: var(--fill-4-pct); }
+.fill-rrank { background: var(--fill-rrank); }
 
 .lvl-a { background: var(--lvl-a); color: var(--lvl-a-ink); }
 .lvl-b { background: var(--lvl-b); color: var(--lvl-b-ink); }

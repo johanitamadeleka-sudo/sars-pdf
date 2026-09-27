@@ -1,33 +1,35 @@
 # Original vs generated
 
-Columns: **original | generated | diff** (red = pixels that differ).
+Columns: **original | generated | diff** (pink = sub-pixel differences, red = real differences).
 
-| page | pixel diff | words missing | words extra | fills only in original | fills only in generated |
-|---|---|---|---|---|---|
-| 1 | 22.70% | 5 | 1 | #65ffab #d2fce6 #d8e4bc #dce6f1 #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #daeef3 #ddebf7 #e2efda #f8cbad #fce4d6 |
-| 2 | 3.76% | 0 | 0 | #d2fce6 #daeef3 #f2dcdb #fcd5b4 | #f8cbad |
-| 3 | 24.77% | 5 | 21 | #65ffab #d8e4bc #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
-| 4 | 4.35% | 17 | 0 | #fcd5b4 | #f8cbad |
-| 5 | 20.93% | 5 | 4 | #65ffab #d8e4bc #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
-| 6 | 3.63% | 0 | 0 | #fcd5b4 | #f8cbad |
-| 7 | 25.43% | 5 | 21 | #65ffab #d8e4bc #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
-| 8 | 4.31% | 17 | 0 | #fcd5b4 | #f8cbad |
-| 9 | 24.48% | 5 | 4 | #65ffab #d8e4bc #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
-| 10 | 3.85% | 0 | 0 | #fcd5b4 | #f8cbad |
-| 11 | 23.69% | 5 | 4 | #65ffab #d8e4bc #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
-| 12 | 3.48% | 0 | 0 | #fcd5b4 | #f8cbad |
-| 13 | 24.33% | 5 | 4 | #65ffab #d8e4bc #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
-| 14 | 3.59% | 0 | 0 | #fcd5b4 | #f8cbad |
-| 15 | 23.86% | 5 | 4 | #65ffab #d8e4bc #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
-| 16 | 3.58% | 0 | 0 | #fcd5b4 | #f8cbad |
-| 17 | 23.94% | 5 | 4 | #65ffab #d8e4bc #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
-| 18 | 3.70% | 0 | 0 | #fcd5b4 | #f8cbad |
-| 19 | 23.45% | 5 | 4 | #65ffab #d8e4bc #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
-| 20 | 3.45% | 0 | 0 | #fcd5b4 | #f8cbad |
-| 21 | 24.09% | 42 | 12 | #00b050 #65ffab #d8e4bc #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
-| 22 | 27.26% | 21 | 36 | #65ffab #d8e4bc #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
-| 23 | 21.87% | 15 | 11 | #65ffab #d8e4bc #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
-| 24 | 0.00% | 0 | 0 | - | - |
+Pixel diff = share of pixels that differ at 110 dpi; tolerant = still different when a 1px shift is allowed (ignores sub-pixel anti-aliasing).
+
+| page | pixel diff | tolerant diff | words missing | words extra | fills only in original | fills only in generated |
+|---|---|---|---|---|---|---|
+| 1 | 22.70% | 8.27% | 5 | 1 | #65ffab #d2fce6 #d8e4bc #dce6f1 #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #daeef3 #ddebf7 #e2efda #f8cbad #fce4d6 |
+| 2 | 3.76% | 1.32% | 0 | 0 | #d2fce6 #daeef3 #f2dcdb #fcd5b4 | #f8cbad |
+| 3 | 24.77% | 16.69% | 5 | 21 | #65ffab #d8e4bc #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
+| 4 | 4.35% | 2.31% | 17 | 0 | #fcd5b4 | #f8cbad |
+| 5 | 20.93% | 9.17% | 5 | 4 | #65ffab #d8e4bc #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
+| 6 | 3.63% | 1.43% | 0 | 0 | #fcd5b4 | #f8cbad |
+| 7 | 25.43% | 16.48% | 5 | 21 | #65ffab #d8e4bc #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
+| 8 | 4.31% | 1.84% | 17 | 0 | #fcd5b4 | #f8cbad |
+| 9 | 24.48% | 14.82% | 5 | 4 | #65ffab #d8e4bc #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
+| 10 | 3.85% | 1.38% | 0 | 0 | #fcd5b4 | #f8cbad |
+| 11 | 23.69% | 14.85% | 5 | 4 | #65ffab #d8e4bc #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
+| 12 | 3.48% | 1.38% | 0 | 0 | #fcd5b4 | #f8cbad |
+| 13 | 24.33% | 14.68% | 5 | 4 | #65ffab #d8e4bc #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
+| 14 | 3.59% | 1.36% | 0 | 0 | #fcd5b4 | #f8cbad |
+| 15 | 23.86% | 15.20% | 5 | 4 | #65ffab #d8e4bc #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
+| 16 | 3.58% | 1.44% | 0 | 0 | #fcd5b4 | #f8cbad |
+| 17 | 23.94% | 15.25% | 5 | 4 | #65ffab #d8e4bc #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
+| 18 | 3.70% | 1.51% | 0 | 0 | #fcd5b4 | #f8cbad |
+| 19 | 23.45% | 15.61% | 5 | 4 | #65ffab #d8e4bc #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
+| 20 | 3.45% | 1.41% | 0 | 0 | #fcd5b4 | #f8cbad |
+| 21 | 24.09% | 18.19% | 42 | 12 | #00b050 #65ffab #d8e4bc #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
+| 22 | 27.26% | 21.53% | 21 | 36 | #65ffab #d8e4bc #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
+| 23 | 21.87% | 17.87% | 15 | 11 | #65ffab #d8e4bc #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
+| 24 | 0.00% | 0.00% | 0 | 0 | - | - |
 
 ## Page 1
 missing: `{'K': 1, 'N': 1, 'A': 1, 'R': 1, '/C': 1}`

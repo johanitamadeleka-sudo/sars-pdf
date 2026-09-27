@@ -10,13 +10,11 @@ data model, palette and fidelity check. New work starts here.
 
 ```
 reports/
-  _shared/
-    fonts.css                 # @font-face: real fonts, one family name each, NO fallback (see ../fonts/)
   secondary/                  # SECONDARY school level (the current work: council + region)
     council/                  # council-level reports (one subdir per report)
       <level-plus-function>/
         template.html.j2      # this report's own Jinja2 template
-        style.css             # this report's own CSS (references 'Arial' etc. from _shared/fonts.css)
+        style.css             # this report's own CSS, with its OWN inline @font-face (no shared stylesheet)
         data.json             # display-string data for this report
         reference/original.pdf# the source PDF to match
         output/               # generated report.pdf/.html + page images + comparison
@@ -54,8 +52,10 @@ renders the same report.
 
 Each report is its **own unit**: its own `template.html.j2`, `style.css`,
 `data.json`, `reference/original.pdf` and `output/`. Do **not** force sharing
-between reports. The only shared asset is `_shared/fonts.css` (font
-registration) because every report must use the same real fonts.
+between reports. There is **no shared stylesheet** — every report's `style.css`
+carries its OWN inline `@font-face` blocks (pointing at the real font files in
+`../fonts/`). Reports use the same real font *files*, but each registers them
+itself; nothing is `@import`ed.
 
 Where a council report and its region counterpart are genuinely the **same
 structure** (e.g. `schools-rank-subjectwise`; the region variant only adds a
@@ -64,13 +64,13 @@ deliberately — but that is a decision made per report, not a blanket rule.
 
 ## Fonts: real files, no fallbacks
 
-`_shared/fonts.css` registers real font files (in `../fonts/`) under the exact
-family names the source PDFs embed — `Arial`, `Arial Narrow`, `Times New
-Roman` — with **one family name per `@font-face` and no comma-separated
-fallback list**. A report's `style.css` writes `font-family: 'Arial';` (single
-name). See [`../fonts/README.md`](../fonts/README.md) for the licensing
-decision (metric-compatible Liberation substitutes for proprietary
-Arial/Times).
+Each report's `style.css` registers its own real font files (in `../fonts/`)
+inline via `@font-face`, under the exact family names the source PDFs embed —
+`Arial`, `Arial Narrow`, `Times New Roman` — with **one family name per
+`@font-face` and no comma-separated fallback list**. A report's `style.css`
+writes `font-family: 'Arial';` (single name). See
+[`../fonts/README.md`](../fonts/README.md) for the licensing decision
+(metric-compatible Liberation substitutes for proprietary Arial/Times).
 
 > WeasyPrint note for generators: pass a shared `FontConfiguration` to BOTH the
 > `CSS(...)` object and `write_pdf(...)`, otherwise the `@font-face` rules are
@@ -164,9 +164,21 @@ content is verified correct. The remaining diff is **not** a content error:
 - **Dense wide F/M/T division grids** — `council-schools-rank-overall`,
   `region-schools-rank-overall`, `region-schools-rank-governments`,
   `region-mobility`, and the multi-page `region-schools-rank-subjectwise`
-  (English) — sit at ~**35–45% pixel-diff**. These pages pack thousands of tiny
-  digits; the per-glyph Liberation-vs-Arial edge noise accumulates across the
-  grid even though rows/columns/colours align to within ~1pt.
+  (English) — sit at ~**33–41% pixel-diff**. Their **colours now match**: each
+  reproduces the original's fixed per-column pastel palette (division grids) or
+  fixed section/up-down palette (mobility), so on the repeating main-grid pages
+  `compare.py` reports **zero fills-only-in-original and zero
+  fills-only-in-generated**. The residual pixel-diff is (a) per-glyph
+  Liberation-vs-Arial edge noise across thousands of tiny digits and (b) a small
+  constant vertical row-offset: matching the original's exact rows-per-page
+  pagination fixes the row *count* but leaves the body starting ~2–3pt lower,
+  which shifts every row past the 1px tolerance. Reducing header height to close
+  the offset changes how many rows fit per page and breaks pagination, so the
+  offset is kept in favour of correct pagination. The only fills that still show
+  as "original-only" are the **one-off SUMMARY PERFORMANCE banner** (a decorative
+  multi-colour legend rendered once) and `region-mobility`'s `#c00000` negative-
+  delta ink (rendered as coloured text; pdfplumber counts the original's as a
+  filled glyph path). Both are documented, visually-consistent residuals.
 - **`compare.py` tokeniser artifacts** inflate the reported **word-diff** on
   every report with rotated/vertical headers (`RANK`, `COMPETENCY LEVEL`,
   `S/NO.`, `SUMMARY PERFORMANCE`), compact continuation headers, and long
