@@ -1,0 +1,31 @@
+{
+  "id": "FEAT-003",
+  "type": "feat",
+  "description": "Build the PRIMARY REGION report generators under reports/primary/region/, one self-contained data-driven report per DISTINCT structure among the 14 '... STD4 2026' region source PDFs (MKOA ... / SHULE ... STD4 / KATA STD4 / HALMASHAURI ... STD4), consolidating SERIKALI/BINAFSI/JUMLA filtered variants of the same structure into a single report dir driven by multiple data_<tag>.json + reference/original_<tag>.pdf sources (the multi-source shape build_all.py supports). Region reports add a COUNCIL (HALMASHAURI) column where the originals do, exactly as the secondary region variants add it. Same conventions as FEAT-002: own template.html.j2, own self-contained style.css with inline @font-face (single family names, no fallback), display-string data extracted coordinate-based via scripts/extract_primary_region_*.py, reference/original.pdf, per-report measured palette + grid topology, committed output/. Only the competency cell is data-driven (Daraja-aware grading.py).",
+  "status": "pending",
+  "steps": [
+    "Group the 14 region PDFs by STRUCTURE into a small set of primary-region-<function> dirs (target ~6-9). Suggested grouping (adjust to the actual layouts): primary-region-best-students-overall (MKOA WANAFUNZI BORA STD4 2026 - region best students + COUNCIL col + per-candidate subject marks/grades); primary-region-top-10-schools (MKOA SHULE BORA STD4 JUMLA 2026 - top schools overall + COUNCIL col); primary-region-top-10-schools-subjectwise (MKOA SHULE BORA MASOMO STD4 JUMLA + MASOMO SERIKALI STD4 as tags); primary-region-subjects-rank (MKOA UFAULU MASOMO STD4 2026 + MKOA UFAULU MASOMO STD4 JUMLA 2026 as tags - subject performance); primary-region-schools-rank-overall (SHULE NAFASI STD4 JUMLA + SHULE SERIKALI STD4 + SHULE BINAFSI STD4 as tags - all/gov/private division-grid rank + COUNCIL col); primary-region-district-performance (HALMASHAURI MASOMO STD4 + HALMASHAURI STD4 JUMLA + KATA STD4 JUMLA as tags - per-council/per-ward grids); primary-region-wards-schools (MKOA KATA SHULE ZA SERIKALI STD4 + MKOA KATA SHULE BINAFSI STD4 as tags - per-ward gov/private school grids). Consolidate same-structure variants; do NOT create 14 near-identical dirs.",
+    "For each report dir copy the nearest secondary region report as the STARTING POINT for template + style.css (copy, not link), then adapt to the primary STD4 columns (WAV/WAS/JML triplets, AL/DRJ, 'Daraja X (...)', COUNCIL/HALMASHAURI + KATA + SCHOOL text columns as present). Keep each style.css self-contained with its OWN inline @font-face (relative src ../../../../fonts/, single family name, no fallback, no @import).",
+    "Write scripts/extract_primary_region_<function>.py per report mirroring scripts/extract_region_*.py: pymupdf words -> group_lines by y -> assign cells by x-centre -> emit data.json / data_<tag>.json with display-string values (preserve exact number formatting and full Swahili competency labels). Never hand-type rows. Section-centric reports carry row.grade for per-subject grade colouring; aggregate blocks carry gpa + competency.",
+    "Place each source as reports/primary/region/<report>/reference/original.pdf (or original_<tag>.pdf), copied from primary_region_pdf sources.",
+    "Measure palette per report with scripts/measure_fills.py and set style.css :root fills to the measured hex so main-grid pages show 0 orig-only/0 gen-only; measure grid topology with scripts/measure_grid.py and match colspan/rowspan + column widths with straight border-collapse gridlines. Only competency stays data-driven.",
+    "Render + compare each report with scripts/render_and_compare.py (per-tag for multi-source). Confirm exact page-count match, Liberation embedding (not Noto), palette match on main-grid pages, and tolerant/word diffs near the secondary levels. Commit each report's output/.",
+    "Record honest per-report residuals for the INDEX in FEAT-004."
+  ],
+  "acceptance_criteria": [
+    "reports/primary/region/ contains one self-contained report dir per distinct region structure (~6-9 dirs), each with template.html.j2, style.css (inline @font-face, single family names, no fallback, no @import), data.json (or data_<tag>.json), reference/original.pdf (or per-tag), and committed output/.",
+    "Every generated region report PDF matches its source PDF's page count EXACTLY.",
+    "measure_fills.py reports 0 orig-only AND 0 gen-only fills on the repeating main-grid pages of each region report (residuals limited to documented decorative banners / data-driven competency / per-page palette drift in the original).",
+    "Every generated region report embeds Liberation faces (never Noto).",
+    "All data.json values are display strings; Swahili competency labels colour-map correctly; region reports reproduce the COUNCIL column where the original has it.",
+    "A scripts/extract_primary_region_*.py exists for each region report and regenerates its data by coordinate extraction (no hand-typed rows)."
+  ],
+  "verification": [
+    "python scripts/build_all.py --level primary   (ends '=== build-all OK ===')",
+    "for d in reports/primary/region/*/; do python scripts/measure_fills.py \"$d\"; done   (0 orig-only/gen-only on main-grid pages)",
+    "python -c \"import pymupdf,glob; [print(f) or [print(' ',x[3]) for x in pymupdf.open(f)[0].get_fonts()] for f in glob.glob('reports/primary/region/*/output/report*.pdf')[:2]]\"  (Liberation/Arial, not Noto)",
+    "grep -rn 'font-family' reports/primary/region/*/style.css | grep ',' || echo 'no comma fallback font-family (OK)'"
+  ],
+  "blocked_reason": null,
+  "findings": ""
+}

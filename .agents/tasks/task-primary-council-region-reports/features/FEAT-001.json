@@ -1,0 +1,30 @@
+{
+  "id": "FEAT-001",
+  "type": "chore",
+  "description": "Establish the primary-level foundation: confirm the environment and baseline, verify the already-downloaded primary source PDFs and zip bundles, extend sars_pdf/grading.py to recognise the Swahili 'Daraja X (...)' primary grade labels (additive, no secondary regression), extend scripts/build_all.py to discover reports/primary/** (with a --level primary option) while keeping secondary discovery intact, and scaffold the reports/primary/{council,region}/ directory tree. This leaves the pipeline ready to accept per-report generators in FEAT-002/003 and MUST leave all existing lakezone + secondary output unchanged.",
+  "status": "pending",
+  "steps": [
+    "Run 'pyenv global 3.11.15' then 'pip install -r requirements.txt' (deps are already installed; re-run only if a fresh shell reports ModuleNotFoundError). Confirm 'python -c \"import weasyprint,pymupdf,pdfplumber\"' works.",
+    "Confirm the baseline still passes: run 'python scripts/build_all.py' and confirm it ends '=== build-all OK ===' with every secondary report rendering (records the pre-change baseline so any regression in FEAT-004 is detectable). Also confirm 'python scripts/render_and_compare.py reports/secondary/council/council-subjects-rank' reproduces the documented 1/2 verdict.",
+    "Verify the primary sources the architect staged: primary_council_pdf/primary_council_pdf/ has 13 'MWANZA CC ...' PDFs and primary_region_pdf/primary_region_pdf/ has 14 '... STD4 2026' PDFs, all real %PDF- files, and primary_council_pdf.zip / primary_region_pdf.zip exist at repo root and unzip to those same trees. If any source is missing, regenerate with 'python scripts/fetch_primary_summaries.py --out <tmp>' and re-arrange + re-zip mirroring council_pdf.zip/region_pdf.zip (zip -X). Do NOT re-download if all present.",
+    "Extend sars_pdf/grading.py competency_letter(): add a second compiled regex _DARAJA_RE = re.compile(r'Daraja\\s+([A-F])\\b') and, when the 'Grade X' regex does not match, try the Daraja regex before falling back to the GPA bands. Keep _LEVEL_RE ('Grade X') and the GPA-band fallback exactly as-is. Add a short docstring/comment noting primary Swahili labels. This must NOT change any secondary/lakezone output (their labels are 'Grade X').",
+    "Add a focused check that grading still behaves for secondary AND now for primary: e.g. a small assertion script or inline python check proving competency_letter('Daraja A (Bora Sana)')=='A', competency_letter('Daraja F (...)')=='F', competency_letter('Grade B (Very Good)')=='B' (unchanged), and competency_letter(None,'3.6093')=='D' (GPA fallback unchanged).",
+    "Extend scripts/build_all.py: generalise discovery so it walks reports/primary/** in addition to reports/secondary/** (e.g. add a top-level LEVELS mapping or iterate both level roots), keep the existing is_report_dir / jobs_for logic (both the single-source data.json shape and the multi-source data_<tag>.json + reference/original_<tag>.pdf shape), and make the --level argument accept 'primary' (and optionally 'council'/'region' scoping within a level). Ensure running with no args builds BOTH secondary and primary. Do not change the per-report render/compare invocation.",
+    "Create the empty scaffold dirs reports/primary/council/ and reports/primary/region/ (with .gitkeep if needed) so FEAT-002/003 can drop report dirs in. Leave reports/primary/README.md as-is for now (FEAT-004 rewrites it)."
+  ],
+  "acceptance_criteria": [
+    "'python scripts/build_all.py' still ends '=== build-all OK ===' and every secondary report's output/comparison numbers are unchanged from the pre-change baseline (no secondary regression).",
+    "competency_letter returns 'A'..'F' correctly for the Swahili 'Daraja X (...)' labels AND is byte-for-byte unchanged for 'Grade X' labels and the GPA-band fallback (verified by the check in the steps).",
+    "scripts/build_all.py discovers reports/primary/** (verified: with a temporary throwaway report dir OR after FEAT-002 lands, --level primary finds it; with no report dirs yet it must not error, mirroring the existing 'no report directories found' handling per level).",
+    "primary_council_pdf/ (13 PDFs) + primary_region_pdf/ (14 PDFs) + primary_council_pdf.zip + primary_region_pdf.zip all present and valid; zips unzip to the committed trees.",
+    "reports/primary/council/ and reports/primary/region/ exist."
+  ],
+  "verification": [
+    "pyenv global 3.11.15 && python scripts/build_all.py  (must end '=== build-all OK ===')",
+    "python -c \"from sars_pdf.grading import competency_letter as c; assert c('Daraja A (Bora Sana)')=='A'; assert c('Daraja F (Amefeli)')=='F'; assert c('Grade B (Very Good)')=='B'; assert c(None,'3.6093')=='D'; print('grading OK')\"",
+    "python -c \"import zipfile; [print(n, len(zipfile.ZipFile(n).namelist())) for n in ('primary_council_pdf.zip','primary_region_pdf.zip')]\"",
+    "ls reports/primary/council reports/primary/region"
+  ],
+  "blocked_reason": null,
+  "findings": ""
+}

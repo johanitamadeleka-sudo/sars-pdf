@@ -1,0 +1,28 @@
+{
+  "id": "FEAT-004",
+  "type": "docs",
+  "description": "Produce the primary-level verdict summary and documentation, and run the full-pipeline verification. Write reports/primary/INDEX.md in the exact same format as reports/secondary/INDEX.md (per-report source PDF, scope/level, page count, pixel-diff / tolerant-diff / word-diff / fill-diff ranges, and the >=96% PASS/FAIL verdict pass-count), rewrite reports/primary/README.md from placeholder to a description of the now-implemented primary reports (keeping the conventions text and the documented metric-compatible-Liberation font residual), and confirm the whole build (lakezone + secondary + primary) is green with no secondary regression.",
+  "status": "pending",
+  "steps": [
+    "Regenerate everything: run 'python scripts/build_all.py' (all levels) and confirm '=== build-all OK ==='. Confirm the secondary + lakezone comparison numbers are unchanged from the FEAT-001 baseline (no regression from the grading.py / build_all.py changes).",
+    "Author reports/primary/INDEX.md mirroring reports/secondary/INDEX.md section-for-section: a 'How to read the scores' block (reuse the secondary explanation of pixel/tolerant/word/fill diffs, the per-report measured palette, and the >=96% verdict), a council table and a region table with columns [Report | Source PDF | Scope/level | Pages | pixel-diff | tolerant-diff | word-diff (miss/extra) | fills (orig/gen) | verdict >=96% (pass/total)], filled from each report's output/comparison*/README.md, and a PR-body-ready residuals summary listing the honest per-report reasons (font-noise floor, decorative banners, tokeniser artifacts, any per-page palette drift in the original). Note the STD4 Swahili 'Daraja' grade labels and the WAV/WAS/JML(girls/boys/total) column semantics. Note any source PDFs consolidated as multi-source tags into one report dir.",
+    "Rewrite reports/primary/README.md: replace the 'intentionally empty placeholder' framing with a description of the implemented reports/primary/{council,region}/ tree, keep the conventions (level+function 'primary-' naming, self-contained per report, real fonts no-fallback, display strings, data-driven, per-report measured palette, competency-only data-driven colour), link to reports/primary/INDEX.md, and document the source of the primary PDFs (the sars.ac.tz Darasa la IV Mock MKOA index via scripts/fetch_primary_summaries.py) and the primary_council_pdf.zip / primary_region_pdf.zip bundles.",
+    "Update the top-level README.md 'reports/' section and 'Next steps' so primary is described as implemented (mirroring how secondary is described), keeping the lakezone philosophy text intact. Keep edits minimal and factual.",
+    "Final full verification: page counts match for every primary report; no report falls back to Noto (pymupdf get_fonts spot-check across primary outputs); measure_fills.py main-grid pages are 0/0 for every primary report except documented residuals; the lakezone + secondary outputs are unchanged.",
+    "Do NOT push or open a PR (the orchestrator handles that)."
+  ],
+  "acceptance_criteria": [
+    "reports/primary/INDEX.md exists and matches the reports/secondary/INDEX.md format, with a council table and a region table covering every implemented primary report (source PDF, scope, pages, pixel/tolerant/word/fill ranges, >=96% pass/total) and an honest residuals summary.",
+    "reports/primary/README.md describes the implemented primary reports (no longer a placeholder), preserves the conventions, links INDEX.md, and documents the source + zip bundles.",
+    "'python scripts/build_all.py' ends '=== build-all OK ===' for ALL levels and the secondary + lakezone numbers are unchanged from the FEAT-001 baseline.",
+    "Every primary report's page count matches its original exactly and embeds Liberation (never Noto)."
+  ],
+  "verification": [
+    "python scripts/build_all.py   (ends '=== build-all OK ==='; all levels)",
+    "python scripts/render_and_compare.py reports/secondary/council/council-subjects-rank   (still 1/2 verdict - secondary unchanged)",
+    "test -f reports/primary/INDEX.md && head -40 reports/primary/INDEX.md",
+    "grep -c 'primary-' reports/primary/INDEX.md"
+  ],
+  "blocked_reason": null,
+  "findings": ""
+}
