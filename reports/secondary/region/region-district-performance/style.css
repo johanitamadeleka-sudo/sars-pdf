@@ -1,0 +1,108 @@
+/*
+ * region-district-performance (LEVEL + FUNCTION name; region-only report, data-driven).
+ * Section-centric: 5 per-district division grids (one per page, US Letter LANDSCAPE).
+ * OVERALL/GOVERNMENT/PRIVATE sections have a REGISTERED group; BY PERCENTAGE/BY KPI omit it.
+ * All fixed fills live in :root; only .lvl-* (competency) is data-driven (grading.py).
+ *
+ * REAL fonts registered INLINE: fully self-contained, no shared stylesheet.
+ */
+@font-face {
+  font-family: 'Arial'; font-style: normal; font-weight: normal;
+  src: url("../../../../fonts/LiberationSans-Regular.ttf") format('truetype');
+}
+@font-face {
+  font-family: 'Arial'; font-style: normal; font-weight: bold;
+  src: url("../../../../fonts/LiberationSans-Bold.ttf") format('truetype');
+}
+
+:root {
+  --fill-cand: #fce9d9;
+  --fill-gpa-h: #d2fbe6;
+  --fill-sat: #dce6f0;
+  --fill-0: #d2fbe6;
+  --fill-3: #64ffab;
+  --fill-4: #d2fbe6;
+  --fill-sch: #f2f2f2;
+
+  --lvl-a: #00b050;  --lvl-a-ink: #000000;
+  --lvl-b: #92d050;  --lvl-b-ink: #000000;
+  --lvl-c: #ffff00;  --lvl-c-ink: #000000;
+  --lvl-d: #ffc000;  --lvl-d-ink: #000000;
+  --lvl-f: #ff0000;  --lvl-f-ink: #ffc7ce;
+
+  --ink: #000000;
+  --grid: #000000;
+}
+
+@page {
+  size: Letter landscape;
+  margin: 50pt 0 18pt 0;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; font-family: 'Arial'; color: var(--ink); }
+
+.titles { text-align: center; font-weight: bold; }
+.titles .hl { white-space: pre; }
+.titles .ministry, .titles .exam-name { font-size: 8pt; line-height: 7.8pt; }
+.titles .sec-title { font-size: 9pt; margin: 6pt 0 4pt; }
+
+.section { }
+.section.own-page { page-break-before: always; }
+
+table.grid {
+  border-collapse: collapse;
+  table-layout: fixed;
+  border: 0.8pt solid var(--grid);
+}
+table.grid.full { width: 748.8pt; margin: 0 0 0 18.4pt; }
+table.grid.pct { width: 743.7pt; margin: 0 0 0 18.2pt; }
+
+th, td {
+  border: 0.4pt solid var(--grid);
+  padding: 0 1pt;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 6pt;
+  line-height: 1;
+}
+thead th { font-weight: bold; font-size: 6pt; }
+thead th.grp { font-size: 6.5pt; }
+thead th.v-mid { vertical-align: middle; }
+thead th.nowrap { font-size: 5pt; }
+thead .hg { height: 9pt; }
+thead .hs { height: 7pt; }
+thead .hf { height: 7pt; }
+thead th.rank-h { padding: 0; overflow: visible; }
+.vert { position: relative; margin: 0 auto; height: 100%; width: 8pt; }
+.vert span {
+  position: absolute; left: 50%; top: 50%;
+  font-size: 5.4pt; font-weight: bold; white-space: nowrap;
+  transform: translate(-50%, -50%) rotate(-90deg);
+}
+
+/* body rows */
+tbody tr.row { height: 8.3pt; }
+tbody td { font-size: 5.3pt; letter-spacing: -0.15pt; }
+td.txt { text-align: left; padding-left: 1pt; font-size: 5.4pt; letter-spacing: -0.15pt; }
+td.b { font-weight: bold; }
+td.comp { text-align: left; font-weight: bold; padding-left: 1pt; font-size: 4.7pt; letter-spacing: -0.1pt; }
+td.c-rank { }
+tr.total td { font-weight: bold; }
+
+/* fills */
+.fill-cand-h { background: var(--fill-cand); }
+.fill-gpa-h, .fill-gpa { background: var(--fill-gpa-h); }
+.fill-sat { background: var(--fill-sat); }
+.fill-sch { background: var(--fill-sch); }
+.fill-0, .fill-0-h { background: var(--fill-0); }
+.fill-3, .fill-3-h { background: var(--fill-3); }
+.fill-4, .fill-4-h { background: var(--fill-4); }
+
+.lvl-a { background: var(--lvl-a); color: var(--lvl-a-ink); }
+.lvl-b { background: var(--lvl-b); color: var(--lvl-b-ink); }
+.lvl-c { background: var(--lvl-c); color: var(--lvl-c-ink); }
+.lvl-d { background: var(--lvl-d); color: var(--lvl-d-ink); }
+.lvl-f { background: var(--lvl-f); color: var(--lvl-f-ink); }
