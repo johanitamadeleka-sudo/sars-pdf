@@ -135,7 +135,16 @@ cp /path/to/original.pdf reference/original.pdf
 python scripts/compare.py reference/original.pdf output/report.pdf
 ```
 
-For each page it reports page size, pixel-difference %, missing/extra words, and fill colours that appear in only one of the two PDFs. It also writes `output/diff/page_NN.png` (original | generated | diff).
+For each page it reports pixel-difference %, missing/extra words, and fill colours that appear in only one of the two PDFs. Everything is committed to git so it can be viewed on GitHub:
+
+| Path | Content |
+|---|---|
+| `output/report.pdf`, `output/report.html` | generated report |
+| `output/pages/page_NN.png` | generated pages as images |
+| `output/comparison/page_NN.png` | original \| generated \| diff (red = differing pixels) |
+| `output/comparison/README.md` | score table + all side-by-side images |
+
+**Automatic:** `.github/workflows/compare.yml` runs on every push that touches `reference/original.pdf`, data, templates or code. It rebuilds the PDF, runs the comparison and commits `output/` back to the branch. So uploading `reference/original.pdf` through the GitHub web UI is enough to get the side-by-side results.
 
 ## Next steps
 
