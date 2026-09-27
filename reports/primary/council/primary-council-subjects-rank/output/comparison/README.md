@@ -8,7 +8,7 @@ Pixel diff = share of pixels that differ at 110 dpi; tolerant = still different 
 
 | page | pixel diff | tolerant diff | words missing | words extra | fills only in original | fills only in generated | verdict (>=96%) |
 |---|---|---|---|---|---|---|---|
-| 1 | 10.97% | 8.83% | 26 | 28 | #fed4fc | - | ❌ FAIL (pixels 8.83%>4%, fills 1orig/0gen, words 26miss/28extra) |
+| 1 | 11.00% | 8.86% | 26 | 28 | #fed4fc | - | ❌ FAIL (pixels 8.86%>4%, fills 1orig/0gen, words 26miss/28extra) |
 
 **Verdict summary: 0/1 pages meet the >=96% bar** (tolerant diff <= 4% AND zero fill diffs AND zero word diffs).
 
