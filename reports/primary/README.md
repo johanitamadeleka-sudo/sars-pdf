@@ -65,6 +65,36 @@ python scripts/measure_grid.py  reports/primary/council/<report>   # grid topolo
 ```
 
 `build_all.py` discovers every self-contained report dir under `reports/primary/**`
-and never touches `reports/secondary/**`.
+and never touches `reports/secondary/**`. Restrict to the council scope with
+`python scripts/build_all.py --level primary --scope council`.
 
 See [`INDEX.md`](INDEX.md) for the per-report fidelity verdict summary.
+
+## Implemented council reports (`reports/primary/council/`)
+
+Built from the `MWANZA CC ... STD4` sources in
+[`../../primary_council_pdf/`](../../primary_council_pdf/), each consolidated by
+STRUCTURE (not by instance/filter name) and driven by its own coordinate
+extractor `scripts/extract_primary_council_<function>.py`:
+
+| Report | Source PDF | Pages | Nearest secondary starting point |
+|---|---|---|---|
+| `primary-council-subjects-rank` | MWANZA CC SUBJECT SUMMARY.pdf | 1 | `council-subjects-rank` (one row per subject) |
+| `primary-council-wards-rank` | MWANZA CC KATA RANK GRADING.pdf | 1 | `council-wards-rank` (per-ward WAV/WAS/JML grid) |
+| `primary-council-schools-rank-overall` | MWANZA CC SCHOOL RANK IN GRADE.pdf | 3 | `council-schools-rank-overall` (all-schools division/grade grid) |
+
+Each reproduces the primary STD4 layout: `WAV`/`WAS`/`JML` triplets, the
+`Daraja X (...)` competency label (the only data-driven cell colour, via
+`grading.py`), and the per-report measured palette (0 gen-only fills on the
+repeating main-grid pages; the remaining orig-only residuals are the one-off
+decorative SUMMARY/aggregate banner cells, documented in `INDEX.md`). Fonts are
+the metric-compatible Liberation faces registered as `Arial`/`Arial Bold`
+(never Noto). Generated page counts match each source exactly.
+
+**Not yet consolidated:** the government-only (`SCHOOL RANK SERIKALI`) and
+private-only (`SCHOOL RANK BINAFSI`) variants share the report TYPE but have a
+DIFFERENT physical column layout (different x-centres, no shared UMILIKI column),
+so they are not driven as `data_<tag>` variants of
+`primary-council-schools-rank-overall`; each needs its own measured header
+x-centres. Likewise the marks (`ALAMA`), top-10 (`10 BEST SCHOOLS/STUDENTS`) and
+per-subject (`KIMASOMO`) council sources remain to be built.
