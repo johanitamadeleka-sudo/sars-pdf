@@ -70,16 +70,25 @@ def parse_school_row(line):
     row = {k: "" for k in ["sn", "ward", "school", "ownership", *NUM_KEYS,
                             "competency", "crank", "rrank"]}
     ward_p, school_p, own_p, comp_p = [], [], [], []
+    # A text run that is longer than its cell keeps drawing past the cell edge (the
+    # original clips it visually). Its spilled words belong to the cell the RUN starts
+    # in, not to the cell they happen to sit over - e.g. row 17's school name
+    # "STAR REACHERS GIRLS AND BOYS" runs over the OWNERSHIP cell's "PRIVATE".
+    run_x0 = {}
+    for w in line:
+        run_x0[(w[5], w[6])] = min(run_x0.get((w[5], w[6]), w[0]), w[0])
     for w in line:
         x0, x1, txt = w[0], w[2], w[4]
         cx = (x0 + x1) / 2
+        # column is decided by where the word's run starts; order stays by the word's own x0
+        col_x = run_x0[(w[5], w[6])] if x0 < OWN_MAX_X else x0
         if cx < SN_MAX_X:
             row["sn"] = txt
-        elif x0 < WARD_MAX_X:
+        elif col_x < WARD_MAX_X:
             ward_p.append((x0, txt))
-        elif x0 < SCHOOL_MAX_X:
+        elif col_x < SCHOOL_MAX_X:
             school_p.append((x0, txt))
-        elif x0 < OWN_MAX_X:
+        elif col_x < OWN_MAX_X:
             own_p.append((x0, txt))
         elif cx >= RRANK_MIN_X:
             row["rrank"] = txt
@@ -117,9 +126,28 @@ def parse_numeric_only(line, min_x):
     return row
 
 
+# % PASS row: one value per division group, keyed by the group it is centred in.
+PASS_GROUPS = [("i", 271.4, 317.7), ("ii", 317.7, 363.7), ("iii", 363.7, 409.6),
+               ("iv", 409.6, 459.3), ("z", 459.3, 528.2), ("d3", 528.2, 597.5),
+               ("d4", 597.5, 666.7)]
+
+
+def parse_pct_pass(line):
+    out = {k: "" for k, _, _ in PASS_GROUPS}
+    for w in line:
+        cx = (w[0] + w[2]) / 2
+        for key, lo, hi in PASS_GROUPS:
+            if lo <= cx < hi:
+                out[key] = w[4]
+    return out
+
+
 def main():
     doc = pymupdf.open(SRC)
-    lines = group_lines(doc[0].get_text("words"))
+    # Keep characters that the original clips at a cell edge (TEXT_MEDIABOX_CLIP drops
+    # them and glues the survivors onto the neighbouring cell's text, e.g. "APRIVATE").
+    flags = pymupdf.TEXTFLAGS_WORDS & ~pymupdf.TEXT_MEDIABOX_CLIP
+    lines = group_lines(doc[0].get_text("words", flags=flags))
     rows = []
     summary = None
     pct_pass = None
@@ -132,7 +160,7 @@ def main():
             summary = parse_numeric_only(line, OWN_MAX_X)
             summary["no_schools"] = first[4]  # the leading "NO. OF SCHOOLS IN COUNCIL" value
         elif text.startswith("% PASS"):
-            pct_pass = parse_numeric_only(line, OWN_MAX_X)
+            pct_pass = parse_pct_pass(line)
         elif text.startswith("TOTAL"):
             total = parse_numeric_only(line, OWN_MAX_X)
             # the line starts "TOTAL 6854..." - "TOTAL" is at x<SN_MAX_X
