@@ -6,11 +6,11 @@ Pixel diff = share of pixels that differ at 110 dpi; tolerant = still different 
 
 | page | pixel diff | tolerant diff | words missing | words extra | fills only in original | fills only in generated |
 |---|---|---|---|---|---|---|
-| 1 | 9.11% | 5.62% | 5 | 9 | #e0f8e3 #e2efda #ebeef1 #ededed #eeb500 #f4b084 #f8cbad #fce4d6 #fff2cc #ffffcc | #64ffab #d2fbe6 #dce6f0 #fce9d9 #ffc000 |
-| 2 | 9.20% | 5.74% | 4 | 7 | #e0f8e3 #e2efda #ebeef1 #ededed #eeb500 #f4b084 #f8cbad #fce4d6 #fff2cc #ffffcc | #64ffab #d2fbe6 #dce6f0 #fce9d9 #ffc000 |
-| 3 | 9.63% | 7.30% | 4 | 7 | #e0f8e3 #e2efda #ebeef1 #ededed #f4b084 #fce4d6 #fff2cc #ffffcc | #64ffab #d2fbe6 #dce6f0 #fce9d9 |
-| 4 | 9.62% | 6.38% | 2 | 6 | #e0f8e3 #e2efda #ebeef1 #ededed #eeb500 #f4b084 #f8cbad #fce4d6 #fff2cc #ffffcc | #64ffab #d2fbe6 #dce6f0 #fce9d9 #ffc000 |
-| 5 | 9.63% | 6.43% | 2 | 6 | #e0f8e3 #e2efda #ebeef1 #ededed #eeb500 #f4b084 #f8cbad #fce4d6 #fff2cc #ffffcc | #64ffab #d2fbe6 #dce6f0 #fce9d9 #ffc000 |
+| 1 | 8.39% | 5.49% | 5 | 9 | - | - |
+| 2 | 8.58% | 5.62% | 4 | 7 | - | - |
+| 3 | 9.23% | 7.07% | 4 | 7 | - | #f8cbad |
+| 4 | 8.99% | 6.34% | 2 | 6 | - | - |
+| 5 | 9.08% | 6.47% | 2 | 6 | - | - |
 
 ## Page 1
 missing: `{'LEVEL': 1, '3.53535Grade': 1, 'KNAR': 1, 'REGISTERED': 1, 'SCHOOLS': 1}`

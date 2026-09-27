@@ -6,29 +6,29 @@ Pixel diff = share of pixels that differ at 110 dpi; tolerant = still different 
 
 | page | pixel diff | tolerant diff | words missing | words extra | fills only in original | fills only in generated |
 |---|---|---|---|---|---|---|
-| 1 | 22.70% | 8.27% | 5 | 1 | #65ffab #d2fce6 #d8e4bc #dce6f1 #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #daeef3 #ddebf7 #e2efda #f8cbad #fce4d6 |
-| 2 | 3.76% | 1.32% | 0 | 0 | #d2fce6 #daeef3 #f2dcdb #fcd5b4 | #f8cbad |
-| 3 | 24.77% | 16.69% | 5 | 21 | #65ffab #d8e4bc #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
-| 4 | 4.35% | 2.31% | 17 | 0 | #fcd5b4 | #f8cbad |
-| 5 | 20.93% | 9.17% | 5 | 4 | #65ffab #d8e4bc #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
-| 6 | 3.63% | 1.43% | 0 | 0 | #fcd5b4 | #f8cbad |
-| 7 | 25.43% | 16.48% | 5 | 21 | #65ffab #d8e4bc #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
-| 8 | 4.31% | 1.84% | 17 | 0 | #fcd5b4 | #f8cbad |
-| 9 | 24.48% | 14.82% | 5 | 4 | #65ffab #d8e4bc #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
-| 10 | 3.85% | 1.38% | 0 | 0 | #fcd5b4 | #f8cbad |
-| 11 | 23.69% | 14.85% | 5 | 4 | #65ffab #d8e4bc #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
-| 12 | 3.48% | 1.38% | 0 | 0 | #fcd5b4 | #f8cbad |
-| 13 | 24.33% | 14.68% | 5 | 4 | #65ffab #d8e4bc #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
-| 14 | 3.59% | 1.36% | 0 | 0 | #fcd5b4 | #f8cbad |
-| 15 | 23.86% | 15.20% | 5 | 4 | #65ffab #d8e4bc #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
-| 16 | 3.58% | 1.44% | 0 | 0 | #fcd5b4 | #f8cbad |
-| 17 | 23.94% | 15.25% | 5 | 4 | #65ffab #d8e4bc #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
-| 18 | 3.70% | 1.51% | 0 | 0 | #fcd5b4 | #f8cbad |
-| 19 | 23.45% | 15.61% | 5 | 4 | #65ffab #d8e4bc #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
-| 20 | 3.45% | 1.41% | 0 | 0 | #fcd5b4 | #f8cbad |
-| 21 | 24.09% | 18.19% | 42 | 12 | #00b050 #65ffab #d8e4bc #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
-| 22 | 27.26% | 21.53% | 21 | 36 | #65ffab #d8e4bc #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
-| 23 | 21.87% | 17.87% | 15 | 11 | #65ffab #d8e4bc #fabf8f #fcd5b4 #fde9d9 | #66ff99 #66ffcc #ddebf7 #e2efda #f8cbad #fce4d6 |
+| 1 | 22.68% | 8.26% | 5 | 1 | - | - |
+| 2 | 3.76% | 1.33% | 0 | 0 | #d2fce6 #daeef3 #f2dcdb | - |
+| 3 | 24.71% | 16.62% | 5 | 21 | - | - |
+| 4 | 4.35% | 2.32% | 17 | 0 | - | - |
+| 5 | 20.90% | 9.17% | 5 | 4 | - | - |
+| 6 | 3.63% | 1.43% | 0 | 0 | - | - |
+| 7 | 25.34% | 16.38% | 5 | 21 | - | - |
+| 8 | 4.31% | 1.85% | 17 | 0 | - | - |
+| 9 | 24.45% | 14.82% | 5 | 4 | - | - |
+| 10 | 3.85% | 1.38% | 0 | 0 | - | - |
+| 11 | 23.66% | 14.85% | 5 | 4 | - | - |
+| 12 | 3.49% | 1.38% | 0 | 0 | - | - |
+| 13 | 24.30% | 14.69% | 5 | 4 | - | - |
+| 14 | 3.59% | 1.37% | 0 | 0 | - | - |
+| 15 | 23.83% | 15.22% | 5 | 4 | - | - |
+| 16 | 3.58% | 1.45% | 0 | 0 | - | - |
+| 17 | 23.91% | 15.26% | 5 | 4 | - | - |
+| 18 | 3.70% | 1.51% | 0 | 0 | - | - |
+| 19 | 23.42% | 15.60% | 5 | 4 | - | - |
+| 20 | 3.45% | 1.41% | 0 | 0 | - | - |
+| 21 | 23.99% | 18.32% | 42 | 12 | #00b050 | - |
+| 22 | 26.95% | 21.56% | 21 | 36 | - | - |
+| 23 | 21.51% | 17.80% | 15 | 11 | - | - |
 | 24 | 0.00% | 0.00% | 0 | 0 | - | - |
 
 ## Page 1

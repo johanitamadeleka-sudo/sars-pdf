@@ -6,8 +6,8 @@ Pixel diff = share of pixels that differ at 110 dpi; tolerant = still different 
 
 | page | pixel diff | tolerant diff | words missing | words extra | fills only in original | fills only in generated |
 |---|---|---|---|---|---|---|
-| 1 | 18.86% | 11.32% | 2 | 1 | #65ffab #83e28e #c1f0c8 #caedfb #d2fce6 #daf2d0 #f1a983 #f2ceef #f2f2f2 #fbe2d5 | #66ff99 #66ffcc #ccffcc #ddebf7 #e2efda #f8cbad #fce4d6 #ff0000 |
-| 2 | 12.68% | 7.97% | 2 | 1 | #65ffab #83e28e #c1f0c8 #d2fce6 #daf2d0 #f1a983 #f2ceef #f2f2f2 #fbe2d5 | #66ff99 #66ffcc #ccffcc #ddebf7 #e2efda #f8cbad #fce4d6 #ffff00 |
+| 1 | 18.24% | 11.00% | 2 | 1 | - | - |
+| 2 | 12.24% | 7.70% | 2 | 1 | - | #ffff00 |
 
 ## Page 1
 missing: `{'LEVEL': 1, 'KNAR/R': 1}`

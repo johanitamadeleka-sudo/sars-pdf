@@ -6,7 +6,7 @@ Pixel diff = share of pixels that differ at 110 dpi; tolerant = still different 
 
 | page | pixel diff | tolerant diff | words missing | words extra | fills only in original | fills only in generated |
 |---|---|---|---|---|---|---|
-| 1 | 34.24% | 16.48% | 43 | 19 | #65ffab #ccffff #e8e8e8 #f2ceef #ff0000 #ffffcc | - |
+| 1 | 34.30% | 16.56% | 43 | 19 | - | - |
 | 2 | 41.99% | 21.53% | 64 | 49 | - | - |
 | 3 | 41.81% | 21.50% | 99 | 81 | - | - |
 | 4 | 39.69% | 21.03% | 19 | 128 | #9eeaea #b5e6a2 #f2ceef #f7c7ac | - |

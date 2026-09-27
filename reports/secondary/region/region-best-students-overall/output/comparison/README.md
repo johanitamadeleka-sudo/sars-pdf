@@ -6,15 +6,15 @@ Pixel diff = share of pixels that differ at 110 dpi; tolerant = still different 
 
 | page | pixel diff | tolerant diff | words missing | words extra | fills only in original | fills only in generated |
 |---|---|---|---|---|---|---|
-| 1 | 10.65% | 7.54% | 6 | 3 | #c1f0c8 #caedfb #fbe2d5 | - |
-| 2 | 10.84% | 7.85% | 16 | 3 | #c1f0c8 #caedfb #e8efd3 #fbe2d5 | - |
-| 3 | 11.71% | 9.29% | 12 | 6 | #c1f0c8 #caedfb #e8efd3 #fbe2d5 | - |
-| 4 | 10.77% | 8.16% | 30 | 5 | #c1f0c8 #caedfb #e8efd3 #fbe2d5 | - |
-| 5 | 9.84% | 5.89% | 25 | 8 | #c1f0c8 #caedfb #e8efd3 #fbe2d5 | - |
-| 6 | 10.81% | 8.02% | 58 | 23 | #c1f0c8 #caedfb #e8efd3 #fbe2d5 | - |
-| 7 | 10.04% | 6.18% | 34 | 12 | #c1f0c8 #caedfb #fbe2d5 #ffcc99 | - |
-| 8 | 11.00% | 7.90% | 8 | 4 | #c1f0c8 #caedfb #fbe2d5 #ffcc99 | - |
-| 9 | 10.69% | 7.84% | 30 | 10 | #c1f0c8 #caedfb #e8efd3 #fbe2d5 | - |
+| 1 | 10.62% | 7.23% | 6 | 3 | - | - |
+| 2 | 10.90% | 7.71% | 16 | 3 | #e8efd3 | - |
+| 3 | 12.06% | 9.89% | 12 | 6 | #e8efd3 | - |
+| 4 | 10.86% | 7.87% | 30 | 5 | #e8efd3 | - |
+| 5 | 10.57% | 7.57% | 25 | 8 | #e8efd3 | - |
+| 6 | 10.82% | 7.90% | 58 | 23 | #e8efd3 | - |
+| 7 | 10.63% | 7.66% | 34 | 12 | #ffcc99 | - |
+| 8 | 10.96% | 7.62% | 8 | 4 | #ffcc99 | - |
+| 9 | 10.69% | 7.65% | 30 | 10 | #e8efd3 | - |
 
 ## Page 1
 missing: `{'DC': 3, 'S4572-0095': 1, 'S5836-0049': 1, 'S4572-0092': 1}`
