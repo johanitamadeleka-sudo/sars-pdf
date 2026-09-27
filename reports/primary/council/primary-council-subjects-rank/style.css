@@ -1,0 +1,171 @@
+/*
+ * primary-council-subjects-rank (LEVEL + FUNCTION name; data-driven, not tied to any council).
+ * Primary STD4 per-subject performance grid (TATHIMINI YA UFAULU KIMASOMO) measured from
+ * THIS report's OWN reference original (US Letter LANDSCAPE, 792 x 612 pt). A summary block
+ * (overall registered/sat + A-E grade split + ASILIMIA %) sits above the main per-subject
+ * table (+ JUMLA total row). WAV=girls / WAS=boys / JML=total triplets. All fixed fills live
+ * in :root; only .lvl-* (KUNDI LA UMAHIRI competency) is data-driven (grading.py, Daraja-aware).
+ *
+ * REAL fonts registered INLINE so this report is fully self-contained (own template + own
+ * CSS, no shared stylesheet). One family name per @font-face, NO fallback list.
+ */
+@font-face {
+  font-family: 'Arial'; font-style: normal; font-weight: normal;
+  src: url("../../../../fonts/LiberationSans-Regular.ttf") format('truetype');
+}
+@font-face {
+  font-family: 'Arial'; font-style: normal; font-weight: bold;
+  src: url("../../../../fonts/LiberationSans-Bold.ttf") format('truetype');
+}
+
+:root {
+  /* MEASURED from this report's OWN original.pdf page 1 (pdfplumber page.rects). */
+  --fill-reg: #ddebf7;     /* WALIOSAJILIWA group */
+  --fill-fanya: #e2efda;   /* WALIOFANYA group */
+  --fill-a: #bdd7ee;       /* A group */
+  --fill-b: #fff2cc;       /* B group */
+  --fill-c: #d6dce4;       /* C group */
+  --fill-d: #f8cbad;       /* D group */
+  --fill-e: #d1f5f9;       /* E group */
+  --fill-ad: #c6e0b4;      /* WALIOFAULU (A-D) group */
+  --fill-adpct: #f4b084;   /* A-D % */
+  --fill-tot: #dcebee;     /* JUMLA YA WATAHINIWA group + main-grid A-E body tint */
+  --fill-wastani: #ffffcc; /* WASTANI WA SOMO column */
+  --fill-shule: #d0cece;   /* IDADI YA SHULE value */
+
+  --lvl-a: #00b050;  --lvl-a-ink: #000000;
+  --lvl-b: #92d050;  --lvl-b-ink: #000000;
+  --lvl-c: #ffff00;  --lvl-c-ink: #000000;
+  --lvl-d: #ffc000;  --lvl-d-ink: #000000;
+  --lvl-f: #ff0000;  --lvl-f-ink: #ffc7ce;
+
+  --ink: #000000;
+  --grid: #000000;
+}
+
+@page {
+  size: Letter landscape;
+  margin: 54pt 0 18pt 0;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; font-family: 'Arial'; color: var(--ink); }
+
+.titles { text-align: center; font-weight: bold; font-size: 8pt; line-height: 8pt; }
+.titles .hl { white-space: pre; }
+.titles .report-title { font-size: 8pt; margin-top: 3pt; }
+
+table.grid {
+  border-collapse: collapse;
+  table-layout: fixed;
+  border: 0.8pt solid var(--grid);
+}
+
+/* ---------- summary block (own geometry) ---------- */
+table.summary {
+  width: 603.4pt;            /* 116.4 .. 719.5 approx (label + 25 value cols) */
+  margin: 0 0 6pt 116.4pt;
+}
+table.summary col.s-label { width: 90pt; }
+table.summary col.s-v { width: 19.7pt; }
+
+/* ---------- main per-subject table ---------- */
+table.main {
+  width: 668.6pt;            /* 50.9 .. 719.5 */
+  margin: 0 0 0 50.9pt;
+}
+table.main col:nth-child(1)  { width: 15.9pt; }
+table.main col:nth-child(2)  { width: 128.5pt; }
+table.main col:nth-child(3)  { width: 18.9pt; }
+table.main col:nth-child(4)  { width: 18.0pt; }
+table.main col:nth-child(5)  { width: 19.7pt; }
+table.main col:nth-child(6)  { width: 19.0pt; }
+table.main col:nth-child(7)  { width: 26.7pt; }
+table.main col:nth-child(8)  { width: 19.7pt; }
+table.main col:nth-child(9)  { width: 19.7pt; }
+table.main col:nth-child(10) { width: 18.0pt; }
+table.main col:nth-child(11) { width: 18.0pt; }
+table.main col:nth-child(12) { width: 17.5pt; }
+table.main col:nth-child(13) { width: 17.5pt; }
+table.main col:nth-child(14) { width: 16.5pt; }
+table.main col:nth-child(15) { width: 16.4pt; }
+table.main col:nth-child(16) { width: 16.5pt; }
+table.main col:nth-child(17) { width: 16.4pt; }
+table.main col:nth-child(18) { width: 17.6pt; }
+table.main col:nth-child(19) { width: 16.4pt; }
+table.main col:nth-child(20) { width: 17.5pt; }
+table.main col:nth-child(21) { width: 19.0pt; }
+table.main col:nth-child(22) { width: 18.4pt; }
+table.main col:nth-child(23) { width: 17.6pt; }
+table.main col:nth-child(24) { width: 19.7pt; }
+table.main col:nth-child(25) { width: 18.9pt; }
+table.main col:nth-child(26) { width: 26.0pt; }
+table.main col:nth-child(27) { width: 18.9pt; }
+table.main col:nth-child(28) { width: 55.7pt; }
+
+/* overall KUNDI LA UMAHIRI mini box (right-aligned, x~408..663) */
+table.overall-box {
+  width: 255pt;
+  margin: 0 0 3.5pt 408pt;
+}
+table.overall-box col.ob-label { width: 117pt; }
+table.overall-box col.ob-gpa { width: 82pt; }
+table.overall-box col.ob-comp { width: 56pt; }
+table.overall-box td { font-size: 5.6pt; }
+
+/* section-title band spanning the main-grid width */
+table.section-band {
+  width: 668.6pt;
+  margin: 0 0 0 50.9pt;
+}
+table.section-band td.b { background: #d9e1f2; font-size: 6.4pt; font-weight: bold; }
+table.section-band tr.sect { height: 11.5pt; }
+
+th, td {
+  border: 0.4pt solid var(--grid);
+  padding: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 5.6pt;
+  line-height: 1;
+}
+th { white-space: normal; font-weight: bold; }
+tr.pass td { font-weight: bold; }
+tr.pass td.txt { text-align: left; padding-left: 1.5pt; }
+thead { display: table-header-group; }
+thead th { font-weight: bold; font-size: 5.8pt; }
+thead th.grp { font-size: 6.2pt; }
+thead th.v-mid { vertical-align: middle; }
+thead .hg { height: 9pt; }
+thead .hs { height: 9pt; }
+thead .hf { height: 9pt; }
+
+tbody tr.row { height: 10.4pt; }
+table.main tbody tr.total { height: 11.5pt; }
+tbody td { font-size: 5.8pt; }
+td.txt { text-align: left; padding-left: 1.5pt; }
+td.b { font-weight: bold; }
+td.comp { text-align: left; font-weight: bold; padding-left: 1.5pt; font-size: 5.4pt; }
+tr.total td { font-weight: bold; }
+tr.total td.txt { text-align: left; padding-left: 1.5pt; }
+
+.fill-reg { background: var(--fill-reg); }
+.fill-fanya { background: var(--fill-fanya); }
+.fill-a { background: var(--fill-a); }
+.fill-b { background: var(--fill-b); }
+.fill-c { background: var(--fill-c); }
+.fill-d { background: var(--fill-d); }
+.fill-e { background: var(--fill-e); }
+.fill-ad { background: var(--fill-ad); }
+.fill-adpct { background: var(--fill-adpct); }
+.fill-tot { background: var(--fill-tot); }
+.fill-wastani { background: var(--fill-wastani); }
+.fill-shule { background: var(--fill-shule); }
+
+.lvl-a { background: var(--lvl-a); color: var(--lvl-a-ink); }
+.lvl-b { background: var(--lvl-b); color: var(--lvl-b-ink); }
+.lvl-c { background: var(--lvl-c); color: var(--lvl-c-ink); }
+.lvl-d { background: var(--lvl-d); color: var(--lvl-d-ink); }
+.lvl-f { background: var(--lvl-f); color: var(--lvl-f-ink); }
