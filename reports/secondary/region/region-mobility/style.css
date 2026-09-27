@@ -1,0 +1,87 @@
+/*
+ * region-mobility (LEVEL + FUNCTION name; region-only report, data-driven).
+ * FTNA 2025 vs MOCK 2026 GPA movement, flowing across 6 portrait pages (US Letter,
+ * 612 x 792 pt). Swahili movement labels come from data.json, preserved exactly. No
+ * competency column; all fills are a fixed identical palette.
+ *
+ * REAL fonts registered INLINE: fully self-contained, no shared stylesheet.
+ */
+@font-face {
+  font-family: 'Arial'; font-style: normal; font-weight: normal;
+  src: url("../../../../fonts/LiberationSans-Regular.ttf") format('truetype');
+}
+@font-face {
+  font-family: 'Arial'; font-style: normal; font-weight: bold;
+  src: url("../../../../fonts/LiberationSans-Bold.ttf") format('truetype');
+}
+
+:root {
+  --fill-ftna: #fce9d9;
+  --fill-mock: #dce6f0;
+  --ink: #000000;
+  --grid: #000000;
+}
+
+@page {
+  size: Letter portrait;
+  margin: 22pt 0 16pt 0;
+}
+@page :first { margin-top: 22pt; }
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; font-family: 'Arial'; color: var(--ink); }
+
+.titles { text-align: center; font-weight: bold; font-size: 9pt; line-height: 13.2pt; }
+.titles .hl { white-space: pre; }
+.titles .report-title { font-size: 9pt; margin-top: 5pt; }
+
+table.mob {
+  width: 576.9pt;              /* 13.0 .. 589.9 */
+  margin: 6pt 0 0 13.0pt;
+  border-collapse: collapse;
+  table-layout: fixed;
+  border: 0.8pt solid var(--grid);
+}
+
+col.w-sno { width: 24.7pt; }
+col.w-council { width: 60.0pt; }
+col.w-school { width: 145.1pt; }
+col.w-own { width: 53.5pt; }
+col.w-ft { width: 29.5pt; }
+col.w-fp { width: 24.7pt; }
+col.w-fg { width: 31.3pt; }
+col.w-mt { width: 29.6pt; }
+col.w-mp { width: 25.5pt; }
+col.w-mg { width: 33.3pt; }
+col.w-ch { width: 32.2pt; }
+col.w-mj { width: 37.2pt; }
+col.w-hali { width: 50.3pt; }
+
+th, td {
+  border: 0.5pt solid var(--grid);
+  padding: 0 1pt;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 6.4pt;
+  line-height: 1;
+}
+/* the reference repeats the column header on every page the table spans. */
+thead { display: table-header-group; }
+thead th { font-weight: bold; font-size: 6.4pt; }
+thead th.grp { font-size: 7pt; }
+thead th.v-mid { vertical-align: middle; }
+thead .h1 { height: 12pt; }
+thead .h2 { height: 10pt; }
+thead .h3 { height: 8pt; }
+
+tbody tr.row { height: 11.78pt; }
+tbody td { font-size: 6.4pt; }
+td.txt { text-align: left; padding-left: 1.5pt; font-size: 5.8pt; letter-spacing: -0.15pt; }
+td.c-sno { }
+td.b { font-weight: bold; }
+td.hali { text-align: left; font-weight: bold; }
+
+.fill-ftna { background: var(--fill-ftna); }
+.fill-mock { background: var(--fill-mock); }
