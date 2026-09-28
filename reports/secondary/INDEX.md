@@ -69,11 +69,11 @@ including the per-page **verdict** column and a **verdict summary** line) under
 | Report | Source PDF | Scope / level | Pages | pixel-diff | tolerant-diff | word-diff (miss/extra)* | fills (orig/gen)† | verdict >=96% (pass/total) |
 |---|---|---|---|---|---|---|---|---|
 | `council-schools-rank-subjectwise` | MWANZA CC SCHOOLS RANK SUBJECTWISE.pdf | council, per-subject school rank (COUNCILWISE, C/RANK) | 24 | 0.0–26.9% | 0.0–21.6% | 162 / 130 | 4 / 0 | **8 / 24** |
-| `council-subjects-rank` | MWANZA CC SUBJECTS RANK.pdf | council, one row per subject | 2 | 4.1–18.8% | 2.6–9.7% | 4 / 1 | 0 / 0 | **1 / 2** |
+| `council-subjects-rank` | MWANZA CC SUBJECTS RANK.pdf | council, one row per subject | 2 | 3.4–0.4% | 0.22–0.03% | 0 / 0 | 0 / 0 | **2 / 2** |
 | `council-schools-rank-overall` | MWANZA CC SCHOOLS RANK.pdf | council, SUMMARY block + per-school division grid (F/M/T), two independently measured tables — see [two-table geometry](#council-schools-rank-overall-two-table-geometry) | 1 | 3.7% | **0.17%** | 202 / 64‡ | 0 / 0 | **0 / 1** (words only) |
-| `council-top-10-schools` | MWANZA CC 10 BEST SCHOOLS.pdf | council, top-10 sections (incl. districtwise/govt) | 3 | 18.1–19.7% | 12.6–14.8% | 46 / 32 | 1 / 4 | **0 / 3** |
+| `council-top-10-schools` | MWANZA CC 10 BEST SCHOOLS.pdf | council, top-10 sections (incl. districtwise/govt); header topology corrected (GPA is one rowspan-3 column, DIVISION PERFORMANCE spans 24, no invented GPA PERFORMANCE group); filled rules + fit() containment (overflow 58→43) | 3 | 17.1–18.8% | 11.0–14.0% | 14 / 6 | 0–1 / 1–2 | **0 / 3** |
 | `council-best-students-overall` | MWANZA CC 10 BEST STUDENTS.pdf | council, top students + detailed subjects | 5 | 8.7–20.6% | 5.3–15.3% | 172 / 41 | 0 / 0 | **0 / 5** |
-| `council-best-students-subjectwise` | MWANZA CC 10 BEST STUDENTS SUBJECTWISE.pdf | council, top-10 students per subject | 30 | 0.0–10.5% | 0.0–8.8% | 398 / 110 | 0 / 0 | **10 / 30** |
+| `council-best-students-subjectwise` | MWANZA CC 10 BEST STUDENTS SUBJECTWISE.pdf | council, top-10 students per subject; extractor glued-name bug fixed ("ALLIANCE ROCK ARMPRIVATE"→school "ALLIANCE ROCK ARMY" + category "PRIVATE", ×2) via page_words+column_x | 30 | 0.0–10.5% | 0.0–8.8% | 398 / 110 | 0 / 0 | **10 / 30** |
 | `council-wards-rank` | MWANZA CC Wards Rank.pdf | council, per-ward performance (WARDWISE, RANK) | 1 | 19.4% | 13.6% | 38 / 7 | 7 / 0 | **0 / 1** |
 
 ## Region reports (`reports/secondary/region/`)
@@ -87,7 +87,7 @@ including the per-page **verdict** column and a **verdict summary** line) under
 | `region-schools-rank-governments` | Mwanza Schools Rank For Governments.pdf | region, division grid, government schools only; fixed per-column pastel tints reproduced | 4 | 34.3–42.0% | 16.6–21.5% | 225 / 277 | 4 / 0 | **0 / 4** |
 | `region-top-10-schools` | Mwanza Top 10 Schools.pdf | region, top-10 overall + COUNCIL col | 6 | 9.6–10.9% | 8.4–9.9% | 14 / 28 | 4 / 3 | **0 / 6** |
 | `region-best-students-overall` | Mwanza Best Students-Overall.pdf | region, top students + COUNCIL col + detailed subjects | 9 | 10.6–12.1% | 7.2–9.9% | 219 / 74 | 2 / 0 | **0 / 9** |
-| `region-best-students-subjectwise` | Mwanza Best students-Subjectwise.pdf | region, top-10 students per subject + COUNCIL col | 23 | 10.9–11.4% | 8.7–9.2% | 156 / 71 | 2 / 1 | **0 / 23** |
+| `region-best-students-subjectwise` | Mwanza Best students-Subjectwise.pdf | region, top-10 students per subject + COUNCIL col; extractor glued-name bugs fixed ("ARCHBISHOP MAYALAPRIVATE"→"ARCHBISHOP MAYALA"+"PRIVATE" ×2, "SENGEREMA SEMINARPRIVATE"→"SENGEREMA SEMINARY"+"PRIVATE") via page_words+column_x + lexical category split | 23 | 10.9–11.4% | 8.7–9.2% | 156 / 71 | 2 / 1 | **0 / 23** |
 | `region-district-performance` | Mwanza f2 District Performance.pdf | region only, per-council/district division grid | 5 | 8.4–9.2% | 5.5–7.1% | 17 / 35 | 0 / 1 | **0 / 5** |
 | `region-mobility` | Mwanza f2 Mock Mobility 2026.pdf | region only, FTNA 2025 vs Mock 2026 (Swahili labels); fixed section/header fills + IMEPANDA/UMESHUKA up-down colour-coding | 6 | 28.5–33.7% | 16.9–23.6% | 71 / 45 | 1 / 1 | **0 / 6** |
 
