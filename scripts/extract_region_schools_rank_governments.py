@@ -11,9 +11,13 @@ Coordinate based (pymupdf words), never hand-typed.
 """
 
 import json
+import sys
 from pathlib import Path
 
 import pymupdf
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from sars_pdf.pdftext import column_x, page_words  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "region_pdf" / "region_pdf" / "Mwanza Schools Rank For Governments.pdf"
@@ -69,16 +73,20 @@ def parse_school_row(line):
     row = {k: "" for k in ["sn", "council", "school", "ownership", *NUM_KEYS,
                             "competency", "crank", "rrank"]}
     council_p, school_p, own_p, comp_p = [], [], [], []
+    # Words drawn past their cell edge stay in the cell they were typed into
+    # (sars_pdf/pdftext.py), e.g. "STAR REACHERS GIRLS AND BOYS" over OWNERSHIP's "PRIVATE".
+    colx = column_x(line)
     for w in line:
         x0, x1, txt = w[0], w[2], w[4]
         cx = (x0 + x1) / 2
+        col_x = colx[id(w)]
         if cx < SN_MAX_X:
             row["sn"] = txt
-        elif x0 < COUNCIL_MAX_X:
+        elif col_x < COUNCIL_MAX_X:
             council_p.append((x0, txt))
-        elif x0 < SCHOOL_MAX_X:
+        elif col_x < SCHOOL_MAX_X:
             school_p.append((x0, txt))
-        elif x0 < OWN_MAX_X:
+        elif col_x < OWN_MAX_X:
             own_p.append((x0, txt))
         elif cx >= RRANK_MIN_X:
             row["rrank"] = txt
@@ -115,6 +123,22 @@ def parse_numeric_only(line, min_x):
     return row
 
 
+# % PASS row: one value per division group, keyed by the group it is centred in.
+PASS_GROUPS = [("i", 295.1, 340.4), ("ii", 340.4, 385.8), ("iii", 385.8, 430.0),
+               ("iv", 430.0, 480.4), ("z", 480.4, 537.0), ("d3", 537.0, 604.1),
+               ("d4", 604.1, 675.5)]
+
+
+def parse_pct_pass(line):
+    out = {k: "" for k, _, _ in PASS_GROUPS}
+    for w in line:
+        cx = (w[0] + w[2]) / 2
+        for key, lo, hi in PASS_GROUPS:
+            if lo <= cx < hi:
+                out[key] = w[4]
+    return out
+
+
 def main():
     doc = pymupdf.open(SRC)
     rows = []
@@ -122,7 +146,7 @@ def main():
     pct_pass = None
     total = None
     for pi in range(doc.page_count):
-        for cy, line in group_lines(doc[pi].get_text("words")):
+        for cy, line in group_lines(page_words(doc[pi])):
             line = sorted(line, key=lambda w: w[0])
             text = " ".join(w[4] for w in line)
             first = line[0]
@@ -130,7 +154,7 @@ def main():
                 summary = parse_numeric_only(line, OWN_MAX_X)
                 summary["no_schools"] = first[4]
             elif text.startswith("% PASS"):
-                pct_pass = parse_numeric_only(line, OWN_MAX_X)
+                pct_pass = parse_pct_pass(line)
             elif text.startswith("TOTAL"):
                 total = parse_numeric_only(line, OWN_MAX_X)
             else:

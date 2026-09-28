@@ -8,48 +8,40 @@ Pixel diff = share of pixels that differ at 110 dpi; tolerant = still different 
 
 | page | pixel diff | tolerant diff | words missing | words extra | fills only in original | fills only in generated | verdict (>=96%) |
 |---|---|---|---|---|---|---|---|
-| 1 | 33.36% | 17.35% | 42 | 62 | - | - | ❌ FAIL (pixels 17.35%>4%, words 42miss/62extra) |
-| 2 | 39.07% | 20.14% | 34 | 71 | - | - | ❌ FAIL (pixels 20.14%>4%, words 34miss/71extra) |
-| 3 | 40.86% | 20.54% | 30 | 69 | - | - | ❌ FAIL (pixels 20.54%>4%, words 30miss/69extra) |
-| 4 | 40.90% | 20.54% | 31 | 68 | - | - | ❌ FAIL (pixels 20.54%>4%, words 31miss/68extra) |
-| 5 | 40.50% | 20.46% | 27 | 65 | - | - | ❌ FAIL (pixels 20.46%>4%, words 27miss/65extra) |
-| 6 | 13.33% | 5.71% | 67 | 40 | #f2ceef | - | ❌ FAIL (pixels 5.71%>4%, fills 1orig/0gen, words 67miss/40extra) |
+| 1 | 2.63% | 0.22% | 10 | 9 | - | - | ❌ FAIL (words 10miss/9extra) |
+| 2 | 2.39% | 0.27% | 2 | 2 | - | - | ❌ FAIL (words 2miss/2extra) |
+| 3 | 2.93% | 0.27% | 0 | 0 | - | - | ✅ PASS |
+| 4 | 2.96% | 0.28% | 0 | 0 | - | - | ✅ PASS |
+| 5 | 2.96% | 0.26% | 0 | 0 | - | - | ✅ PASS |
+| 6 | 1.26% | 0.17% | 0 | 0 | - | - | ✅ PASS |
 
-**Verdict summary: 0/6 pages meet the >=96% bar** (tolerant diff <= 4% AND zero fill diffs AND zero word diffs).
+**Verdict summary: 4/6 pages meet the >=96% bar** (tolerant diff <= 4% AND zero fill diffs AND zero word diffs).
 
 ## Page 1
-missing: `{'O': 3, 'L': 3, 'E': 3, 'C': 2, 'N': 2, 'I': 2, 'V': 2, 'NYANTAKUPBRWIVAA': 2, 'SC': 1, 'H': 1}`
-extra: `{'0': 14, '33': 6, '100': 2, '6': 2, '7': 2, '60': 2, '20': 2, '34': 2, 'NYANTAKPRIVATE': 2, 'REGION': 1}`
+missing: `{'NYANTAKUPBRWIVAA': 2, '3.53535': 1, 'Grade': 1, 'TBEOYS': 1, 'TGEIRLS': 1, 'ANDP': 1, 'BROIVYASTE': 1, 'KNAR/C': 1, 'KNAR/R': 1}`
+extra: `{'NYANTAKUBWA': 2, 'BOYSPRIVATE': 2, 'AND': 1, '3.53535Grade': 1, 'GIRLSPRIVATE': 1, 'KKNNAARR//CC': 1, 'KKNNAARR//RR': 1}`
 
 ![page 1](page_01.png)
 
 ## Page 2
-missing: `{'0': 12, '33': 6, '60': 2, '34': 2, '100': 2, 'UKEREWE': 1, 'KAGUNGULI': 1, 'PRIVATE': 1, '97.06': 1, '7': 1}`
-extra: `{'F': 9, 'M': 9, 'T': 9, '%': 4, '22': 4, '12': 3, '1': 3, '19': 2, '136': 2, 'PERFORMANCE': 1}`
+missing: `{'CHRISTIANP': 1, 'RSIEVMATINEARY': 1}`
+extra: `{'CHRISTIAN': 1, 'SEMINARYPRIVATE': 1}`
 
 ![page 2](page_02.png)
 
 ## Page 3
-missing: `{'22': 4, '12': 3, '136': 2, '4': 2, '6': 2, '19': 2, '0': 1, 'SENGEREMA': 1, 'DCIGULUMUKI': 1, '24': 1}`
-extra: `{'F': 9, 'M': 9, 'T': 9, '%': 4, '159': 2, '212': 2, 'PERFORMANCE': 1, 'GPA': 1, 'S/NO.': 1, 'COUNCIL': 1}`
 
 ![page 3](page_03.png)
 
 ## Page 4
-missing: `{'212': 2, '159': 2, 'UKEREWE': 1, 'NDURUMA': 1, 'DAY': 1, '156': 1, '162': 1, '318': 1, '151': 1, '310': 1}`
-extra: `{'F': 9, 'M': 9, 'T': 9, '0': 5, '%': 4, '19': 3, '2': 3, '288': 2, '15': 2, '36': 2}`
 
 ![page 4](page_04.png)
 
 ## Page 5
-missing: `{'0': 5, '288': 2, '19': 2, '17': 2, '36': 2, '2': 2, 'SENGEREMA': 1, 'DCLWENGE': 1, '21': 1, '40': 1}`
-extra: `{'F': 9, 'M': 9, 'T': 9, '%': 4, '364': 2, 'PERFORMANCE': 1, 'GPA': 1, 'S/NO.': 1, 'COUNCIL': 1, 'SCHOOL': 1}`
 
 ![page 5](page_05.png)
 
 ## Page 6
-missing: `{'364': 2, '2': 2, '1': 2, '3': 2, '4': 2, '15': 2, '0': 1, 'BUCHOSA': 1, 'ILIGAMBA': 1, 'GOVERNMENT': 1}`
-extra: `{'F': 9, 'M': 9, 'T': 9, '%': 4, 'PERFORMANCE': 1, 'GPA': 1, 'S/NO.': 1, 'COUNCIL': 1, 'SCHOOL': 1, 'NAME': 1}`
 
 ![page 6](page_06.png)
 

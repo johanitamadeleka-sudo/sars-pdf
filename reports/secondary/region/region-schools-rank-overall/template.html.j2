@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+{# grid rules filled + anti-aliased like this Print-To-PDF original (sars_pdf/rules.py) #}
+<meta name="sars-pdf:rules" content="filled-aa">
 <title>{{ doc.document.report_title }}</title>
 <link rel="stylesheet" href="style.css">
 </head>
@@ -11,154 +13,204 @@
   (own template + own style.css, inline @font-face, no shared stylesheet). Data-driven and
   location-agnostic. Competency-level background is the ONLY data-driven colour.
 
-  Region variant of the overall grid: the WARD column is replaced by a COUNCIL column.
-  Wide F/M/T triplet grid. A SUMMARY block (+ %PASS) sits above the main per-school table
-  (+ TOTAL row on the last page). Main columns:
-    S/NO. | COUNCIL | SCHOOL NAME | OWNERSHIP
-    REGISTERED(F M T) | SAT(F M T %)
-    I(F M T) II(F M T) III(F M T) IV(F M T) 0(F M T %) I-III(F M T %) I-IV(F M T %)
-    GPA | COMPETENCY | C/RANK | R/RANK
+  Two independent tables, each on its OWN grid measured from the original:
+
+  1. SUMMARY block (x 129.78 .. 746.34, 34 columns): NO. OF SCHOOLS IN COUNCIL | REGISTERED
+     (F M T) SAT (F M T %) | I II III IV (F M T) 0 I-III I-IV (F M T %) | GPA | COMPENTENCY
+     LEVEL, then a % PASS row.
+  2. PER-SCHOOL table (x 13.5 .. 770.34, 39 columns) + TOTAL row, flowing over the pages:
+     S/NO. | COUNCIL | SCHOOL NAME | OWNERSHIP | REGISTERED(F M T) | SAT(F M T %) | I..IV (F M T)
+     0 I-III I-IV (F M T %) | GPA | COMPETENCY LEVEL | C/RANK | R/RANK
+
+  The original repeats only the first TWO header bands on continuation pages (the F/M/T band
+  and the bottom-aligned S/NO. .. OWNERSHIP labels print on page 1 only; the lower part of the
+  rotated C/RANK / R/RANK labels is clipped there). So <thead> holds those two bands and the
+  F/M/T band is the first body row. Where page 1 merges a header cell across all three bands,
+  the rule between them is covered by a strip of the cell's fill (.cover) - a hidden border
+  would also remove the rule under the repeated header on every later page, because WeasyPrint
+  reuses that same collapsed-border edge there.
+
+  Column widths are the measured distances between the original's rule centres and live
+  HERE (one place) so the <col> widths and the shrink-to-fit widths can never disagree.
 #}
+{%- set MAIN_COLS = [15.6, 38.28, 62.4, 35.4,
+    17.76, 17.76, 17.76,  17.76, 17.76, 17.76, 16.32,
+    14.76, 14.76, 14.76,  14.76, 14.76, 14.76,  14.76, 14.76, 14.76,  17.88, 17.88, 17.88,
+    14.76, 14.76, 14.76, 15.84,  14.76, 17.76, 17.76, 16.32,  17.76, 17.76, 17.76, 16.32,
+    21.36, 54.12, 12.0, 12.0] %}
+{%- set SUM_COLS = [35.4] + MAIN_COLS[4:37] %}
+{#- numeric grid columns REG F .. GPA (per-school cols 5..36, summary cols 2..33):
+    key, weight, per-school fill, TOTAL-row fill, thick TOTAL-row rules -#}
+{%- set NUM = [
+    ('reg_f', '', '', '', 'tl'), ('reg_m', '', '', '', ''), ('reg_t', 'b', '', '', ''),
+    ('sat_f', '', '', '', ''), ('sat_m', '', '', '', ''), ('sat_t', 'b', '', '', ''),
+    ('sat_pct', 'b', '', '', ''),
+    ('i_f', '', '', '', 'tt tl'), ('i_m', '', '', '', 'tt tl'), ('i_t', 'b', '', 'f-tt', 'tt tl'),
+    ('ii_f', '', '', '', 'tt tl'), ('ii_m', '', '', '', 'tt tl'), ('ii_t', 'b', '', 'f-tt', 'tt tl'),
+    ('iii_f', '', '', '', 'tt tl'), ('iii_m', '', '', '', 'tt tl'), ('iii_t', 'b', '', 'f-tt', 'tt tl'),
+    ('iv_f', '', '', '', 'tt tl'), ('iv_m', '', '', '', 'tt tl'), ('iv_t', 'b', '', 'f-tt', 'tt tl'),
+    ('z_f', 'b', 'f-z', 'f-z', 'tt tl'), ('z_m', 'b', 'f-z', 'f-z', 'tt tl'), ('z_t', 'b', 'f-z', 'f-z', 'tt tl'),
+    ('z_pct', 'b', 'f-zp', 'f-zp', 'tt tl'),
+    ('d3_f', 'b', 'f-d3', 'f-d3', 'tl'), ('d3_m', 'b', 'f-d3', 'f-d3', ''), ('d3_t', 'b', 'f-d3', 'f-d3', ''),
+    ('d3_pct', 'b', 'f-d3p', 'f-d3p', ''),
+    ('d4_f', 'b', '', '', 'tt tl'), ('d4_m', 'b', '', '', 'tt tl'), ('d4_t', 'b', '', '', 'tt tl'),
+    ('d4_pct', 'b', 'f-d4p', 'f-d4p', 'tt tl'),
+    ('gpa', 'b', '', '', 'tt tl'),
+] %}
+{%- set PAD_NUM = 1.2 %}
+{%- set PAD_TXT = 1.5 %}
+{% macro cover(fill='') -%}
+<div class="anc"><div class="cover {{ fill }}"></div></div>
+{%- endmacro %}
+{% macro rank_label(text, part) -%}
+{# rotated rank label; `part` = 'head' (the two repeated bands) or 'foot' (F/M/T band, page 1) #}
+<div class="anc"><div class="clip clip-{{ part }}"><span class="rot-{{ part }}">{{ text }}</span></div></div>
+{%- endmacro %}
+
 <div class="titles">
   {% for line in doc.document.ministry %}
-  <div class="hl ministry">{{ line }}</div>
+  <div class="hl">{{ line }}</div>
   {% endfor %}
-  <div class="hl exam-name">{{ doc.document.exam_name }}</div>
-  <div class="hl report-title">{{ doc.document.report_title }}</div>
+  <div class="hl">{{ doc.document.exam_name }}</div>
 </div>
+<div class="band">{{ doc.document.report_title }}</div>
 
-{% macro cols() %}
-<colgroup>
-  <col class="w-sn"><col class="w-council"><col class="w-school"><col class="w-own">
-  <col class="t"><col class="t"><col class="t">
-  <col class="t"><col class="t"><col class="t"><col class="p">
-  <col class="t"><col class="t"><col class="t">
-  <col class="t"><col class="t"><col class="t">
-  <col class="t"><col class="t"><col class="t">
-  <col class="t"><col class="t"><col class="t">
-  <col class="t"><col class="t"><col class="t"><col class="p">
-  <col class="t"><col class="t"><col class="t"><col class="p">
-  <col class="t"><col class="t"><col class="t"><col class="p">
-  <col class="w-gpa"><col class="w-comp"><col class="w-crank"><col class="w-rrank">
-</colgroup>
-{% endmacro %}
-
-{% macro nums(r) %}
-  <td>{{ r.reg_f }}</td><td>{{ r.reg_m }}</td><td class="b">{{ r.reg_t }}</td>
-  <td>{{ r.sat_f }}</td><td>{{ r.sat_m }}</td><td class="b">{{ r.sat_t }}</td><td class="b">{{ r.sat_pct }}</td>
-  <td>{{ r.i_f }}</td><td>{{ r.i_m }}</td><td class="b">{{ r.i_t }}</td>
-  <td>{{ r.ii_f }}</td><td>{{ r.ii_m }}</td><td class="b">{{ r.ii_t }}</td>
-  <td>{{ r.iii_f }}</td><td>{{ r.iii_m }}</td><td class="b">{{ r.iii_t }}</td>
-  <td>{{ r.iv_f }}</td><td>{{ r.iv_m }}</td><td class="b">{{ r.iv_t }}</td>
-  <td class="fill-z">{{ r.z_f }}</td><td class="fill-z">{{ r.z_m }}</td><td class="b fill-z">{{ r.z_t }}</td><td class="b fill-z-pct">{{ r.z_pct }}</td>
-  <td class="fill-3">{{ r.d3_f }}</td><td class="fill-3">{{ r.d3_m }}</td><td class="b fill-3">{{ r.d3_t }}</td><td class="b fill-3-pct">{{ r.d3_pct }}</td>
-  <td>{{ r.d4_f }}</td><td>{{ r.d4_m }}</td><td class="b">{{ r.d4_t }}</td><td class="b fill-4-pct">{{ r.d4_pct }}</td>
-  <td class="b">{{ r.gpa }}</td>
-{% endmacro %}
-
-{% macro fmt_heads() %}
-<tr class="hf">
-  <th>F</th><th>M</th><th>T</th>
-  <th>F</th><th>M</th><th>T</th><th>%</th>
-  <th>F</th><th>M</th><th>T</th><th>F</th><th>M</th><th>T</th>
-  <th>F</th><th>M</th><th>T</th><th>F</th><th>M</th><th>T</th>
-  <th class="fill-z">F</th><th class="fill-z">M</th><th class="fill-z">T</th><th class="fill-z-pct">%</th>
-  <th class="fill-3">F</th><th class="fill-3">M</th><th class="fill-3">T</th><th class="fill-3-pct">%</th>
-  <th>F</th><th>M</th><th>T</th><th class="fill-4-pct">%</th>
-</tr>
-{% endmacro %}
-
-{# ---------- summary block ---------- #}
+{# ================= TABLE 1: SUMMARY block (own 34-column grid) ================= #}
 {% if doc.summary %}
+{% set s = doc.summary %}
 <table class="grid summary">
-  {{ cols() }}
+  <colgroup>{% for w in SUM_COLS %}<col style="width:{{ w }}pt">{% endfor %}</colgroup>
   <tbody>
-    <tr class="hg">
-      <th rowspan="5" class="vlabel"><div class="vert"><span>SUMMARY PERFORMANCE</span></div></th>
-      <th rowspan="4" colspan="3" class="nowrap fill-sum-label">NO. OF SCHOOLS IN REGION</th>
-      <th colspan="7" class="grp fill-cand-h">NUMBER OF CANDIDATES</th>
-      <th colspan="23" class="grp">DIVISION PERFORMANCE</th>
-      <th colspan="3" class="grp fill-gpa-h">GPA PERFORMANCE</th>
+    <tr class="s1">
+      <th rowspan="3" class="s-nos"><div class="anc"><span>NO. OF<br>SCHOOLS IN<br>COUNCIL</span></div></th>
+      <th colspan="7" class="s-cand">NUMBER OF CANDIDATES</th>
+      <th colspan="24" class="s-div">DIVISION PERFORMANCE</th>
+      <th colspan="2" class="s-gpa">GPA PERFORMANCE</th>
     </tr>
-    <tr class="hs">
-      <th colspan="3" class="fill-cand-h">REGISTERED</th>
-      <th colspan="4" class="fill-cand-h">SAT</th>
-      <th colspan="3">I</th><th colspan="3">II</th><th colspan="3">III</th><th colspan="3">IV</th>
-      <th colspan="4">0</th>
-      <th colspan="4">I-III</th>
-      <th colspan="4">I-IV</th>
-      <th rowspan="2" class="v-mid fill-gpa-h">GPA</th>
-      <th rowspan="2" colspan="2" class="v-mid">COMPENTENCY LEVEL</th>
+    <tr class="s2">
+      <th colspan="3" class="s-reg f-s-reg">REGISTERED</th>
+      <th colspan="4" class="s-sat f-s-sat">SAT</th>
+      <th colspan="3" class="s-rn">I</th>
+      <th colspan="3" class="s-rn">II</th>
+      <th colspan="3" class="s-rn">III</th>
+      <th colspan="3" class="s-rn">IV</th>
+      <th colspan="4" class="s-rn">0</th>
+      <th colspan="4" class="s-rn">I-III</th>
+      <th colspan="4" class="s-rn">I-IV</th>
+      <th rowspan="2" class="s-gpah"><div class="anc"><span>GPA</span></div></th>
+      <th rowspan="2" class="s-comph"><div class="anc"><span>COMPENTENCY<br>LEVEL</span></div></th>
     </tr>
-    {{ fmt_heads() }}
-    <tr class="row srow">
-      <td colspan="3" class="b fill-sum-band">{{ doc.summary.no_schools }}</td>
-      {{ nums(doc.summary) }}
-      <td colspan="3" class="comp{% if doc.summary.level %} lvl-{{ doc.summary.level | lower }}{% endif %}">{{ doc.summary.competency }}</td>
+    <tr class="s3">
+      <th class="s-fmt f-s-fmt">F</th><th class="s-fmt f-s-fmt">M</th><th class="s-fmt f-s-fmt">T</th>
+      <th class="s-fmt f-s-fmt">F</th><th class="s-fmt f-s-fmt">M</th><th class="s-fmt f-s-fmt">T</th>
+      <th class="s-pct s-pct-sat f-s-satp">%</th>
+      {% for _ in range(4) %}
+      <th class="s-fmt f-s-fmt">F</th><th class="s-fmt f-s-fmt">M</th><th class="s-fmt f-s-fmt">T</th>
+      {% endfor %}
+      <th class="s-fmt f-s-z">F</th><th class="s-fmt f-s-z">M</th><th class="s-fmt f-s-z">T</th><th class="s-pct f-s-zp">%</th>
+      <th class="s-fmt f-s-d3">F</th><th class="s-fmt f-s-d3">M</th><th class="s-fmt f-s-d3">T</th><th class="s-pct f-s-d3p">%</th>
+      <th class="s-fmt f-s-d4">F</th><th class="s-fmt f-s-d4">M</th><th class="s-fmt f-s-d4">T</th><th class="s-pct f-s-fmt">%</th>
     </tr>
-    <tr class="pass">
-      <td colspan="3" class="txt">% PASS</td>
-      <td colspan="7"></td>
-      <td colspan="3" class="b">{{ doc.pct_pass.i_m }}</td>
-      <td colspan="3" class="b">{{ doc.pct_pass.ii_m }}</td>
-      <td colspan="3" class="b">{{ doc.pct_pass.iii_m }}</td>
-      <td colspan="3" class="b">{{ doc.pct_pass.iv_m }}</td>
-      <td colspan="4" class="b">{{ doc.pct_pass.z_t }}</td>
-      <td colspan="4" class="b">{{ doc.pct_pass.d3_t }}</td>
-      <td colspan="4" class="b">{{ doc.pct_pass.d4_t }}</td>
-      <td colspan="3"></td>
+    <tr class="s4">
+      <td class="s-val f-s-nos"{{ fit(s.no_schools, SUM_COLS[0] - PAD_NUM, 5.41, bold=True) }}>{{ s.no_schools }}</td>
+      {% for key, wt, fb, ft, tl in NUM %}
+      {% if key == 'gpa' %}
+      <td class="s-gpav"{{ fit(s[key], SUM_COLS[1 + loop.index0] - PAD_NUM, 4.81, bold=True) }}>{{ s[key] }}</td>
+      {% else %}
+      <td class="s-val{% if key.startswith('d3_') %} f-s-vd3{% endif %}"{{ fit(s[key], SUM_COLS[1 + loop.index0] - PAD_NUM, 5.41, bold=True) }}>{{ s[key] }}</td>
+      {% endif %}
+      {% endfor %}
+      <td class="s-comp"{{ fit(s.competency, SUM_COLS[33] - PAD_TXT, 4.81, bold=True) }}>{{ s.competency }}</td>
+    </tr>
+    {% set p = doc.pct_pass or {} %}
+    <tr class="s5">
+      <td colspan="8" class="s-passl">% PASS</td>
+      <td colspan="3" class="s-passv">{{ p.i }}</td>
+      <td colspan="3" class="s-passv">{{ p.ii }}</td>
+      <td colspan="3" class="s-passv">{{ p.iii }}</td>
+      <td colspan="3" class="s-passv">{{ p.iv }}</td>
+      <td colspan="4" class="s-passv">{{ p.z }}</td>
+      <td colspan="4" class="s-passv">{{ p.d3 }}</td>
+      <td colspan="4" class="s-passv">{{ p.d4 }}</td>
+      <td colspan="2"></td>
     </tr>
   </tbody>
 </table>
 {% endif %}
 
-{# ---------- main per-school table ---------- #}
+{# ================= TABLE 2: PER-SCHOOL table (own 39-column grid) ================= #}
 <table class="grid main">
-  {{ cols() }}
+  <colgroup>{% for w in MAIN_COLS %}<col style="width:{{ w }}pt">{% endfor %}</colgroup>
   <thead>
-    <tr class="hg">
-      <th rowspan="3" class="c-sn">S/NO.</th>
-      <th rowspan="3" class="v-mid">COUNCIL</th>
-      <th rowspan="3" class="v-mid">SCHOOL NAME</th>
-      <th rowspan="3" class="v-mid">OWNERSHIP</th>
-      <th colspan="7" class="grp fill-cand-h">NUMBER OF CANDIDATES</th>
-      <th colspan="23" class="grp">DIVISION PERFORMANCE</th>
-      <th colspan="2" class="grp fill-gpa-h">GPA PERFORMANCE</th>
-      <th rowspan="3" class="crank-h fill-rank-h"><div class="vert"><span>C/RANK</span></div></th>
-      <th rowspan="3" class="rrank-h fill-rank-h"><div class="vert"><span>R/RANK</span></div></th>
+    <tr class="h1">
+      <th rowspan="2" class="tl"></th>
+      <th rowspan="2"></th>
+      <th rowspan="2"></th>
+      <th rowspan="2"></th>
+      <th colspan="7" class="h-cand f-h-cand tl">NUMBER OF CANDIDATES</th>
+      <th colspan="24" class="h-div">DIVISION PERFORMANCE</th>
+      <th rowspan="2" class="h-gpa f-h-gpa"><div class="anc"><span>GPA</span></div></th>
+      <th rowspan="2" class="h-comp"><div class="anc"><span>COMPETENCY LEVEL</span></div></th>
+      <th rowspan="2" class="h-rank f-h-rank">{{ rank_label('C/RANK', 'head') }}</th>
+      <th rowspan="2" class="h-rank h-rrank f-h-rank tr">{{ rank_label('R/RANK', 'head') }}</th>
     </tr>
-    <tr class="hs">
-      <th colspan="3" class="fill-cand-h">REGISTERED</th>
-      <th colspan="4" class="fill-cand-h">SAT</th>
-      <th colspan="3">I</th><th colspan="3">II</th><th colspan="3">III</th><th colspan="3">IV</th>
-      <th colspan="4">0</th>
-      <th colspan="4">I-III</th>
-      <th colspan="4">I-IV</th>
-      <th rowspan="2" class="v-mid fill-gpa-h">GPA</th>
-      <th rowspan="2" class="v-mid">COMPETENCY LEVEL</th>
+    <tr class="h2">
+      <th colspan="3" class="h-grp f-h-cand tl">REGISTERED</th>
+      <th colspan="4" class="h-grp f-h-cand">SAT</th>
+      <th colspan="3" class="h-rn">I</th>
+      <th colspan="3" class="h-rn">II</th>
+      <th colspan="3" class="h-rn">III</th>
+      <th colspan="3" class="h-rn-lo">IV</th>
+      <th colspan="4" class="h-rn">0</th>
+      <th colspan="4" class="h-rn-lo">I-III</th>
+      <th colspan="4" class="h-rn-lo">I-IV</th>
     </tr>
-    {{ fmt_heads() }}
   </thead>
   <tbody>
+    {# page-1-only third header band: F/M/T + the bottom-aligned column labels #}
+    <tr class="h3">
+      <th class="h-lbl join tl tb">S/NO.{{ cover() }}</th>
+      <th class="h-lbl join tb">COUNCIL{{ cover() }}</th>
+      <th class="h-lbl join tb">SCHOOL NAME{{ cover() }}</th>
+      <th class="h-lbl join tb">OWNERSHIP{{ cover() }}</th>
+      <th class="h-fmt f-h-reg tl tb">F</th><th class="h-fmt f-h-reg tb">M</th><th class="h-fmt f-h-reg tb">T</th>
+      <th class="h-fmt f-h-sat tb">F</th><th class="h-fmt f-h-sat tb">M</th><th class="h-fmt f-h-sat tb">T</th>
+      <th class="h-pct-sat f-h-satp tb">%</th>
+      {% for _ in range(4) %}
+      <th class="h-fmt f-h-div tb">F</th><th class="h-fmt f-h-div tb">M</th><th class="h-fmt f-h-div tb">T</th>
+      {% endfor %}
+      <th class="h-fmt f-h-z tb">F</th><th class="h-fmt f-h-z tb">M</th><th class="h-fmt f-h-z tb">T</th><th class="h-pct f-h-z tb">%</th>
+      <th class="h-fmt f-h-d3 tb">F</th><th class="h-fmt f-h-d3 tb">M</th><th class="h-fmt f-h-d3 tb">T</th><th class="h-pct f-h-d3 tb">%</th>
+      <th class="h-fmt f-h-d4 tb">F</th><th class="h-fmt f-h-d4 tb">M</th><th class="h-fmt f-h-d4 tb">T</th><th class="h-pct f-h-d4p tb">%</th>
+      <th class="join f-h-gpa tb">{{ cover('f-h-gpa') }}</th>
+      <th class="join tb">{{ cover() }}</th>
+      <th class="h-rank join f-h-rank tb">{{ cover('f-h-rank') }}{{ rank_label('C/RANK', 'foot') }}</th>
+      <th class="h-rank h-rrank join f-h-rank tb tr">{{ cover('f-h-rank') }}{{ rank_label('R/RANK', 'foot') }}</th>
+    </tr>
     {% for r in doc.rows %}
     <tr class="row">
-      <td class="c-sn">{{ r.sn }}</td>
-      <td class="txt">{{ r.council }}</td>
-      <td class="txt">{{ r.school }}</td>
-      <td class="txt">{{ r.ownership }}</td>
-      {{ nums(r) }}
-      <td class="comp">{{ r.competency }}</td>
-      <td class="b c-rank">{{ r.crank }}</td>
-      <td class="b fill-rrank c-rank">{{ r.rrank }}</td>
+      <td class="c-sn"{{ fit(r.sn, MAIN_COLS[0] - PAD_NUM, 4.45) }}>{{ r.sn }}</td>
+      <td class="txt"{{ fit(r.council, MAIN_COLS[1] - PAD_TXT, 4.45) }}>{{ r.council }}</td>
+      <td class="txt"{{ fit(r.school, MAIN_COLS[2] - PAD_TXT, 4.45) }}>{{ r.school }}</td>
+      <td class="txt"{{ fit(r.ownership, MAIN_COLS[3] - PAD_TXT, 4.45) }}>{{ r.ownership }}</td>
+      {% for key, wt, fb, ft, tl in NUM %}
+      <td class="num {{ wt }} {{ fb }}"{{ fit(r[key], MAIN_COLS[4 + loop.index0] - PAD_NUM, 4.81, bold=(wt == 'b')) }}>{{ r[key] }}</td>
+      {% endfor %}
+      <td class="txt"{{ fit(r.competency, MAIN_COLS[36] - PAD_TXT, 4.45) }}>{{ r.competency }}</td>
+      <td class="rk"{{ fit(r.crank, MAIN_COLS[37] - PAD_NUM, 4.45) }}>{{ r.crank }}</td>
+      <td class="rk b f-rrank"{{ fit(r.rrank, MAIN_COLS[38] - PAD_NUM, 4.45, bold=True) }}>{{ r.rrank }}</td>
     </tr>
     {% endfor %}
     {% if doc.total %}
-    <tr class="row total">
-      <td colspan="4" class="txt b">TOTAL</td>
-      {{ nums(doc.total) }}
-      <td class="comp{% if doc.total.level %} lvl-{{ doc.total.level | lower }}{% endif %}">{{ doc.total.competency }}</td>
-      <td></td>
-      <td class="b fill-rrank c-rank">{{ doc.total.rrank }}</td>
+    {% set t = doc.total %}
+    <tr class="total">
+      <td colspan="4" class="t-label tt tb tl">TOTAL</td>
+      {% for key, wt, fb, ft, tl in NUM %}
+      <td class="t-num {{ ft }} {{ tl }} tb"{{ fit(t[key], MAIN_COLS[4 + loop.index0] - PAD_NUM, 4.81, bold=True) }}>{{ t[key] }}</td>
+      {% endfor %}
+      <td class="t-comp f-t-rank"{{ fit(t.competency, MAIN_COLS[36] - PAD_TXT, 4.81, bold=True) }}>{{ t.competency }}</td>
+      <td class="t-rank f-t-rank">{{ t.crank }}</td>
+      <td class="t-rank t-rr f-t-rank"{{ fit(t.rrank, MAIN_COLS[38] - PAD_NUM, 4.81, bold=True) }}>{{ t.rrank }}</td>
     </tr>
     {% endif %}
   </tbody>

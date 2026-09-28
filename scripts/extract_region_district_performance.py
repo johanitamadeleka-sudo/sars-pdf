@@ -9,8 +9,12 @@ SCHOOLS ONLY / BY PERCENTAGE / BY KPI. Each grid:
       | COMPETENCY LEVEL | RANK, plus a TOTAL row.
 
 Each page's own measured vertical boundaries bucket every numeric token into a column, so
-rows are captured positionally as ordered cell lists (never hand-typed). The template
-renders each section with its own column widths. Coordinate based (pymupdf + pdfplumber).
+rows are captured positionally as ordered cell lists (never hand-typed). Coordinate based
+(pymupdf + pdfplumber).
+
+Every section records its ``kind`` (overall / government / private / percentage / kpi, from
+its title): the original prints each kind from its own Excel sheet, with its own column
+widths and print scale, and the template keeps one measured geometry per kind.
 """
 
 import json
@@ -94,6 +98,18 @@ def name_cells(row, ncols):
     return named
 
 
+KINDS = (("GOVERNMENT", "government"), ("PRIVATE", "private"), ("PERCENTAGE", "percentage"),
+         ("KPI", "kpi"), ("OVERALL", "overall"))
+
+
+def section_kind(title):
+    t = title.upper()
+    for word, kind in KINDS:
+        if word in t:
+            return kind
+    return "overall"
+
+
 def main():
     fdoc = pymupdf.open(SRC)
     pdf = pdfplumber.open(SRC)
@@ -137,8 +153,7 @@ def main():
             total["district"] = "TOTAL"
         sections.append({
             "title": title,
-            "bounds": bounds,
-            "ncols": len(bounds) - 1,
+            "kind": section_kind(title),
             "has_registered": (len(bounds) - 1) == 38,
             "rows": rows,
             "total": total,
@@ -157,7 +172,8 @@ def main():
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     for s in sections:
-        print(f"  [{s['title']}] ncols={s['ncols']} rows={len(s['rows'])} total={'y' if s['total'] else 'n'}")
+        print(f"  [{s['title']}] kind={s['kind']} registered={s['has_registered']} "
+              f"rows={len(s['rows'])} total={'y' if s['total'] else 'n'}")
 
 
 if __name__ == "__main__":

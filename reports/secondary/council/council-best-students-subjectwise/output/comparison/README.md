@@ -13,12 +13,12 @@ Pixel diff = share of pixels that differ at 110 dpi; tolerant = still different 
 | 3 | 9.14% | 7.07% | 19 | 4 | - | - | ❌ FAIL (pixels 7.07%>4%, words 19miss/4extra) |
 | 4 | 9.06% | 7.04% | 19 | 4 | - | - | ❌ FAIL (pixels 7.04%>4%, words 19miss/4extra) |
 | 5 | 10.30% | 8.76% | 19 | 4 | - | - | ❌ FAIL (pixels 8.76%>4%, words 19miss/4extra) |
-| 6 | 9.25% | 7.12% | 22 | 7 | - | - | ❌ FAIL (pixels 7.12%>4%, words 22miss/7extra) |
+| 6 | 9.27% | 7.11% | 22 | 7 | - | - | ❌ FAIL (pixels 7.11%>4%, words 22miss/7extra) |
 | 7 | 10.02% | 8.30% | 21 | 8 | - | - | ❌ FAIL (pixels 8.30%>4%, words 21miss/8extra) |
 | 8 | 9.69% | 7.51% | 19 | 4 | - | - | ❌ FAIL (pixels 7.51%>4%, words 19miss/4extra) |
 | 9 | 10.12% | 8.43% | 19 | 4 | - | - | ❌ FAIL (pixels 8.43%>4%, words 19miss/4extra) |
 | 10 | 9.69% | 7.97% | 20 | 6 | - | - | ❌ FAIL (pixels 7.97%>4%, words 20miss/6extra) |
-| 11 | 9.52% | 7.41% | 21 | 5 | - | - | ❌ FAIL (pixels 7.41%>4%, words 21miss/5extra) |
+| 11 | 9.53% | 7.41% | 21 | 5 | - | - | ❌ FAIL (pixels 7.41%>4%, words 21miss/5extra) |
 | 12 | 9.40% | 7.27% | 19 | 4 | - | - | ❌ FAIL (pixels 7.27%>4%, words 19miss/4extra) |
 | 13 | 9.27% | 7.14% | 19 | 4 | - | - | ❌ FAIL (pixels 7.14%>4%, words 19miss/4extra) |
 | 14 | 10.03% | 7.86% | 29 | 24 | - | - | ❌ FAIL (pixels 7.86%>4%, words 29miss/24extra) |
@@ -73,7 +73,7 @@ extra: `{'XES': 1, 'SKRAM': 1, 'EDARG': 1, 'NOITISOP': 1}`
 
 ## Page 6
 missing: `{'O': 2, 'S': 2, 'E': 2, 'R': 2, 'A': 2, 'N': 1, 'K': 1, 'D': 1, 'IT': 1, 'X': 1}`
-extra: `{'XES': 1, 'SKRAM': 1, 'EDARG': 1, 'NOITISOP': 1, 'PRIVATE': 1, 'ARMPRIVATE': 1, 'ISLAMIC': 1}`
+extra: `{'XES': 1, 'SKRAM': 1, 'EDARG': 1, 'NOITISOP': 1, 'PRIVATE': 1, 'ARMYPRIVATE': 1, 'ISLAMIC': 1}`
 
 ![page 6](page_06.png)
 
@@ -103,7 +103,7 @@ extra: `{'XES': 1, 'SKRAM': 1, 'EDARG': 1, 'NOITISOP': 1, 'MABULA': 1, 'GOVERNME
 
 ## Page 11
 missing: `{'O': 2, 'S': 2, 'E': 2, 'R': 2, 'A': 2, 'N': 1, 'K': 1, 'D': 1, 'IT': 1, 'X': 1}`
-extra: `{'XES': 1, 'SKRAM': 1, 'EDARG': 1, 'NOITISOP': 1, 'ARMPRIVATE': 1}`
+extra: `{'XES': 1, 'SKRAM': 1, 'EDARG': 1, 'NOITISOP': 1, 'ARMYPRIVATE': 1}`
 
 ![page 11](page_11.png)
 

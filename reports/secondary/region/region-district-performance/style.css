@@ -1,10 +1,15 @@
 /*
  * region-district-performance (LEVEL + FUNCTION name; region-only report, data-driven).
- * Section-centric: 5 per-district division grids (one per page, US Letter LANDSCAPE).
- * OVERALL/GOVERNMENT/PRIVATE sections have a REGISTERED group; BY PERCENTAGE/BY KPI omit it.
- * All fixed fills live in :root; only .lvl-* (competency) is data-driven (grading.py).
+ * Section-centric: one per-district division grid per page, US Letter LANDSCAPE, printed by
+ * "Microsoft: Print To PDF" from one Excel sheet per section kind.
  *
- * REAL fonts registered INLINE: fully self-contained, no shared stylesheet.
+ * Geometry (column widths, row heights, rule weights, font sizes, baselines, title block) is
+ * measured per section kind and lives in template.html.j2, which emits it as .k-<kind> rules.
+ * This file holds what every kind shares: fonts, rule topology, alignment and the fills
+ * (measured from this report's own original.pdf). Only .lvl-* (competency) is data-driven.
+ *
+ * REAL fonts registered INLINE (one family name per @font-face, no fallback list):
+ * Arial / Arial Narrow -> Liberation (metric-compatible), Calibri -> Carlito (metric-compatible).
  */
 @font-face {
   font-family: 'Arial'; font-style: normal; font-weight: normal;
@@ -14,24 +19,45 @@
   font-family: 'Arial'; font-style: normal; font-weight: bold;
   src: url("../../../../fonts/LiberationSans-Bold.ttf") format('truetype');
 }
+@font-face {
+  font-family: 'Arial Narrow'; font-style: normal; font-weight: bold;
+  src: url("../../../../fonts/LiberationSansNarrow-Bold.ttf") format('truetype');
+}
+@font-face {
+  font-family: 'Calibri'; font-style: normal; font-weight: normal;
+  src: url("../../../../fonts/Carlito-Regular.ttf") format('truetype');
+}
+@font-face {
+  font-family: 'Calibri'; font-style: normal; font-weight: bold;
+  src: url("../../../../fonts/Carlito-Bold.ttf") format('truetype');
+}
 
 :root {
-  /* MEASURED per column from this report's OWN original.pdf page 1. */
-  --fill-banner: #fff2cc;   /* full-width title banner band */
-  --fill-cand: #ebeef1;     /* NUMBER OF CANDIDATES / SAT group header */
-  --fill-gpa-h: #e0f8e3;    /* GPA header */
-  --fill-gpa: #ffffcc;      /* GPA cells */
-  --fill-sat: #ffffcc;      /* SAT % cells */
-  --fill-0: #fce4d6;        /* 0-div F/M/T cells */
-  --fill-0-pct: #f8cbad;    /* 0-div % cells */
-  --fill-3: #e0f8e3;        /* I-III F/M/T cells */
-  --fill-3-pct: #ededed;    /* I-III % cells */
-  --fill-4: #e0f8e3;        /* I-IV F/M/T cells */
-  --fill-4-pct: #ffffcc;    /* I-IV % cells */
-  --fill-sch: #f2f2f2;      /* NO. OF SCHOOLS + RANK cells */
-  /* group-header tints */
-  --fill-0-h: #f4b084;      /* 0 group header */
-  --fill-3-h: #fff2cc;      /* I-III group header */
+  --f-band: #fff2cc;   /* section title band */
+  /* header */
+  --f-hnos: #fce4d6;   /* NUMBER OF SCHOOLS */
+  --f-hsat: #ebeef1;   /* SAT F M T % */
+  --f-hz: #f4b084;     /* 0 F M T */
+  --f-hzp: #f4b084;    /* 0 % */
+  --f-hd3: #fff2cc;    /* I-III F M T % */
+  --f-hd4p: #fff2cc;   /* I-IV % */
+  /* district rows */
+  --f-sch: #f2f2f2;    /* NUMBER OF SCHOOLS */
+  --f-sp: #ffffcc;     /* SAT % */
+  --f-z: #fce4d6;      /* 0 F M T */
+  --f-zp: #f8cbad;     /* 0 % */
+  --f-d3: #e0f8e3;     /* I-III F M T */
+  --f-d3p: #ededed;    /* I-III % */
+  --f-d4p: #e0f8e3;    /* I-IV % */
+  --f-gpa: #ffffcc;    /* GPA */
+  --f-rank: #f2f2f2;   /* RANK */
+  /* TOTAL row */
+  --f-tsch: #fce4d6;
+  --f-tsp: #fff2cc;
+  --f-tzp: #f4b084;
+  --f-td3: #ededed;
+  --f-td4p: #fff2cc;
+  --f-tgpa: #e2efda;
 
   --lvl-a: #00b050;  --lvl-a-ink: #000000;
   --lvl-b: #92d050;  --lvl-b-ink: #000000;
@@ -41,82 +67,95 @@
 
   --ink: #000000;
   --grid: #000000;
+  --thin: 0.36pt;
+  --thick: 0.84pt;
 }
 
 @page {
   size: Letter landscape;
-  margin: 50pt 0 18pt 0;
+  margin: 0;
 }
 
 * { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; font-family: 'Arial'; color: var(--ink); }
+/* Excel does not kern; Pango does by default */
+html, body { margin: 0; padding: 0; font-family: 'Arial'; color: var(--ink); font-kerning: none; }
 
+.sec + .sec { break-before: page; }
+
+/* ---------- title block: 4 centred lines, then the section title on its band ---------- */
 .titles { text-align: center; font-weight: bold; }
 .titles .hl { white-space: pre; }
-.titles .ministry, .titles .exam-name { font-size: 8pt; line-height: 7.8pt; }
-.titles .sec-title { font-size: 9pt; margin: 6pt 0 4pt; background: var(--fill-banner); }
+.band { background: var(--f-band); text-align: center; font-weight: bold; white-space: pre; }
 
-.section { }
-.section.own-page { page-break-before: always; }
-
-table.grid {
-  border-collapse: collapse;
-  table-layout: fixed;
-  border: 0.8pt solid var(--grid);
-}
-table.grid.full { width: 748.8pt; margin: 0 0 0 18.4pt; }
-table.grid.pct { width: 743.7pt; margin: 0 0 0 18.2pt; }
-
+/* ---------- grid ---------- */
+table.grid { border-collapse: collapse; table-layout: fixed; border: var(--thin) solid var(--grid); }
 th, td {
-  border: 0.4pt solid var(--grid);
-  padding: 0 1pt;
-  overflow: hidden;
+  border: var(--thin) solid var(--grid);
+  /* the original prints centred text ~0.4pt right of the true centre */
+  padding: 0 0 0 0.8pt;
+  /* NOT overflow:hidden (it repaints each cell's fill over the rules); fit() keeps values in */
+  overflow: visible;
   white-space: nowrap;
   text-align: center;
-  vertical-align: middle;
-  font-size: 6pt;
-  line-height: 1;
+  vertical-align: bottom;
 }
-thead th { font-weight: bold; font-size: 6pt; }
-thead th.grp { font-size: 6.5pt; }
-thead th.v-mid { vertical-align: middle; }
-thead th.nowrap { font-size: 5pt; }
-thead .hg { height: 9pt; }
-thead .hs { height: 7pt; }
-thead .hf { height: 7pt; }
-thead th.rank-h { padding: 0; overflow: hidden; }
-.vert { display: flex; align-items: center; justify-content: center; height: 100%; width: 100%; }
-.vert span {
-  writing-mode: vertical-rl; transform: rotate(180deg);
-  font-size: 5.4pt; font-weight: bold; white-space: nowrap; line-height: 1;
-}
+/* rule topology (same in every kind): thick group rules in the rows, thick rule under the
+   grouped band-2 labels, thick box round the TOTAL row's NUMBER OF SCHOOLS .. GPA */
+.tl { border-left-width: var(--thick); }
+.tt { border-top-width: var(--thick); }
+.tb { border-bottom-width: var(--thick); }
 
-/* body rows */
-tbody tr.row { height: 8.3pt; }
-tbody td { font-size: 5.3pt; letter-spacing: -0.15pt; }
-td.txt { text-align: left; padding-left: 1pt; font-size: 5.4pt; letter-spacing: -0.15pt; }
+/* header: Arial Narrow Bold; the division group labels and GPA are Arial Bold */
+th { font-family: 'Arial Narrow'; font-weight: bold; }
+th.g-grp, th.h-gpa { font-family: 'Arial'; }
+
+/* rowspan labels: zero-height anchor at the cell bottom, text absolutely placed above it */
+.anc { position: relative; height: 0; }
+.anc span { position: absolute; left: 0; right: 0; display: block; white-space: nowrap; text-align: center; }
+/* rotated label: turned -90deg about the span's bottom-left corner (reads bottom-to-top) */
+.anc span.rot { right: auto; transform-origin: 0 100%; transform: rotate(-90deg); }
+th.h-rank { padding-left: 0; }
+
+/* district rows: Arial (bold per column), S/N in Calibri; the centred group sits ~0.24pt left
+   of the bottom-aligned group's offset */
+td { font-weight: normal; }
 td.b { font-weight: bold; }
-td.comp { text-align: left; font-weight: bold; padding-left: 1pt; font-size: 4.7pt; letter-spacing: -0.1pt; }
-td.c-rank { }
-tr.total td { font-weight: bold; }
+td.sn { font-family: 'Calibri'; }
+td.nc { padding-left: 0.32pt; }
+td.dist, td.comp { text-align: left; }
 
-/* fills */
-.fill-cand-h { background: var(--fill-cand); }
-.fill-gpa-h { background: var(--fill-gpa-h); }
-.fill-gpa { background: var(--fill-gpa); }
-.fill-sat { background: var(--fill-sat); }
-.fill-sch { background: var(--fill-sch); }
-.fill-0 { background: var(--fill-0); }
-.fill-0-pct { background: var(--fill-0-pct); }
-.fill-0-h { background: var(--fill-0-h); }
-.fill-3 { background: var(--fill-3); }
-.fill-3-pct { background: var(--fill-3-pct); }
-.fill-3-h { background: var(--fill-3-h); }
-.fill-4 { background: var(--fill-4); }
-.fill-4-pct { background: var(--fill-4-pct); }
-.fill-4-h { background: var(--fill-3-h); }
-/* the TOTAL/aggregate row's GPA cell is a distinct pale green in the original */
-tr.total td.fill-gpa { background: #e2efda; }
+/* TOTAL row: Calibri Bold, its figures printed further right of centre than the rows'
+   (~0.55pt for NUMBER OF SCHOOLS .. IV, ~0.85pt for 0 .. GPA) */
+tr.total td { font-family: 'Calibri'; font-weight: bold; }
+tr.total td.t-num { padding-left: 1.1pt; }
+tr.total td.t-num.gc { padding-left: 1.7pt; }
+td.t-comp { text-align: left; }
+
+/* ---------- fills ---------- */
+.f-hnos { background: var(--f-hnos); }
+.f-hsat { background: var(--f-hsat); }
+.f-hz   { background: var(--f-hz); }
+.f-hzp  { background: var(--f-hzp); }
+.f-hd3  { background: var(--f-hd3); }
+.f-hd4p { background: var(--f-hd4p); }
+.f-sch  { background: var(--f-sch); }
+.f-sp   { background: var(--f-sp); }
+.f-z    { background: var(--f-z); }
+.f-zp   { background: var(--f-zp); }
+.f-d3   { background: var(--f-d3); }
+.f-d3p  { background: var(--f-d3p); }
+.f-d4p  { background: var(--f-d4p); }
+.f-gpa  { background: var(--f-gpa); }
+.f-rank { background: var(--f-rank); }
+.f-tsch { background: var(--f-tsch); }
+.f-tsp  { background: var(--f-tsp); }
+.f-tzp  { background: var(--f-tzp); }
+.f-td3  { background: var(--f-td3); }
+.f-td4p { background: var(--f-td4p); }
+.f-tgpa { background: var(--f-tgpa); }
+/* the 0 % column is tinted per sheet in the original */
+.kind-government { --f-hzp: #ffffcc; --f-tzp: #ffffcc; }
+.kind-private { --f-zp: #fce4d6; --f-tzp: #fce4d6; }
 
 .lvl-a { background: var(--lvl-a); color: var(--lvl-a-ink); }
 .lvl-b { background: var(--lvl-b); color: var(--lvl-b-ink); }

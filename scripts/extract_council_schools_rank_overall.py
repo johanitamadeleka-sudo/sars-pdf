@@ -10,9 +10,13 @@ Extraction is coordinate based (pymupdf words), never hand-typed.
 """
 
 import json
+import sys
 from pathlib import Path
 
 import pymupdf
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from sars_pdf.pdftext import column_x, page_words  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "council_pdf" / "council_pdf" / "MWANZA CC SCHOOLS RANK.pdf"
@@ -70,18 +74,13 @@ def parse_school_row(line):
     row = {k: "" for k in ["sn", "ward", "school", "ownership", *NUM_KEYS,
                             "competency", "crank", "rrank"]}
     ward_p, school_p, own_p, comp_p = [], [], [], []
-    # A text run that is longer than its cell keeps drawing past the cell edge (the
-    # original clips it visually). Its spilled words belong to the cell the RUN starts
-    # in, not to the cell they happen to sit over - e.g. row 17's school name
-    # "STAR REACHERS GIRLS AND BOYS" runs over the OWNERSHIP cell's "PRIVATE".
-    run_x0 = {}
-    for w in line:
-        run_x0[(w[5], w[6])] = min(run_x0.get((w[5], w[6]), w[0]), w[0])
+    # Words drawn past their cell edge stay in the cell they were typed into
+    # (sars_pdf/pdftext.py), e.g. "STAR REACHERS GIRLS AND BOYS" over OWNERSHIP's "PRIVATE".
+    colx = column_x(line)
     for w in line:
         x0, x1, txt = w[0], w[2], w[4]
         cx = (x0 + x1) / 2
-        # column is decided by where the word's run starts; order stays by the word's own x0
-        col_x = run_x0[(w[5], w[6])] if x0 < OWN_MAX_X else x0
+        col_x = colx[id(w)]
         if cx < SN_MAX_X:
             row["sn"] = txt
         elif col_x < WARD_MAX_X:
@@ -144,10 +143,7 @@ def parse_pct_pass(line):
 
 def main():
     doc = pymupdf.open(SRC)
-    # Keep characters that the original clips at a cell edge (TEXT_MEDIABOX_CLIP drops
-    # them and glues the survivors onto the neighbouring cell's text, e.g. "APRIVATE").
-    flags = pymupdf.TEXTFLAGS_WORDS & ~pymupdf.TEXT_MEDIABOX_CLIP
-    lines = group_lines(doc[0].get_text("words", flags=flags))
+    lines = group_lines(page_words(doc[0]))
     rows = []
     summary = None
     pct_pass = None

@@ -27,6 +27,8 @@ FACES = {
     ("Arial", True): "LiberationSans-Bold.ttf",
     ("Arial Narrow", True): "LiberationSansNarrow-Bold.ttf",
     ("Times New Roman", True): "LiberationSerif-Bold.ttf",
+    ("Calibri", False): "Carlito-Regular.ttf",
+    ("Calibri", True): "Carlito-Bold.ttf",
 }
 
 
