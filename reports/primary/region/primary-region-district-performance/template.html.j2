@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>{{ doc.document.report_title }}</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+{#
+  Primary region district (HALMASHAURI) performance per SUBJECT. Section-centric: 6 blocks
+  (one per subject), ONE block per page over 6 pages; each block lists all councils.
+  Pagination is DATA-DRIVEN via s.page_top. Fully self-contained (own template + own
+  style.css, inline @font-face, single family name, no fallback, no @import). KUNDI LA
+  UMAHIRI (competency-level) background is the ONLY data-driven colour.
+
+  Columns: NA. | HALMASHAURI | IDADI YA SHULE
+    WALIOSAJILIWA WALIOFANYA WASIOFANYA A B C D  A-D(+%)  WASIOFAULU E(+%)  (WAV/WAS/JML)
+    | WASTANI WA SOMO | KUNDI LA UMAHIRI
+#}
+{% macro nums(r) %}
+  <td>{{ r.reg_f }}</td><td>{{ r.reg_m }}</td><td class="b">{{ r.reg_t }}</td>
+  <td>{{ r.fanya_f }}</td><td>{{ r.fanya_m }}</td><td class="b">{{ r.fanya_t }}</td>
+  <td>{{ r.nof_f }}</td><td>{{ r.nof_m }}</td><td class="b">{{ r.nof_t }}</td>
+  <td>{{ r.a_f }}</td><td>{{ r.a_m }}</td><td class="b">{{ r.a_t }}</td>
+  <td>{{ r.b_f }}</td><td>{{ r.b_m }}</td><td class="b">{{ r.b_t }}</td>
+  <td>{{ r.c_f }}</td><td>{{ r.c_m }}</td><td class="b">{{ r.c_t }}</td>
+  <td>{{ r.d_f }}</td><td>{{ r.d_m }}</td><td class="b">{{ r.d_t }}</td>
+  <td>{{ r.ad_f }}</td><td>{{ r.ad_m }}</td><td class="b">{{ r.ad_t }}</td><td class="b">{{ r.ad_pct }}</td>
+  <td>{{ r.e_f }}</td><td>{{ r.e_m }}</td><td class="b">{{ r.e_t }}</td><td class="b">{{ r.e_pct }}</td>
+{% endmacro %}
+
+{% macro fmt_heads() %}
+<tr class="hf">
+  <th>WAV</th><th>WAS</th><th>JML</th>
+  <th>WAV</th><th>WAS</th><th>JML</th>
+  <th>WAV</th><th>WAS</th><th>JML</th>
+  <th>WAV</th><th>WAS</th><th>JML</th>
+  <th>WAV</th><th>WAS</th><th>JML</th>
+  <th>WAV</th><th>WAS</th><th>JML</th>
+  <th>WAV</th><th>WAS</th><th>JML</th>
+  <th>WAV</th><th>WAS</th><th>JML</th><th>%</th>
+  <th>WAV</th><th>WAS</th><th>JML</th><th>%</th>
+</tr>
+{% endmacro %}
+
+{% for s in doc.sections %}
+<div class="section{% if not loop.first and s.page_top %} page-top{% endif %}">
+  <div class="titles">
+    {% for line in doc.document.ministry %}
+    <div class="hl ministry">{{ line }}</div>
+    {% endfor %}
+    <div class="hl exam-name">{{ doc.document.exam_name }}</div>
+  </div>
+  <div class="sec-title">{{ s.title }}</div>
+  <table class="grid">
+    <colgroup>
+      <col><col><col>
+      <col><col><col>  <col><col><col>  <col><col><col>
+      <col><col><col>  <col><col><col>  <col><col><col>  <col><col><col>
+      <col><col><col><col>  <col><col><col><col>
+      <col><col>
+    </colgroup>
+    <thead>
+      <tr class="hg">
+        <th rowspan="3" class="v-mid">NA.</th>
+        <th rowspan="3" class="v-mid">HALMASHAURI</th>
+        <th rowspan="3" class="v-mid">IDADI YA SHULE</th>
+        <th colspan="9" class="grp">IDADI YA WATAHINIWA</th>
+        <th colspan="20" class="grp">UFAULU KIMADARAJA</th>
+        <th rowspan="3" class="grp v-mid">WASTANI WA SOMO</th>
+        <th rowspan="3" class="grp v-mid">KUNDI LA UMAHIRI</th>
+      </tr>
+      <tr class="hs">
+        <th colspan="3">WALIOSAJILIWA</th>
+        <th colspan="3">WALIOFANYA</th>
+        <th colspan="3">WASIOFANYA</th>
+        <th colspan="3">A</th>
+        <th colspan="3">B</th>
+        <th colspan="3">C</th>
+        <th colspan="3">D</th>
+        <th colspan="4">A-D</th>
+        <th colspan="4">WASIOFAULU (DRJ E)</th>
+      </tr>
+      {{ fmt_heads() }}
+    </thead>
+    <tbody>
+      {% for r in s.rows %}
+      <tr class="row">
+        <td>{{ r.na }}</td>
+        <td class="txt">{{ r.council }}</td>
+        <td class="b">{{ r.idadi }}</td>
+        {{ nums(r) }}
+        <td class="b">{{ r.wastani }}</td>
+        <td class="comp{% if r.level %} lvl-{{ r.level | lower }}{% endif %}">{{ r.competency }}</td>
+      </tr>
+      {% endfor %}
+      {% if s.total %}
+      <tr class="row total">
+        <td class="b" colspan="2">JUMLA</td>
+        <td class="b">{{ s.total.idadi }}</td>
+        {{ nums(s.total) }}
+        <td class="b">{{ s.total.wastani }}</td>
+        <td class="comp{% if s.total.level %} lvl-{{ s.total.level | lower }}{% endif %}">{{ s.total.competency }}</td>
+      </tr>
+      {% endif %}
+      {% if s.asilimia %}
+      <tr class="row asilimia">
+        <td class="txt b" colspan="3">ASILIMIA YA UFAULU</td>
+        <td></td><td>{{ s.asilimia.reg_m }}</td><td></td>
+        <td></td><td>{{ s.asilimia.fanya_m }}</td><td></td>
+        <td></td><td>{{ s.asilimia.nof_m }}</td><td></td>
+        <td></td><td>{{ s.asilimia.a_m }}</td><td></td>
+        <td></td><td>{{ s.asilimia.b_m }}</td><td></td>
+        <td></td><td>{{ s.asilimia.c_m }}</td><td></td>
+        <td></td><td>{{ s.asilimia.d_m }}</td><td></td>
+        <td></td><td>{{ s.asilimia.ad_m }}</td><td></td><td></td>
+        <td></td><td>{{ s.asilimia.e_m }}</td><td></td><td></td>
+        <td></td><td></td>
+      </tr>
+      {% endif %}
+    </tbody>
+  </table>
+</div>
+{% endfor %}
+</body>
+</html>
