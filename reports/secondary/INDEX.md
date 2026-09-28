@@ -70,7 +70,7 @@ including the per-page **verdict** column and a **verdict summary** line) under
 |---|---|---|---|---|---|---|---|---|
 | `council-schools-rank-subjectwise` | MWANZA CC SCHOOLS RANK SUBJECTWISE.pdf | council, per-subject school rank (COUNCILWISE, C/RANK) | 24 | 0.0–26.9% | 0.0–21.6% | 162 / 130 | 4 / 0 | **8 / 24** |
 | `council-subjects-rank` | MWANZA CC SUBJECTS RANK.pdf | council, one row per subject | 2 | 4.1–18.8% | 2.6–9.7% | 4 / 1 | 0 / 0 | **1 / 2** |
-| `council-schools-rank-overall` | MWANZA CC SCHOOLS RANK.pdf | council, division-performance grid (F/M/T); fixed per-column tints + data-driven competency | 1 | 30.9% | 8.8% | 209 / 64 | 0 / 0 | **0 / 1** |
+| `council-schools-rank-overall` | MWANZA CC SCHOOLS RANK.pdf | council, SUMMARY block + per-school division grid (F/M/T), two independently measured tables — see [two-table geometry](#council-schools-rank-overall-two-table-geometry) | 1 | 3.7% | **0.17%** | 202 / 64‡ | 0 / 0 | **0 / 1** (words only) |
 | `council-top-10-schools` | MWANZA CC 10 BEST SCHOOLS.pdf | council, top-10 sections (incl. districtwise/govt) | 3 | 18.1–19.7% | 12.6–14.8% | 46 / 32 | 1 / 4 | **0 / 3** |
 | `council-best-students-overall` | MWANZA CC 10 BEST STUDENTS.pdf | council, top students + detailed subjects | 5 | 8.7–20.6% | 5.3–15.3% | 172 / 41 | 0 / 0 | **0 / 5** |
 | `council-best-students-subjectwise` | MWANZA CC 10 BEST STUDENTS SUBJECTWISE.pdf | council, top-10 students per subject | 30 | 0.0–10.5% | 0.0–8.8% | 398 / 110 | 0 / 0 | **10 / 30** |
@@ -92,6 +92,8 @@ including the per-page **verdict** column and a **verdict summary** line) under
 | `region-mobility` | Mwanza f2 Mock Mobility 2026.pdf | region only, FTNA 2025 vs Mock 2026 (Swahili labels); fixed section/header fills + IMEPANDA/UMESHUKA up-down colour-coding | 6 | 28.5–33.7% | 16.9–23.6% | 71 / 45 | 1 / 1 | **0 / 6** |
 
 \* word-diff is the fuzzy-tokeniser total (see [How to read the scores](#how-to-read-the-scores)); it over-counts visually identical rotated headers (e.g. `C/RANK` → `K N A R /C`). It USED to also over-count **cell-adjacency kern merges** — adjacent cell contents gluing in the PDF text layer such as `DCKATUNGURU` (`DC` + ward `KATUNGURU`) and `DCSAVANA` on `region-top-10-schools` / `region-schools-rank-governments`. Those were a real structural symptom (COUNCIL names in metric-compatible Liberation are wider than the original's Arial, so `…DC` overflowed its column and touched the next cell). They are now **fixed** by tightening the COUNCIL column's font/tracking so the text stays inside its own fixed-width column (column boundaries unchanged, grid still aligns to ~0.3pt): `region-top-10-schools` pages 2/6 dropped from 5 miss / 6 extra to 1 miss / 4 extra (the residual is only the rotated-header split). The remaining word diffs are rotated-header tokeniser artifacts (visually identical) or the dense F/M/T triplet numeric runs on the schools-rank grids, which pdfplumber concatenates regardless of cell borders; extracted per-cell content is verified correct.
+
+‡ `council-schools-rank-overall` words: with `compare.py`'s default `y_tolerance=3` the ORIGINAL's own words fragment (e.g. `6854` → `68` `54`) because its rotated-label glyphs fall into the same text lines. With `y_tolerance=1` the diff is 28 single letters of the rotated labels + row 17's school name, which now reads in full (see below).
 
 † fills = the count of **distinct** fill colours that appear on only one side, aggregated across the report's pages (orig-only / gen-only). `0 / 0` means the fixed per-report palette reproduces the original's colours exactly on every page. Non-zero residuals are itemised in the [PR-body summary](#pr-body-ready-summary--per-report-beforeafter--verdict) below.
 
@@ -120,7 +122,7 @@ actually merged):
 
 | Report | topology correction |
 |---|---|
-| `council-schools-rank-overall` | proof report: summary/aggregate block given its **own** `<table>` + colgroup/widths (no longer force-shares the detail grid's left/right alignment); removed a spurious empty summary spacer row; group / sub / F-M-T bands span the measured columns; columns align to **~0.5pt**. tolerant-diff p1 **14.08% → 8.67%**. |
+| `council-schools-rank-overall` | proof report: summary/aggregate block given its **own** `<table>` + colgroup/widths (no longer force-shares the detail grid's left/right alignment); removed a spurious empty summary spacer row; group / sub / F-M-T bands span the measured columns; columns align to **~0.5pt**. tolerant-diff p1 **14.08% → 8.67%**. *Superseded:* the two tables still shared widths through global `col:nth-child` rules; see [two-table geometry](#council-schools-rank-overall-two-table-geometry) (now 0.17%). |
 | `region-schools-rank-overall` | own boundaries (extra COUNCIL column) re-measured; vertical labels fixed; columns align ~0.5pt. tolerant-diff p1 **19.98% → 17.32%**. |
 | `region-subjects-rank` | genuine **column-width** bug: SUBJECT NAME col was 143.5pt in CSS but 215.3pt in the original — all 15 col widths re-measured from boundary diffs; biggest structural win. tolerant-diff p1/p2 **19.73/12.69% → 11.32/7.97%**. |
 | `region-mobility` | removed the `h4` spacer row that added an extra full-width boundary; row pitch 11.78 → 11.6pt; rotated labels switched to `writing-mode: vertical-rl`. tolerant-diff p2–6 **~25–27% → ~17–20%**. |
@@ -131,12 +133,47 @@ actually merged):
 The rotated single-column headers (`C/RANK`, `R/RANK`, `SUMMARY PERFORMANCE`)
 were switched from `position:absolute`+`rotate(-90deg)` (which bled the label out
 of its cell, above the grid) to `writing-mode:vertical-rl` inside an
-`overflow:hidden` flex cell, so they stay inside their merged cell. `border-collapse:collapse`
+`overflow:hidden` flex cell, so they stay inside their merged cell. (WeasyPrint does not implement `writing-mode`, so such labels actually print upside down; `council-schools-rank-overall` now rotates them with a transform instead.) `border-collapse:collapse`
 with one consistent border width now yields **straight gridlines** on every grid
 report — verified visually in each report's `output/comparison*/page_NN.png`.
 **Structurally-different tables on one page are no longer forced into one shared
 grid**: summary/aggregate blocks and detail grids each carry their own colgroup
 and widths, sharing widths only where the original actually aligns them.
+
+## council-schools-rank-overall: two-table geometry
+
+The page holds **two different tables**, and overlaying original and generated
+showed the first one had the wrong shape. Both are now rebuilt on grids measured
+from the original's border rects (pdfplumber), and every rule of both tables lands
+within **0.09pt** of the original. Tolerant diff **8.75% → 0.17%**, pixel diff
+**30.87% → 3.70%**, overflowing cells **9 → 0** (of 2,670, checked on WeasyPrint's
+layout boxes against real glyph bounds).
+
+| | original | before | now |
+|---|---|---|---|
+| SUMMARY block | own 35-col grid, x 64.32–754.08 | reused the per-school 39-col grid, x 13.3–779.4 | own grid, exact |
+| SUMMARY cells | label + NO. OF SCHOOLS, 2 empty cells, NUMBER OF CANDIDATES over REG T..SAT % | values shifted 3 columns right; `12204` glued to `96.78`; GPA past the page edge; competency not printed | exact topology |
+| per-school header | DIVISION PERFORMANCE spans 24 cols; no GPA PERFORMANCE group; GPA / COMPETENCY span 3 bands | colspan 23 + an invented GPA PERFORMANCE group shifted the right end: `COMP` clipped in R/RANK, `RAN`, `GPA PERFORM/` | exact topology |
+| rotated labels | read bottom-to-top | upside down: WeasyPrint ignores `writing-mode` | `rotate(-90deg)` about the span's corner |
+| type | 3.96 / 4.2 / 4.8pt Arial, Times Bold numerals and F/M/T, per-column bold | 5.4pt everywhere | measured sizes, weights, baselines (±0.2pt) |
+| rules | 0.24pt, 0.6pt group/box lines | 0.4 / 0.8pt | measured weights |
+| row 17 | `STAR REACHERS GIRLS AND BOYS` / `PRIVATE` (name clipped at the cell edge) | extractor dropped the clipped glyphs → school `…GIRLS APRIVATE`, ownership empty | full name, shrunk to fit its cell |
+
+Two causes are not specific to this report:
+
+- **Rules were stroked.** The Excel originals paint every rule as a thin filled
+  rectangle, which rasterises as a crisp 1-px line; WeasyPrint strokes collapsed
+  borders, which anti-aliases over 2 px. With the geometry already exact, this was
+  **~98% of the remaining tolerant diff** — so on grid reports the residual is not
+  a font-noise floor. `sars_pdf/rules.py` paints rules as filled rects for
+  templates that opt in with `<meta name="sars-pdf:rules" content="filled">`.
+- **`overflow: hidden` on cells** makes each cell a stacking context, so its fill
+  is painted again over the rules. Cells are `overflow: visible`; containment
+  comes from `fit()` (`sars_pdf/fit.py`), which shrinks a value only when it
+  would not fit its fixed-pitch cell.
+
+Other reports that use these patterns are untouched here (their outputs are
+byte-identical) and will be corrected report by report.
 
 ## Robustness / dynamic data (Thread B)
 
@@ -212,7 +249,7 @@ least one dimension, itemised below.
   `region-district-performance` (5/5, tol 5.5–7.1%),
   `region-best-students-overall` (9/9, tol 7.2–9.9%),
   `region-top-10-schools` (6/6, tol 8.4–9.9%), and the dense first pages of
-  `council-schools-rank-*`, `region-schools-rank-*` and `region-subjects-rank`.
+  `council-schools-rank-subjectwise`, `region-schools-rank-*` and `region-subjects-rank`.
   Root cause: Liberation-vs-Monotype glyph-edge noise across thousands of digits
   (documented, unavoidable in-sandbox). These pages have **0 fill mismatch** on
   their main grid.

@@ -23,6 +23,8 @@ templates/report.html.j2             # Jinja2 page/table template
 templates/report.css                 # geometry, fonts, palette (fixed colours in :root)
 sars_pdf/render.py                   # JSON -> HTML -> PDF (CLI)
 sars_pdf/grading.py                  # competency level <- GPA rules (the only conditional colour)
+sars_pdf/fit.py                      # opt-in shrink-to-fit for fixed-pitch grid cells (template global fit())
+sars_pdf/rules.py                    # opt-in: paint table rules as filled rects, like the Excel originals
 scripts/compare.py                   # fidelity check against the original PDF
 reference/                           # put original.pdf here
 output/report.pdf, output/report.html  # generated
