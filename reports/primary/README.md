@@ -14,8 +14,34 @@ reports/primary/
       data.json                        # (or data_<tag>.json for multi-source dirs)
       reference/original.pdf           # (or reference/original_<tag>.pdf)
       output/                          # committed report.pdf/.html, pages/, comparison/
-  region/                              # region-scope primary reports (separate task)
+  region/                              # region-scope primary reports (implemented)
+    <primary-level-plus-function>/    # e.g. primary-region-schools-rank-overall
+      template.html.j2
+      style.css
+      data.json                        # (or data_<tag>.json for multi-source dirs)
+      reference/original.pdf           # (or reference/original_<tag>.pdf)
+      output/                          # committed report.pdf/.html, pages/, comparison/
 ```
+
+Both scopes are now implemented (6 council report dirs + 8 region report dirs).
+See [`INDEX.md`](INDEX.md) for the per-report fidelity verdict summary.
+
+## Source of the primary PDFs
+
+The 27 primary source PDFs were downloaded from the sars.ac.tz **Darasa la IV
+Mock MKOA** results index (the `/serve-pdf?file=summaries%2F<hash>.pdf` endpoint)
+by [`../../scripts/fetch_primary_summaries.py`](../../scripts/fetch_primary_summaries.py),
+which reproduces the download. They are committed two ways:
+
+- extracted, arranged by scope, under
+  [`../../primary_council_pdf/`](../../primary_council_pdf/) (13 `MWANZA CC …`
+  council docs) and [`../../primary_region_pdf/`](../../primary_region_pdf/) (14
+  `… STD4 2026` region docs); and
+- as the `primary_council_pdf.zip` / `primary_region_pdf.zip` bundles at the repo
+  root.
+
+Each report keeps its own copy as `reference/original.pdf` (or
+`reference/original_<tag>.pdf`).
 
 Conventions (identical to secondary — see [`../README.md`](../README.md)):
 
@@ -30,7 +56,8 @@ Conventions (identical to secondary — see [`../README.md`](../README.md)):
 - store every value as a **display string** (`'49.50'`, `'289.800'`, `'100'`),
   and store the full Swahili competency label (`'Daraja A (Bora Sana)'`);
 - extraction is **coordinate-based** via `pymupdf` words
-  (`scripts/extract_primary_council_*.py`), never hand-typed;
+  (`scripts/extract_primary_council_*.py` and
+  `scripts/extract_primary_region_*.py`), never hand-typed;
 - palette is **measured per report** from its OWN original
   ([`../../scripts/measure_fills.py`](../../scripts/measure_fills.py)) and grid
   topology from [`../../scripts/measure_grid.py`](../../scripts/measure_grid.py);
@@ -60,13 +87,14 @@ F/M/T-equivalent triplets used by the secondary reports:
 ```bash
 pyenv global 3.11.15
 python scripts/build_all.py --level primary   # render + compare every primary report
-python scripts/measure_fills.py reports/primary/council/<report>   # palette check
-python scripts/measure_grid.py  reports/primary/council/<report>   # grid topology
+python scripts/measure_fills.py reports/primary/region/<report>   # palette check
+python scripts/measure_grid.py  reports/primary/region/<report>   # grid topology
 ```
 
 `build_all.py` discovers every self-contained report dir under `reports/primary/**`
-and never touches `reports/secondary/**`. Restrict to the council scope with
-`python scripts/build_all.py --level primary --scope council`.
+and never touches `reports/secondary/**`. Restrict to one scope with
+`python scripts/build_all.py --level primary --scope council` or
+`--scope region`.
 
 See [`INDEX.md`](INDEX.md) for the per-report fidelity verdict summary.
 
@@ -108,6 +136,42 @@ tag reuse of the `IN GRADE` mapping.
 `10 BEST SCHOOLS GRADING` (division/grade top-10, a different structure from the
 `ALAMA` marks top-10 already built), the `10 BEST SCHOOLS KIMASOMO
 OVERALL/SERIKALI` per-subject top-10, `SCHOOL RANK UFAULU ALAMA` (multi-section
-A/B/C/D/E/ABS marks grid), the `KATA RANK ALAMA` per-ward marks variant, and the
-`UFAULU WA MASOMO` subject-performance grid. Each needs its own bespoke
-coordinate extractor + per-report palette/grid measurement.
+A/B/C/D/E/ABS marks grid), and the `KATA RANK ALAMA` per-ward marks variant. Each
+needs its own bespoke coordinate extractor + per-report palette/grid measurement.
+
+## Implemented region reports (`reports/primary/region/`)
+
+Built from the `MKOA … / SHULE … / KATA … / HALMASHAURI … STD4 2026` sources in
+[`../../primary_region_pdf/`](../../primary_region_pdf/), each consolidated by
+STRUCTURE and driven by its own coordinate extractor
+`scripts/extract_primary_region_<function>.py`. Region reports carry the extra
+**COUNCIL / HALMASHAURI** column where the original has it (as the secondary
+region variants do):
+
+| Report | Source PDF(s) | Pages |
+|---|---|---|
+| `primary-region-schools-rank-overall` | SHULE NAFASI STD4 JUMLA 2026.pdf | 16 |
+| `primary-region-schools-rank-governments` | SHULE SERIKALI STD4 2026.pdf + SHULE BINAFSI STD4 2026.pdf (`original`/`original_binafsi`) | 15 + 4 |
+| `primary-region-district-performance` | HALMASHAURI MASOMO STD4 2026.pdf | 6 |
+| `primary-region-best-students-overall` | MKOA WANAFUNZI BORA STD4 2026.pdf | 6 |
+| `primary-region-top-10-schools` | MKOA SHULE BORA STD4 JUMLA 2026.pdf | 5 |
+| `primary-region-top-10-schools-subjectwise` | MKOA SHULE BORA MASOMO STD4 JUMLA + MASOMO SERIKALI STD4 2026.pdf (`_jumla`/`_serikali`) | 3 + 3 |
+| `primary-region-subjects-rank` | MKOA UFAULU MASOMO STD4 JUMLA 2026.pdf | 1 |
+| `primary-region-wards-schools` | MKOA KATA SHULE ZA SERIKALI + KATA SHULE BINAFSI STD4 2026.pdf (`_serikali`/`_binafsi`) | 4 + 2 |
+
+Each reproduces the STD4 layout (`WAV`/`WAS`/`JML` triplets, `AL`/`DRJ`,
+`Daraja X (...)` competency labels, and the COUNCIL/KATA/school text columns as
+present), matches its source page-for-page exactly, and embeds Liberation as
+`Arial` (never Noto). Region grids follow a documented palette convention that
+differs from the council grids: the region originals tint **only** a decorative
+top legend/key banner (not the data body or grid header), so the data rows are
+rendered white and the one-off decorative banner is not reproduced (a documented
+residual); the data-driven competency greens show as gen-only in `measure_fills`
+because `pdfplumber` records the original's per-row competency colour as a glyph
+path, not a matchable rect (EXPECTED, not a defect). The full honest per-report
+residuals and verdict numbers are in [`INDEX.md`](INDEX.md).
+
+**Not yet built (remaining region structures for a follow-up pass):**
+`MKOA UFAULU MASOMO STD4 2026` (3pp variant - its pages 2-3 are a separate
+school-count-by-subject grid), `HALMASHAURI STD4 JUMLA 2026` (per-council overall
+division grid), and `KATA STD4 JUMLA 2026` (per-ward overall division grid).

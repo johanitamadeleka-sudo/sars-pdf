@@ -169,15 +169,27 @@ reports the same way — lives under [`reports/`](reports/README.md), organised 
 ```
 reports/
   _shared/fonts.css            # @font-face for the real fonts (see below)
-  secondary/                   # SECONDARY level — built now (council + region)
+  secondary/                   # SECONDARY level — built (council + region)
     INDEX.md                   # fidelity verdict for every secondary report
     council/<level-plus-function>/   # one self-contained report per subdir
     region/<level-plus-function>/
-  primary/README.md            # PRIMARY level — documented placeholder for the future
+  primary/                     # PRIMARY (Darasa la IV / STD4) level — built (council + region)
+    INDEX.md                   # fidelity verdict for every primary report
+    council/<level-plus-function>/   # 6 self-contained council reports
+    region/<level-plus-function>/    # 8 self-contained region reports
 ```
 
-**Secondary is done now; primary is future.** `reports/primary/` is an
-intentional placeholder that mirrors the secondary structure.
+**Both secondary and primary are implemented.** The primary (Darasa la IV / STD4)
+reports mirror the secondary structure exactly - same self-contained per-report
+layout, same real-fonts-no-fallback licensing decision, same per-report measured
+palette, same coordinate-based extraction and `>=96%` fidelity verdict. The
+STD4 originals use Swahili/abbreviated headers (`WAV`/`WAS`/`JML` = girls/boys/total,
+`AL`/`DRJ` = marks/grade, `Daraja X (...)` competency labels), documented in
+[`reports/primary/README.md`](reports/primary/README.md). The primary source PDFs
+come from the sars.ac.tz **Darasa la IV Mock MKOA** results index via
+[`scripts/fetch_primary_summaries.py`](scripts/fetch_primary_summaries.py) and are
+committed under `primary_council_pdf/` / `primary_region_pdf/` (and the matching
+`.zip` bundles at the repo root).
 
 ### Naming: LEVEL + FUNCTION, never the instance
 
@@ -231,14 +243,17 @@ then diff it against the report's `reference/original.pdf`:
 
 ```bash
 python scripts/render_and_compare.py reports/secondary/council/council-subjects-rank  # one report
-python scripts/build_all.py                                                           # ALL secondary reports
+python scripts/build_all.py                          # ALL reports (secondary + primary)
+python scripts/build_all.py --level primary          # only the primary reports
+python scripts/build_all.py --level secondary        # only the secondary reports
 ```
 
 The verdict for every report (source PDF, scope, page count, latest pixel/word
-diff) is in [`reports/secondary/INDEX.md`](reports/secondary/INDEX.md).
+diff) is in [`reports/secondary/INDEX.md`](reports/secondary/INDEX.md) and
+[`reports/primary/INDEX.md`](reports/primary/INDEX.md).
 
 ## Next steps
 
 - Build a data layer that computes rows from raw candidate results (A–F counts, totals, %, GPA, rank, competency via `grading.py`) and writes this JSON for any number of subjects and scopes (zone/region/council/ward).
 - Calibrate the colours and fonts against `reference/original.pdf` with `compare.py`.
-- Fill in `reports/primary/` when the primary school level is scheduled, mirroring the secondary layout.
+- Add the remaining deferred primary structures (see the "Not yet built" notes in [`reports/primary/README.md`](reports/primary/README.md)): the council `SCHOOL RANK UFAULU ALAMA` marks grid, `10 BEST SCHOOLS GRADING`, `10 BEST SCHOOLS KIMASOMO OVERALL/SERIKALI`, `KATA RANK ALAMA`, and the region `MKOA UFAULU MASOMO STD4 2026` (3pp), `HALMASHAURI STD4 JUMLA 2026` and `KATA STD4 JUMLA 2026` grids - each with its own coordinate extractor and per-report measured palette/grid.
