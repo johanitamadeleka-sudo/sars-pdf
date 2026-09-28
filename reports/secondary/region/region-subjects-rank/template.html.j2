@@ -2,83 +2,164 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+{# grid rules painted as one anti-aliased fill like this "Microsoft: Print To PDF" original (sars_pdf/rules.py) #}
+<meta name="sars-pdf:rules" content="filled-aa">
 <title>{{ doc.document.report_title }}</title>
 <link rel="stylesheet" href="style.css">
+{#
+  Region subjects rank (LEVEL + FUNCTION name). One row per SUBJECT, then the overall GPA
+  and competency level. Fully self-contained (own template + own style.css, inline
+  @font-face, no shared stylesheet). Data-driven and location-agnostic; the competency-level
+  background of the subject rows is the ONLY data-driven colour.
+
+  Columns: S/NO. | SUBJECT NAME | GRADE PERFORMANCE (A B C D F | TOTAL | A-C %A-C A-D %A-D)
+           | GPA | COMPENTENCY LEVEL | R/RANK (rotated)
+  The two header bands repeat at the top of every continuation page; rows flow wherever the
+  page fills.
+
+  Geometry measured from the original (rule centres, baselines above the rule centre below
+  each cell, fonts) lives HERE in one place and is emitted as CSS below.
+#}
+{%- set COLS = [34.08, 215.28, 30.84, 30.84, 33.12, 33.12, 33.12, 33.12, 33.12, 30.84, 33.12, 30.84, 35.28, 94.32, 25.32] %}
+{%- set X0 = 34.44 %}{% set Y0 = 132.48 %}{% set TOP = 53.82 %}
+{#- continuation pages: header top rule, first subject row's top rule -#}
+{%- set P2_Y0 = 54.54 %}{% set P2_ROW = 94.32 %}
+{%- set TN = 0.72 %}{% set TK = 1.44 %}
+{%- set H = {'h0': 15.24, 'h1': 23.64, 'row': 15.48, 'ov': 17.52} %}
+{#- title lines (Arial Bold 10.1) centred on x = 398.12, then the section band -#}
+{%- set TI = {'f': 10.1, 'base': [66.12, 80.88, 95.64, 109.8], 'cx': 398.12,
+              'band': [34.92, 112.92, 760.92, 132.6], 'sec': 125.88, 'sec_cx': 398.22} %}
+{#- baselines above the centre of the rule under the cell -#}
+{%- set BO = {'row': 2.64, 'lift': 0.72, 'h_span': 3.72, 'h_comp': 4.32, 'h_gp': 3.72, 'h1': 3.72,
+              'ov1_l': 2.64, 'ov_v': 5.52, 'ov2_l': 3.36, 'rank_x': 15.82, 'rank_b': 1.68} %}
+{%- set MET = {'A': [0.905, 0.212], 'N': [0.9355, 0.2119]} %}
+
+{%- macro v(fk, s, boi, avail) -%}
+{%- set a = MET[fk][0] %}{% set d = MET[fk][1] -%}
+{%- set L = (a + d) * s %}{% set pb = boi - d * s -%}
+{%- if pb < 0 %}{% set L = 2 * (boi + (a - d) / 2 * s) %}{% set pb = 0 %}{% endif -%}
+{%- if pb + L > avail %}{% set L = 2 * (avail - boi - (a - d) / 2 * s) %}{% set pb = avail - L %}{% endif -%}
+font-size: {{ '%.2f' % s }}pt; line-height: {{ '%.3f' % L }}pt; padding-bottom: {{ '%.3f' % pb }}pt;
+{%- endmacro %}
+{%- macro anc(fk, s, boi) -%}
+font-size: {{ '%.2f' % s }}pt; line-height: {{ '%.3f' % ((MET[fk][0] + MET[fk][1]) * s) }}pt; bottom: {{ '%.3f' % (boi - MET[fk][1] * s) }}pt;
+{%- endmacro %}
+{%- set nl = (doc.document.ministry | length) + 1 %}
+{%- set em_t = 1.117 * TI.f %}
+{%- set b = TI.band %}
+<style>
+@page { margin-top: {{ '%.3f' % (P2_ROW - TN / 2) }}pt;
+  @top-left { content: element(runhdr); vertical-align: top; padding: {{ '%.3f' % (P2_Y0 - TK / 2) }}pt 0 0 {{ '%.2f' % (X0 - TN / 2) }}pt; } }
+@page :first { margin-top: {{ TOP }}pt; @top-left { content: none; } }
+table.grid.runhdr { position: running(runhdr); margin: 0; width: {{ '%.2f' % (COLS | sum) }}pt; }
+.titles { margin-left: {{ '%.2f' % (2 * TI.cx - 792) }}pt; font-size: {{ TI.f }}pt; line-height: {{ '%.3f' % em_t }}pt; }
+{%- for i in range(nl) %}
+{%- set bi = TI.base[i] if i < TI.base | length else TI.base[-1] + (i + 1 - TI.base | length) * (TI.base[-1] - TI.base[-2]) %}
+{%- set bp = TI.base[i - 1] if i - 1 < TI.base | length else TI.base[-1] + (i - TI.base | length) * (TI.base[-1] - TI.base[-2]) %}
+.titles .hl:nth-child({{ i + 1 }}) { margin-top: {{ '%.3f' % ((bi - 0.905 * TI.f - TOP) if i == 0 else (bi - bp - em_t)) }}pt; }
+{%- endfor %}
+{%- set last = TI.base[nl - 1] if nl <= TI.base | length else TI.base[-1] + (nl - TI.base | length) * (TI.base[-1] - TI.base[-2]) %}
+.band { margin: {{ '%.3f' % (b[1] - (last - 0.905 * TI.f + em_t)) }}pt 0 0 {{ b[0] }}pt; width: {{ '%.2f' % (b[2] - b[0]) }}pt; height: {{ '%.2f' % (b[3] - b[1]) }}pt; padding-top: {{ '%.3f' % (TI.sec - b[1] - 0.905 * TI.f) }}pt; font-size: {{ TI.f }}pt; line-height: {{ '%.3f' % em_t }}pt; text-indent: {{ '%.2f' % (2 * (TI.sec_cx - (b[0] + b[2]) / 2)) }}pt; }
+table.grid { width: {{ '%.2f' % (COLS | sum) }}pt; margin: {{ '%.3f' % (Y0 - TK / 2 - b[3]) }}pt 0 0 {{ '%.2f' % (X0 - TN / 2) }}pt; }
+tr.h0 { height: {{ H.h0 }}pt; }
+tr.h1 { height: {{ H.h1 }}pt; }
+tr.row { height: {{ H.row }}pt; }
+tr.ov { height: {{ H.ov }}pt; }
+th.h-sn .anc span, th.h-subj .anc span { {{ anc('A', 8.66, BO.h_span - TN / 2) }} }
+th.h-gpa .anc span { {{ anc('A', 8.66, BO.h_span - TK / 2) }} }
+th.h-comp .anc span { {{ anc('N', 8.66, BO.h_comp - TK / 2) }} }
+th.h-rank .anc span.rot { font-size: 8.64pt; line-height: {{ '%.3f' % (1.1474 * 8.64) }}pt; left: {{ '%.3f' % (BO.rank_x - TN / 2 + 0.2119 * 8.64) }}pt; bottom: {{ '%.3f' % (BO.rank_b - TK / 2) }}pt; }
+th.h-gp { {{ v('A', 10.1, BO.h_gp - TK / 2, H.h0 - TK) }} }
+th.h1 { {{ v('A', 10.1, BO.h1 - TK / 2, H.h1 - TK) }} }
+th.h1.s { {{ v('A', 8.66, BO.h1 - TK / 2, H.h1 - TK) }} }
+th.h1.nb { {{ v('N', 8.66, BO.h1 - TK / 2, H.h1 - TK) }} }
+{%- set av = H.row - TK / 2 - TN / 2 %}
+td.sn, td.subj, td.comp, td.rk { {{ v('A', 8.66, BO.row - TN / 2, av) }} }
+td.n, td.nb { {{ v('A', 9.38, BO.row - TN / 2, av) }} }
+{#- the last subject row sits on the overall block's thick rule: the original lifts its text #}
+tr.last td.sn, tr.last td.subj, tr.last td.rk { {{ v('A', 8.66, BO.row + BO.lift - TN / 2, av) }} }
+tr.last td.n, tr.last td.nb { {{ v('A', 9.38, BO.row + BO.lift - TK / 2, H.row - TK) }} }
+tr.last td.comp { {{ v('A', 8.66, BO.row + BO.lift - TK / 2, H.row - TK) }} }
+td.ov1-l { {{ v('A', 8.66, BO.ov1_l - TN / 2, H.ov - TK / 2 - TN / 2) }} }
+td.ov2-l { {{ v('A', 8.66, BO.ov2_l - TN / 2, H.ov - TN) }} }
+td.ov1-v { {{ v('A', 10.1, BO.ov_v - TN / 2, H.ov - TK / 2 - TN / 2) }} }
+td.ov2-v { {{ v('A', 10.1, BO.ov_v - TK / 2, H.ov - TN / 2 - TK / 2) }} }
+</style>
 </head>
 <body>
-{#
-  Region subjects rank (LEVEL + FUNCTION name). One row per SUBJECT. Fully self-contained:
-  own template + own style.css (inline @font-face, no shared stylesheet). Data-driven and
-  location-agnostic - every label comes from data.json, so any council's data of this shape
-  renders unchanged. Competency-level background is the ONLY data-driven colour.
-
-  Columns: S/NO. | SUBJECT NAME | A B C D F | TOTAL | A-C %A-C A-D %A-D | GPA
-           | COMPETENCY LEVEL | RANK   (a GRADE PERFORMANCE super-header spans A..%A-D)
-#}
+{%- macro header_rows() %}
+    <tr class="h0">
+      <th rowspan="2" class="h-sn"><div class="anc"><span>S/NO.</span></div></th>
+      <th rowspan="2" class="h-subj tr"><div class="anc"><span>SUBJECT NAME</span></div></th>
+      <th colspan="10" class="h-gp tl tr tt">GRADE PERFORMANCE</th>
+      <th rowspan="2" class="h-gpa f-hgpa tl tt tb"><div class="anc"><span>GPA</span></div></th>
+      <th rowspan="2" class="h-comp f-hcomp tt tb"><div class="anc"><span>COMPENTENCY LEVEL</span></div></th>
+      <th rowspan="2" class="h-rank f-hrank tr tt tb"><div class="anc"><span class="rot">R/RANK</span></div></th>
+    </tr>
+    <tr class="h1">
+      <th class="h1 tl tb f-hg">A</th>
+      <th class="h1 tb f-hg">B</th>
+      <th class="h1 tb f-hg">C</th>
+      <th class="h1 tb f-hg">D</th>
+      <th class="h1 tb f-hf">F</th>
+      <th class="h1 nb tr tb f-htot">TOTAL</th>
+      <th class="h1 s tl tt tb f-hac">A-C</th>
+      <th class="h1 s tt tb f-hac">%A-C</th>
+      <th class="h1 s tt tb f-had">A-D</th>
+      <th class="h1 s tr tt tb f-had">%A-D</th>
+    </tr>
+{%- endmacro %}
+{#- continuation pages: Excel prints the header bands in the page's top area and starts the next
+    subject row on its own rule just below (0.96pt lower); a running header in the top
+    margin reproduces that, the in-flow copy serves the first page -#}
+<table class="grid runhdr">
+  <colgroup>{% for w in COLS %}<col style="width:{{ w }}pt">{% endfor %}</colgroup>
+  <tbody>
+{{ header_rows() }}  </tbody>
+</table>
 <div class="titles">
   {% for line in doc.document.ministry %}
-  <div class="hl ministry">{{ line }}</div>
+  <div class="hl">{{ line }}</div>
   {% endfor %}
-  <div class="hl exam-name">{{ doc.document.exam_name }}</div>
-  <div class="hl report-title">{{ doc.document.report_title }}</div>
+  <div class="hl">{{ doc.document.exam_name }}</div>
 </div>
+<div class="band">{{ doc.document.report_title }}</div>
 
-<table class="rank">
-  <colgroup>
-    <col class="w-sn"><col class="w-subject">
-    <col class="w-a"><col class="w-b"><col class="w-c"><col class="w-d"><col class="w-f">
-    <col class="w-total"><col class="w-ac"><col class="w-pac"><col class="w-ad"><col class="w-pad">
-    <col class="w-gpa"><col class="w-comp"><col class="w-rank">
-  </colgroup>
-  <thead>
-    <tr class="h1">
-      <th rowspan="3" class="c-sn">S/NO.</th>
-      <th rowspan="3" class="nowrap">SUBJECT NAME</th>
-      <th colspan="10" class="grading">GRADE PERFORMANCE</th>
-      <th rowspan="3" class="fill-gpa-h">GPA</th>
-      <th rowspan="3" class="comp-h fill-comp-h">COMPENTENCY LEVEL</th>
-      <th rowspan="3" class="fill-rank rank-h"><div class="vert"><span>R/RANK</span></div></th>
-    </tr>
-    <tr class="h2">
-      <th class="fill-abcd">A</th><th class="fill-abcd">B</th><th class="fill-abcd">C</th><th class="fill-abcd">D</th>
-      <th class="fill-f-h">F</th>
-      <th class="fill-total-h">TOTAL</th>
-      <th class="fill-ac-h">A-C</th><th class="fill-ac-h">%A-C</th>
-      <th class="fill-ad-h">A-D</th><th class="fill-ad-h">%A-D</th>
-    </tr>
-  </thead>
+<table class="grid">
+  <colgroup>{% for w in COLS %}<col style="width:{{ w }}pt">{% endfor %}</colgroup>
   <tbody>
-    {% for r in doc.rows %}
-    <tr class="row{% if r.sn == doc.document.page_break_after_sn %} break-after{% endif %}">
-      <td class="c-sn">{{ r.sn }}</td>
-      <td class="txt">{{ r.subject }}</td>
-      <td>{{ r.a }}</td><td>{{ r.b }}</td><td>{{ r.c }}</td><td>{{ r.d }}</td>
-      <td class="fill-f b">{{ r.f }}</td>
-      <td class="c-total">{{ r.total }}</td>
-      <td class="fill-ac b">{{ r.a_c }}</td>
-      <td class="fill-ac b">{{ r.pct_a_c }}</td>
-      <td class="fill-ad b">{{ r.a_d }}</td>
-      <td class="fill-ad b">{{ r.pct_a_d }}</td>
-      <td class="fill-gpa b">{{ r.gpa }}</td>
-      <td class="comp{% if r.level %} lvl-{{ r.level | lower }}{% endif %}">{{ r.competency }}</td>
-      <td class="b c-rank fill-rank-cell">{{ r.rank }}</td>
+{{ header_rows() }}    {% for r in doc.rows %}
+    <tr class="row{% if loop.last %} last{% endif %}">
+      <td class="sn"{{ fit(r.sn, COLS[0] - 1.4, 8.66) }}>{{ r.sn }}</td>
+      <td class="subj"{{ fit(r.subject, COLS[1] - 2.0, 8.66) }}>{{ r.subject }}</td>
+      <td class="n"{{ fit(r.a, COLS[2] - 1.4, 9.38) }}>{{ r.a }}</td>
+      <td class="n"{{ fit(r.b, COLS[3] - 1.4, 9.38) }}>{{ r.b }}</td>
+      <td class="n"{{ fit(r.c, COLS[4] - 1.4, 9.38) }}>{{ r.c }}</td>
+      <td class="n"{{ fit(r.d, COLS[5] - 1.4, 9.38) }}>{{ r.d }}</td>
+      <td class="nb f-f"{{ fit(r.f, COLS[6] - 1.4, 9.38, bold=True) }}>{{ r.f }}</td>
+      <td class="nb tr"{{ fit(r.total, COLS[7] - 1.8, 9.38, bold=True) }}>{{ r.total }}</td>
+      <td class="nb tl f-ac"{{ fit(r.a_c, COLS[8] - 1.8, 9.38, bold=True) }}>{{ r.a_c }}</td>
+      <td class="nb f-ac"{{ fit(r.pct_a_c, COLS[9] - 1.4, 9.38, bold=True) }}>{{ r.pct_a_c }}</td>
+      <td class="nb f-ad"{{ fit(r.a_d, COLS[10] - 1.4, 9.38, bold=True) }}>{{ r.a_d }}</td>
+      <td class="nb f-ad"{{ fit(r.pct_a_d, COLS[11] - 1.8, 9.38, bold=True) }}>{{ r.pct_a_d }}</td>
+      <td class="nb tl f-gpa"{{ fit(r.gpa, COLS[12] - 1.8, 9.38, bold=True) }}>{{ r.gpa }}</td>
+      <td class="comp{% if r.level %} lvl-{{ r.level | lower }}{% endif %}"{{ fit(r.competency, COLS[13] - 2.0, 8.66) }}>{{ r.competency }}</td>
+      <td class="rk f-rank"{{ fit(r.rank, COLS[14] - 1.4, 8.66, bold=True) }}>{{ r.rank }}</td>
     </tr>
     {% endfor %}
+    {% if doc.overall %}
+    {% set o = doc.overall %}
+    <tr class="ov">
+      <td colspan="2" class="ov1-l nr">{{ doc.document.overall_gpa_label }}</td>
+      <td colspan="12" class="ov1-v nl tt tr">{{ o.gpa }}</td>
+      <td rowspan="2" class="ov-rank tl"></td>
+    </tr>
+    <tr class="ov">
+      <td colspan="2" class="ov2-l nr">COMPETENCY LEVEL</td>
+      <td colspan="12" class="ov2-v nl tr tb f-ovcomp">{{ o.competency }}</td>
+    </tr>
+    {% endif %}
   </tbody>
 </table>
-
-{% if doc.overall %}
-<table class="overall-tbl">
-  <colgroup><col class="ov-w-label"><col class="ov-w-value"></colgroup>
-  <tr class="ov-row">
-    <td class="ov-label">{{ doc.document.overall_gpa_label }}</td>
-    <td class="ov-value b">{{ doc.overall.gpa }}</td>
-  </tr>
-  <tr class="ov-row">
-    <td class="ov-label">COMPETENCY LEVEL</td>
-    <td class="ov-value{% if doc.overall.level %} lvl-{{ doc.overall.level | lower }}{% endif %}">{{ doc.overall.competency }}</td>
-  </tr>
-</table>
-{% endif %}
 </body>
 </html>

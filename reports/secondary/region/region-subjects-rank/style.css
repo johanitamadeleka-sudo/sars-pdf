@@ -1,12 +1,15 @@
 /*
- * council-subjects-rank (LEVEL + FUNCTION name; data-driven, not tied to any council).
- * Layout measured from the reference PDF (US Letter LANDSCAPE, 792 x 612 pt).
- * One row per subject. Columns:
- *   S/NO. | SUBJECT NAME | A B C D F | TOTAL | A-C %A-C A-D %A-D | GPA | COMPETENCY | RANK
- * All fixed fills live in :root; only .lvl-* (competency level) is data-driven (grading.py).
+ * region-subjects-rank (LEVEL + FUNCTION name; data-driven, not tied to any region).
+ * US Letter LANDSCAPE, printed by "Microsoft: Print To PDF". One row per subject, then the
+ * overall GPA and competency level. Columns:
+ *   S/NO. | SUBJECT NAME | A B C D F | TOTAL | A-C %A-C A-D %A-D | GPA | COMPETENCY | R/RANK
  *
- * REAL fonts registered INLINE so this report is fully self-contained (own template + own
- * CSS, no shared stylesheet). One family name per @font-face, NO fallback list.
+ * Geometry (column widths, row heights, baselines, title block) is measured from the
+ * original and emitted by template.html.j2; this file holds the fonts, the rule topology,
+ * alignment and the fills (measured from this report's own original.pdf).
+ * Only .lvl-* (competency level of the subject rows) is data-driven (grading.py).
+ *
+ * REAL fonts registered INLINE (one family name per @font-face, NO fallback list).
  */
 @font-face {
   font-family: 'Arial'; font-style: normal; font-weight: normal;
@@ -22,150 +25,116 @@
 }
 
 :root {
-  /* MEASURED from this report's OWN original.pdf page 1 (distinct palette from council). */
-  --fill-banner: #caedfb;   /* title banner band */
-  --fill-abcd: #f2f2f2;     /* A B C D header (grey) */
-  --fill-f-h: #f1a983;      /* F header */
-  --fill-f: #fbe2d5;        /* F cells */
-  --fill-total-h: #c1f0c8;  /* TOTAL header */
-  --fill-ac-h: #65ffab;     /* A-C + %A-C header AND cells */
-  --fill-ac: #65ffab;       /* A-C, %A-C cells */
-  --fill-ad-h: #f2ceef;     /* A-D + %A-D header */
-  --fill-ad: #d2fce6;       /* A-D, %A-D cells */
-  --fill-gpa-h: #83e28e;    /* GPA header */
-  --fill-gpa: #ffffcc;      /* GPA cells */
-  --fill-comp-h: #ffffcc;   /* COMPETENCY header */
-  --fill-rank: #daf2d0;     /* RANK header */
-  --fill-rank-cell: #f2f2f2;/* RANK cells */
+  --f-band: #caedfb;    /* section title band */
+  /* header */
+  --f-hg: #f2f2f2;      /* A B C D */
+  --f-hf: #f1a983;      /* F */
+  --f-htot: #c1f0c8;    /* TOTAL */
+  --f-hac: #65ffab;     /* A-C, %A-C */
+  --f-had: #f2ceef;     /* A-D, %A-D */
+  --f-hgpa: #83e28e;    /* GPA */
+  --f-hcomp: #ffffcc;   /* COMPENTENCY LEVEL */
+  --f-hrank: #daf2d0;   /* R/RANK */
+  /* subject rows */
+  --f-f: #fbe2d5;       /* F */
+  --f-ac: #65ffab;      /* A-C, %A-C */
+  --f-ad: #d2fce6;      /* A-D, %A-D */
+  --f-gpa: #ffffcc;     /* GPA */
+  --f-rank: #f2f2f2;    /* R/RANK */
+  /* overall block: the competency level value sits on a fixed green in this original */
+  --f-ovcomp: #daf2d0;
 
   --lvl-a: #00b050;  --lvl-a-ink: #000000;
   --lvl-b: #92d050;  --lvl-b-ink: #000000;
   --lvl-c: #ffff00;  --lvl-c-ink: #000000;
   --lvl-d: #ffc000;  --lvl-d-ink: #000000;
-  --lvl-f: #ff0000;  --lvl-f-ink: #ffc7ce;
+  --lvl-f: #ff0000;  --lvl-f-ink: #000000;  /* this original prints the Fail label in black */
 
   --ink: #000000;
   --grid: #000000;
+  --thin: 0.72pt;
+  --thick: 1.44pt;
 }
 
+/* the top margin is set by the template (measured); rows flow onto the next page, where the
+   header bands repeat */
 @page {
   size: Letter landscape;
-  margin: 55pt 0 56pt 0;
+  margin: 53.82pt 0 62pt 0;
 }
-@page :first { margin-top: 55pt; }
 
 * { box-sizing: border-box; }
+/* Excel does not kern; Pango does by default */
+html, body { margin: 0; padding: 0; font-family: 'Arial'; color: var(--ink); font-kerning: none; }
 
-html, body {
-  margin: 0; padding: 0;
-  font-family: 'Arial';
-  color: var(--ink);
-}
-
-.titles {
-  text-align: center;
-  font-weight: bold;
-  font-size: 11pt;
-  line-height: 14.5pt;
-}
+/* ---------- titles + section band ---------- */
+.titles { text-align: center; font-weight: bold; }
 .titles .hl { white-space: pre; }
-.titles .report-title { line-height: 15.5pt; background: var(--fill-banner); }
+.band { background: var(--f-band); text-align: center; font-weight: bold; white-space: pre; }
 
-/* ---------- main table ---------- */
-table.rank {
-  width: 726.4pt;            /* 34.4 .. 760.8 (measured boundaries) */
-  margin: 3pt 0 0 34.4pt;    /* table left edge at x = 34.4 pt */
-  border-collapse: collapse;
-  table-layout: fixed;
-  border: 1pt solid var(--grid);
-}
-
-/* per-column widths from measured consecutive-boundary differences */
-col.w-sn { width: 34.1pt; }
-col.w-subject { width: 215.3pt; }
-col.w-a { width: 30.8pt; }
-col.w-b { width: 30.9pt; }
-col.w-c { width: 33.1pt; }
-col.w-d { width: 33.1pt; }
-col.w-f { width: 33.1pt; }
-col.w-total { width: 33.2pt; }
-col.w-ac { width: 33.1pt; }
-col.w-pac { width: 30.8pt; }
-col.w-ad { width: 33.1pt; }
-col.w-pad { width: 30.9pt; }
-col.w-gpa { width: 35.3pt; }
-col.w-comp { width: 94.3pt; }
-col.w-rank { width: 25.3pt; }
-
+/* ---------- grid ---------- */
+table.grid { border-collapse: collapse; table-layout: fixed; border: var(--thin) solid var(--grid); }
 th, td {
-  border: 0.6pt solid var(--grid);
-  padding: 0 2pt;
-  overflow: hidden;
+  border: var(--thin) solid var(--grid);
+  /* the original prints centred text ~0.4pt right of the true centre */
+  padding: 0 0 0 0.8pt;
+  /* NOT overflow:hidden (it repaints each cell's fill over the rules); fit() keeps values in */
+  overflow: visible;
   white-space: nowrap;
   text-align: center;
-  vertical-align: middle;
+  vertical-align: bottom;
 }
+.tl { border-left-width: var(--thick); }
+.tr { border-right-width: var(--thick); }
+.tt { border-top-width: var(--thick); }
+.tb { border-bottom-width: var(--thick); }
+/* the overall rows have no rule between the label and its value */
+.nr { border-right: none; }
+.nl { border-left: none; }
 
-/* the original repeats the GRADE PERFORMANCE header on page 2, so let WeasyPrint
-   repeat <thead> on every page the table spans. */
-thead { display: table-header-group; }
-thead th { font-weight: bold; font-size: 9pt; }
-tr.break-after td { border-bottom: 0.6pt solid var(--grid); }
-tr.break-after { page-break-after: always; }
-thead tr.h1 { height: 15pt; }
-thead tr.h2 { height: 26pt; }
-thead th.grading { font-size: 11pt; }
-thead th.comp-h { font-size: 8pt; }
-thead tr.h1 th.rank-h { padding: 0; vertical-align: middle; overflow: hidden; }
-.vert { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; }
-.vert span {
-  writing-mode: vertical-rl; transform: rotate(180deg);
-  font-size: 8pt; white-space: nowrap; line-height: 1;
-}
+/* header: Arial Bold; TOTAL, COMPENTENCY LEVEL and R/RANK are Arial Narrow Bold */
+th { font-weight: bold; }
+th.nb, th.h-comp, th.h-rank { font-family: 'Arial Narrow'; }
 
-/* body rows */
-tbody tr.row { height: 15.5pt; }
-tbody td { font-size: 9pt; line-height: 1; }
-td.txt { text-align: left; padding-left: 2pt; font-size: 8pt; letter-spacing: -0.2pt; }
-td.b { font-weight: bold; }
-td.c-total { font-weight: bold; }
-td.comp { text-align: left; font-weight: bold; padding-left: 3pt; }
+/* rowspan labels: zero-height anchor at the cell bottom, text absolutely placed above it */
+.anc { position: relative; height: 0; }
+.anc span { position: absolute; left: 0; right: 0; display: block; white-space: nowrap; text-align: center; }
+/* rotated label: turned -90deg about the span's bottom-left corner (reads bottom-to-top) */
+.anc span.rot { right: auto; transform-origin: 0 100%; transform: rotate(-90deg); }
+th.h-rank { padding-left: 0; }
 
-/* fills */
-.fill-f-h { background: var(--fill-f-h); }
-.fill-f { background: var(--fill-f); }
-.fill-total-h { background: var(--fill-total-h); }
-.fill-abcd { background: var(--fill-abcd); }
-.fill-ac-h { background: var(--fill-ac-h); }
-.fill-ac { background: var(--fill-ac); }
-.fill-ad-h { background: var(--fill-ad-h); }
-.fill-ad { background: var(--fill-ad); }
-.fill-gpa-h { background: var(--fill-gpa-h); }
-.fill-gpa { background: var(--fill-gpa); }
-.fill-comp-h { background: var(--fill-comp-h); }
-.fill-rank { background: var(--fill-rank); }
-.fill-rank-cell { background: var(--fill-rank-cell); }
+/* subject rows: S/NO., subject, A-D and competency regular; F .. GPA and rank bold */
+td { font-weight: normal; }
+td.nb, td.rk { font-weight: bold; }
+td.subj, td.comp { text-align: left; }
+td.subj { padding-left: 1.31pt; }
+td.comp { padding-left: 1.32pt; }
+
+/* overall block: labels Arial Bold 8.66 right-aligned, values Arial Bold 10.1 */
+tr.ov td { font-weight: bold; white-space: pre; }
+td.ov1-l { text-align: right; padding: 0 1.13pt 0 0; }
+td.ov2-l { text-align: right; padding: 0 1.54pt 0 0; }
+/* values centre on the merged GRADE PERFORMANCE .. COMPETENCY span */
+td.ov1-v, td.ov2-v { padding-left: 1.64pt; }
+
+/* ---------- fills ---------- */
+.f-hg    { background: var(--f-hg); }
+.f-hf    { background: var(--f-hf); }
+.f-htot  { background: var(--f-htot); }
+.f-hac   { background: var(--f-hac); }
+.f-had   { background: var(--f-had); }
+.f-hgpa  { background: var(--f-hgpa); }
+.f-hcomp { background: var(--f-hcomp); }
+.f-hrank { background: var(--f-hrank); }
+.f-f     { background: var(--f-f); }
+.f-ac    { background: var(--f-ac); }
+.f-ad    { background: var(--f-ad); }
+.f-gpa   { background: var(--f-gpa); }
+.f-rank  { background: var(--f-rank); }
+.f-ovcomp { background: var(--f-ovcomp); }
 
 .lvl-a { background: var(--lvl-a); color: var(--lvl-a-ink); }
 .lvl-b { background: var(--lvl-b); color: var(--lvl-b-ink); }
 .lvl-c { background: var(--lvl-c); color: var(--lvl-c-ink); }
 .lvl-d { background: var(--lvl-d); color: var(--lvl-d-ink); }
 .lvl-f { background: var(--lvl-f); color: var(--lvl-f-ink); }
-
-/* ---------- overall block (2x2 grid spanning the table width) ---------- */
-table.overall-tbl {
-  width: 700pt;                /* 34..734 (label + value columns, RANK col excluded) */
-  margin: 0 0 0 34pt;
-  border-collapse: collapse;
-  table-layout: fixed;
-  border: 1pt solid var(--grid);
-}
-col.ov-w-label { width: 180.5pt; }   /* 34 .. 214.5 */
-col.ov-w-value { width: 519.5pt; }   /* 214.5 .. 734 */
-table.overall-tbl td {
-  border: 0.6pt solid var(--grid);
-  font-weight: bold; font-size: 9pt; text-align: center;
-}
-tr.ov-row { height: 20.7pt; }
-td.ov-label { }
-td.ov-value { }
