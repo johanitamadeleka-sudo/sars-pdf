@@ -2,157 +2,179 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+{# grid rules painted as filled rects like this Excel-exported original (sars_pdf/rules.py) #}
+<meta name="sars-pdf:rules" content="filled">
 <title>{{ doc.document.report_title }}</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 {#
-  Council wards rank (LEVEL + FUNCTION name). Division-performance grid. Fully
+  Council wards rank (LEVEL + FUNCTION name). Division-performance grid per ward. Fully
   self-contained (own template + own style.css, inline @font-face, no shared stylesheet).
-  Data-driven and location-agnostic - every label comes from data.json. Competency-level
-  background is the ONLY data-driven colour.
+  Data-driven and location-agnostic. Competency-level background is the ONLY data-driven colour.
 
-  Two tables share the same column geometry: a SUMMARY block (with a %PASS row) above the
-  main per-ward table (which ends with a TOTAL row).
-  Main columns: S/NO. | WARD | NO_SCHOOLS | REG | SAT(TOTAL %) |
-    I II III | I-III(TOTAL %) | IV | I-IV(TOTAL %) | DIV-0(TOTAL %) | GPA | COMPETENCY | RANK
+  Two independent tables, each on its OWN grid measured from the original:
+  1. SUMMARY block (x 42.84 .. 753.48, 17 columns): rotated SUMMARY PERFORMANCE label |
+     NO. OF WARDS IN COUNCIL | REG | SAT (TOTAL %) | I II III | I-III (TOTAL %) | IV |
+     I-IV (TOTAL %) | DIV - 0 (TOTAL %) | GPA | COMPENTENCY LEVEL, then a % PASS row.
+  2. PER-WARD table (x 11.31 .. 774.99, 19 columns) + TOTAL row:
+     S/NO. | WARD | NUMBER OF SCHOOLS | REG | SAT (TOTAL %) | I II III | I-III (TOTAL %) | IV |
+     I-IV (TOTAL %) | DIV - 0 (TOTAL %) | GPA | COMPETENCY LEVEL | RANK
+
+  Column widths are the measured distances between the original's rule centres and live
+  HERE (one place) so the <col> widths and the shrink-to-fit widths can never disagree.
 #}
+{%- set SUM_COLS = [71.54, 57.48, 44.16, 34.11, 25.92, 29.04, 35.4, 35.4, 29.04, 35.42,
+    35.4, 29.04, 35.4, 29.04, 35.43, 48.0, 100.82] %}
+{%- set MAIN_COLS = [31.53, 71.54, 57.54, 44.1, 34.11, 25.98, 28.98, 35.4, 35.43, 29.01,
+    35.45, 35.37, 29.04, 35.43, 29.01, 35.46, 47.97, 100.88, 21.45] %}
+{#- grid columns NO. .. GPA: key, weight in the rows, per-ward fill, TOTAL fill, thick rules in
+    the per-ward rows (group lines), thick rules in the TOTAL row -#}
+{%- set NUM = [
+    ('no_schools', 'b', 'f-nos', 'f-tnos', 'tr', 'tl tt tb'),
+    ('reg', 'b', '', 'f-tg', 'tl', 'tt tb'),
+    ('sat_total', 'b', '', 'f-tg', '', 'tt tb'),
+    ('sat_pct', 'b', '', 'f-tg', 'tr', 'tr tt tb'),
+    ('i', '', '', 'f-tg', 'tl', 'tl tt tb'),
+    ('ii', '', '', 'f-tg', '', 'tt tb'),
+    ('iii', '', '', 'f-tg', 'tr', 'tr tt tb'),
+    ('iii_total', 'b', 'f-d3', 'f-d3', 'tl', 'tl tt tb'),
+    ('iii_pct', 'b', 'f-d3', 'f-d3', 'tr', 'tr tt tb'),
+    ('iv', '', '', 'f-tg', 'tl', 'tl tt tb'),
+    ('iv_total', 'b', '', 'f-tg', '', 'tt tb'),
+    ('iv_pct', 'b', 'f-d4p', 'f-tg', 'tr', 'tr tt tb'),
+    ('div0_total', 'b', 'f-z', 'f-z', 'tl', 'tl tt tb'),
+    ('div0_pct', 'b', 'f-z', 'f-z', 'tr', 'tr tt tb'),
+    ('gpa', 'b', 'f-gpa', 'f-tgpa', 'tl', 'tl tt tb'),
+] %}
+{#- summary value weights (DIV-0 TOTAL is regular there) -#}
+{%- set SUM_BOLD = ['reg', 'sat_total', 'sat_pct', 'iii_total', 'iii_pct', 'iv_total', 'iv_pct', 'div0_pct', 'gpa'] %}
+{%- set PAD_NUM = 1.4 %}
+{%- set PAD_TXT = 2.0 %}
+
 <div class="titles">
   {% for line in doc.document.ministry %}
-  <div class="hl ministry">{{ line }}</div>
+  <div class="hl">{{ line }}</div>
   {% endfor %}
-  <div class="hl exam-name">{{ doc.document.exam_name }}</div>
-  <div class="hl report-title">{{ doc.document.report_title }}</div>
+  <div class="hl">{{ doc.document.exam_name }}</div>
 </div>
+<div class="report-title">{{ doc.document.report_title }}</div>
 
-{% macro cols() %}
-<colgroup>
-  <col class="w-sn"><col class="w-ward"><col class="w-sch">
-  <col class="w-reg"><col class="w-sat-t"><col class="w-sat-p">
-  <col class="w-i"><col class="w-ii"><col class="w-iii">
-  <col class="w-3t"><col class="w-3p"><col class="w-iv">
-  <col class="w-4t"><col class="w-4p"><col class="w-0t"><col class="w-0p">
-  <col class="w-gpa"><col class="w-comp"><col class="w-rank">
-</colgroup>
-{% endmacro %}
-
-{% macro grid_row(r, comp=true) %}
-  <td>{{ r.no_schools }}</td>
-  <td class="b">{{ r.reg }}</td>
-  <td class="b">{{ r.sat_total }}</td><td class="b">{{ r.sat_pct }}</td>
-  <td>{{ r.i }}</td><td>{{ r.ii }}</td><td>{{ r.iii }}</td>
-  <td class="fill-3 b">{{ r.iii_total }}</td><td class="fill-3 b">{{ r.iii_pct }}</td>
-  <td>{{ r.iv }}</td>
-  <td class="fill-4 b">{{ r.iv_total }}</td><td class="fill-4 b">{{ r.iv_pct }}</td>
-  <td class="fill-0 b">{{ r.div0_total }}</td><td class="fill-0 b">{{ r.div0_pct }}</td>
-  <td class="b">{{ r.gpa }}</td>
-  {% if comp %}
-  <td class="comp{% if r.level %} lvl-{{ r.level | lower }}{% endif %}">{{ r.competency }}</td>
-  {% endif %}
-{% endmacro %}
-
-{# ---------- summary block ---------- #}
+{# ================= TABLE 1: SUMMARY block (own 17-column grid) ================= #}
 {% if doc.summary %}
+{% set s = doc.summary %}
+{% set s_lvl = level(s.competency, s.gpa) %}
 <table class="grid summary">
-  {{ cols() }}
+  <colgroup>{% for w in SUM_COLS %}<col style="width:{{ w }}pt">{% endfor %}</colgroup>
   <tbody>
-    <tr class="hg">
-      <th rowspan="5" class="vlabel"><div class="vert"><span>SUMMARY PERFORMANCE</span></div></th>
-      <th rowspan="4" class="nowrap">NO. OF WARDS IN COUNCIL</th>
-      <th colspan="3" class="grp fill-cand-h">NUMBER OF CANDIDATES</th>
-      <th colspan="10" class="grp">DIVISION PERFORMANCE</th>
-      <th colspan="3" class="grp fill-gpa-grp">GPA PERFORMANCE</th>
+    <tr class="s1">
+      <th rowspan="4" class="s-label"><div class="anc"><span class="rot">SUMMARY<br>PERFORMANCE</span></div></th>
+      <th rowspan="3" class="s-nos"><div class="anc"><span>NO. OF<br>WARDS IN<br>COUNCIL</span></div></th>
+      <th colspan="3" class="s-grp">NUMBER OF CANDIDATES</th>
+      <th colspan="10" class="s-grp">DIVISION PERFORMANCE</th>
+      <th colspan="2" class="s-grp">GPA PERFORMANCE</th>
     </tr>
-    <tr class="h-sat">
-      <th rowspan="3" class="v-mid">REG</th>
-      <th colspan="2">SAT</th>
-      <th rowspan="2" class="v-mid">I</th><th rowspan="2" class="v-mid">II</th><th rowspan="2" class="v-mid">III</th>
-      <th colspan="2" class="fill-3-h">I-III</th>
-      <th rowspan="2" class="v-mid">IV</th>
-      <th colspan="2">I-IV</th>
-      <th colspan="2" class="fill-0-h">DIV - 0</th>
-      <th rowspan="3" class="fill-gpa-grp v-mid">GPA</th>
-      <th rowspan="3" colspan="2" class="v-mid">COMPENTENCY LEVEL</th>
+    <tr class="s2">
+      <th rowspan="2" class="s-reg"><div class="anc"><span>REG</span></div></th>
+      <th colspan="2" class="s-grp">SAT</th>
+      <th rowspan="2" class="s-rn"><div class="anc"><span>I</span></div></th>
+      <th rowspan="2" class="s-rn"><div class="anc"><span>II</span></div></th>
+      <th rowspan="2" class="s-rn"><div class="anc"><span>III</span></div></th>
+      <th colspan="2" class="s-grp-t f-s-d3">I-III</th>
+      <th rowspan="2" class="s-rn"><div class="anc"><span>IV</span></div></th>
+      <th colspan="2" class="s-grp-t f-s-d4">I-IV</th>
+      <th colspan="2" class="s-grp-t f-s-z">DIV - 0</th>
+      <th rowspan="2" class="s-gpah"><div class="anc"><span>GPA</span></div></th>
+      <th rowspan="2" class="s-comph"><div class="anc"><span>COMPENTENCY LEVEL</span></div></th>
     </tr>
-    <tr class="h-tp">
-      <th rowspan="2">TOTAL</th><th rowspan="2">%</th>
-      <th class="tiny">TOTAL</th><th class="tiny">%</th>
-      <th class="tiny">TOTAL</th><th class="tiny">%</th>
-      <th class="tiny">TOTAL</th><th class="tiny">%</th>
+    <tr class="s3">
+      <th class="s-sat-t">TOTAL</th><th class="s-sat-p f-s-pct">%</th>
+      <th class="s-tot">TOTAL</th><th class="s-pct f-s-pct">%</th>
+      <th class="s-tot">TOTAL</th><th class="s-pct f-s-pct">%</th>
+      <th class="s-tot">TOTAL</th><th class="s-pct f-s-pct">%</th>
     </tr>
-    <tr class="row">
-      <td class="fill-gpa-grp b">{{ doc.summary.no_schools }}</td>
-      <td class="b">{{ doc.summary.reg }}</td>
-      <td class="b">{{ doc.summary.sat_total }}</td><td class="b">{{ doc.summary.sat_pct }}</td>
-      <td>{{ doc.summary.i }}</td><td>{{ doc.summary.ii }}</td><td>{{ doc.summary.iii }}</td>
-      <td class="fill-3 b">{{ doc.summary.iii_total }}</td><td class="fill-3 b">{{ doc.summary.iii_pct }}</td>
-      <td>{{ doc.summary.iv }}</td>
-      <td class="fill-4 b">{{ doc.summary.iv_total }}</td><td class="fill-4 b">{{ doc.summary.iv_pct }}</td>
-      <td class="fill-0 b">{{ doc.summary.div0_total }}</td><td class="fill-0 b">{{ doc.summary.div0_pct }}</td>
-      <td class="fill-gpa-grp b">{{ doc.summary.gpa }}</td>
-      <td colspan="2" class="comp{% if doc.summary.level %} lvl-{{ doc.summary.level | lower }}{% endif %}">{{ doc.summary.competency }}</td>
+    <tr class="s4">
+      <td class="s-val s-nosv"{{ fit(s.no_schools, SUM_COLS[1] - PAD_NUM, 7.8, bold=True) }}>{{ s.no_schools }}</td>
+      {% for key, wt, fb, ft, gl, tl in NUM[1:] %}
+      {% set bold = key in SUM_BOLD %}
+      <td class="s-val{% if not bold %} r{% endif %}{% if key == 'gpa' %} f-gpa{% endif %}"{{ fit(s[key], SUM_COLS[1 + loop.index] - PAD_NUM, 7.8, bold=bold) }}>{{ s[key] }}</td>
+      {% endfor %}
+      <td class="s-comp{% if s_lvl %} lvl-{{ s_lvl | lower }}{% endif %}"{{ fit(s.competency, SUM_COLS[16] - PAD_TXT, 7.8, bold=True) }}>{{ s.competency }}</td>
     </tr>
-    <tr class="pass">
-      <td class="txt">% PASS</td>
-      <td></td>
-      <td class="b">{{ doc.pct_pass.sat_total }}</td><td></td>
-      <td class="b">{{ doc.pct_pass.i }}</td><td class="b">{{ doc.pct_pass.ii }}</td><td class="b">{{ doc.pct_pass.iii }}</td>
-      <td colspan="2" class="b">{{ doc.pct_pass.iii_pct }}</td>
-      <td class="b">{{ doc.pct_pass.iv }}</td>
-      <td colspan="2" class="b">{{ doc.pct_pass.iv_pct }}</td>
-      <td colspan="2" class="b">{{ doc.pct_pass.div0_pct }}</td>
-      <td></td><td colspan="2"></td>
+    {% set p = doc.pct_pass or {} %}
+    <tr class="s5">
+      <td colspan="3" class="s-passl">% PASS</td>
+      <td colspan="2" class="s-passw">{{ p.sat_total }}</td>
+      <td class="s-passv">{{ p.i }}</td>
+      <td class="s-passv">{{ p.ii }}</td>
+      <td class="s-passv">{{ p.iii }}</td>
+      <td colspan="2" class="s-passw">{{ p.iii_pct }}</td>
+      <td class="s-passv">{{ p.iv }}</td>
+      <td colspan="2" class="s-passw">{{ p.iv_pct }}</td>
+      <td colspan="2" class="s-passw">{{ p.div0_pct }}</td>
+      <td colspan="2"></td>
     </tr>
   </tbody>
 </table>
 {% endif %}
 
-{# ---------- main per-ward table ---------- #}
+{# ================= TABLE 2: PER-WARD table (own 19-column grid) ================= #}
 <table class="grid main">
-  {{ cols() }}
+  <colgroup>{% for w in MAIN_COLS %}<col style="width:{{ w }}pt">{% endfor %}</colgroup>
   <thead>
-    <tr class="hg">
-      <th rowspan="4" class="c-sn">S/NO.</th>
-      <th rowspan="4" class="nowrap">WARD</th>
-      <th rowspan="4" class="v-mid">NUMBER OF SCHOOLS</th>
-      <th colspan="3" class="grp fill-cand-h">NUMBER OF CANDIDATES</th>
-      <th colspan="10" class="grp">DIVISION PERFORMANCE</th>
-      <th colspan="2" class="grp fill-gpa-grp">GPA PERFORMANCE</th>
-      <th rowspan="4" class="fill-rank rank-h"><div class="vert"><span>RANK</span></div></th>
+    <tr class="h1">
+      <th rowspan="3" class="h-sn tl tb"><div class="anc"><span>S/NO.</span></div></th>
+      <th rowspan="3" class="h-ward"><div class="anc"><span>WARD</span></div></th>
+      <th rowspan="3" class="h-nos tr"><div class="anc"><span>NUMBER OF<br>SCHOOLS</span></div></th>
+      <th colspan="3" class="h-grp f-h-cand tl tr">NUMBER OF CANDIDATES</th>
+      <th colspan="10" class="h-grp f-h-div tl">DIVISION PERFORMANCE</th>
+      <th colspan="2" class="h-grp f-h-div tr">GPA PERFORMANCE</th>
+      <th rowspan="3" class="h-rank f-h-rank tl tr tb"><div class="anc"><span class="rot">RANK</span></div></th>
     </tr>
-    <tr class="h-sat">
-      <th rowspan="3" class="v-mid fill-reg-h">REG</th>
-      <th colspan="2">SAT</th>
-      <th rowspan="2" class="v-mid">I</th><th rowspan="2" class="v-mid">II</th><th rowspan="2" class="v-mid">III</th>
-      <th colspan="2" class="fill-3-h">I-III</th>
-      <th rowspan="2" class="v-mid">IV</th>
-      <th colspan="2">I-IV</th>
-      <th colspan="2" class="fill-0-h">DIV - 0</th>
-      <th rowspan="3" class="fill-gpa-h v-mid">GPA</th>
-      <th rowspan="3" class="v-mid">COMPETENCY LEVEL</th>
+    <tr class="h2">
+      <th rowspan="2" class="h-reg f-h-cand tl tb"><div class="anc"><span>REG</span></div></th>
+      <th colspan="2" class="h-grp f-h-cand tr">SAT</th>
+      <th rowspan="2" class="h-rn f-h-div tl tb"><div class="anc"><span>I</span></div></th>
+      <th rowspan="2" class="h-rn f-h-div tb"><div class="anc"><span>II</span></div></th>
+      <th rowspan="2" class="h-rn f-h-div tb"><div class="anc"><span>III</span></div></th>
+      <th colspan="2" class="h-grp-t9 f-h-d3">I-III</th>
+      <th rowspan="2" class="h-rn f-h-div tb"><div class="anc"><span>IV</span></div></th>
+      <th colspan="2" class="h-grp-t f-h-div">I-IV</th>
+      <th colspan="2" class="h-grp-t9 f-h-z">DIV - 0</th>
+      <th rowspan="2" class="h-gpa f-h-gpa tb"><div class="anc"><span>GPA</span></div></th>
+      <th rowspan="2" class="h-comp f-h-gpa tr tb"><div class="anc"><span>COMPETENCY LEVEL</span></div></th>
     </tr>
-    <tr class="h-tp">
-      <th class="fill-sat-h">TOTAL</th><th class="fill-sat-h">%</th>
-      <th class="tiny">TOTAL</th><th class="tiny">%</th>
-      <th class="tiny">TOTAL</th><th class="tiny">%</th>
-      <th class="tiny">TOTAL</th><th class="tiny">%</th>
+    <tr class="h3">
+      <th class="h-sat-t f-h-cand tb">TOTAL</th><th class="h-sat-p f-h-cand tr tb">%</th>
+      <th class="h-tot f-h-div tb">TOTAL</th><th class="h-pct f-h-pct tb">%</th>
+      <th class="h-tot f-h-div tb">TOTAL</th><th class="h-pct f-h-pct tb">%</th>
+      <th class="h-tot f-h-div tb">TOTAL</th><th class="h-pct f-h-pct tb">%</th>
     </tr>
-    <tr class="h-lbl"><th></th><th></th></tr>
   </thead>
   <tbody>
     {% for r in doc.rows %}
+    {% set r_lvl = level(r.competency, r.gpa) %}
     <tr class="row">
-      <td class="c-sn">{{ r.sn }}</td>
-      <td class="txt">{{ r.ward }}</td>
-      {{ grid_row(r) }}
-      <td class="b c-rank">{{ r.rank }}</td>
+      <td class="c-sn"{{ fit(r.sn, MAIN_COLS[0] - PAD_NUM, 6.72) }}>{{ r.sn }}</td>
+      <td class="txt"{{ fit(r.ward, MAIN_COLS[1] - PAD_TXT, 7.32) }}>{{ r.ward }}</td>
+      {% for key, wt, fb, ft, gl, tl in NUM %}
+      <td class="num {{ wt }} {{ fb }} {{ gl }}"{{ fit(r[key], MAIN_COLS[2 + loop.index0] - PAD_NUM, 7.32, bold=(wt == 'b')) }}>{{ r[key] }}</td>
+      {% endfor %}
+      <td class="comp tr{% if r_lvl %} lvl-{{ r_lvl | lower }}{% endif %}"{{ fit(r.competency, MAIN_COLS[17] - PAD_TXT, 7.32, bold=True) }}>{{ r.competency }}</td>
+      <td class="rk"{{ fit(r.rank, MAIN_COLS[18] - PAD_NUM, 7.32, bold=True) }}>{{ r.rank }}</td>
     </tr>
     {% endfor %}
     {% if doc.total %}
-    <tr class="row total">
-      <td colspan="2" class="txt b">TOTAL</td>
-      {{ grid_row(doc.total) }}
-      <td></td>
+    {% set t = doc.total %}
+    {% set t_lvl = level(t.competency, t.gpa) %}
+    <tr class="total">
+      <td class="t-label">TOTAL</td>
+      <td class="t-blank tr"></td>
+      {% for key, wt, fb, ft, gl, tl in NUM %}
+      <td class="t-num {{ ft }} {{ tl }}{% if key == 'no_schools' %} t-nos{% endif %}"{{ fit(t[key], MAIN_COLS[2 + loop.index0] - PAD_NUM, 9.0 if key == 'no_schools' else 7.8, bold=True) }}>{{ t[key] }}</td>
+      {% endfor %}
+      <td class="t-comp tr tb{% if t_lvl %} lvl-{{ t_lvl | lower }}{% endif %}"{{ fit(t.competency, MAIN_COLS[17] - PAD_TXT, 7.8, bold=True) }}>{{ t.competency }}</td>
+      <td class="t-rank f-tgpa tl tr tt tb">{{ t.rank }}</td>
     </tr>
     {% endif %}
   </tbody>
