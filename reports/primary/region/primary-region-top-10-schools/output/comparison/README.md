@@ -1,7 +1,5 @@
 # Original vs generated
 
-**Page count differs: original 5 vs generated 6**
-
 Columns: **original | generated | diff** (pink = sub-pixel differences, red = real differences).
 
 Pixel diff = share of pixels that differ at 110 dpi; tolerant = still different when a 1px shift is allowed (ignores sub-pixel anti-aliasing).
@@ -10,41 +8,41 @@ Pixel diff = share of pixels that differ at 110 dpi; tolerant = still different 
 
 | page | pixel diff | tolerant diff | words missing | words extra | fills only in original | fills only in generated | verdict (>=96%) |
 |---|---|---|---|---|---|---|---|
-| 1 | 16.62% | 14.35% | 429 | 69 | #c6e0b4 #d6dce4 #d9e1f2 #ddebf7 #e2efda #f2f2f2 #fce4d6 #ff0000 #ffe699 #fff2cc | #00b050 | ❌ FAIL (pixels 14.35%>4%, fills 10orig/1gen, words 429miss/69extra) |
-| 2 | 16.15% | 14.30% | 492 | 147 | #c6e0b4 #d6dce4 #d9e1f2 #ddebf7 #e2efda #f2f2f2 #fce4d6 #ff0000 #ffe699 #fff2cc | #00b050 | ❌ FAIL (pixels 14.30%>4%, fills 10orig/1gen, words 492miss/147extra) |
-| 3 | 15.99% | 14.15% | 524 | 187 | #c6e0b4 #d6dce4 #d9e1f2 #ddebf7 #e2efda #f2f2f2 #fce4d6 #ff0000 #ffe699 #fff2cc | #00b050 | ❌ FAIL (pixels 14.15%>4%, fills 10orig/1gen, words 524miss/187extra) |
-| 4 | 16.64% | 14.92% | 559 | 372 | #f2f2f2 #fce4d6 #fff2cc | #ffc000 | ❌ FAIL (pixels 14.92%>4%, fills 3orig/1gen, words 559miss/372extra) |
-| 5 | 15.54% | 13.50% | 457 | 320 | #f2f2f2 #fce4d6 #fff2cc | #ffc000 | ❌ FAIL (pixels 13.50%>4%, fills 3orig/1gen, words 457miss/320extra) |
+| 1 | 20.98% | 16.45% | 59 | 183 | #c6e0b4 #d6dce4 #d9e1f2 #ddebf7 #e2efda #f2f2f2 #fce4d6 #ff0000 #ffe699 #fff2cc | #00b050 | ❌ FAIL (pixels 16.45%>4%, fills 10orig/1gen, words 59miss/183extra) |
+| 2 | 20.33% | 15.90% | 60 | 180 | #c6e0b4 #d6dce4 #d9e1f2 #ddebf7 #e2efda #f2f2f2 #fce4d6 #ff0000 #ffe699 #fff2cc | #00b050 #ffc000 | ❌ FAIL (pixels 15.90%>4%, fills 10orig/2gen, words 60miss/180extra) |
+| 3 | 19.61% | 14.75% | 64 | 183 | #c6e0b4 #d6dce4 #d9e1f2 #ddebf7 #e2efda #f2f2f2 #fce4d6 #ff0000 #ffe699 #fff2cc | #ffc000 #ffff00 | ❌ FAIL (pixels 14.75%>4%, fills 10orig/2gen, words 64miss/183extra) |
+| 4 | 20.05% | 17.13% | 52 | 96 | #f2f2f2 #fce4d6 #fff2cc | #00b050 | ❌ FAIL (pixels 17.13%>4%, fills 3orig/1gen, words 52miss/96extra) |
+| 5 | 18.85% | 15.16% | 26 | 96 | #f2f2f2 #fce4d6 #fff2cc | #00b050 #ffc000 | ❌ FAIL (pixels 15.16%>4%, fills 3orig/2gen, words 26miss/96extra) |
 
 **Verdict summary: 0/5 pages meet the >=96% bar** (tolerant diff <= 4% AND zero fill diffs AND zero word diffs).
 
 ## Page 1
-missing: `{'0': 105, 'WAS': 15, 'JML': 11, 'WAV': 10, 'DC': 10, '100': 10, 'Daraja': 10, '(Bora': 10, 'Sana)': 10, 'SERIKALI': 10}`
-extra: `{'W': 13, 'L': 6, 'S': 5, 'AS': 4, 'U': 4, 'I': 4, 'J': 3, 'M': 3, 'N': 3, 'A': 2}`
+missing: `{'WAS': 14, 'SERIKALI': 8, 'JML': 6, 'WAV': 4, 'A-D': 2, 'WASTANI': 2, 'KUNDI': 2, 'LA': 2, 'UMAHIRI': 2, 'ISAFAN': 2}`
+extra: `{'W': 26, 'A': 26, 'L': 12, 'S': 10, 'AS': 8, 'U': 8, 'I': 8, 'J': 6, 'M': 6, 'N': 6}`
 
 ![page 1](page_01.png)
 
 ## Page 2
-missing: `{'0': 60, 'WAS': 15, '9': 13, 'JML': 11, 'BINAFSI': 11, 'WAV': 10, 'Daraja': 10, '7': 10, '8': 10, 'D': 10}`
-extra: `{'W': 13, 'A': 12, 'DC': 7, 'L': 6, 'S': 5, 'AS': 4, 'U': 4, 'I': 4, 'KWIMBA': 4, '46': 4}`
+missing: `{'WAS': 14, 'SERIKALI': 10, 'JML': 6, 'WAV': 4, 'A-D': 2, 'WASTANI': 2, 'KUNDI': 2, 'LA': 2, 'UMAHIRI': 2, 'ISAFAN': 2}`
+extra: `{'W': 26, 'A': 26, 'L': 12, 'S': 10, 'AS': 8, 'U': 8, 'I': 8, 'J': 6, 'M': 6, 'N': 6}`
 
 ![page 2](page_02.png)
 
 ## Page 3
-missing: `{'1': 22, '3': 21, '2': 18, '8': 16, 'WAS': 15, '5': 12, 'JML': 11, 'SERIKALI': 11, '13': 11, 'C': 11}`
-extra: `{'A': 22, '0': 18, 'W': 13, '(Bora': 10, 'Sana)': 10, '22': 7, 'L': 6, 'S': 5, 'AS': 4, 'U': 4}`
+missing: `{'WAS': 14, 'SERIKALI': 10, 'JML': 6, 'WAV': 4, 'A-D': 2, 'WASTANI': 2, 'KUNDI': 2, 'LA': 2, 'UMAHIRI': 2, 'ISAFAN': 2}`
+extra: `{'W': 26, 'A': 26, 'L': 12, 'S': 10, 'AS': 8, 'U': 8, 'I': 8, 'J': 6, 'M': 6, 'N': 6}`
 
 ![page 3](page_03.png)
 
 ## Page 4
-missing: `{'A': 107, 'B': 32, '(Bora': 20, 'Sana)': 20, 'DRJ': 12, 'AL': 11, 'DC': 11, 'SERIKALI': 11, 'BINAFSI': 10, 'Daraja': 10}`
-extra: `{'0': 41, 'W': 13, 'D': 12, '(Wastani)': 10, 'UKEREWE': 9, '1': 7, '13': 7, 'L': 6, 'WAV': 6, '24': 6}`
+missing: `{'YA': 4, 'INATSAW': 2, 'AW': 2, 'AJARAD': 2, 'ISAFAN': 2, 'JIOGRAFIA': 2, 'HISTORIA': 2, 'TZ': 2, 'MAZINGIRA': 2, 'MAADILI': 2}`
+extra: `{'A': 16, 'I': 8, 'R': 6, 'T': 6, 'M': 4, 'G': 4, 'Z': 4, 'WASTANI': 2, 'UFAULU': 2, 'KIMASOMO': 2}`
 
 ![page 4](page_04.png)
 
 ## Page 5
-missing: `{'A': 48, 'D': 45, 'C': 13, 'E': 13, 'DRJ': 12, 'AL': 11, 'BINAFSI': 11, 'B': 11, 'Daraja': 10, '(Bora': 10}`
-extra: `{'0': 41, 'W': 13, '1': 7, 'L': 6, 'WAV': 6, '13': 6, '24': 6, 'S': 5, 'JML': 5, '38': 5}`
+missing: `{'INATSAW': 2, 'AW': 2, '03/ULUAFU': 2, '/INATSAW': 2, '05': 2, 'AJARAD': 2, 'ISAFAN': 2, 'HISTORIA': 2, 'YA': 2, 'JIOGRAFIA': 2}`
+extra: `{'A': 16, 'I': 8, 'R': 6, 'T': 6, 'M': 4, 'G': 4, 'Z': 4, 'WASTANI': 2, 'WA': 2, 'UFAULU': 2}`
 
 ![page 5](page_05.png)
 

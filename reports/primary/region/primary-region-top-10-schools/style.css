@@ -113,3 +113,30 @@ td.comp { text-align: left; font-weight: bold; padding-left: 1pt; font-size: 5.2
 .lvl-c { background: var(--lvl-c); color: var(--lvl-c-ink); }
 .lvl-d { background: var(--lvl-d); color: var(--lvl-d-ink); }
 .lvl-f { background: var(--lvl-f); color: var(--lvl-f-ink); }
+
+/* -------------------------------------------------------------------------
+ * "subj" layout blocks (source pages 4-5): the per-subject AL/DRJ marks grid.
+ * S/N | WILAYA | KATA | JINA LA SHULE | UMILIKI | 6 subjects (AL+DRJ)
+ *   | UFAULU/300 | WASTANI/50 | DARAJA | KUNDI LA UMAHIRI | NAFASI
+ * Column x-centres measured from THIS report's OWN reference original. The grid
+ * body/header are untinted like the original; only .lvl-* is data-driven.
+ * ------------------------------------------------------------------------- */
+table.schools {
+  width: 685.0pt;             /* 48 .. 733 */
+  margin: 3pt 0 0 48pt;
+  border-collapse: collapse;
+  table-layout: fixed;
+  border: 0.8pt solid var(--grid);
+}
+table.schools col.c-sn      { width: 24.0pt; }
+table.schools col.c-wil     { width: 55.0pt; }
+table.schools col.c-kata    { width: 48.0pt; }
+table.schools col.c-sch     { width: 74.0pt; }
+table.schools col.c-own     { width: 40.0pt; }
+table.schools col.c-al      { width: 21.0pt; }
+table.schools col.c-drj     { width: 21.0pt; }
+table.schools col.c-ufaulu  { width: 30.0pt; }
+table.schools col.c-wastani { width: 30.0pt; }
+table.schools col.c-daraja  { width: 22.0pt; }
+table.schools col.c-comp    { width: 78.0pt; }
+table.schools col.c-nafasi  { width: 22.0pt; }

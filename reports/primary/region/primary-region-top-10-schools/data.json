@@ -7,11 +7,21 @@
       "MKOA WA MWANZA"
     ],
     "exam_name": "MATOKEO YA MTIHANI WA MOCK MKOA DARASA LA NNE MWEZI AGOSTI, 2026",
-    "report_title": "SHULE KUMI BORA MKOA"
+    "report_title": "SHULE KUMI BORA MKOA",
+    "subjects": [
+      "HISABATI",
+      "KISWAHILI",
+      "SAYANSI",
+      "ENGLISH",
+      "JIOGRAFIA & MAZINGIRA",
+      "HISTORIA YA TZ & MAADILI"
+    ]
   },
   "sections": [
     {
       "title": "SHULE KUMI BORA MKOA",
+      "page": 0,
+      "page_top": true,
       "rows": [
         {
           "sn": "01",
@@ -46,7 +56,8 @@
           "e_pct": "0",
           "wastani": "289.800",
           "competency": "Daraja A (Bora Sana)",
-          "nm": "1"
+          "nm": "1",
+          "level": "A"
         },
         {
           "sn": "02",
@@ -81,7 +92,8 @@
           "e_pct": "0",
           "wastani": "289.280",
           "competency": "Daraja A (Bora Sana)",
-          "nm": "2"
+          "nm": "2",
+          "level": "A"
         },
         {
           "sn": "03",
@@ -116,7 +128,8 @@
           "e_pct": "0",
           "wastani": "288.110",
           "competency": "Daraja A (Bora Sana)",
-          "nm": "3"
+          "nm": "3",
+          "level": "A"
         },
         {
           "sn": "04",
@@ -151,7 +164,8 @@
           "e_pct": "0",
           "wastani": "287.230",
           "competency": "Daraja A (Bora Sana)",
-          "nm": "4"
+          "nm": "4",
+          "level": "A"
         },
         {
           "sn": "05",
@@ -186,7 +200,8 @@
           "e_pct": "0",
           "wastani": "284.830",
           "competency": "Daraja A (Bora Sana)",
-          "nm": "5"
+          "nm": "5",
+          "level": "A"
         },
         {
           "sn": "06",
@@ -221,7 +236,8 @@
           "e_pct": "0",
           "wastani": "283.420",
           "competency": "Daraja A (Bora Sana)",
-          "nm": "6"
+          "nm": "6",
+          "level": "A"
         },
         {
           "sn": "07",
@@ -256,7 +272,8 @@
           "e_pct": "0",
           "wastani": "283.090",
           "competency": "Daraja A (Bora Sana)",
-          "nm": "7"
+          "nm": "7",
+          "level": "A"
         },
         {
           "sn": "08",
@@ -291,7 +308,8 @@
           "e_pct": "0",
           "wastani": "282.000",
           "competency": "Daraja A (Bora Sana)",
-          "nm": "8"
+          "nm": "8",
+          "level": "A"
         },
         {
           "sn": "09",
@@ -326,7 +344,8 @@
           "e_pct": "0",
           "wastani": "281.860",
           "competency": "Daraja A (Bora Sana)",
-          "nm": "9"
+          "nm": "9",
+          "level": "A"
         },
         {
           "sn": "10",
@@ -361,12 +380,16 @@
           "e_pct": "0",
           "wastani": "281.750",
           "competency": "Daraja A (Bora Sana)",
-          "nm": "10"
+          "nm": "10",
+          "level": "A"
         }
-      ]
+      ],
+      "layout": "grid"
     },
     {
       "title": "SHULE KUMI BORA ZA SERIKALI MKOA",
+      "page": 0,
+      "page_top": false,
       "rows": [
         {
           "sn": "01",
@@ -401,7 +424,8 @@
           "e_pct": "0",
           "wastani": "270.00",
           "competency": "Daraja A (Bora Sana)",
-          "nm": "1"
+          "nm": "1",
+          "level": "A"
         },
         {
           "sn": "02",
@@ -436,7 +460,8 @@
           "e_pct": "0",
           "wastani": "265.02",
           "competency": "Daraja A (Bora Sana)",
-          "nm": "2"
+          "nm": "2",
+          "level": "A"
         },
         {
           "sn": "03",
@@ -471,7 +496,8 @@
           "e_pct": "0",
           "wastani": "263.93",
           "competency": "Daraja A (Bora Sana)",
-          "nm": "3"
+          "nm": "3",
+          "level": "A"
         },
         {
           "sn": "04",
@@ -506,7 +532,8 @@
           "e_pct": "0",
           "wastani": "263.49",
           "competency": "Daraja A (Bora Sana)",
-          "nm": "4"
+          "nm": "4",
+          "level": "A"
         },
         {
           "sn": "05",
@@ -541,7 +568,8 @@
           "e_pct": "0",
           "wastani": "259.16",
           "competency": "Daraja A (Bora Sana)",
-          "nm": "5"
+          "nm": "5",
+          "level": "A"
         },
         {
           "sn": "06",
@@ -576,7 +604,8 @@
           "e_pct": "0",
           "wastani": "259.08",
           "competency": "Daraja A (Bora Sana)",
-          "nm": "6"
+          "nm": "6",
+          "level": "A"
         },
         {
           "sn": "07",
@@ -611,7 +640,8 @@
           "e_pct": "0",
           "wastani": "258.43",
           "competency": "Daraja A (Bora Sana)",
-          "nm": "7"
+          "nm": "7",
+          "level": "A"
         },
         {
           "sn": "08",
@@ -646,7 +676,8 @@
           "e_pct": "0",
           "wastani": "257.10",
           "competency": "Daraja A (Bora Sana)",
-          "nm": "8"
+          "nm": "8",
+          "level": "A"
         },
         {
           "sn": "09",
@@ -681,7 +712,8 @@
           "e_pct": "0",
           "wastani": "256.04",
           "competency": "Daraja A (Bora Sana)",
-          "nm": "9"
+          "nm": "9",
+          "level": "A"
         },
         {
           "sn": "10",
@@ -716,12 +748,16 @@
           "e_pct": "0",
           "wastani": "254.00",
           "competency": "Daraja A (Bora Sana)",
-          "nm": "10"
+          "nm": "10",
+          "level": "A"
         }
-      ]
+      ],
+      "layout": "grid"
     },
     {
       "title": "SHULE KUMI BORA ZA BINAFSI MKOA",
+      "page": 1,
+      "page_top": true,
       "rows": [
         {
           "sn": "01",
@@ -756,7 +792,8 @@
           "e_pct": "0",
           "wastani": "289.80",
           "competency": "Daraja A (Bora Sana)",
-          "nm": "1"
+          "nm": "1",
+          "level": "A"
         },
         {
           "sn": "02",
@@ -791,7 +828,8 @@
           "e_pct": "0",
           "wastani": "289.28",
           "competency": "Daraja A (Bora Sana)",
-          "nm": "2"
+          "nm": "2",
+          "level": "A"
         },
         {
           "sn": "03",
@@ -826,7 +864,8 @@
           "e_pct": "0",
           "wastani": "288.11",
           "competency": "Daraja A (Bora Sana)",
-          "nm": "3"
+          "nm": "3",
+          "level": "A"
         },
         {
           "sn": "04",
@@ -861,7 +900,8 @@
           "e_pct": "0",
           "wastani": "287.23",
           "competency": "Daraja A (Bora Sana)",
-          "nm": "4"
+          "nm": "4",
+          "level": "A"
         },
         {
           "sn": "05",
@@ -896,7 +936,8 @@
           "e_pct": "0",
           "wastani": "284.83",
           "competency": "Daraja A (Bora Sana)",
-          "nm": "5"
+          "nm": "5",
+          "level": "A"
         },
         {
           "sn": "06",
@@ -931,7 +972,8 @@
           "e_pct": "0",
           "wastani": "283.42",
           "competency": "Daraja A (Bora Sana)",
-          "nm": "6"
+          "nm": "6",
+          "level": "A"
         },
         {
           "sn": "07",
@@ -966,7 +1008,8 @@
           "e_pct": "0",
           "wastani": "283.09",
           "competency": "Daraja A (Bora Sana)",
-          "nm": "7"
+          "nm": "7",
+          "level": "A"
         },
         {
           "sn": "08",
@@ -1001,7 +1044,8 @@
           "e_pct": "0",
           "wastani": "282.00",
           "competency": "Daraja A (Bora Sana)",
-          "nm": "8"
+          "nm": "8",
+          "level": "A"
         },
         {
           "sn": "09",
@@ -1036,7 +1080,8 @@
           "e_pct": "0",
           "wastani": "281.86",
           "competency": "Daraja A (Bora Sana)",
-          "nm": "9"
+          "nm": "9",
+          "level": "A"
         },
         {
           "sn": "10",
@@ -1071,12 +1116,16 @@
           "e_pct": "0",
           "wastani": "281.75",
           "competency": "Daraja A (Bora Sana)",
-          "nm": "10"
+          "nm": "10",
+          "level": "A"
         }
-      ]
+      ],
+      "layout": "grid"
     },
     {
       "title": "SHULE KUMI DUNI JUMLA MKOA",
+      "page": 1,
+      "page_top": false,
       "rows": [
         {
           "sn": "01",
@@ -1111,7 +1160,8 @@
           "e_pct": "33.77",
           "wastani": "81.51",
           "competency": "Daraja D (Wastani)",
-          "nm": "10"
+          "nm": "10",
+          "level": "D"
         },
         {
           "sn": "02",
@@ -1146,7 +1196,8 @@
           "e_pct": "33.85",
           "wastani": "82.87",
           "competency": "Daraja D (Wastani)",
-          "nm": "9"
+          "nm": "9",
+          "level": "D"
         },
         {
           "sn": "03",
@@ -1181,7 +1232,8 @@
           "e_pct": "22.54",
           "wastani": "90.28",
           "competency": "Daraja D (Wastani)",
-          "nm": "8"
+          "nm": "8",
+          "level": "D"
         },
         {
           "sn": "04",
@@ -1216,7 +1268,8 @@
           "e_pct": "25.37",
           "wastani": "91.19",
           "competency": "Daraja D (Wastani)",
-          "nm": "7"
+          "nm": "7",
+          "level": "D"
         },
         {
           "sn": "05",
@@ -1251,7 +1304,8 @@
           "e_pct": "25.81",
           "wastani": "91.92",
           "competency": "Daraja D (Wastani)",
-          "nm": "6"
+          "nm": "6",
+          "level": "D"
         },
         {
           "sn": "06",
@@ -1286,7 +1340,8 @@
           "e_pct": "21.05",
           "wastani": "93.97",
           "competency": "Daraja D (Wastani)",
-          "nm": "5"
+          "nm": "5",
+          "level": "D"
         },
         {
           "sn": "07",
@@ -1321,7 +1376,8 @@
           "e_pct": "12.68",
           "wastani": "94.86",
           "competency": "Daraja D (Wastani)",
-          "nm": "4"
+          "nm": "4",
+          "level": "D"
         },
         {
           "sn": "08",
@@ -1356,7 +1412,8 @@
           "e_pct": "22.66",
           "wastani": "98.72",
           "competency": "Daraja D (Wastani)",
-          "nm": "3"
+          "nm": "3",
+          "level": "D"
         },
         {
           "sn": "09",
@@ -1391,7 +1448,8 @@
           "e_pct": "17.82",
           "wastani": "99.33",
           "competency": "Daraja D (Wastani)",
-          "nm": "2"
+          "nm": "2",
+          "level": "D"
         },
         {
           "sn": "10",
@@ -1426,12 +1484,16 @@
           "e_pct": "14.06",
           "wastani": "100.72",
           "competency": "Daraja D (Wastani)",
-          "nm": "1"
+          "nm": "1",
+          "level": "D"
         }
-      ]
+      ],
+      "layout": "grid"
     },
     {
       "title": "SHULE KUMI DUNI SERIKALI MKOA",
+      "page": 2,
+      "page_top": true,
       "rows": [
         {
           "sn": "01",
@@ -1466,7 +1528,8 @@
           "e_pct": "33.77",
           "wastani": "81.51",
           "competency": "Daraja D (Wastani)",
-          "nm": "10"
+          "nm": "10",
+          "level": "D"
         },
         {
           "sn": "02",
@@ -1501,7 +1564,8 @@
           "e_pct": "33.85",
           "wastani": "82.87",
           "competency": "Daraja D (Wastani)",
-          "nm": "9"
+          "nm": "9",
+          "level": "D"
         },
         {
           "sn": "03",
@@ -1536,7 +1600,8 @@
           "e_pct": "22.54",
           "wastani": "90.28",
           "competency": "Daraja D (Wastani)",
-          "nm": "8"
+          "nm": "8",
+          "level": "D"
         },
         {
           "sn": "04",
@@ -1571,7 +1636,8 @@
           "e_pct": "25.37",
           "wastani": "91.19",
           "competency": "Daraja D (Wastani)",
-          "nm": "7"
+          "nm": "7",
+          "level": "D"
         },
         {
           "sn": "05",
@@ -1606,7 +1672,8 @@
           "e_pct": "25.81",
           "wastani": "91.92",
           "competency": "Daraja D (Wastani)",
-          "nm": "6"
+          "nm": "6",
+          "level": "D"
         },
         {
           "sn": "06",
@@ -1641,7 +1708,8 @@
           "e_pct": "21.05",
           "wastani": "93.97",
           "competency": "Daraja D (Wastani)",
-          "nm": "5"
+          "nm": "5",
+          "level": "D"
         },
         {
           "sn": "07",
@@ -1676,7 +1744,8 @@
           "e_pct": "12.68",
           "wastani": "94.86",
           "competency": "Daraja D (Wastani)",
-          "nm": "4"
+          "nm": "4",
+          "level": "D"
         },
         {
           "sn": "08",
@@ -1711,7 +1780,8 @@
           "e_pct": "22.66",
           "wastani": "98.72",
           "competency": "Daraja D (Wastani)",
-          "nm": "3"
+          "nm": "3",
+          "level": "D"
         },
         {
           "sn": "09",
@@ -1746,7 +1816,8 @@
           "e_pct": "17.82",
           "wastani": "99.33",
           "competency": "Daraja D (Wastani)",
-          "nm": "2"
+          "nm": "2",
+          "level": "D"
         },
         {
           "sn": "10",
@@ -1781,12 +1852,16 @@
           "e_pct": "14.06",
           "wastani": "100.72",
           "competency": "Daraja D (Wastani)",
-          "nm": "1"
+          "nm": "1",
+          "level": "D"
         }
-      ]
+      ],
+      "layout": "grid"
     },
     {
       "title": "SHULE KUMI DUNI BINAFSI MKOA",
+      "page": 2,
+      "page_top": false,
       "rows": [
         {
           "sn": "01",
@@ -1821,7 +1896,8 @@
           "e_pct": "6.25",
           "wastani": "134.44",
           "competency": "Daraja C (Vizuri)",
-          "nm": "10"
+          "nm": "10",
+          "level": "C"
         },
         {
           "sn": "02",
@@ -1856,7 +1932,8 @@
           "e_pct": "0",
           "wastani": "141.40",
           "competency": "Daraja C (Vizuri)",
-          "nm": "9"
+          "nm": "9",
+          "level": "C"
         },
         {
           "sn": "03",
@@ -1891,7 +1968,8 @@
           "e_pct": "0",
           "wastani": "144.15",
           "competency": "Daraja C (Vizuri)",
-          "nm": "8"
+          "nm": "8",
+          "level": "C"
         },
         {
           "sn": "04",
@@ -1926,7 +2004,8 @@
           "e_pct": "0",
           "wastani": "146.50",
           "competency": "Daraja C (Vizuri)",
-          "nm": "7"
+          "nm": "7",
+          "level": "C"
         },
         {
           "sn": "05",
@@ -1961,7 +2040,8 @@
           "e_pct": "0",
           "wastani": "152.79",
           "competency": "Daraja C (Vizuri)",
-          "nm": "6"
+          "nm": "6",
+          "level": "C"
         },
         {
           "sn": "06",
@@ -1996,7 +2076,8 @@
           "e_pct": "0",
           "wastani": "154.13",
           "competency": "Daraja C (Vizuri)",
-          "nm": "5"
+          "nm": "5",
+          "level": "C"
         },
         {
           "sn": "07",
@@ -2031,7 +2112,8 @@
           "e_pct": "0",
           "wastani": "157.23",
           "competency": "Daraja C (Vizuri)",
-          "nm": "4"
+          "nm": "4",
+          "level": "C"
         },
         {
           "sn": "08",
@@ -2066,7 +2148,8 @@
           "e_pct": "0",
           "wastani": "162.00",
           "competency": "Daraja C (Vizuri)",
-          "nm": "3"
+          "nm": "3",
+          "level": "C"
         },
         {
           "sn": "09",
@@ -2101,7 +2184,8 @@
           "e_pct": "3.13",
           "wastani": "162.60",
           "competency": "Daraja C (Vizuri)",
-          "nm": "2"
+          "nm": "2",
+          "level": "C"
         },
         {
           "sn": "10",
@@ -2136,9 +2220,1043 @@
           "e_pct": "0",
           "wastani": "166.23",
           "competency": "Daraja C (Vizuri)",
-          "nm": "1"
+          "nm": "1",
+          "level": "C"
         }
-      ]
+      ],
+      "layout": "grid"
+    },
+    {
+      "title": "SHULE KUMI BORA JUMLA MKOA",
+      "page": 3,
+      "page_top": true,
+      "rows": [
+        {
+          "sn": "1",
+          "wilaya": "SENGEREMA DC",
+          "kata": "NYAMPANDE",
+          "school": "VEMA",
+          "ownership": "BINAFSI",
+          "hisabati_al": "49.8",
+          "hisabati_g": "A",
+          "kiswahili_al": "49.4",
+          "kiswahili_g": "A",
+          "sayansi_al": "46.4",
+          "sayansi_g": "A",
+          "english_al": "49.7",
+          "english_g": "A",
+          "jiografia_al": "45",
+          "jiografia_g": "A",
+          "historia_al": "49.6",
+          "historia_g": "A",
+          "ufaulu": "289.8",
+          "wastani": "48.3",
+          "daraja": "A",
+          "competency": "Daraja A (Bora Sana)",
+          "nm": "1",
+          "level": "A"
+        },
+        {
+          "sn": "2",
+          "wilaya": "MWANZA CC",
+          "kata": "MAHINA",
+          "school": "ALLIANCE",
+          "ownership": "BINAFSI",
+          "hisabati_al": "39",
+          "hisabati_g": "B",
+          "kiswahili_al": "39.1",
+          "kiswahili_g": "B",
+          "sayansi_al": "38.4",
+          "sayansi_g": "B",
+          "english_al": "37.6",
+          "english_g": "B",
+          "jiografia_al": "34",
+          "jiografia_g": "B",
+          "historia_al": "38.4",
+          "historia_g": "B",
+          "ufaulu": "289.28",
+          "wastani": "48.21",
+          "daraja": "A",
+          "competency": "Daraja A (Bora Sana)",
+          "nm": "2",
+          "level": "A"
+        },
+        {
+          "sn": "3",
+          "wilaya": "ILEMELA MC",
+          "kata": "BUSWELU",
+          "school": "JOSPAL",
+          "ownership": "BINAFSI",
+          "hisabati_al": "50",
+          "hisabati_g": "A",
+          "kiswahili_al": "49.9",
+          "kiswahili_g": "A",
+          "sayansi_al": "45.9",
+          "sayansi_g": "A",
+          "english_al": "50",
+          "english_g": "A",
+          "jiografia_al": "42.9",
+          "jiografia_g": "A",
+          "historia_al": "49.4",
+          "historia_g": "A",
+          "ufaulu": "288.11",
+          "wastani": "48.02",
+          "daraja": "A",
+          "competency": "Daraja A (Bora Sana)",
+          "nm": "3",
+          "level": "A"
+        },
+        {
+          "sn": "4",
+          "wilaya": "ILEMELA MC",
+          "kata": "BUGOGWA",
+          "school": "QUALITY SPRINGS",
+          "ownership": "BINAFSI",
+          "hisabati_al": "48",
+          "hisabati_g": "A",
+          "kiswahili_al": "48.9",
+          "kiswahili_g": "A",
+          "sayansi_al": "46",
+          "sayansi_g": "A",
+          "english_al": "49.7",
+          "english_g": "A",
+          "jiografia_al": "45.9",
+          "jiografia_g": "A",
+          "historia_al": "48.8",
+          "historia_g": "A",
+          "ufaulu": "287.23",
+          "wastani": "47.87",
+          "daraja": "A",
+          "competency": "Daraja A (Bora Sana)",
+          "nm": "4",
+          "level": "A"
+        },
+        {
+          "sn": "5",
+          "wilaya": "MAGU",
+          "kata": "BUKANDWE",
+          "school": "JOYOUS",
+          "ownership": "BINAFSI",
+          "hisabati_al": "47.9",
+          "hisabati_g": "A",
+          "kiswahili_al": "43.7",
+          "kiswahili_g": "A",
+          "sayansi_al": "42.2",
+          "sayansi_g": "A",
+          "english_al": "47.8",
+          "english_g": "A",
+          "jiografia_al": "45",
+          "jiografia_g": "A",
+          "historia_al": "46.4",
+          "historia_g": "A",
+          "ufaulu": "284.83",
+          "wastani": "47.47",
+          "daraja": "A",
+          "competency": "Daraja A (Bora Sana)",
+          "nm": "5",
+          "level": "A"
+        },
+        {
+          "sn": "6",
+          "wilaya": "MAGU",
+          "kata": "BUKANDWE",
+          "school": "KILIMANJARO",
+          "ownership": "BINAFSI",
+          "hisabati_al": "47",
+          "hisabati_g": "A",
+          "kiswahili_al": "49.9",
+          "kiswahili_g": "A",
+          "sayansi_al": "45.8",
+          "sayansi_g": "A",
+          "english_al": "48.2",
+          "english_g": "A",
+          "jiografia_al": "45.2",
+          "jiografia_g": "A",
+          "historia_al": "47.3",
+          "historia_g": "A",
+          "ufaulu": "283.42",
+          "wastani": "47.24",
+          "daraja": "A",
+          "competency": "Daraja A (Bora Sana)",
+          "nm": "6",
+          "level": "A"
+        },
+        {
+          "sn": "7",
+          "wilaya": "ILEMELA MC",
+          "kata": "KAHAMA",
+          "school": "GADI'S",
+          "ownership": "BINAFSI",
+          "hisabati_al": "44.1",
+          "hisabati_g": "A",
+          "kiswahili_al": "49.8",
+          "kiswahili_g": "A",
+          "sayansi_al": "47.5",
+          "sayansi_g": "A",
+          "english_al": "49.4",
+          "english_g": "A",
+          "jiografia_al": "43.8",
+          "jiografia_g": "A",
+          "historia_al": "48.5",
+          "historia_g": "A",
+          "ufaulu": "283.09",
+          "wastani": "47.18",
+          "daraja": "A",
+          "competency": "Daraja A (Bora Sana)",
+          "nm": "7",
+          "level": "A"
+        },
+        {
+          "sn": "8",
+          "wilaya": "MAGU",
+          "kata": "KITONGOSIMA",
+          "school": "TREE OF LIFE",
+          "ownership": "BINAFSI",
+          "hisabati_al": "38.8",
+          "hisabati_g": "B",
+          "kiswahili_al": "36.3",
+          "kiswahili_g": "B",
+          "sayansi_al": "33.8",
+          "sayansi_g": "B",
+          "english_al": "36.8",
+          "english_g": "B",
+          "jiografia_al": "35.1",
+          "jiografia_g": "B",
+          "historia_al": "38.6",
+          "historia_g": "B",
+          "ufaulu": "282",
+          "wastani": "47",
+          "daraja": "A",
+          "competency": "Daraja A (Bora Sana)",
+          "nm": "8",
+          "level": "A"
+        },
+        {
+          "sn": "9",
+          "wilaya": "MISUNGWI DC",
+          "kata": "FELLA",
+          "school": "SPLENDID STARS",
+          "ownership": "BINAFSI",
+          "hisabati_al": "48.3",
+          "hisabati_g": "A",
+          "kiswahili_al": "45.1",
+          "kiswahili_g": "A",
+          "sayansi_al": "41",
+          "sayansi_g": "A",
+          "english_al": "48.4",
+          "english_g": "A",
+          "jiografia_al": "44.6",
+          "jiografia_g": "A",
+          "historia_al": "49",
+          "historia_g": "A",
+          "ufaulu": "281.86",
+          "wastani": "46.98",
+          "daraja": "A",
+          "competency": "Daraja A (Bora Sana)",
+          "nm": "9",
+          "level": "A"
+        },
+        {
+          "sn": "10",
+          "wilaya": "MWANZA CC",
+          "kata": "MKOLANI",
+          "school": "GLORY",
+          "ownership": "BINAFSI",
+          "hisabati_al": "25.2",
+          "hisabati_g": "C",
+          "kiswahili_al": "26.4",
+          "kiswahili_g": "C",
+          "sayansi_al": "24.1",
+          "sayansi_g": "C",
+          "english_al": "26",
+          "english_g": "C",
+          "jiografia_al": "23.5",
+          "jiografia_g": "C",
+          "historia_al": "25.1",
+          "historia_g": "C",
+          "ufaulu": "281.75",
+          "wastani": "46.96",
+          "daraja": "A",
+          "competency": "Daraja A (Bora Sana)",
+          "nm": "10",
+          "level": "A"
+        }
+      ],
+      "layout": "subj"
+    },
+    {
+      "title": "SHULE KUMI BORA ZA SERIKALI MKOA",
+      "page": 3,
+      "page_top": false,
+      "rows": [
+        {
+          "sn": "1",
+          "wilaya": "KWIMBA DC",
+          "kata": "NGUDU",
+          "school": "KWIMBA ENGLISH MED",
+          "ownership": "SERIKALI",
+          "hisabati_al": "42.6",
+          "hisabati_g": "A",
+          "kiswahili_al": "41",
+          "kiswahili_g": "A",
+          "sayansi_al": "41",
+          "sayansi_g": "A",
+          "english_al": "50",
+          "english_g": "A",
+          "jiografia_al": "50",
+          "jiografia_g": "A",
+          "historia_al": "45.4",
+          "historia_g": "A",
+          "ufaulu": "270",
+          "wastani": "45",
+          "daraja": "A",
+          "competency": "Daraja A (Bora Sana)",
+          "nm": "1",
+          "level": "A"
+        },
+        {
+          "sn": "2",
+          "wilaya": "BUCHOSA DC",
+          "kata": "KALEBEZO",
+          "school": "NYASHANA",
+          "ownership": "SERIKALI",
+          "hisabati_al": "41.6",
+          "hisabati_g": "A",
+          "kiswahili_al": "46.4",
+          "kiswahili_g": "A",
+          "sayansi_al": "45",
+          "sayansi_g": "A",
+          "english_al": "43.7",
+          "english_g": "A",
+          "jiografia_al": "41.3",
+          "jiografia_g": "A",
+          "historia_al": "41.4",
+          "historia_g": "A",
+          "ufaulu": "265.02",
+          "wastani": "44.17",
+          "daraja": "A",
+          "competency": "Daraja A (Bora Sana)",
+          "nm": "2",
+          "level": "A"
+        },
+        {
+          "sn": "3",
+          "wilaya": "BUCHOSA DC",
+          "kata": "KAZUNZU",
+          "school": "ILYAMCHELE",
+          "ownership": "SERIKALI",
+          "hisabati_al": "39.7",
+          "hisabati_g": "B",
+          "kiswahili_al": "46.3",
+          "kiswahili_g": "A",
+          "sayansi_al": "42.1",
+          "sayansi_g": "A",
+          "english_al": "40.6",
+          "english_g": "A",
+          "jiografia_al": "39.5",
+          "jiografia_g": "B",
+          "historia_al": "46.6",
+          "historia_g": "A",
+          "ufaulu": "263.93",
+          "wastani": "43.99",
+          "daraja": "A",
+          "competency": "Daraja A (Bora Sana)",
+          "nm": "3",
+          "level": "A"
+        },
+        {
+          "sn": "4",
+          "wilaya": "MISUNGWI DC",
+          "kata": "MISUNGWI",
+          "school": "MWAMANGA",
+          "ownership": "SERIKALI",
+          "hisabati_al": "39.6",
+          "hisabati_g": "B",
+          "kiswahili_al": "43.4",
+          "kiswahili_g": "A",
+          "sayansi_al": "37.6",
+          "sayansi_g": "B",
+          "english_al": "38.7",
+          "english_g": "B",
+          "jiografia_al": "41.6",
+          "jiografia_g": "A",
+          "historia_al": "44.3",
+          "historia_g": "A",
+          "ufaulu": "263.49",
+          "wastani": "43.92",
+          "daraja": "A",
+          "competency": "Daraja A (Bora Sana)",
+          "nm": "4",
+          "level": "A"
+        },
+        {
+          "sn": "5",
+          "wilaya": "MISUNGWI DC",
+          "kata": "MBARIKA",
+          "school": "MBARIKA",
+          "ownership": "SERIKALI",
+          "hisabati_al": "42.5",
+          "hisabati_g": "A",
+          "kiswahili_al": "41.5",
+          "kiswahili_g": "A",
+          "sayansi_al": "41.3",
+          "sayansi_g": "A",
+          "english_al": "37.7",
+          "english_g": "B",
+          "jiografia_al": "43.1",
+          "jiografia_g": "A",
+          "historia_al": "43.9",
+          "historia_g": "A",
+          "ufaulu": "259.16",
+          "wastani": "43.19",
+          "daraja": "A",
+          "competency": "Daraja A (Bora Sana)",
+          "nm": "5",
+          "level": "A"
+        },
+        {
+          "sn": "6",
+          "wilaya": "KWIMBA DC",
+          "kata": "LYOMA",
+          "school": "NKUNGULU",
+          "ownership": "SERIKALI",
+          "hisabati_al": "33.3",
+          "hisabati_g": "B",
+          "kiswahili_al": "40.5",
+          "kiswahili_g": "A",
+          "sayansi_al": "39.9",
+          "sayansi_g": "B",
+          "english_al": "38.5",
+          "english_g": "B",
+          "jiografia_al": "42.9",
+          "jiografia_g": "A",
+          "historia_al": "40.4",
+          "historia_g": "B",
+          "ufaulu": "259.08",
+          "wastani": "43.18",
+          "daraja": "A",
+          "competency": "Daraja A (Bora Sana)",
+          "nm": "6",
+          "level": "A"
+        },
+        {
+          "sn": "7",
+          "wilaya": "KWIMBA DC",
+          "kata": "NGUDU",
+          "school": "BUDULA",
+          "ownership": "SERIKALI",
+          "hisabati_al": "45.4",
+          "hisabati_g": "A",
+          "kiswahili_al": "43.9",
+          "kiswahili_g": "A",
+          "sayansi_al": "32.5",
+          "sayansi_g": "B",
+          "english_al": "48.2",
+          "english_g": "A",
+          "jiografia_al": "44.6",
+          "jiografia_g": "A",
+          "historia_al": "41.3",
+          "historia_g": "A",
+          "ufaulu": "258.43",
+          "wastani": "43.07",
+          "daraja": "A",
+          "competency": "Daraja A (Bora Sana)",
+          "nm": "7",
+          "level": "A"
+        },
+        {
+          "sn": "8",
+          "wilaya": "BUCHOSA DC",
+          "kata": "KAZUNZU",
+          "school": "KAZUNZU",
+          "ownership": "SERIKALI",
+          "hisabati_al": "43.3",
+          "hisabati_g": "A",
+          "kiswahili_al": "37.8",
+          "kiswahili_g": "B",
+          "sayansi_al": "39.9",
+          "sayansi_g": "B",
+          "english_al": "42.5",
+          "english_g": "A",
+          "jiografia_al": "44.1",
+          "jiografia_g": "A",
+          "historia_al": "49.5",
+          "historia_g": "A",
+          "ufaulu": "257.1",
+          "wastani": "42.85",
+          "daraja": "A",
+          "competency": "Daraja A (Bora Sana)",
+          "nm": "8",
+          "level": "A"
+        },
+        {
+          "sn": "9",
+          "wilaya": "KWIMBA DC",
+          "kata": "LYOMA",
+          "school": "KINAMWELI",
+          "ownership": "SERIKALI",
+          "hisabati_al": "32.3",
+          "hisabati_g": "B",
+          "kiswahili_al": "40.6",
+          "kiswahili_g": "A",
+          "sayansi_al": "37.3",
+          "sayansi_g": "B",
+          "english_al": "41.5",
+          "english_g": "A",
+          "jiografia_al": "40.7",
+          "jiografia_g": "A",
+          "historia_al": "40.3",
+          "historia_g": "B",
+          "ufaulu": "256.04",
+          "wastani": "42.67",
+          "daraja": "A",
+          "competency": "Daraja A (Bora Sana)",
+          "nm": "9",
+          "level": "A"
+        },
+        {
+          "sn": "10",
+          "wilaya": "SENGEREMA DC",
+          "kata": "NYATUKALA",
+          "school": "IYOGELO",
+          "ownership": "SERIKALI",
+          "hisabati_al": "34.8",
+          "hisabati_g": "B",
+          "kiswahili_al": "36.8",
+          "kiswahili_g": "B",
+          "sayansi_al": "39.8",
+          "sayansi_g": "B",
+          "english_al": "35.6",
+          "english_g": "B",
+          "jiografia_al": "38.1",
+          "jiografia_g": "B",
+          "historia_al": "41.4",
+          "historia_g": "A",
+          "ufaulu": "254",
+          "wastani": "42.33",
+          "daraja": "A",
+          "competency": "Daraja A (Bora Sana)",
+          "nm": "10",
+          "level": "A"
+        }
+      ],
+      "layout": "subj"
+    },
+    {
+      "title": "SHULE KUMI BORA BINAFSI MKOA",
+      "page": 4,
+      "page_top": true,
+      "rows": [
+        {
+          "sn": "1",
+          "wilaya": "SENGEREMA DC",
+          "kata": "NYAMPANDE",
+          "school": "VEMA",
+          "ownership": "BINAFSI",
+          "hisabati_al": "49.8",
+          "hisabati_g": "A",
+          "kiswahili_al": "49.4",
+          "kiswahili_g": "A",
+          "sayansi_al": "46.4",
+          "sayansi_g": "A",
+          "english_al": "49.7",
+          "english_g": "A",
+          "jiografia_al": "45.0",
+          "jiografia_g": "A",
+          "historia_al": "49.6",
+          "historia_g": "A",
+          "ufaulu": "289.8",
+          "wastani": "48.3",
+          "daraja": "A",
+          "competency": "Daraja A (Bora Sana)",
+          "nm": "1",
+          "level": "A"
+        },
+        {
+          "sn": "2",
+          "wilaya": "MWANZA CC",
+          "kata": "MAHINA",
+          "school": "ALLIANCE",
+          "ownership": "BINAFSI",
+          "hisabati_al": "39.0",
+          "hisabati_g": "B",
+          "kiswahili_al": "39.1",
+          "kiswahili_g": "B",
+          "sayansi_al": "38.4",
+          "sayansi_g": "B",
+          "english_al": "37.6",
+          "english_g": "B",
+          "jiografia_al": "34.0",
+          "jiografia_g": "B",
+          "historia_al": "38.4",
+          "historia_g": "B",
+          "ufaulu": "289.28",
+          "wastani": "48.21",
+          "daraja": "A",
+          "competency": "Daraja A (Bora Sana)",
+          "nm": "2",
+          "level": "A"
+        },
+        {
+          "sn": "3",
+          "wilaya": "ILEMELA MC",
+          "kata": "BUSWELU",
+          "school": "JOSPAL",
+          "ownership": "BINAFSI",
+          "hisabati_al": "50.0",
+          "hisabati_g": "A",
+          "kiswahili_al": "49.9",
+          "kiswahili_g": "A",
+          "sayansi_al": "45.9",
+          "sayansi_g": "A",
+          "english_al": "50.0",
+          "english_g": "A",
+          "jiografia_al": "42.9",
+          "jiografia_g": "A",
+          "historia_al": "49.4",
+          "historia_g": "A",
+          "ufaulu": "288.11",
+          "wastani": "48.02",
+          "daraja": "A",
+          "competency": "Daraja A (Bora Sana)",
+          "nm": "3",
+          "level": "A"
+        },
+        {
+          "sn": "4",
+          "wilaya": "ILEMELA MC",
+          "kata": "BUGOGWA",
+          "school": "QUALITY SPRINGS",
+          "ownership": "BINAFSI",
+          "hisabati_al": "48.0",
+          "hisabati_g": "A",
+          "kiswahili_al": "48.9",
+          "kiswahili_g": "A",
+          "sayansi_al": "46.0",
+          "sayansi_g": "A",
+          "english_al": "49.7",
+          "english_g": "A",
+          "jiografia_al": "45.9",
+          "jiografia_g": "A",
+          "historia_al": "48.8",
+          "historia_g": "A",
+          "ufaulu": "287.23",
+          "wastani": "47.87",
+          "daraja": "A",
+          "competency": "Daraja A (Bora Sana)",
+          "nm": "4",
+          "level": "A"
+        },
+        {
+          "sn": "5",
+          "wilaya": "MAGU",
+          "kata": "BUKANDWE",
+          "school": "JOYOUS",
+          "ownership": "BINAFSI",
+          "hisabati_al": "47.9",
+          "hisabati_g": "A",
+          "kiswahili_al": "43.7",
+          "kiswahili_g": "A",
+          "sayansi_al": "42.2",
+          "sayansi_g": "A",
+          "english_al": "47.8",
+          "english_g": "A",
+          "jiografia_al": "45.0",
+          "jiografia_g": "A",
+          "historia_al": "46.4",
+          "historia_g": "A",
+          "ufaulu": "284.83",
+          "wastani": "47.47",
+          "daraja": "A",
+          "competency": "Daraja A (Bora Sana)",
+          "nm": "5",
+          "level": "A"
+        },
+        {
+          "sn": "6",
+          "wilaya": "MAGU",
+          "kata": "BUKANDWE",
+          "school": "KILIMANJARO",
+          "ownership": "BINAFSI",
+          "hisabati_al": "47.0",
+          "hisabati_g": "A",
+          "kiswahili_al": "49.9",
+          "kiswahili_g": "A",
+          "sayansi_al": "45.8",
+          "sayansi_g": "A",
+          "english_al": "48.2",
+          "english_g": "A",
+          "jiografia_al": "45.2",
+          "jiografia_g": "A",
+          "historia_al": "47.3",
+          "historia_g": "A",
+          "ufaulu": "283.42",
+          "wastani": "47.24",
+          "daraja": "A",
+          "competency": "Daraja A (Bora Sana)",
+          "nm": "6",
+          "level": "A"
+        },
+        {
+          "sn": "7",
+          "wilaya": "ILEMELA MC",
+          "kata": "KAHAMA",
+          "school": "GADI'S",
+          "ownership": "BINAFSI",
+          "hisabati_al": "44.1",
+          "hisabati_g": "A",
+          "kiswahili_al": "49.8",
+          "kiswahili_g": "A",
+          "sayansi_al": "47.5",
+          "sayansi_g": "A",
+          "english_al": "49.4",
+          "english_g": "A",
+          "jiografia_al": "43.8",
+          "jiografia_g": "A",
+          "historia_al": "48.5",
+          "historia_g": "A",
+          "ufaulu": "283.09",
+          "wastani": "47.18",
+          "daraja": "A",
+          "competency": "Daraja A (Bora Sana)",
+          "nm": "7",
+          "level": "A"
+        },
+        {
+          "sn": "8",
+          "wilaya": "MAGU",
+          "kata": "KITONGOSIMA",
+          "school": "TREE OF LIFE",
+          "ownership": "BINAFSI",
+          "hisabati_al": "38.8",
+          "hisabati_g": "B",
+          "kiswahili_al": "36.3",
+          "kiswahili_g": "B",
+          "sayansi_al": "33.8",
+          "sayansi_g": "B",
+          "english_al": "36.8",
+          "english_g": "B",
+          "jiografia_al": "35.1",
+          "jiografia_g": "B",
+          "historia_al": "38.6",
+          "historia_g": "B",
+          "ufaulu": "282",
+          "wastani": "47",
+          "daraja": "A",
+          "competency": "Daraja A (Bora Sana)",
+          "nm": "8",
+          "level": "A"
+        },
+        {
+          "sn": "9",
+          "wilaya": "MISUNGWI DC",
+          "kata": "FELLA",
+          "school": "SPLENDID STARS",
+          "ownership": "BINAFSI",
+          "hisabati_al": "48.3",
+          "hisabati_g": "A",
+          "kiswahili_al": "45.1",
+          "kiswahili_g": "A",
+          "sayansi_al": "41.0",
+          "sayansi_g": "A",
+          "english_al": "48.4",
+          "english_g": "A",
+          "jiografia_al": "44.6",
+          "jiografia_g": "A",
+          "historia_al": "49.0",
+          "historia_g": "A",
+          "ufaulu": "281.86",
+          "wastani": "46.98",
+          "daraja": "A",
+          "competency": "Daraja A (Bora Sana)",
+          "nm": "9",
+          "level": "A"
+        },
+        {
+          "sn": "10",
+          "wilaya": "MWANZA CC",
+          "kata": "MKOLANI",
+          "school": "GLORY",
+          "ownership": "BINAFSI",
+          "hisabati_al": "25.2",
+          "hisabati_g": "C",
+          "kiswahili_al": "26.4",
+          "kiswahili_g": "C",
+          "sayansi_al": "24.1",
+          "sayansi_g": "C",
+          "english_al": "26.0",
+          "english_g": "C",
+          "jiografia_al": "23.5",
+          "jiografia_g": "C",
+          "historia_al": "25.1",
+          "historia_g": "C",
+          "ufaulu": "281.75",
+          "wastani": "46.96",
+          "daraja": "A",
+          "competency": "Daraja A (Bora Sana)",
+          "nm": "10",
+          "level": "A"
+        }
+      ],
+      "layout": "subj"
+    },
+    {
+      "title": "SHULE KUMI DUNI MKOA",
+      "page": 4,
+      "page_top": false,
+      "rows": [
+        {
+          "sn": "1",
+          "wilaya": "UKEREWE",
+          "kata": "BUKUNGU",
+          "school": "BUKUNGU",
+          "ownership": "SERIKALI",
+          "hisabati_al": "10.3",
+          "hisabati_g": "E",
+          "kiswahili_al": "15.8",
+          "kiswahili_g": "D",
+          "sayansi_al": "7.89",
+          "sayansi_g": "E",
+          "english_al": "11.2",
+          "english_g": "D",
+          "jiografia_al": "20.8",
+          "jiografia_g": "C",
+          "historia_al": "12.9",
+          "historia_g": "D",
+          "ufaulu": "81.51",
+          "wastani": "13.58",
+          "daraja": "D",
+          "competency": "Daraja D (Wastani)",
+          "nm": "1",
+          "level": "D"
+        },
+        {
+          "sn": "2",
+          "wilaya": "UKEREWE",
+          "kata": "ILANGALA",
+          "school": "KAMASI",
+          "ownership": "SERIKALI",
+          "hisabati_al": "9.28",
+          "hisabati_g": "E",
+          "kiswahili_al": "19.9",
+          "kiswahili_g": "D",
+          "sayansi_al": "7.66",
+          "sayansi_g": "E",
+          "english_al": "9.93",
+          "english_g": "E",
+          "jiografia_al": "23.4",
+          "jiografia_g": "C",
+          "historia_al": "12.7",
+          "historia_g": "D",
+          "ufaulu": "82.87",
+          "wastani": "13.81",
+          "daraja": "D",
+          "competency": "Daraja D (Wastani)",
+          "nm": "2",
+          "level": "D"
+        },
+        {
+          "sn": "3",
+          "wilaya": "UKEREWE",
+          "kata": "",
+          "school": "MURUTUNGURUBUGOMBE",
+          "ownership": "SERIKALI",
+          "hisabati_al": "9.58",
+          "hisabati_g": "E",
+          "kiswahili_al": "22.3",
+          "kiswahili_g": "C",
+          "sayansi_al": "8.26",
+          "sayansi_g": "E",
+          "english_al": "9.4",
+          "english_g": "E",
+          "jiografia_al": "19.9",
+          "jiografia_g": "D",
+          "historia_al": "13.8",
+          "historia_g": "D",
+          "ufaulu": "90.28",
+          "wastani": "15.04",
+          "daraja": "D",
+          "competency": "Daraja D (Wastani)",
+          "nm": "3",
+          "level": "D"
+        },
+        {
+          "sn": "4",
+          "wilaya": "UKEREWE",
+          "kata": "MUKITUNTU",
+          "school": "KAHALA",
+          "ownership": "SERIKALI",
+          "hisabati_al": "13.8",
+          "hisabati_g": "D",
+          "kiswahili_al": "15.6",
+          "kiswahili_g": "D",
+          "sayansi_al": "5.6",
+          "sayansi_g": "E",
+          "english_al": "12.1",
+          "english_g": "D",
+          "jiografia_al": "13.7",
+          "jiografia_g": "D",
+          "historia_al": "12",
+          "historia_g": "D",
+          "ufaulu": "91.19",
+          "wastani": "15.2",
+          "daraja": "D",
+          "competency": "Daraja D (Wastani)",
+          "nm": "4",
+          "level": "D"
+        },
+        {
+          "sn": "5",
+          "wilaya": "UKEREWE",
+          "kata": "MUKITUNTU",
+          "school": "KAZILANKANDA",
+          "ownership": "SERIKALI",
+          "hisabati_al": "7.27",
+          "hisabati_g": "E",
+          "kiswahili_al": "16",
+          "kiswahili_g": "D",
+          "sayansi_al": "11",
+          "sayansi_g": "D",
+          "english_al": "11.9",
+          "english_g": "D",
+          "jiografia_al": "17.9",
+          "jiografia_g": "D",
+          "historia_al": "25",
+          "historia_g": "C",
+          "ufaulu": "91.92",
+          "wastani": "15.32",
+          "daraja": "D",
+          "competency": "Daraja D (Wastani)",
+          "nm": "5",
+          "level": "D"
+        },
+        {
+          "sn": "6",
+          "wilaya": "UKEREWE",
+          "kata": "IGALLA",
+          "school": "BUHIMA",
+          "ownership": "SERIKALI",
+          "hisabati_al": "11.3",
+          "hisabati_g": "D",
+          "kiswahili_al": "12.3",
+          "kiswahili_g": "D",
+          "sayansi_al": "12.4",
+          "sayansi_g": "D",
+          "english_al": "21.8",
+          "english_g": "C",
+          "jiografia_al": "15.7",
+          "jiografia_g": "D",
+          "historia_al": "18",
+          "historia_g": "D",
+          "ufaulu": "93.97",
+          "wastani": "15.65",
+          "daraja": "D",
+          "competency": "Daraja D (Wastani)",
+          "nm": "6",
+          "level": "D"
+        },
+        {
+          "sn": "7",
+          "wilaya": "UKEREWE",
+          "kata": "NAMAGONDO",
+          "school": "MUKASIKA",
+          "ownership": "SERIKALI",
+          "hisabati_al": "7.96",
+          "hisabati_g": "E",
+          "kiswahili_al": "20.5",
+          "kiswahili_g": "D",
+          "sayansi_al": "8.53",
+          "sayansi_g": "E",
+          "english_al": "11.5",
+          "english_g": "D",
+          "jiografia_al": "25.1",
+          "jiografia_g": "C",
+          "historia_al": "16.2",
+          "historia_g": "D",
+          "ufaulu": "94.86",
+          "wastani": "15.81",
+          "daraja": "D",
+          "competency": "Daraja D (Wastani)",
+          "nm": "7",
+          "level": "D"
+        },
+        {
+          "sn": "8",
+          "wilaya": "UKEREWE",
+          "kata": "BWISYA",
+          "school": "BWISYA",
+          "ownership": "SERIKALI",
+          "hisabati_al": "11.9",
+          "hisabati_g": "D",
+          "kiswahili_al": "18.3",
+          "kiswahili_g": "D",
+          "sayansi_al": "9.67",
+          "sayansi_g": "E",
+          "english_al": "11.4",
+          "english_g": "D",
+          "jiografia_al": "22",
+          "jiografia_g": "C",
+          "historia_al": "20.3",
+          "historia_g": "D",
+          "ufaulu": "98.72",
+          "wastani": "16.45",
+          "daraja": "D",
+          "competency": "Daraja D (Wastani)",
+          "nm": "8",
+          "level": "D"
+        },
+        {
+          "sn": "9",
+          "wilaya": "KWIMBA DC",
+          "kata": "MALIGISU",
+          "school": "MWABARATULU",
+          "ownership": "SERIKALI",
+          "hisabati_al": "13.6",
+          "hisabati_g": "D",
+          "kiswahili_al": "16.5",
+          "kiswahili_g": "D",
+          "sayansi_al": "11.5",
+          "sayansi_g": "D",
+          "english_al": "13",
+          "english_g": "D",
+          "jiografia_al": "13.5",
+          "jiografia_g": "D",
+          "historia_al": "12.5",
+          "historia_g": "D",
+          "ufaulu": "99.33",
+          "wastani": "16.56",
+          "daraja": "D",
+          "competency": "Daraja D (Wastani)",
+          "nm": "9",
+          "level": "D"
+        },
+        {
+          "sn": "10",
+          "wilaya": "UKEREWE",
+          "kata": "BWISYA",
+          "school": "BUGARAMILA",
+          "ownership": "SERIKALI",
+          "hisabati_al": "16.2",
+          "hisabati_g": "D",
+          "kiswahili_al": "17.4",
+          "kiswahili_g": "D",
+          "sayansi_al": "8.68",
+          "sayansi_g": "E",
+          "english_al": "9.83",
+          "english_g": "E",
+          "jiografia_al": "22.3",
+          "jiografia_g": "C",
+          "historia_al": "19.1",
+          "historia_g": "D",
+          "ufaulu": "100.72",
+          "wastani": "16.78",
+          "daraja": "D",
+          "competency": "Daraja D (Wastani)",
+          "nm": "10",
+          "level": "D"
+        }
+      ],
+      "layout": "subj"
     }
   ]
 }

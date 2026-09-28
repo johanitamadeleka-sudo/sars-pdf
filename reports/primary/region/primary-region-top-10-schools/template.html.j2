@@ -7,15 +7,14 @@
 </head>
 <body>
 {#
-  Primary region top-10 schools (SHULE KUMI BORA / DUNI). Section-centric: 6 stacked
-  top-10 blocks (BORA overall / SERIKALI / BINAFSI, DUNI overall / SERIKALI / BINAFSI),
-  one per page. Fully self-contained (own template + own style.css, inline @font-face,
-  no shared stylesheet). Data-driven and location-agnostic. KUNDI LA UMAHIRI
-  (competency-level) background is the ONLY data-driven colour.
-
-  Columns: S/N | HALMASHAURI | JINA LA SHULE | UMILIKI
-    WALIOSAJILIWA WALIOFANYA A B C D WALIOFAULU(A-D)(+%) E(+%)  (WAV/WAS/JML triplets)
-    WASTANI WA SHULE /300 | KUNDI LA UMAHIRI | NAFASI
+  Primary region top-10 schools (SHULE KUMI BORA / DUNI). Section-centric: 10 stacked
+  top-10 blocks, TWO to a page, mixing two physical layouts (data-driven per section):
+    * layout "grid" (source pages 1-3): WAV/WAS/JML division grid + COUNCIL (HALMASHAURI)
+    * layout "subj" (source pages 4-5): per-subject AL/DRJ marks grid + WILAYA + KATA
+  Pagination is DATA-DRIVEN via s.page_top (True only for the first block on each page),
+  reproducing the original's 2-blocks-per-page grouping EXACTLY (5 pages). Fully
+  self-contained (own template + own style.css, inline @font-face, no shared stylesheet).
+  KUNDI LA UMAHIRI (competency-level) background is the ONLY data-driven colour.
 #}
 <div class="titles">
   {% for line in doc.document.ministry %}
@@ -25,7 +24,9 @@
   <div class="hl report-title">{{ doc.document.report_title }}</div>
 </div>
 
-{% macro cols() %}
+{% set subs = doc.document.subjects %}
+
+{% macro grid_cols() %}
 <colgroup>
   <col><col><col><col>
   <col><col><col>  <col><col><col>
@@ -35,7 +36,7 @@
 </colgroup>
 {% endmacro %}
 
-{% macro nums(r) %}
+{% macro grid_nums(r) %}
   <td>{{ r.reg_f }}</td><td>{{ r.reg_m }}</td><td class="b">{{ r.reg_t }}</td>
   <td>{{ r.fanya_f }}</td><td>{{ r.fanya_m }}</td><td class="b">{{ r.fanya_t }}</td>
   <td>{{ r.a_f }}</td><td>{{ r.a_m }}</td><td class="b">{{ r.a_t }}</td>
@@ -46,63 +47,115 @@
   <td>{{ r.e_f }}</td><td>{{ r.e_m }}</td><td class="b">{{ r.e_t }}</td><td class="b">{{ r.e_pct }}</td>
 {% endmacro %}
 
-{% macro fmt_heads() %}
-<tr class="hf">
-  <th>WAV</th><th>WAS</th><th>JML</th>
-  <th>WAV</th><th>WAS</th><th>JML</th>
-  <th>WAV</th><th>WAS</th><th>JML</th>
-  <th>WAV</th><th>WAS</th><th>JML</th>
-  <th>WAV</th><th>WAS</th><th>JML</th>
-  <th>WAV</th><th>WAS</th><th>JML</th>
-  <th>WAV</th><th>WAS</th><th>JML</th><th>%</th>
-  <th>WAV</th><th>WAS</th><th>JML</th><th>%</th>
-</tr>
+{% macro grid_block(s) %}
+<table class="grid">
+  {{ grid_cols() }}
+  <thead>
+    <tr class="hg">
+      <th rowspan="3" class="v-mid">S/N</th>
+      <th rowspan="3" class="v-mid">HALMASHAURI</th>
+      <th rowspan="3" class="v-mid">JINA LA SHULE</th>
+      <th rowspan="3" class="v-mid">UMILIKI</th>
+      <th colspan="6" class="grp">IDADI YA WATAHINIWA</th>
+      <th colspan="16" class="grp">UFAULU KIMADARAJA</th>
+      <th rowspan="3" class="grp v-mid">WASTANI WA SHULE /300</th>
+      <th rowspan="3" class="grp v-mid">KUNDI LA UMAHIRI</th>
+      <th rowspan="3" class="v-mid">NAFASI</th>
+    </tr>
+    <tr class="hs">
+      <th colspan="3">WALIOSAJILIWA</th>
+      <th colspan="3">WALIOFANYA</th>
+      <th colspan="3">A</th>
+      <th colspan="3">B</th>
+      <th colspan="3">C</th>
+      <th colspan="3">D</th>
+      <th colspan="4">WALIOFAULU(A-D)</th>
+      <th colspan="4">E</th>
+    </tr>
+    <tr class="hf">
+      <th>WAV</th><th>WAS</th><th>JML</th>
+      <th>WAV</th><th>WAS</th><th>JML</th>
+      <th>WAV</th><th>WAS</th><th>JML</th>
+      <th>WAV</th><th>WAS</th><th>JML</th>
+      <th>WAV</th><th>WAS</th><th>JML</th>
+      <th>WAV</th><th>WAS</th><th>JML</th>
+      <th>WAV</th><th>WAS</th><th>JML</th><th>%</th>
+      <th>WAV</th><th>WAS</th><th>JML</th><th>%</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for r in s.rows %}
+    <tr class="row">
+      <td>{{ r.sn }}</td>
+      <td class="txt">{{ r.council }}</td>
+      <td class="txt">{{ r.school }}</td>
+      <td class="txt">{{ r.ownership }}</td>
+      {{ grid_nums(r) }}
+      <td class="b">{{ r.wastani }}</td>
+      <td class="comp{% if r.level %} lvl-{{ r.level | lower }}{% endif %}">{{ r.competency }}</td>
+      <td class="b">{{ r.nm }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endmacro %}
+
+{% macro subj_block(s) %}
+<table class="schools">
+  <colgroup>
+    <col class="c-sn"><col class="c-wil"><col class="c-kata"><col class="c-sch"><col class="c-own">
+    {% for sub in subs %}<col class="c-al"><col class="c-drj">{% endfor %}
+    <col class="c-ufaulu"><col class="c-wastani"><col class="c-daraja">
+    <col class="c-comp"><col class="c-nafasi">
+  </colgroup>
+  <thead>
+    <tr class="hg">
+      <th rowspan="3" class="v-mid">S/N</th>
+      <th rowspan="3" class="v-mid">WILAYA</th>
+      <th rowspan="3" class="v-mid">KATA</th>
+      <th rowspan="3" class="v-mid">JINA LA SHULE</th>
+      <th rowspan="3" class="v-mid">UMILIKI</th>
+      <th colspan="12" class="grp">WASTANI WA UFAULU KIMASOMO /50</th>
+      <th rowspan="3" class="v-mid">UFAULU/300</th>
+      <th rowspan="3" class="v-mid">WASTANI/50</th>
+      <th rowspan="3" class="v-mid">DARAJA</th>
+      <th rowspan="3" class="v-mid">KUNDI LA UMAHIRI</th>
+      <th rowspan="3" class="v-mid">NAFASI</th>
+    </tr>
+    <tr class="hs">
+      {% for sub in subs %}<th colspan="2" class="subj">{{ sub }}</th>{% endfor %}
+    </tr>
+    <tr class="hf">
+      {% for sub in subs %}<th>AL</th><th>DRJ</th>{% endfor %}
+    </tr>
+  </thead>
+  <tbody>
+    {% for r in s.rows %}
+    <tr class="row">
+      <td>{{ r.sn }}</td>
+      <td class="txt">{{ r.wilaya }}</td>
+      <td class="txt">{{ r.kata }}</td>
+      <td class="txt">{{ r.school }}</td>
+      <td class="txt">{{ r.ownership }}</td>
+      {% for key in ['hisabati','kiswahili','sayansi','english','jiografia','historia'] %}
+      <td>{{ r[key ~ '_al'] }}</td>
+      <td>{{ r[key ~ '_g'] }}</td>
+      {% endfor %}
+      <td class="b">{{ r.ufaulu }}</td>
+      <td class="b">{{ r.wastani }}</td>
+      <td>{{ r.daraja }}</td>
+      <td class="comp{% if r.level %} lvl-{{ r.level | lower }}{% endif %}">{{ r.competency }}</td>
+      <td class="b">{{ r.nm }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
 {% endmacro %}
 
 {% for s in doc.sections %}
-<div class="section{% if not loop.first %} page-top{% endif %}">
+<div class="section{% if not loop.first and s.page_top %} page-top{% endif %}">
   <div class="sec-title">{{ s.title }}</div>
-  <table class="grid">
-    {{ cols() }}
-    <thead>
-      <tr class="hg">
-        <th rowspan="3" class="v-mid">S/N</th>
-        <th rowspan="3" class="v-mid">HALMASHAURI</th>
-        <th rowspan="3" class="v-mid">JINA LA SHULE</th>
-        <th rowspan="3" class="v-mid">UMILIKI</th>
-        <th colspan="6" class="grp">IDADI YA WATAHINIWA</th>
-        <th colspan="16" class="grp">UFAULU KIMADARAJA</th>
-        <th rowspan="3" class="grp v-mid">WASTANI WA SHULE /300</th>
-        <th rowspan="3" class="grp v-mid">KUNDI LA UMAHIRI</th>
-        <th rowspan="3" class="v-mid">NAFASI</th>
-      </tr>
-      <tr class="hs">
-        <th colspan="3">WALIOSAJILIWA</th>
-        <th colspan="3">WALIOFANYA</th>
-        <th colspan="3">A</th>
-        <th colspan="3">B</th>
-        <th colspan="3">C</th>
-        <th colspan="3">D</th>
-        <th colspan="4">WALIOFAULU(A-D)</th>
-        <th colspan="4">E</th>
-      </tr>
-      {{ fmt_heads() }}
-    </thead>
-    <tbody>
-      {% for r in s.rows %}
-      <tr class="row">
-        <td>{{ r.sn }}</td>
-        <td class="txt">{{ r.council }}</td>
-        <td class="txt">{{ r.school }}</td>
-        <td class="txt">{{ r.ownership }}</td>
-        {{ nums(r) }}
-        <td class="b">{{ r.wastani }}</td>
-        <td class="comp{% if r.level %} lvl-{{ r.level | lower }}{% endif %}">{{ r.competency }}</td>
-        <td class="b">{{ r.nm }}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+  {% if s.layout == 'subj' %}{{ subj_block(s) }}{% else %}{{ grid_block(s) }}{% endif %}
 </div>
 {% endfor %}
 </body>
