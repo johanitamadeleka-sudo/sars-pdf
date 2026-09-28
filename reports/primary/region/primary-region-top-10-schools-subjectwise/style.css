@@ -1,0 +1,142 @@
+/*
+ * primary-region-top-10-schools-subjectwise (LEVEL + FUNCTION name; data-driven).
+ * Primary STD4 region top-10 schools per SUBJECT, measured from THIS report's OWN reference
+ * originals (US Letter LANDSCAPE, 792 x 612 pt, 3 pages, 6 subject blocks two-per-page).
+ * Two source variants share this ONE stylesheet: JUMLA (has UMILIKI, table.grid) and
+ * SERIKALI (no UMILIKI, table.grid.noown, its own measured widths). Leading text columns
+ * then WAV=girls / WAS=boys / JML=total triplet groups + WASTANI (ALAMA + DRJ) + NAFASI.
+ * This report's original does not tint grade/competency cells, so there is NO data-driven
+ * colour here; every fill is fixed. Grid header/body untinted like the original.
+ *
+ * REAL fonts registered INLINE so this report is fully self-contained (own template + own CSS,
+ * one family name per @font-face, NO fallback list).
+ */
+@font-face {
+  font-family: 'Arial'; font-style: normal; font-weight: normal;
+  src: url("../../../../fonts/LiberationSans-Regular.ttf") format('truetype');
+}
+@font-face {
+  font-family: 'Arial'; font-style: normal; font-weight: bold;
+  src: url("../../../../fonts/LiberationSans-Bold.ttf") format('truetype');
+}
+
+:root {
+  --ink: #000000;
+  --grid: #000000;
+}
+
+@page { size: Letter landscape; margin: 20pt 0 20pt 0; }
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; font-family: 'Arial'; color: var(--ink); }
+
+.titles { text-align: center; font-weight: bold; font-size: 8.0pt; line-height: 9.4pt; padding-top: 4pt; }
+.titles .hl { white-space: pre; }
+.titles .exam-name { margin-top: 3pt; }
+
+.section { margin-top: 4pt; }
+.section.page-top { break-before: page; }
+.sec-title { text-align: center; font-weight: bold; font-size: 8.4pt; margin: 6pt 0 3pt 0; }
+
+table.grid {
+  width: 763.8pt;             /* 17 .. 781 (JUMLA, with UMILIKI) */
+  margin: 3pt 0 0 17pt;
+  border-collapse: collapse;
+  table-layout: fixed;
+  border: 0.8pt solid var(--grid);
+}
+
+/* JUMLA layout: 33 cols (S/N HALMASHAURI JINA UMILIKI + 26 grade cells + ALAMA DRJ NAFASI) */
+table.grid col:nth-child(1)  { width: 18.6pt; }
+table.grid col:nth-child(2)  { width: 59.5pt; }
+table.grid col:nth-child(3)  { width: 88.2pt; }
+table.grid col:nth-child(4)  { width: 34.2pt; }
+table.grid col:nth-child(5)  { width: 21.1pt; }
+table.grid col:nth-child(6)  { width: 20.9pt; }
+table.grid col:nth-child(7)  { width: 20.9pt; }
+table.grid col:nth-child(8)  { width: 20.9pt; }
+table.grid col:nth-child(9)  { width: 20.8pt; }
+table.grid col:nth-child(10) { width: 20.9pt; }
+table.grid col:nth-child(11) { width: 18.2pt; }
+table.grid col:nth-child(12) { width: 18.3pt; }
+table.grid col:nth-child(13) { width: 18.2pt; }
+table.grid col:nth-child(14) { width: 18.3pt; }
+table.grid col:nth-child(15) { width: 18.2pt; }
+table.grid col:nth-child(16) { width: 18.2pt; }
+table.grid col:nth-child(17) { width: 18.3pt; }
+table.grid col:nth-child(18) { width: 18.2pt; }
+table.grid col:nth-child(19) { width: 18.3pt; }
+table.grid col:nth-child(20) { width: 18.2pt; }
+table.grid col:nth-child(21) { width: 18.2pt; }
+table.grid col:nth-child(22) { width: 18.3pt; }
+table.grid col:nth-child(23) { width: 18.2pt; }
+table.grid col:nth-child(24) { width: 18.3pt; }
+table.grid col:nth-child(25) { width: 18.2pt; }
+table.grid col:nth-child(26) { width: 18.2pt; }
+table.grid col:nth-child(27) { width: 18.3pt; }
+table.grid col:nth-child(28) { width: 18.2pt; }
+table.grid col:nth-child(29) { width: 18.3pt; }
+table.grid col:nth-child(30) { width: 18.2pt; }
+table.grid col:nth-child(31) { width: 34.1pt; }
+table.grid col:nth-child(32) { width: 20.9pt; }
+table.grid col:nth-child(33) { width: 18.0pt; }
+
+/* SERIKALI layout: 32 cols (no UMILIKI); its own measured widths + narrower span. */
+table.grid.noown {
+  width: 754.3pt;             /* 17 .. 771 */
+}
+table.grid.noown col:nth-child(1)  { width: 19.3pt; }
+table.grid.noown col:nth-child(2)  { width: 60.0pt; }
+table.grid.noown col:nth-child(3)  { width: 83.6pt; }
+table.grid.noown col:nth-child(4)  { width: 22.1pt; }
+table.grid.noown col:nth-child(5)  { width: 21.8pt; }
+table.grid.noown col:nth-child(6)  { width: 21.9pt; }
+table.grid.noown col:nth-child(7)  { width: 21.8pt; }
+table.grid.noown col:nth-child(8)  { width: 21.9pt; }
+table.grid.noown col:nth-child(9)  { width: 21.8pt; }
+table.grid.noown col:nth-child(10) { width: 19.0pt; }
+table.grid.noown col:nth-child(11) { width: 18.9pt; }
+table.grid.noown col:nth-child(12) { width: 19.0pt; }
+table.grid.noown col:nth-child(13) { width: 18.9pt; }
+table.grid.noown col:nth-child(14) { width: 19.0pt; }
+table.grid.noown col:nth-child(15) { width: 19.0pt; }
+table.grid.noown col:nth-child(16) { width: 18.9pt; }
+table.grid.noown col:nth-child(17) { width: 19.0pt; }
+table.grid.noown col:nth-child(18) { width: 18.9pt; }
+table.grid.noown col:nth-child(19) { width: 19.0pt; }
+table.grid.noown col:nth-child(20) { width: 19.0pt; }
+table.grid.noown col:nth-child(21) { width: 18.9pt; }
+table.grid.noown col:nth-child(22) { width: 19.0pt; }
+table.grid.noown col:nth-child(23) { width: 18.9pt; }
+table.grid.noown col:nth-child(24) { width: 19.0pt; }
+table.grid.noown col:nth-child(25) { width: 19.0pt; }
+table.grid.noown col:nth-child(26) { width: 18.9pt; }
+table.grid.noown col:nth-child(27) { width: 19.0pt; }
+table.grid.noown col:nth-child(28) { width: 18.9pt; }
+table.grid.noown col:nth-child(29) { width: 23.8pt; }
+table.grid.noown col:nth-child(30) { width: 35.5pt; }
+table.grid.noown col:nth-child(31) { width: 21.9pt; }
+table.grid.noown col:nth-child(32) { width: 18.7pt; }
+
+th, td {
+  border: 0.4pt solid var(--grid);
+  padding: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 5.6pt;
+  line-height: 1;
+}
+th { white-space: normal; font-weight: bold; }
+thead th { font-weight: bold; font-size: 5.8pt; }
+thead th.grp { font-size: 6.0pt; }
+thead th.v-mid { vertical-align: middle; }
+thead .hg { height: 16pt; }
+thead .hs { height: 9pt; }
+thead .hf { height: 8pt; }
+
+tbody tr.row { height: 11pt; }
+tbody td { font-size: 5.8pt; }
+td.txt { text-align: left; padding-left: 1pt; font-size: 5.6pt; }
+td.b { font-weight: bold; }

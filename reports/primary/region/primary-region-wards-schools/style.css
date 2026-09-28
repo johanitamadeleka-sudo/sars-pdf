@@ -1,0 +1,118 @@
+/*
+ * primary-region-wards-schools (LEVEL + FUNCTION name; data-driven).
+ * Primary STD4 region per-ward (KATA) school-performance grid measured from THIS report's
+ * OWN reference originals (US Letter LANDSCAPE, 792 x 612 pt). Flat grid paginated by a
+ * repeating <thead>. Two source variants share this ONE stylesheet: serikali (4 pages) and
+ * binafsi (2 pages). Leading text columns (NA., HALMASHAURI, KATA, IDADI YA SHULE) then 9
+ * WAV=girls / WAS=boys / JML=total triplet groups + WASTANI WA MKOA + KUNDI LA UMAHIRI +
+ * NAFASI. Only .lvl-* (competency) is data-driven (grading.py, Daraja-aware); the region
+ * grid tints only the header band, data rows are white like the original.
+ *
+ * REAL fonts registered INLINE so this report is fully self-contained (own template + own CSS,
+ * one family name per @font-face, NO fallback list).
+ */
+@font-face {
+  font-family: 'Arial'; font-style: normal; font-weight: normal;
+  src: url("../../../../fonts/LiberationSans-Regular.ttf") format('truetype');
+}
+@font-face {
+  font-family: 'Arial'; font-style: normal; font-weight: bold;
+  src: url("../../../../fonts/LiberationSans-Bold.ttf") format('truetype');
+}
+
+:root {
+  --lvl-a: #00b050;  --lvl-a-ink: #000000;
+  --lvl-b: #92d050;  --lvl-b-ink: #000000;
+  --lvl-c: #ffff00;  --lvl-c-ink: #000000;
+  --lvl-d: #ffc000;  --lvl-d-ink: #000000;
+  --lvl-f: #ff0000;  --lvl-f-ink: #ffc7ce;
+  --ink: #000000;
+  --grid: #000000;
+}
+
+@page { size: Letter landscape; margin: 20pt 0 20pt 0; }
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; font-family: 'Arial'; color: var(--ink); }
+
+.titles { text-align: center; font-weight: bold; font-size: 7.6pt; line-height: 8.8pt; padding-top: 2pt; }
+.titles .hl { white-space: pre; }
+.titles .exam-name { margin-top: 2pt; }
+.titles .report-title { margin-top: 2pt; }
+
+table.grid {
+  width: 734.4pt;             /* 18 .. 753 */
+  margin: 4pt 0 0 18pt;
+  border-collapse: collapse;
+  table-layout: fixed;
+  border: 0.8pt solid var(--grid);
+}
+
+/* 36 cols: NA. HALMASHAURI KATA IDADI + 29 grade cells + WASTANI KUNDI NAFASI */
+col:nth-child(1)  { width: 12.4pt; }
+col:nth-child(2)  { width: 50.6pt; }
+col:nth-child(3)  { width: 50.5pt; }
+col:nth-child(4)  { width: 32.0pt; }
+col:nth-child(5)  { width: 16.9pt; }
+col:nth-child(6)  { width: 19.6pt; }
+col:nth-child(7)  { width: 19.4pt; }
+col:nth-child(8)  { width: 17.0pt; }
+col:nth-child(9)  { width: 16.8pt; }
+col:nth-child(10) { width: 19.4pt; }
+col:nth-child(11) { width: 14.3pt; }
+col:nth-child(12) { width: 14.1pt; }
+col:nth-child(13) { width: 14.1pt; }
+col:nth-child(14) { width: 14.3pt; }
+col:nth-child(15) { width: 14.1pt; }
+col:nth-child(16) { width: 16.8pt; }
+col:nth-child(17) { width: 16.8pt; }
+col:nth-child(18) { width: 16.8pt; }
+col:nth-child(19) { width: 16.8pt; }
+col:nth-child(20) { width: 16.8pt; }
+col:nth-child(21) { width: 16.8pt; }
+col:nth-child(22) { width: 16.8pt; }
+col:nth-child(23) { width: 16.8pt; }
+col:nth-child(24) { width: 16.8pt; }
+col:nth-child(25) { width: 16.7pt; }
+col:nth-child(26) { width: 16.9pt; }
+col:nth-child(27) { width: 16.8pt; }
+col:nth-child(28) { width: 16.8pt; }
+col:nth-child(29) { width: 17.9pt; }
+col:nth-child(30) { width: 14.3pt; }
+col:nth-child(31) { width: 14.1pt; }
+col:nth-child(32) { width: 13.5pt; }
+col:nth-child(33) { width: 18.2pt; }
+col:nth-child(34) { width: 35.2pt; }
+col:nth-child(35) { width: 60.8pt; }
+col:nth-child(36) { width: 16.5pt; }
+
+th, td {
+  border: 0.4pt solid var(--grid);
+  padding: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 5.4pt;
+  line-height: 1;
+}
+th { white-space: normal; font-weight: bold; }
+thead { display: table-header-group; }
+thead th { font-weight: bold; font-size: 5.4pt; }
+thead th.grp { font-size: 5.6pt; }
+thead th.v-mid { vertical-align: middle; }
+thead .hg { height: 13pt; }
+thead .hs { height: 8pt; }
+thead .hf { height: 7pt; }
+
+tbody tr.row { height: 8.4pt; }
+tbody td { font-size: 5.3pt; }
+td.txt { text-align: left; padding-left: 1pt; font-size: 5.4pt; }
+td.b { font-weight: bold; }
+td.comp { text-align: left; font-weight: bold; padding-left: 1pt; font-size: 5.2pt; }
+
+.lvl-a { background: var(--lvl-a); color: var(--lvl-a-ink); }
+.lvl-b { background: var(--lvl-b); color: var(--lvl-b-ink); }
+.lvl-c { background: var(--lvl-c); color: var(--lvl-c-ink); }
+.lvl-d { background: var(--lvl-d); color: var(--lvl-d-ink); }
+.lvl-f { background: var(--lvl-f); color: var(--lvl-f-ink); }

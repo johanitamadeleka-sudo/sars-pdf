@@ -1,0 +1,117 @@
+/*
+ * primary-region-district-performance (LEVEL + FUNCTION name; data-driven).
+ * Primary STD4 region per-council (HALMASHAURI) subject-performance grid measured from THIS
+ * report's OWN reference original (US Letter LANDSCAPE, 792 x 612 pt, 6 pages, one subject
+ * block per page listing all councils). Leading text columns (NA., HALMASHAURI, IDADI YA
+ * SHULE) then 9 WAV=girls / WAS=boys / JML=total triplet groups (WALIOSAJILIWA WALIOFANYA
+ * WASIOFANYA A B C D A-D(+%) WASIOFAULU E(+%)) + WASTANI WA SOMO + KUNDI LA UMAHIRI. Only
+ * .lvl-* (competency) is data-driven (grading.py, Daraja-aware); header/body untinted.
+ *
+ * REAL fonts registered INLINE so this report is fully self-contained (own template + own CSS,
+ * one family name per @font-face, NO fallback list).
+ */
+@font-face {
+  font-family: 'Arial'; font-style: normal; font-weight: normal;
+  src: url("../../../../fonts/LiberationSans-Regular.ttf") format('truetype');
+}
+@font-face {
+  font-family: 'Arial'; font-style: normal; font-weight: bold;
+  src: url("../../../../fonts/LiberationSans-Bold.ttf") format('truetype');
+}
+
+:root {
+  --lvl-a: #00b050;  --lvl-a-ink: #000000;
+  --lvl-b: #92d050;  --lvl-b-ink: #000000;
+  --lvl-c: #ffff00;  --lvl-c-ink: #000000;
+  --lvl-d: #ffc000;  --lvl-d-ink: #000000;
+  --lvl-f: #ff0000;  --lvl-f-ink: #ffc7ce;
+  --ink: #000000;
+  --grid: #000000;
+}
+
+@page { size: Letter landscape; margin: 20pt 0 20pt 0; }
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; font-family: 'Arial'; color: var(--ink); }
+
+.titles { text-align: center; font-weight: bold; font-size: 8.0pt; line-height: 9.4pt; padding-top: 4pt; }
+.titles .hl { white-space: pre; }
+.titles .exam-name { margin-top: 3pt; }
+
+.section { margin-top: 4pt; }
+.section.page-top { break-before: page; }
+.sec-title { text-align: center; font-weight: bold; font-size: 8.4pt; margin: 6pt 0 4pt 0; }
+
+table.grid {
+  width: 683.8pt;             /* 51 .. 735 (pages 2-6 geometry) */
+  margin: 4pt 0 0 51pt;
+  border-collapse: collapse;
+  table-layout: fixed;
+  border: 0.8pt solid var(--grid);
+}
+
+/* 34 cols: NA. HALMASHAURI IDADI + 29 grade cells + WASTANI + KUNDI */
+col:nth-child(1)  { width: 17.5pt; }
+col:nth-child(2)  { width: 45.7pt; }
+col:nth-child(3)  { width: 28.9pt; }
+col:nth-child(4)  { width: 17.7pt; }
+col:nth-child(5)  { width: 17.5pt; }
+col:nth-child(6)  { width: 20.5pt; }
+col:nth-child(7)  { width: 17.5pt; }
+col:nth-child(8)  { width: 17.5pt; }
+col:nth-child(9)  { width: 17.6pt; }
+col:nth-child(10) { width: 15.8pt; }
+col:nth-child(11) { width: 15.8pt; }
+col:nth-child(12) { width: 14.4pt; }
+col:nth-child(13) { width: 17.7pt; }
+col:nth-child(14) { width: 17.5pt; }
+col:nth-child(15) { width: 17.5pt; }
+col:nth-child(16) { width: 17.5pt; }
+col:nth-child(17) { width: 17.6pt; }
+col:nth-child(18) { width: 17.5pt; }
+col:nth-child(19) { width: 15.8pt; }
+col:nth-child(20) { width: 15.9pt; }
+col:nth-child(21) { width: 17.4pt; }
+col:nth-child(22) { width: 15.9pt; }
+col:nth-child(23) { width: 15.9pt; }
+col:nth-child(24) { width: 17.5pt; }
+col:nth-child(25) { width: 17.5pt; }
+col:nth-child(26) { width: 17.5pt; }
+col:nth-child(27) { width: 17.5pt; }
+col:nth-child(28) { width: 17.4pt; }
+col:nth-child(29) { width: 16.0pt; }
+col:nth-child(30) { width: 15.8pt; }
+col:nth-child(31) { width: 14.6pt; }
+col:nth-child(32) { width: 17.4pt; }
+col:nth-child(33) { width: 30.4pt; }
+col:nth-child(34) { width: 69.6pt; }
+
+th, td {
+  border: 0.4pt solid var(--grid);
+  padding: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 5.6pt;
+  line-height: 1;
+}
+th { white-space: normal; font-weight: bold; }
+thead th { font-weight: bold; font-size: 5.6pt; }
+thead th.grp { font-size: 5.8pt; }
+thead th.v-mid { vertical-align: middle; }
+thead .hg { height: 16pt; }
+thead .hs { height: 9pt; }
+thead .hf { height: 8pt; }
+
+tbody tr.row { height: 12pt; }
+tbody td { font-size: 5.8pt; }
+td.txt { text-align: left; padding-left: 1pt; font-size: 5.6pt; }
+td.b { font-weight: bold; }
+td.comp { text-align: left; font-weight: bold; padding-left: 1pt; font-size: 5.4pt; }
+
+.lvl-a { background: var(--lvl-a); color: var(--lvl-a-ink); }
+.lvl-b { background: var(--lvl-b); color: var(--lvl-b-ink); }
+.lvl-c { background: var(--lvl-c); color: var(--lvl-c-ink); }
+.lvl-d { background: var(--lvl-d); color: var(--lvl-d-ink); }
+.lvl-f { background: var(--lvl-f); color: var(--lvl-f-ink); }

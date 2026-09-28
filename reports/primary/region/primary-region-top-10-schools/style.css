@@ -1,0 +1,142 @@
+/*
+ * primary-region-top-10-schools (LEVEL + FUNCTION name; data-driven, not tied to any region).
+ * Primary STD4 region top-10 schools grid measured from THIS report's OWN reference original
+ * (US Letter LANDSCAPE, 792 x 612 pt), 6 section blocks / one per page. Leading text columns
+ * (S/N, HALMASHAURI, JINA LA SHULE, UMILIKI) then WAV=girls / WAS=boys / JML=total triplet
+ * groups (NO WASIOFANYA group). Only .lvl-* (KUNDI LA UMAHIRI competency) is data-driven
+ * (grading.py, Daraja-aware); the grid header/body are otherwise untinted like the original.
+ *
+ * REAL fonts registered INLINE so this report is fully self-contained (own template + own CSS,
+ * one family name per @font-face, NO fallback list).
+ */
+@font-face {
+  font-family: 'Arial'; font-style: normal; font-weight: normal;
+  src: url("../../../../fonts/LiberationSans-Regular.ttf") format('truetype');
+}
+@font-face {
+  font-family: 'Arial'; font-style: normal; font-weight: bold;
+  src: url("../../../../fonts/LiberationSans-Bold.ttf") format('truetype');
+}
+
+:root {
+  --lvl-a: #00b050;  --lvl-a-ink: #000000;
+  --lvl-b: #92d050;  --lvl-b-ink: #000000;
+  --lvl-c: #ffff00;  --lvl-c-ink: #000000;
+  --lvl-d: #ffc000;  --lvl-d-ink: #000000;
+  --lvl-f: #ff0000;  --lvl-f-ink: #ffc7ce;
+  --ink: #000000;
+  --grid: #000000;
+}
+
+@page { size: Letter landscape; margin: 22pt 0 22pt 0; }
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; font-family: 'Arial'; color: var(--ink); }
+
+.titles { text-align: center; font-weight: bold; font-size: 7.4pt; line-height: 7.4pt; }
+.titles .hl { white-space: pre; }
+.titles .report-title { font-size: 7.4pt; margin-top: 4pt; }
+
+.section { margin-top: 4pt; }
+.section.page-top { break-before: page; }
+.sec-title { text-align: center; font-weight: bold; font-size: 8pt; margin: 6pt 0 3pt 0; }
+
+table.grid {
+  width: 751pt;               /* 19 .. 770 */
+  margin: 3pt 0 0 19pt;
+  border-collapse: collapse;
+  table-layout: fixed;
+  border: 0.8pt solid var(--grid);
+}
+
+/* 33 columns (S/N HALMASHAURI JINA UMILIKI + 26 grade cells + WASTANI KUNDI NAFASI) */
+col:nth-child(1) { width: 21.0pt; }
+col:nth-child(2) { width: 50.0pt; }
+col:nth-child(3) { width: 75.0pt; }
+col:nth-child(4) { width: 22.0pt; }
+col:nth-child(5) { width: 16.4pt; }
+col:nth-child(6) { width: 15.9pt; }
+col:nth-child(7) { width: 16.0pt; }
+col:nth-child(8) { width: 15.9pt; }
+col:nth-child(9) { width: 15.9pt; }
+col:nth-child(10) { width: 16.0pt; }
+col:nth-child(11) { width: 16.0pt; }
+col:nth-child(12) { width: 15.9pt; }
+col:nth-child(13) { width: 15.9pt; }
+col:nth-child(14) { width: 16.0pt; }
+col:nth-child(15) { width: 15.9pt; }
+col:nth-child(16) { width: 15.9pt; }
+col:nth-child(17) { width: 16.0pt; }
+col:nth-child(18) { width: 16.0pt; }
+col:nth-child(19) { width: 15.9pt; }
+col:nth-child(20) { width: 16.0pt; }
+col:nth-child(21) { width: 15.9pt; }
+col:nth-child(22) { width: 16.8pt; }
+col:nth-child(23) { width: 18.5pt; }
+col:nth-child(24) { width: 19.1pt; }
+col:nth-child(25) { width: 20.1pt; }
+col:nth-child(26) { width: 21.7pt; }
+col:nth-child(27) { width: 20.6pt; }
+col:nth-child(28) { width: 19.1pt; }
+col:nth-child(29) { width: 19.5pt; }
+col:nth-child(30) { width: 24.9pt; }
+col:nth-child(31) { width: 30.4pt; }
+col:nth-child(32) { width: 78.5pt; }
+col:nth-child(33) { width: 22.0pt; }
+
+th, td {
+  border: 0.4pt solid var(--grid);
+  padding: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 5.4pt;
+  line-height: 1;
+}
+th { white-space: normal; font-weight: bold; }
+thead th { font-weight: bold; font-size: 5.6pt; }
+thead th.grp { font-size: 6.0pt; }
+thead th.v-mid { vertical-align: middle; }
+thead .hg { height: 14pt; }
+thead .hs { height: 8pt; }
+thead .hf { height: 8pt; }
+
+tbody tr.row { height: 11pt; }
+tbody td { font-size: 5.6pt; }
+td.txt { text-align: left; padding-left: 1pt; font-size: 5.4pt; }
+td.b { font-weight: bold; }
+td.comp { text-align: left; font-weight: bold; padding-left: 1pt; font-size: 5.2pt; }
+
+.lvl-a { background: var(--lvl-a); color: var(--lvl-a-ink); }
+.lvl-b { background: var(--lvl-b); color: var(--lvl-b-ink); }
+.lvl-c { background: var(--lvl-c); color: var(--lvl-c-ink); }
+.lvl-d { background: var(--lvl-d); color: var(--lvl-d-ink); }
+.lvl-f { background: var(--lvl-f); color: var(--lvl-f-ink); }
+
+/* -------------------------------------------------------------------------
+ * "subj" layout blocks (source pages 4-5): the per-subject AL/DRJ marks grid.
+ * S/N | WILAYA | KATA | JINA LA SHULE | UMILIKI | 6 subjects (AL+DRJ)
+ *   | UFAULU/300 | WASTANI/50 | DARAJA | KUNDI LA UMAHIRI | NAFASI
+ * Column x-centres measured from THIS report's OWN reference original. The grid
+ * body/header are untinted like the original; only .lvl-* is data-driven.
+ * ------------------------------------------------------------------------- */
+table.schools {
+  width: 685.0pt;             /* 48 .. 733 */
+  margin: 3pt 0 0 48pt;
+  border-collapse: collapse;
+  table-layout: fixed;
+  border: 0.8pt solid var(--grid);
+}
+table.schools col.c-sn      { width: 24.0pt; }
+table.schools col.c-wil     { width: 55.0pt; }
+table.schools col.c-kata    { width: 48.0pt; }
+table.schools col.c-sch     { width: 74.0pt; }
+table.schools col.c-own     { width: 40.0pt; }
+table.schools col.c-al      { width: 21.0pt; }
+table.schools col.c-drj     { width: 21.0pt; }
+table.schools col.c-ufaulu  { width: 30.0pt; }
+table.schools col.c-wastani { width: 30.0pt; }
+table.schools col.c-daraja  { width: 22.0pt; }
+table.schools col.c-comp    { width: 78.0pt; }
+table.schools col.c-nafasi  { width: 22.0pt; }

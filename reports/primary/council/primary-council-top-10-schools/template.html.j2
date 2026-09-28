@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>{{ doc.document.report_title }}</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+{#
+  Primary council top-10 schools by marks (LEVEL + FUNCTION name). Section-centric: stacked
+  "SHULE KUMI BORA ..." (and "SHULE KUMI DUNI") top-10 blocks. Fully self-contained (own
+  template + own style.css, inline @font-face). This report's original does NOT colour the
+  grade cells; every fill is a fixed measured palette entry (no data-driven colour).
+
+  Columns: S/N | WILAYA | JINA LA SHULE | UMILIKI | 6 subjects (AL avg + DRJ each) |
+           WASTANI WA UFAULU/30 | WASTANI/50 | DARAJA | KUNDI LA UMAHIRI | NAFASI
+#}
+<div class="titles">
+  {% for line in doc.document.ministry %}
+  <div class="hl ministry">{{ line }}</div>
+  {% endfor %}
+  <div class="hl exam-name">{{ doc.document.exam_name }}</div>
+</div>
+
+{% set subs = doc.document.subjects %}
+{% for s in doc.sections %}
+<div class="section{% if not loop.first and s.page_top %} page-top{% endif %}">
+  <div class="sec-title">{{ s.title }}</div>
+  <table class="schools">
+    <colgroup>
+      <col class="c-sn"><col class="c-wil"><col class="c-sch"><col class="c-own">
+      {% for sub in subs %}<col class="c-al"><col class="c-drj">{% endfor %}
+      <col class="c-ufaulu"><col class="c-wastani"><col class="c-daraja">
+      <col class="c-comp"><col class="c-nafasi">
+    </colgroup>
+    <thead>
+      <tr class="hg">
+        <th rowspan="3" class="v-mid">S/N</th>
+        <th rowspan="3" class="v-mid">WILAYA</th>
+        <th rowspan="3" class="v-mid">JINA LA SHULE</th>
+        <th rowspan="3" class="v-mid">UMILIKI</th>
+        <th colspan="12" class="grp">IDADI YA WATAHINIWA WASTANI WA UFAULU KIMASOMO /50</th>
+        <th rowspan="3" class="v-mid">WASTANI WA UFAULU/30 0</th>
+        <th rowspan="3" class="v-mid">WASTANI/50</th>
+        <th rowspan="3" class="v-mid">DARAJA</th>
+        <th rowspan="3" class="v-mid fill-comp-h">KUNDI LA UMAHIRI</th>
+        <th rowspan="3" class="v-mid">NAFASI</th>
+      </tr>
+      <tr class="hs">
+        {% for sub in subs %}<th colspan="2" class="subj">{{ sub }}</th>{% endfor %}
+      </tr>
+      <tr class="hf">
+        {% for sub in subs %}<th>AL</th><th>DRJ</th>{% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for r in s.rows %}
+      <tr class="row">
+        <td>{{ r.sn }}</td>
+        <td class="txt">{{ r.wilaya }}</td>
+        <td class="txt">{{ r.school }}</td>
+        <td class="txt">{{ r.ownership }}</td>
+        {% for key in ['hisabati','kiswahili','sayansi','english','jiografia','historia'] %}
+        <td>{{ r[key ~ '_al'] }}</td>
+        <td>{{ r[key ~ '_g'] }}</td>
+        {% endfor %}
+        <td class="b">{{ r.ufaulu }}</td>
+        <td class="b">{{ r.wastani }}</td>
+        <td>{{ r.daraja }}</td>
+        <td class="comp">{{ r.competency }}</td>
+        <td class="b">{{ r.nafasi }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endfor %}
+</body>
+</html>
