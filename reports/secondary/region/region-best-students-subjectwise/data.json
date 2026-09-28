@@ -1153,8 +1153,8 @@
         {
           "sno": "2",
           "council": "SENGEREMA DC",
-          "school": "SENGEREMA SEMINARPRIVATE",
-          "category": "",
+          "school": "SENGEREMA SEMINARY",
+          "category": "PRIVATE",
           "candidate": "JOSIA JOSEPH NTURO",
           "sex": "M",
           "marks": "95",
@@ -1963,8 +1963,8 @@
         {
           "sno": "7",
           "council": "KWIMBA DC",
-          "school": "ARCHBISHOP MAYALAPRIVATE",
-          "category": "",
+          "school": "ARCHBISHOP MAYALA",
+          "category": "PRIVATE",
           "candidate": "NORA ASINGIZIBWE LAZARO",
           "sex": "F",
           "marks": "79",
@@ -1999,8 +1999,8 @@
         {
           "sno": "10",
           "council": "KWIMBA DC",
-          "school": "ARCHBISHOP MAYALAPRIVATE",
-          "category": "",
+          "school": "ARCHBISHOP MAYALA",
+          "category": "PRIVATE",
           "candidate": "JOSEPHINA ALEX DOSELE",
           "sex": "F",
           "marks": "73",

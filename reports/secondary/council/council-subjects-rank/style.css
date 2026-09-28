@@ -94,9 +94,9 @@ th.nb, th.h-comp, th.h-rank { font-family: 'Arial Narrow'; }
 .anc { position: relative; height: 0; }
 .anc span { position: absolute; left: 0; right: 0; display: block; white-space: nowrap; text-align: center; }
 /* rotated label: turned -90deg about the span's bottom-left corner (reads bottom-to-top).
-   Excel writes its rotated text matrix with a tiny non-zero cosine; -89.999deg does the same
+   Excel writes its rotated text matrix with a tiny non-zero cosine; -90.001deg does the same
    (invisible: 0.0004pt over the label), so text extractors read both PDFs' letters alike. */
-.anc span.rot { right: auto; transform-origin: 0 100%; transform: rotate(-89.999deg); }
+.anc span.rot { right: auto; transform-origin: 0 100%; transform: rotate(-90.001deg); }
 th.h-rank { padding-left: 0; }
 
 /* subject rows: S/NO., subject and A-D regular; F .. GPA, competency and rank bold */
