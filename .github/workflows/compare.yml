@@ -15,6 +15,12 @@ on:
 permissions:
   contents: write
 
+# Serialise runs per branch so back-to-back merges don't race each other's
+# bot pushes of the same generated files.
+concurrency:
+  group: compare-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   # The documented SUCCESS EXAMPLE: the top-level Lakezone report. Unchanged.
   compare:
@@ -41,7 +47,8 @@ jobs:
           # rebase onto whatever the other job pushed first (they touch disjoint paths).
           if ! git diff --cached --quiet; then
             git commit -m "Update generated report and comparison [bot]"
-            git pull --rebase origin "$GITHUB_REF_NAME"
+            # Outputs are generated: on a conflict keep the freshly built files.
+            git pull --rebase -X theirs origin "$GITHUB_REF_NAME"
             git push
           fi
 
@@ -66,15 +73,17 @@ jobs:
             fc-cache -f ~/.local/share/fonts || true
           fi
       - run: pip install -r requirements.txt
-      - name: Render and compare all secondary reports
+      - name: Render and compare all secondary + primary reports
         run: python scripts/build_all.py
-      - name: Commit secondary outputs and comparisons
+      - name: Commit report outputs and comparisons
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add reports/secondary
+          # build_all.py regenerates both reports/secondary and reports/primary.
+          git add reports
           if ! git diff --cached --quiet; then
             git commit -m "Update secondary reports and comparisons [bot]"
-            git pull --rebase origin "$GITHUB_REF_NAME"
+            # Outputs are generated: on a conflict keep the freshly built files.
+            git pull --rebase -X theirs origin "$GITHUB_REF_NAME"
             git push
           fi
