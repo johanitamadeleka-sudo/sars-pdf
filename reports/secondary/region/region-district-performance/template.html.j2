@@ -2,103 +2,247 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Region district performance</title>
+{# grid rules painted as one anti-aliased fill like this "Microsoft: Print To PDF" original (sars_pdf/rules.py) #}
+<meta name="sars-pdf:rules" content="filled-aa">
+<title>{{ doc.sections[0].title if doc.sections else 'District performance' }}</title>
 <link rel="stylesheet" href="style.css">
+{#
+  Region district performance (LEVEL + FUNCTION name). Region-only, section-centric: one
+  per-district division grid per page. Fully self-contained (own template + own style.css,
+  inline @font-face, no shared stylesheet). Data-driven and location-agnostic; the
+  competency-level background is the ONLY data-driven colour.
+
+  Grid (2 header bands, district rows, TOTAL row):
+    S/N | DISTRICT | NUMBER OF SCHOOLS | REGISTERED F M T (only when has_registered)
+        | SAT F M T % | I | II | III | IV (F M T) | 0 F M T % | I-III F M T % | I-IV F M T %
+        | GPA | COMPETENCY LEVEL | RANK (rotated)
+
+  The original prints every section KIND (overall / government / private / percentage /
+  kpi) from its own Excel sheet: its own column widths and its own print scale (fonts,
+  row heights, rule weights, title block). Each kind's geometry below is measured from the
+  original (rule centres, baselines above the rule centre below, font sizes) and lives
+  HERE, in one place. A kind without its own entry falls back to the geometry of the same
+  shape (with / without REGISTERED).
+#}
+{%- set OVERALL = {
+    'x': 18.54, 'y': 103.62, 'w': [0.36, 0.84], 'h': [14.52, 8.64, 9.48, 13.2],
+    'cols': [20.52, 49.8, 28.44, 17.88, 17.88, 17.88, 17.88, 17.88, 17.88, 29.76, 14.76, 14.76, 14.76, 14.76, 14.76, 14.76, 14.76, 14.76, 14.76, 17.88, 17.88, 17.88, 14.76, 14.76, 14.76, 26.52, 14.76, 17.88, 17.88, 28.92, 17.88, 17.88, 17.88, 26.64, 24.0, 57.12, 9.96],
+    'f': {"h": 6.01, "hs": 4.81, "hm": 5.17, "g": 6.01, "rot": 4.8, "b": 5.17, "sn": 5.17, "sch": 6.01, "rk": 4.81, "t": 6.01, "tsch": 6.01, "tn": 5.65, "tc": 5.17},
+    'bo': {"h": 10.02, "nos1": 13.14, "nos2": 7.26, "reg": 5.7, "sat": 5.46, "grp": 5.58, "gpa_h": 9.9, "comp_h": 10.26, "rank": 1.26, "fmt": 2.22, "spct": 2.82, "b": 1.38, "c": 2.7, "lift": 0.48, "t": 5.1, "tsch": 4.62, "tn": 4.74, "tc": 4.98},
+    'dx': {"rank": 6.74, "dist": 1.14, "comp": 1.17, "tcomp": 1.14},
+    'ti': {"f": 6.01, "base": 60.6, "pitch": 7.8, "cx": 390.92, "sec": 95.64, "sec_cx": 391.71, "band": [18.96, 85.68, 762.48, 97.44]} } %}
+{%- set GOVERNMENT = {
+    'x': 18.54, 'y': 99.9, 'w': [0.36, 0.72], 'h': [13.44, 8.02, 8.76, 12.24],
+    'cols': [19.08, 42.21, 26.4, 17.67, 17.64, 17.62, 17.66, 17.64, 17.64, 24.93, 17.31, 17.28, 17.28, 17.28, 17.28, 17.28, 17.28, 17.28, 17.28, 17.28, 17.28, 17.26, 15.62, 15.6, 15.6, 21.93, 18.27, 18.24, 18.24, 26.86, 16.58, 16.56, 16.56, 24.81, 20.52, 53.19, 9.24],
+    'f': {"h": 5.65, "hs": 4.45, "hm": 4.81, "g": 5.65, "rot": 4.44, "b": 4.81, "sn": 4.81, "sch": 5.65, "rk": 4.45, "t": 5.65, "tsch": 5.65, "tn": 5.17, "tc": 4.81},
+    'bo': {"h": 9.16, "nos1": 12.16, "nos2": 6.64, "reg": 5.22, "sat": 5.1, "grp": 5.22, "gpa_h": 9.16, "comp_h": 9.64, "rank": 1.24, "fmt": 1.96, "spct": 2.68, "b": 1.26, "c": 2.46, "lift": 0.46, "t": 4.72, "tsch": 4.24, "tn": 4.48, "tc": 4.6},
+    'dx': {"rank": 6.42, "dist": 1.14, "comp": 1.16, "tcomp": 1.05},
+    'ti': {"f": 5.65, "base": 60.24, "pitch": 7.2, "cx": 385.79, "sec": 92.64, "sec_cx": 385.87, "band": [18.96, 83.28, 752.28, 94.2]} } %}
+{%- set PRIVATE = {
+    'x': 18.48, 'y': 108.96, 'w': [0.48, 0.96], 'h': [16.2, 9.72, 10.56, 14.76],
+    'cols': [22.92, 50.64, 31.68, 16.44, 16.44, 16.44, 16.44, 16.44, 16.44, 26.52, 16.44, 16.44, 16.44, 12.96, 12.96, 16.44, 14.28, 14.28, 14.28, 14.28, 14.28, 14.28, 12.0, 12.0, 12.0, 29.52, 16.44, 16.44, 16.44, 32.28, 18.0, 18.0, 18.0, 29.76, 27.6, 62.28, 11.04],
+    'f': {"h": 6.73, "hs": 5.29, "hm": 5.77, "g": 6.73, "rot": 5.28, "b": 5.77, "sn": 5.77, "sch": 5.77, "rk": 5.29, "t": 6.73, "tsch": 6.25, "tn": 6.25, "tc": 5.77},
+    'bo': {"h": 11.04, "nos1": 14.52, "nos2": 7.92, "reg": 6.36, "sat": 6.0, "grp": 6.12, "gpa_h": 11.04, "comp_h": 11.52, "rank": 1.2, "fmt": 2.52, "spct": 3.36, "b": 1.56, "c": 3.0, "lift": 0.48, "t": 5.64, "tsch": 5.28, "tn": 5.28, "tc": 5.4},
+    'dx': {"rank": 7.3, "dist": 1.32, "comp": 1.34, "tcomp": 1.2},
+    'ti': {"f": 6.73, "base": 61.2, "pitch": 8.64, "cx": 388.75, "sec": 100.08, "sec_cx": 389.76, "band": [18.96, 89.04, 758.16, 102.12]} } %}
+{%- set PERCENTAGE = {
+    'x': 18.48, 'y': 106.8, 'w': [0.48, 0.84], 'h': [15.48, 9.26, 10.08, 14.16],
+    'cols': [21.96, 53.31, 30.35, 19.06, 19.08, 19.08, 31.83, 15.81, 15.84, 15.84, 15.84, 15.84, 15.84, 15.84, 15.84, 15.84, 19.08, 19.08, 19.1, 15.82, 15.84, 15.84, 28.35, 15.81, 19.08, 19.08, 30.98, 19.06, 19.08, 19.08, 28.59, 25.68, 61.05, 10.56],
+    'f': {"h": 6.49, "hs": 5.05, "g": 6.49, "hm": 5.53, "rot": 5.04, "b": 5.53, "sn": 5.53, "sch": 6.49, "rk": 5.05, "t": 6.49, "tsch": 6.49, "tn": 6.01, "tc": 5.53},
+    'bo': {"h": 10.46, "nos1": 13.94, "nos2": 7.58, "sat": 5.76, "grp": 5.88, "gpa_h": 10.58, "comp_h": 10.94, "rank": 1.22, "fmt": 2.3, "spct": 3.14, "b": 1.56, "c": 2.88, "lift": 0.38, "t": 5.42, "tsch": 4.94, "tn": 5.06, "tc": 5.18},
+    'dx': {"rank": 7.12, "dist": 1.32, "comp": 1.33, "tcomp": 1.17},
+    'ti': {"f": 6.49, "base": 60.96, "pitch": 8.28, "cx": 388.22, "sec": 98.28, "sec_cx": 389.08, "band": [18.96, 87.6, 756.96, 100.2]} } %}
+{%- set LAYOUTS = {'overall': OVERALL, 'government': GOVERNMENT, 'private': PRIVATE,
+                   'percentage': PERCENTAGE, 'kpi': PERCENTAGE} %}
+{#- font metrics (ascent, descent per em) of the faces WeasyPrint embeds: A = Arial
+    (Liberation Sans), N = Arial Narrow (Liberation Sans Narrow), C = Calibri (Carlito) -#}
+{%- set MET = {'A': [0.905, 0.212], 'N': [0.9355, 0.2119], 'C': [0.952, 0.2686]} %}
+
+{#- font-size / line-height / padding-bottom that put a bottom-aligned line's baseline
+    `boi` pt above the cell's inner bottom edge, within `avail` pt of content height -#}
+{%- macro v(fk, s, boi, avail) -%}
+{%- set a = MET[fk][0] %}{% set d = MET[fk][1] -%}
+{%- set L = (a + d) * s %}{% set pb = boi - d * s -%}
+{%- if pb < 0 %}{% set L = 2 * (boi + (a - d) / 2 * s) %}{% set pb = 0 %}{% endif -%}
+{%- if pb + L > avail %}{% set L = 2 * (avail - boi - (a - d) / 2 * s) %}{% set pb = avail - L %}{% endif -%}
+font-size: {{ '%.2f' % s }}pt; line-height: {{ '%.3f' % L }}pt; padding-bottom: {{ '%.3f' % pb }}pt;
+{%- endmacro %}
+{#- bottom offset of an absolutely placed span (em-box line height) in a .anc anchor -#}
+{%- macro anc(fk, s, boi) -%}
+font-size: {{ '%.2f' % s }}pt; line-height: {{ '%.3f' % ((MET[fk][0] + MET[fk][1]) * s) }}pt; bottom: {{ '%.3f' % (boi - MET[fk][1] * s) }}pt;
+{%- endmacro %}
+
+{%- macro layout_css(k, L, nlines) -%}
+{%- set tn = L.w[0] %}{% set tk = L.w[1] %}{% set f = L.f %}{% set bo = L.bo %}{% set ti = L.ti -%}
+{%- set h0 = L.h[0] %}{% set h1 = L.h[1] %}{% set hb = L.h[2] %}{% set ht = L.h[3] -%}
+{%- set em_t = 1.117 * ti.f %}{% set t0 = ti.base - ((ti.pitch - em_t) / 2 + 0.905 * ti.f) -%}
+{%- set b = ti.band -%}
+.k-{{ k }} { --thin: {{ tn }}pt; --thick: {{ tk }}pt; }
+.k-{{ k }} .titles { width: {{ '%.2f' % (2 * ti.cx) }}pt; padding-top: {{ '%.3f' % t0 }}pt; font-size: {{ ti.f }}pt; line-height: {{ ti.pitch }}pt; }
+.k-{{ k }} .band { margin: {{ '%.3f' % (b[1] - t0 - nlines * ti.pitch) }}pt 0 0 {{ b[0] }}pt; width: {{ '%.2f' % (b[2] - b[0]) }}pt; height: {{ '%.2f' % (b[3] - b[1]) }}pt; padding-top: {{ '%.3f' % (ti.sec - b[1] - 0.905 * ti.f) }}pt; font-size: {{ ti.f }}pt; line-height: {{ '%.3f' % em_t }}pt; text-indent: {{ '%.2f' % (2 * (ti.sec_cx - (b[0] + b[2]) / 2)) }}pt; }
+.k-{{ k }} table.grid { width: {{ '%.2f' % (L.cols | sum) }}pt; margin: {{ '%.3f' % (L.y - tn / 2 - b[3]) }}pt 0 0 {{ '%.3f' % (L.x - tn / 2) }}pt; }
+.k-{{ k }} tr.h0 { height: {{ h0 }}pt; }
+.k-{{ k }} tr.h1 { height: {{ h1 }}pt; }
+.k-{{ k }} tr.row { height: {{ hb }}pt; }
+.k-{{ k }} tr.total { height: {{ ht }}pt; }
+{#- header band 1 (thin rules above and below) #}
+.k-{{ k }} th.g-grp { {{ v('A', f.g, bo.grp - tn / 2, h0 - tn) }} }
+.k-{{ k }} th.g-sat { {{ v('N', f.h, bo.sat - tn / 2, h0 - tn) }} }
+{%- if bo.reg %}
+.k-{{ k }} th.g-reg { {{ v('N', f.hm, bo.reg - tn / 2, h0 - tn) }} }
+{%- endif %}
+{#- rowspan header labels, anchored on the band-2 bottom rule (thin under these) #}
+.k-{{ k }} th.h-sn .anc span, .k-{{ k }} th.h-dist .anc span { {{ anc('N', f.h, bo.h - tn / 2) }} }
+{%- set lp = bo.nos1 - bo.nos2 %}{% set em_n = 1.1474 * f.hs %}
+.k-{{ k }} th.h-nos .anc span { font-size: {{ f.hs }}pt; line-height: {{ '%.3f' % lp }}pt; bottom: {{ '%.3f' % (bo.nos2 - tn / 2 - ((lp - em_n) / 2 + 0.2119 * f.hs)) }}pt; }
+.k-{{ k }} th.h-gpa .anc span { {{ anc('A', f.g, bo.gpa_h - tn / 2) }} }
+.k-{{ k }} th.h-comp .anc span { {{ anc('N', f.hm, bo.comp_h - tn / 2) }} }
+.k-{{ k }} th.h-rank .anc span.rot { font-size: {{ f.rot }}pt; line-height: {{ '%.3f' % (1.1474 * f.rot) }}pt; left: {{ '%.3f' % (L.dx.rank - tn / 2 + 0.2119 * f.rot) }}pt; bottom: {{ '%.3f' % (bo.rank - tn / 2) }}pt; }
+{#- header band 2: F / M / T / % (thick rule below the grouped columns) #}
+.k-{{ k }} th.fmt { {{ v('N', f.h, bo.fmt - tn / 2, h1 - tn) }} }
+.k-{{ k }} th.fmt.tb { {{ v('N', f.h, bo.fmt - tk / 2, h1 - tn / 2 - tk / 2) }} }
+.k-{{ k }} th.spct { {{ v('N', f.h, bo.spct - tk / 2, h1 - tn / 2 - tk / 2) }} }
+{#- district rows: bottom-aligned group (S/N .. IV, RANK) and centred group (0 .. COMPETENCY) #}
+{%- set av = hb - tn / 2 - tk / 2 %}
+.k-{{ k }} td.sn { {{ v('C', f.sn, bo.b - tn / 2, av) }} }
+.k-{{ k }} td.dist { {{ v('A', f.b, bo.b - tn / 2, av) }} padding-left: {{ '%.3f' % (L.dx.dist - tn / 2) }}pt; }
+.k-{{ k }} td.sch { {{ v('A', f.sch, bo.b - tn / 2, av) }} }
+.k-{{ k }} td.nb { {{ v('A', f.b, bo.b - tn / 2, av) }} }
+.k-{{ k }} td.nc { {{ v('A', f.b, bo.c - tn / 2, av) }} }
+.k-{{ k }} td.comp { {{ v('A', f.b, bo.c - tn / 2, av) }} padding-left: {{ '%.3f' % (L.dx.comp - tn / 2) }}pt; }
+.k-{{ k }} td.rk { {{ v('A', f.rk, bo.b - tn / 2, av) }} }
+{#- the last district row: the original lifts its bottom-aligned text above the TOTAL row's thick rule #}
+.k-{{ k }} tr.last td.sn { {{ v('C', f.sn, bo.b + bo.lift - tn / 2, av) }} }
+.k-{{ k }} tr.last td.dist { {{ v('A', f.b, bo.b + bo.lift - tn / 2, av) }} }
+.k-{{ k }} tr.last td.sch { {{ v('A', f.sch, bo.b + bo.lift - tk / 2, hb - tk) }} }
+.k-{{ k }} tr.last td.nb { {{ v('A', f.b, bo.b + bo.lift - tk / 2, hb - tk) }} }
+.k-{{ k }} tr.last td.nc { {{ v('A', f.b, bo.c - tk / 2, hb - tk) }} }
+.k-{{ k }} tr.last td.rk { {{ v('A', f.rk, bo.b + bo.lift - tn / 2, av) }} }
+{#- TOTAL row (thick box around NUMBER OF SCHOOLS .. GPA) #}
+.k-{{ k }} td.t-label { {{ v('C', f.t, bo.t - tn / 2, ht - tn) }} }
+.k-{{ k }} td.t-sch { {{ v('C', f.tsch, bo.tsch - tk / 2, ht - tk) }} }
+.k-{{ k }} td.t-num { {{ v('C', f.tn, bo.tn - tk / 2, ht - tk) }} }
+.k-{{ k }} td.t-comp { {{ v('C', f.tc, bo.tc - tn / 2, ht - tn) }} padding-left: {{ '%.3f' % (L.dx.tcomp - tk / 2) }}pt; }
+{%- endmacro %}
+
+{#- numeric columns NUMBER OF SCHOOLS .. GPA:
+    (key, bold in the rows, row fill, TOTAL fill, group: b = bottom-aligned / c = centred,
+     thick left rule in the rows, thick left rule in the TOTAL row, band-2 label, band-2 fill,
+     thick rule under the band-2 label) -#}
+{%- set NUMS = [
+    ('schools', 0, 'f-sch', 'f-tsch', 'b', 0, 1, '', '', 0),
+    ('reg_f', 0, '', '', 'b', 1, 1, 'F', '', 1),
+    ('reg_m', 0, '', '', 'b', 0, 0, 'M', '', 1),
+    ('reg_t', 1, '', '', 'b', 0, 0, 'T', '', 1),
+    ('sat_f', 0, '', '', 'b', 1, 0, 'F', 'f-hsat', 1),
+    ('sat_m', 0, '', '', 'b', 0, 0, 'M', 'f-hsat', 1),
+    ('sat_t', 1, '', '', 'b', 0, 0, 'T', 'f-hsat', 1),
+    ('sat_pct', 1, 'f-sp', 'f-tsp', 'b', 0, 0, '%', 'f-hsat', 1),
+    ('i_f', 0, '', '', 'b', 1, 1, 'F', '', 0),
+    ('i_m', 0, '', '', 'b', 0, 0, 'M', '', 0),
+    ('i_t', 1, '', '', 'b', 0, 0, 'T', '', 0),
+    ('ii_f', 0, '', '', 'b', 0, 0, 'F', '', 0),
+    ('ii_m', 0, '', '', 'b', 0, 0, 'M', '', 0),
+    ('ii_t', 1, '', '', 'b', 0, 0, 'T', '', 0),
+    ('iii_f', 0, '', '', 'b', 0, 0, 'F', '', 0),
+    ('iii_m', 0, '', '', 'b', 0, 0, 'M', '', 0),
+    ('iii_t', 1, '', '', 'b', 0, 0, 'T', '', 0),
+    ('iv_f', 0, '', '', 'b', 0, 0, 'F', '', 0),
+    ('iv_m', 0, '', '', 'b', 0, 0, 'M', '', 0),
+    ('iv_t', 1, '', '', 'b', 0, 0, 'T', '', 0),
+    ('z_f', 0, 'f-z', 'f-z', 'c', 1, 0, 'F', 'f-hz', 1),
+    ('z_m', 0, 'f-z', 'f-z', 'c', 0, 0, 'M', 'f-hz', 1),
+    ('z_t', 0, 'f-z', 'f-z', 'c', 0, 0, 'T', 'f-hz', 1),
+    ('z_pct', 1, 'f-zp', 'f-tzp', 'c', 0, 0, '%', 'f-hzp', 1),
+    ('d3_f', 1, 'f-d3', 'f-td3', 'c', 1, 1, 'F', 'f-hd3', 1),
+    ('d3_m', 1, 'f-d3', 'f-td3', 'c', 0, 0, 'M', 'f-hd3', 1),
+    ('d3_t', 1, 'f-d3', 'f-td3', 'c', 0, 0, 'T', 'f-hd3', 1),
+    ('d3_pct', 1, 'f-d3p', 'f-td3', 'c', 0, 0, '%', 'f-hd3', 1),
+    ('d4_f', 0, '', '', 'c', 1, 0, 'F', '', 1),
+    ('d4_m', 0, '', '', 'c', 0, 0, 'M', '', 1),
+    ('d4_t', 0, '', '', 'c', 0, 0, 'T', '', 1),
+    ('d4_pct', 1, 'f-d4p', 'f-td4p', 'c', 0, 0, '%', 'f-hd4p', 1),
+    ('gpa', 0, 'f-gpa', 'f-tgpa', 'c', 1, 1, '', '', 0),
+] %}
+{%- set NLINES = (doc.document.ministry | length) + 1 %}
+<style>
+{% for k, L in LAYOUTS.items() %}
+{{ layout_css(k, L, NLINES) }}
+{% endfor %}
+</style>
 </head>
 <body>
-{#
-  Region district performance (LEVEL + FUNCTION name). Region-only report. Section-centric:
-  5 stacked per-council/district division grids (one per page). Fully self-contained (own
-  template + own style.css, inline @font-face, no shared stylesheet). Data-driven and
-  location-agnostic. Competency-level background is the ONLY data-driven colour.
-
-  OVERALL / GOVERNMENT / PRIVATE sections carry a REGISTERED group; BY PERCENTAGE / BY KPI
-  omit it (has_registered flag). Columns:
-    S/N | DISTRICT | NO. OF SCHOOLS | NUMBER OF CANDIDATES(REGISTERED F M T, SAT F M T %)
-        | DIVISION PERFORMANCE(I,II,III,IV,0,I-III,I-IV F/M/T + %) | GPA | COMPETENCY | RANK
-#}
-{% macro nums(r, reg) %}
-  <td class="b fill-sch">{{ r.schools }}</td>
-  {% if reg %}<td>{{ r.reg_f }}</td><td>{{ r.reg_m }}</td><td class="b">{{ r.reg_t }}</td>{% endif %}
-  <td>{{ r.sat_f }}</td><td>{{ r.sat_m }}</td><td class="b">{{ r.sat_t }}</td><td class="b fill-sat">{{ r.sat_pct }}</td>
-  <td>{{ r.i_f }}</td><td>{{ r.i_m }}</td><td class="b">{{ r.i_t }}</td>
-  <td>{{ r.ii_f }}</td><td>{{ r.ii_m }}</td><td class="b">{{ r.ii_t }}</td>
-  <td>{{ r.iii_f }}</td><td>{{ r.iii_m }}</td><td class="b">{{ r.iii_t }}</td>
-  <td>{{ r.iv_f }}</td><td>{{ r.iv_m }}</td><td class="b">{{ r.iv_t }}</td>
-  <td class="fill-0">{{ r.z_f }}</td><td class="fill-0">{{ r.z_m }}</td><td class="b fill-0">{{ r.z_t }}</td><td class="b fill-0-pct">{{ r.z_pct }}</td>
-  <td class="fill-3">{{ r.d3_f }}</td><td class="fill-3">{{ r.d3_m }}</td><td class="b fill-3">{{ r.d3_t }}</td><td class="b fill-3-pct">{{ r.d3_pct }}</td>
-  <td class="fill-4">{{ r.d4_f }}</td><td class="fill-4">{{ r.d4_m }}</td><td class="b fill-4">{{ r.d4_t }}</td><td class="b fill-4-pct">{{ r.d4_pct }}</td>
-  <td class="b fill-gpa">{{ r.gpa }}</td>
-{% endmacro %}
-
 {% for s in doc.sections %}
-{% set reg = s.has_registered %}
-<div class="section{% if not loop.first %} own-page{% endif %}">
+{%- set reg = s.has_registered %}
+{%- set lk = s.kind if (s.kind in LAYOUTS and ((LAYOUTS[s.kind].cols | length) == 37) == reg) else ('overall' if reg else 'percentage') %}
+{%- set L = LAYOUTS[lk] %}
+{%- set cols = L.cols %}
+{%- set nums = NUMS if reg else (NUMS[:1] + NUMS[4:]) %}
+{#- widths of the text boxes (column minus the padding/rule allowance) for fit() #}
+{%- set C_COMP = cols | length - 2 %}
+<section class="sec k-{{ lk }} kind-{{ s.kind or lk }}">
   <div class="titles">
     {% for line in doc.document.ministry %}
-    <div class="hl ministry">{{ line }}</div>
+    <div class="hl">{{ line }}</div>
     {% endfor %}
-    <div class="hl exam-name">{{ doc.document.exam_name }}</div>
-    <div class="hl sec-title">{{ s.title }}</div>
+    <div class="hl">{{ doc.document.exam_name }}</div>
   </div>
-  <table class="grid {% if reg %}full{% else %}pct{% endif %}">
-    <colgroup>
-      {% if reg %}
-      {% for w in [20.5,49.5,28.5,18.1,17.9,17.6,18.1,17.9,17.9,29.5,15.0,14.8,14.7,14.8,14.8,14.7,14.8,14.7,14.8,17.9,17.9,17.6,15.0,14.8,14.7,26.3,15.0,17.9,17.9,28.6,18.2,17.8,17.9,26.4,24.0,57.4,14.9] %}<col style="width: {{ w }}pt">{% endfor %}
-      {% else %}
-      {% for w in [22.0,53.2,30.3,19.2,19.1,19.1,31.7,15.9,15.9,15.8,15.8,15.9,15.8,15.9,15.8,15.8,19.1,19.1,19.0,15.9,15.9,15.8,28.2,16.0,19.0,19.1,30.9,19.2,19.0,19.1,28.5,25.6,61.2,15.9] %}<col style="width: {{ w }}pt">{% endfor %}
-      {% endif %}
-    </colgroup>
+  <div class="band">{{ s.title }}</div>
+  <table class="grid">
+    <colgroup>{% for w in cols %}<col style="width:{{ w }}pt">{% endfor %}</colgroup>
     <thead>
-      <tr class="hg">
-        <th rowspan="3" class="c-sn">S/N</th>
-        <th rowspan="3" class="v-mid">DISTRICT</th>
-        <th rowspan="3" class="v-mid nowrap">NO. OF SCHOOLS</th>
-        <th colspan="{% if reg %}7{% else %}4{% endif %}" class="grp fill-cand-h">NUMBER OF CANDIDATES</th>
-        <th colspan="23" class="grp">DIVISION PERFORMANCE</th>
-        <th rowspan="3" class="v-mid fill-gpa-h">GPA</th>
-        <th rowspan="3" class="v-mid">COMPETENCY LEVEL</th>
-        <th rowspan="3" class="rank-h"><div class="vert"><span>RANK</span></div></th>
+      <tr class="h0">
+        <th rowspan="2" class="h-sn"><div class="anc"><span>S/N</span></div></th>
+        <th rowspan="2" class="h-dist"><div class="anc"><span>DISTRICT</span></div></th>
+        <th rowspan="2" class="h-nos f-hnos"><div class="anc"><span>NUMBER OF<br>SCHOOLS</span></div></th>
+        {% if reg %}<th colspan="3" class="g-reg">REGISTERED</th>{% endif %}
+        <th colspan="4" class="g-sat">SAT</th>
+        <th colspan="3" class="g-grp">I</th>
+        <th colspan="3" class="g-grp">II</th>
+        <th colspan="3" class="g-grp">III</th>
+        <th colspan="3" class="g-grp">IV</th>
+        <th colspan="4" class="g-grp">0</th>
+        <th colspan="4" class="g-grp">I-III</th>
+        <th colspan="4" class="g-grp">I-IV</th>
+        <th rowspan="2" class="h-gpa"><div class="anc"><span>GPA</span></div></th>
+        <th rowspan="2" class="h-comp"><div class="anc"><span>COMPETENCY LEVEL</span></div></th>
+        <th rowspan="2" class="h-rank"><div class="anc"><span class="rot">RANK</span></div></th>
       </tr>
-      <tr class="hs">
-        {% if reg %}<th colspan="3" class="fill-cand-h">REGISTERED</th>{% endif %}
-        <th colspan="4" class="fill-cand-h">SAT</th>
-        <th colspan="3">I</th><th colspan="3">II</th><th colspan="3">III</th><th colspan="3">IV</th>
-        <th colspan="4" class="fill-0-h">0</th>
-        <th colspan="4" class="fill-3-h">I-III</th>
-        <th colspan="4" class="fill-4-h">I-IV</th>
-      </tr>
-      <tr class="hf">
-        {% if reg %}<th>F</th><th>M</th><th>T</th>{% endif %}
-        <th>F</th><th>M</th><th>T</th><th>%</th>
-        <th>F</th><th>M</th><th>T</th><th>F</th><th>M</th><th>T</th>
-        <th>F</th><th>M</th><th>T</th><th>F</th><th>M</th><th>T</th>
-        <th>F</th><th>M</th><th>T</th><th>%</th>
-        <th>F</th><th>M</th><th>T</th><th>%</th>
-        <th>F</th><th>M</th><th>T</th><th>%</th>
+      <tr class="h1">
+        {% for key, bold, fb, ft, grp, tl, ttl, lab, hf, htb in nums[1:-1] %}
+        <th class="{{ 'spct' if key == 'sat_pct' else 'fmt' }}{% if htb %} tb{% endif %}{% if hf %} {{ hf }}{% endif %}">{{ lab }}</th>
+        {% endfor %}
       </tr>
     </thead>
     <tbody>
       {% for r in s.rows %}
-      <tr class="row">
-        <td class="c-sn">{{ r.sn }}</td>
-        <td class="txt">{{ r.district }}</td>
-        {{ nums(r, reg) }}
-        <td class="comp{% if r.level %} lvl-{{ r.level | lower }}{% endif %}">{{ r.competency }}</td>
-        <td class="b c-rank fill-sch">{{ r.rank }}</td>
+      <tr class="row{% if loop.last %} last{% endif %}">
+        <td class="sn"{{ fit(r.sn, cols[0] - 1.2, L.f.sn, family='Calibri') }}>{{ r.sn }}</td>
+        <td class="dist"{{ fit(r.district, cols[1] - L.dx.dist - 0.6, L.f.b) }}>{{ r.district }}</td>
+        {% for key, bold, fb, ft, grp, tl, ttl, lab, hf, htb in nums %}
+        {%- set size = L.f.sch if key == 'schools' else L.f.b %}
+        <td class="{{ 'sch' if key == 'schools' else ('n' ~ grp) }}{% if bold %} b{% endif %}{% if fb %} {{ fb }}{% endif %}{% if tl %} tl{% endif %}"{{ fit(r[key], cols[2 + loop.index0] - 1.4, size, bold=bold) }}>{{ r[key] }}</td>
+        {% endfor %}
+        <td class="comp{% if r.level %} lvl-{{ r.level | lower }}{% endif %}"{{ fit(r.competency, cols[C_COMP] - L.dx.comp - 0.6, L.f.b) }}>{{ r.competency }}</td>
+        <td class="rk f-rank"{{ fit(r.rank, cols[-1] - 1.0, L.f.rk) }}>{{ r.rank }}</td>
       </tr>
       {% endfor %}
       {% if s.total %}
-      <tr class="row total">
-        <td class="txt b" colspan="2">TOTAL</td>
-        {{ nums(s.total, reg) }}
-        <td class="comp{% if s.total.level %} lvl-{{ s.total.level | lower }}{% endif %}">{{ s.total.competency }}</td>
-        <td class="b c-rank fill-sch">{{ s.total.rank }}</td>
+      {% set t = s.total %}
+      {% set t_lvl = level(t.competency, t.gpa) %}
+      <tr class="total">
+        <td colspan="2" class="t-label">TOTAL</td>
+        {% for key, bold, fb, ft, grp, tl, ttl, lab, hf, htb in nums %}
+        {%- set size = L.f.tsch if key == 'schools' else L.f.tn %}
+        <td class="{{ 't-sch' if key == 'schools' else 't-num' }}{% if grp == 'c' %} gc{% endif %} tt tb{% if ft %} {{ ft }}{% endif %}{% if ttl %} tl{% endif %}"{{ fit(t[key], cols[2 + loop.index0] - 1.6, size, family='Calibri', bold=True) }}>{{ t[key] }}</td>
+        {% endfor %}
+        <td class="t-comp tl{% if t_lvl %} lvl-{{ t_lvl | lower }}{% endif %}"{{ fit(t.competency, cols[C_COMP] - L.dx.tcomp - 0.6, L.f.tc, family='Calibri', bold=True) }}>{{ t.competency }}</td>
+        <td class="t-rank">{{ t.rank }}</td>
       </tr>
       {% endif %}
     </tbody>
   </table>
-</div>
+</section>
 {% endfor %}
 </body>
 </html>

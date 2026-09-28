@@ -2,91 +2,183 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+{# grid rules painted as filled rects like this Excel-exported original (sars_pdf/rules.py) #}
+<meta name="sars-pdf:rules" content="filled">
 <title>{{ doc.document.report_title }}</title>
 <link rel="stylesheet" href="style.css">
+{#
+  Council schools rank, subjectwise (LEVEL + FUNCTION name). One table per subject:
+  title block, 2 header bands, one row per school, the overall row. Fully self-contained
+  (own template + own style.css, inline @font-face, no shared stylesheet). Data-driven and
+  location-agnostic; the competency-level background is the ONLY data-driven colour.
+
+  Columns: S/N | SCHOOL NAME | GRADING PERFORMANCE (A B C D F | TOTAL | A-C %A-C A-D %A-D)
+           | GPA | COMPENTENCY LEVEL | C/RANK (rotated)
+
+  Every subject was printed from its own Excel sheet, so each table carries the geometry
+  measured from the original (tables[].geom: title baselines and sizes, header band
+  heights, row pitch, overall-row height, and whether it starts a new page or follows the
+  previous table at a measured gap) and its header design (tables[].design: "a" = the
+  first sheet's, "b" = the others'). Rows flow onto the next page wherever the page fills;
+  the header is not repeated on continuation pages, as in the original.
+#}
+{%- set COLS = [24.69, 127.85, 23.88, 23.88, 23.88, 23.88, 29.88, 29.12, 26.1, 28.23, 26.13, 29.1, 34.05, 94.8, 13.25] %}
+{%- set X0 = 31.59 %}{% set CX = 311.31 %}{% set TOP = 59.76 %}
+{%- set TN = 0.48 %}{% set TK = 1.08 %}
+{#- baselines above the centre of the rule under the cell (measured) -#}
+{%- set BO = {'row': 2.28, 'lift': 0.5, 'ov': 2.8, 'gp': 2.82,
+              'a': {'lab': 2.82, 'comp': 2.94, 'rank_x': 9.54, 'rank_b': 1.62, 'rank_f': 7.8},
+              'b': {'lab': 2.79, 'comp': 2.91, 'rank_x': 8.74, 'rank_b': 1.59, 'rank_f': 6.72}} %}
+{%- set MET = {'A': [0.905, 0.212], 'N': [0.9355, 0.2119]} %}
+
+{%- macro v(fk, s, boi, avail) -%}
+{%- set a = MET[fk][0] %}{% set d = MET[fk][1] -%}
+{%- set L = (a + d) * s %}{% set pb = boi - d * s -%}
+{%- if pb < 0 %}{% set L = 2 * (boi + (a - d) / 2 * s) %}{% set pb = 0 %}{% endif -%}
+{%- if pb + L > avail %}{% set L = 2 * (avail - boi - (a - d) / 2 * s) %}{% set pb = avail - L %}{% endif -%}
+font-size: {{ '%.2f' % s }}pt; line-height: {{ '%.3f' % L }}pt; padding-bottom: {{ '%.3f' % pb }}pt;
+{%- endmacro %}
+{%- macro anc(fk, s, boi) -%}
+font-size: {{ '%.2f' % s }}pt; line-height: {{ '%.3f' % ((MET[fk][0] + MET[fk][1]) * s) }}pt; bottom: {{ '%.3f' % (boi - MET[fk][1] * s) }}pt;
+{%- endmacro %}
+<style>
+@page { margin-top: {{ TOP }}pt; }
+table.grid { width: {{ '%.2f' % (COLS | sum) }}pt; margin-left: {{ '%.2f' % (X0 - TK / 2) }}pt; }
+{#- shared cell metrics (the row pitch varies per sheet, the fonts do not) #}
+{%- set av = 11.28 - TK / 2 - TN / 2 %}
+td.sn, td.school { {{ v('A', 6.72, BO.row - TN / 2, av) }} }
+td.n, td.nb { {{ v('A', 7.8, BO.row - TN / 2, av) }} }
+td.comp { {{ v('N', 7.32, BO.row - TN / 2, av) }} }
+table.cf-A td.comp { {{ v('A', 7.32, BO.row - TN / 2, av) }} font-family: 'Arial'; }
+td.rk { {{ v('A', 6.72, BO.row - TN / 2, av) }} }
+tr.last td.sn, tr.last td.school { {{ v('A', 6.72, BO.row + BO.lift - TN / 2, av) }} }
+tr.last td.n, tr.last td.nb { {{ v('A', 7.8, BO.row + BO.lift - TK / 2, 11.28 - TK) }} }
+tr.last td.comp { {{ v('N', 7.32, BO.row + BO.lift - TN / 2, av) }} }
+table.cf-A tr.last td.comp { {{ v('A', 7.32, BO.row + BO.lift - TN / 2, av) }} }
+tr.last td.rk { {{ v('A', 6.72, BO.row + BO.lift - TN / 2, av) }} }
+td.ov-n { {{ v('A', 7.8, BO.ov - TK / 2, 11.3 - TK) }} }
+{%- for d in ['a', 'b'] %}
+{%- set B = BO[d] %}
+.d-{{ d }} th.gp { {{ v('A', 7.8, BO.gp - TK / 2, 13.9 - TK) }} }
+.d-{{ d }} th.lab { {{ v('A', 7.8, B.lab - TK / 2, 13.9 - TK) }} }
+.d-{{ d }} th.lab.nb { {{ v('N', 7.8, B.lab - TK / 2, 13.9 - TK) }} }
+.d-{{ d }} th.lab.nt { {{ v('N', 6.72, B.lab - TK / 2, 13.9 - TK) }} }
+.d-{{ d }} th.h-comp { {{ v('N', 7.32, B.comp - TK / 2, 13.9 - TK) }} }
+.d-{{ d }} th.h-rank .anc span.rot { font-size: {{ B.rank_f }}pt; line-height: {{ '%.3f' % ((1.1474 if d == 'a' else 1.117) * B.rank_f) }}pt; left: {{ '%.3f' % (B.rank_x - TN / 2 + (0.2119 if d == 'a' else 0.212) * B.rank_f) }}pt; bottom: {{ '%.3f' % (B.rank_b - (TK if d == 'a' else TN) / 2) }}pt; }
+{%- endfor %}
+td.ov-l.d-a { {{ v('A', 7.8, BO.ov - TK / 2, 11.3 - TK) }} }
+td.ov-l.d-b { {{ v('A', 6.72, BO.ov - TK / 2, 11.3 - TK) }} }
+{#- per-table geometry: title block, header band heights, row pitch, overall row #}
+{%- for t in doc.tables %}
+{%- set g = t.geom %}{% set k = 't' ~ loop.index %}
+{%- set ti = g.title %}
+{%- set last_f = ti[-1][1] %}
+#{{ k }} tr.h0 { height: {{ g.hdr[0] }}pt; }
+#{{ k }} tr.h1 { height: {{ g.hdr[1] }}pt; }
+#{{ k }} tr.row { height: {{ g.row }}pt; }
+#{{ k }} tr.ov { height: {{ g.ov }}pt; }
+#{{ k }} td.ov-c { {{ v('A', g.ov_comp, BO.ov - TN / 2, g.ov - TK / 2 - TN / 2) }} }
+#{{ k }} table.grid { margin-top: {{ '%.3f' % (g.top - TK / 2 - 0.212 * last_f) }}pt; }
+{%- for i in range(ti | length) %}
+{%- set f = ti[i][1] %}
+{%- if i == 0 %}
+{%- set mt = (g.first - 0.905 * f - TOP) if g.new_page else (g.first - 0.905 * f - TK / 2) %}
+{%- elif g.band and i == 4 %}
+{%- set mt = (g.band[1] - (ti[i - 1][0] + 0.212 * ti[i - 1][1])) %}
+{%- elif g.band and i == 5 %}
+{%- set mt = (ti[i][0] - 0.905 * f - g.band[3]) %}
+{%- else %}
+{%- set mt = (ti[i][0] - 0.905 * f) - (ti[i - 1][0] + 0.212 * ti[i - 1][1]) %}
+{%- endif %}
+#{{ k }} .hl:nth-child({{ i + 1 }}) { margin-top: {{ '%.3f' % mt }}pt; font-size: {{ f }}pt; line-height: {{ '%.3f' % (1.117 * f) }}pt; }
+{%- endfor %}
+{%- if g.band %}
+#{{ k }} .hl.band { margin-left: {{ g.band[0] }}pt; width: {{ '%.2f' % (g.band[2] - g.band[0]) }}pt; height: {{ '%.2f' % (g.band[3] - g.band[1]) }}pt; padding-top: {{ '%.3f' % (ti[4][0] - g.band[1] - 0.905 * ti[4][1]) }}pt; text-indent: {{ '%.2f' % (2 * (CX - (g.band[0] + g.band[2]) / 2)) }}pt; }
+{%- endif %}
+{%- endfor %}
+.titles { margin-left: {{ '%.2f' % (2 * CX - 612) }}pt; }
+</style>
 </head>
 <body>
-{#
-  Council schools rank, subjectwise. Data-driven and location-agnostic: every label
-  (ministry lines, exam name, report title, subject, scope) comes from data.json, so
-  any council's data of this shape renders through this template unchanged.
-
-  Column set: S/N | SCHOOL NAME | A B C D F | TOTAL | A-C %A-C A-D %A-D | GPA
-              | COMPETENCY LEVEL | C/RANK   (NO region/council/centre/av/grd)
-#}
 {% for t in doc.tables %}
-<div class="block{% if t.multipage %} own-page{% endif %}{% if loop.first %} first-block{% endif %}">
+{%- set g = t.geom %}
+{%- set d = t.design or 'b' %}
+<section id="t{{ loop.index }}" class="tbl{% if g.new_page and not loop.first %} new-page{% endif %}">
   <div class="titles">
     {% for line in doc.document.ministry %}
-    <div class="hl ministry">{{ line }}</div>
+    <div class="hl">{{ line }}</div>
     {% endfor %}
-    <div class="hl exam-name">{{ doc.document.exam_name }}</div>
-    <div class="hl report-title">{{ doc.document.report_title }}</div>
-    <div class="hl subject">{{ t.title }}</div>
+    <div class="hl">{{ doc.document.exam_name }}</div>
+    <div class="hl{% if g.band %} band{% endif %}">{{ t.subtitle }}</div>
+    <div class="hl">{{ t.title }}</div>
   </div>
-
-  <table class="rank">
-    <colgroup>
-      <col class="w-sn"><col class="w-school">
-      <col class="w-a"><col class="w-b"><col class="w-c"><col class="w-d"><col class="w-f">
-      <col class="w-total"><col class="w-ac"><col class="w-pac"><col class="w-ad"><col class="w-pad">
-      <col class="w-gpa"><col class="w-comp"><col class="w-rank">
-    </colgroup>
-    <thead>
-      <tr class="h1">
-        <th rowspan="2" class="c-sn fill-rank">S/N</th>
-        <th rowspan="2" class="nowrap">SCHOOL NAME</th>
-        <th colspan="10" class="grading">GRADING PERFORMANCE</th>
-        <th rowspan="2" class="gpa-h">GPA</th>
-        <th rowspan="2" class="comp-h">COMPENTENCY LEVEL</th>
-        <th rowspan="2" class="fill-rank rank-h"><div class="vert"><span>{{ t.rank_label }}</span></div></th>
-      </tr>
-      <tr class="h2">
-        <th class="fill-abcd">A</th><th class="fill-abcd">B</th><th class="fill-abcd">C</th><th class="fill-abcd">D</th>
-        <th class="fill-f-h">F</th>
-        <th class="fill-total-h tiny">TOTAL</th>
-        <th class="fill-ac-h">A-C</th><th class="fill-pac-h">%A-C</th>
-        <th class="fill-ad-h">A-D</th><th class="fill-ad-h">%A-D</th>
-      </tr>
-    </thead>
+  <table class="grid d-{{ d }} cf-{{ g.comp_font or 'N' }}">
+    <colgroup>{% for w in COLS %}<col style="width:{{ w }}pt">{% endfor %}</colgroup>
     <tbody>
+      {#- no rowspan: Excel breaks a page between the two header bands when it must #}
+      <tr class="h0">
+        <th class="tall top tl{% if d == 'a' %} f-hsn{% endif %}"></th>
+        <th class="tall top{% if d == 'a' %} tr{% endif %}"></th>
+        <th colspan="10" class="gp tt{% if d == 'a' %} tl tr{% endif %}">GRADING PERFORMANCE</th>
+        <th class="tall top{% if d == 'a' %} tl{% endif %} f-hgpa-{{ d }}"></th>
+        <th class="tall top"></th>
+        <th class="tall top f-hrank{% if d == 'a' %} tr{% else %} tn{% endif %}"></th>
+      </tr>
+      <tr class="h1">
+        <th class="tall bot lab tl tb{% if d == 'a' %} nb f-hsn{% endif %}">S/N</th>
+        <th class="tall bot lab tr tb{% if d == 'a' %} nb{% endif %}">SCHOOL NAME</th>
+        <th class="lab tl tt tb f-hg">A</th>
+        <th class="lab tt tb f-hg">B</th>
+        <th class="lab tt tb f-hg">C</th>
+        <th class="lab tt tb f-hg">D</th>
+        <th class="lab tt tb f-hf">F</th>
+        <th class="lab nt tr tt tb f-htot">TOTAL</th>
+        <th class="lab tl tt tb f-hac">A-C</th>
+        <th class="lab tr tt tb f-hac">%A-C</th>
+        <th class="lab tl tt tb f-had">A-D</th>
+        <th class="lab tr tt tb f-had">%A-D</th>
+        <th class="tall bot lab tl tb f-hgpa-{{ d }}">GPA</th>
+        <th class="tall bot h-comp tb{% if d == 'b' %} left{% endif %}">COMPENTENCY LEVEL</th>
+        <th class="tall bot h-rank f-hrank{% if d == 'a' %} tr tb{% endif %}"><div class="anc"><span class="rot">{{ t.rank_label }}</span></div></th>
+      </tr>
       {% for r in t.rows %}
-      <tr class="row">
-        <td class="c-sn">{{ r.sn }}</td>
-        <td class="txt">{{ r.school_name }}</td>
-        <td>{{ r.a }}</td><td>{{ r.b }}</td><td>{{ r.c }}</td><td>{{ r.d }}</td>
-        <td class="fill-f b">{{ r.f }}</td>
-        <td class="c-total">{{ r.total }}</td>
-        <td class="fill-ac b">{{ r.a_c }}</td>
-        <td class="fill-ac b">{{ r.pct_a_c }}</td>
-        <td class="fill-ad b">{{ r.a_d }}</td>
-        <td class="fill-ad b">{{ r.pct_a_d }}</td>
-        <td class="b">{{ r.gpa }}</td>
-        <td class="comp{% if r.level %} lvl-{{ r.level | lower }}{% endif %}">{{ r.competency }}</td>
-        <td class="b c-rank">{{ r.rank }}</td>
+      <tr class="row{% if loop.last %} last{% endif %}">
+        <td class="sn"{{ fit(r.sn, COLS[0] - 1.2, 6.72) }}>{{ r.sn }}</td>
+        <td class="school"{{ fit(r.school_name, COLS[1] - 1.8, 6.72) }}>{{ r.school_name }}</td>
+        <td class="n"{{ fit(r.a, COLS[2] - 1.2, 7.8) }}>{{ r.a }}</td>
+        <td class="n"{{ fit(r.b, COLS[3] - 1.2, 7.8) }}>{{ r.b }}</td>
+        <td class="n"{{ fit(r.c, COLS[4] - 1.2, 7.8) }}>{{ r.c }}</td>
+        <td class="n"{{ fit(r.d, COLS[5] - 1.2, 7.8) }}>{{ r.d }}</td>
+        <td class="nb f-f"{{ fit(r.f, COLS[6] - 1.2, 7.8, bold=True) }}>{{ r.f }}</td>
+        <td class="nb tr"{{ fit(r.total, COLS[7] - 1.6, 7.8, bold=True) }}>{{ r.total }}</td>
+        <td class="nb tl f-ac"{{ fit(r.a_c, COLS[8] - 1.6, 7.8, bold=True) }}>{{ r.a_c }}</td>
+        <td class="nb f-ac"{{ fit(r.pct_a_c, COLS[9] - 1.2, 7.8, bold=True) }}>{{ r.pct_a_c }}</td>
+        <td class="nb f-ad"{{ fit(r.a_d, COLS[10] - 1.2, 7.8, bold=True) }}>{{ r.a_d }}</td>
+        <td class="nb f-ad"{{ fit(r.pct_a_d, COLS[11] - 1.6, 7.8, bold=True) }}>{{ r.pct_a_d }}</td>
+        <td class="nb tl"{{ fit(r.gpa, COLS[12] - 1.6, 7.8, bold=True) }}>{{ r.gpa }}</td>
+        <td class="comp{% if r.level %} lvl-{{ r.level | lower }}{% endif %}"{{ fit(r.competency, COLS[13] - 1.8, 7.32, family=('Arial' if g.comp_font == 'A' else 'Arial Narrow'), bold=True) }}>{{ r.competency }}</td>
+        <td class="rk"{{ fit(r.rank, COLS[14] - 1.0, 6.72, bold=True) }}>{{ r.rank }}</td>
       </tr>
       {% endfor %}
       {% if t.overall %}
       {% set o = t.overall %}
-      <tr class="overall">
-        <td colspan="2" class="ov-label">{{ t.overall_label }}</td>
-        <td class="b">{{ o.a }}</td><td class="b">{{ o.b }}</td><td class="b">{{ o.c }}</td><td class="b">{{ o.d }}</td>
-        <td class="b">{{ o.f }}</td>
-        <td class="b">{{ o.total }}</td>
-        <td class="b">{{ o.a_c }}</td>
-        <td class="b">{{ o.pct_a_c }}</td>
-        <td class="b">{{ o.a_d }}</td>
-        <td class="b">{{ o.pct_a_d }}</td>
-        <td class="b">{{ o.gpa }}</td>
-        <td colspan="2" class="ov-comp{% if o.level %} lvl-{{ o.level | lower }}{% endif %}">{{ o.competency }}</td>
+      {% set o_lvl = o.level %}
+      <tr class="ov d-{{ d }}">
+        <td colspan="2" class="ov-l d-{{ d }} nr tb">{{ t.overall_label }}</td>
+        {% for key, fa, tla in [('a', 'f-oabcd', 0), ('b', 'f-oabcd', 0), ('c', 'f-oabcd', 0), ('d', 'f-oabcd', 0),
+                                ('f', 'f-of', 0), ('total', 'f-otot', 0), ('a_c', 'f-oac', 1), ('pct_a_c', 'f-oac', 0),
+                                ('a_d', 'f-oad', 1), ('pct_a_d', 'f-oad', 0), ('gpa', 'f-ogpa', 1)] %}
+        <td class="ov-n tt tb{% if d == 'a' %} {{ fa }}{% if tla %} tl{% endif %}{% endif %}{% if loop.first %} nl{% endif %}"{{ fit(o[key], COLS[2 + loop.index0] - 1.6, 7.8, bold=True) }}>{{ o[key] }}</td>
+        {% endfor %}
+        <td colspan="2" class="ov-c tl{% if d == 'b' %} tb{% endif %}{% if o_lvl %} lvl-{{ o_lvl | lower }}{% endif %}"{{ fit(o.competency, COLS[13] + COLS[14] - 2.0, t.geom.ov_comp, bold=True) }}>{{ o.competency }}</td>
       </tr>
       {% endif %}
     </tbody>
   </table>
-</div>
+</section>
 {% endfor %}
 {% if doc.document.trailing_blank_page %}
-{# The reference source PDF ends with one empty page; reproduce it for exact page count. #}
+{# The source PDF ends with one empty page; reproduce it for the exact page count. #}
 <div class="trailing-page"></div>
 {% endif %}
 </body>

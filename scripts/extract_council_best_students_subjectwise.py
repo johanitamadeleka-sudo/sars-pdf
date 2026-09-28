@@ -9,9 +9,13 @@ Extraction is coordinate based (pymupdf words), never hand-typed.
 """
 
 import json
+import sys
 from pathlib import Path
 
 import pymupdf
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from sars_pdf.pdftext import column_x, page_words  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "council_pdf" / "council_pdf" / "MWANZA CC 10 BEST STUDENTS SUBJECTWISE.pdf"
@@ -51,18 +55,22 @@ def parse_row(line):
                             "marks", "grade", "position", "competency"]}
     id_p, school_p, cat_p, cand_p, comp_p = [], [], [], [], []
     centers = [(SEX_C, "sex"), (MARKS_C, "marks"), (GRADE_C, "grade"), (POS_C, "position")]
+    # Words drawn past their cell edge (e.g. SCHOOL "ALLIANCE ROCK ARMY" spilling toward
+    # CATEGORY "PRIVATE") stay in the cell they were typed into via column_x().
+    colx = column_x(line)
     for w in line:
         x0, x1, txt = w[0], w[2], w[4]
         cx = (x0 + x1) / 2
-        if x0 < SN_MAX:
+        col_x = colx[id(w)]
+        if col_x < SN_MAX:
             row["sn"] = txt
-        elif x0 < ID_MAX:
+        elif col_x < ID_MAX:
             id_p.append((x0, txt))
-        elif x0 < SCHOOL_MAX:
+        elif col_x < SCHOOL_MAX:
             school_p.append((x0, txt))
-        elif x0 < CAT_MAX:
+        elif col_x < CAT_MAX:
             cat_p.append((x0, txt))
-        elif x0 < CAND_MAX:
+        elif col_x < CAND_MAX:
             cand_p.append((x0, txt))
         elif cx >= COMP_MIN:
             comp_p.append((x0, txt))
@@ -82,7 +90,7 @@ def main():
     cur = None
     blank_pages = 0
     for pi in range(doc.page_count):
-        words = doc[pi].get_text("words")
+        words = page_words(doc[pi])
         if not words:
             blank_pages += 1
             continue

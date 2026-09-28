@@ -54,10 +54,22 @@ def parse_row(words):
     return row
 
 
+def span_text(page, needle):
+    """The literal text of the span containing ``needle`` (keeps the original's spacing,
+    e.g. the double space in 'OVERALL SUBJECTS  REGIONAL GPA')."""
+    for block in page.get_text("dict")["blocks"]:
+        for line in block.get("lines", []):
+            for span in line["spans"]:
+                if needle in span["text"]:
+                    return span["text"].strip()
+    return None
+
+
 def main():
     doc = pymupdf.open(SRC)
     rows = []
     overall = {"gpa": "", "competency": ""}
+    overall_label = "OVERALL SUBJECTS REGIONAL GPA"
     for pi in range(doc.page_count):
         words = doc[pi].get_text("words")
         # anchors: a 2-char S/NO in the left column
@@ -87,6 +99,7 @@ def main():
                 pending = single
             elif "OVERALL" in txt and "GPA" in txt:
                 overall["gpa"] = pending or overall["gpa"]
+                overall_label = span_text(doc[pi], "OVERALL") or overall_label
             elif txt.startswith("Grade") and len(lines[y]) >= 2:
                 overall["competency"] = txt
 
@@ -99,9 +112,8 @@ def main():
         ],
         "exam_name": "REGIONAL FORM TWO MOCK ASSESSMENT RESULTS, JULY 2026",
         "report_title": "SUBJECTS PERFORMANCE REGIONALWISE",
-        "overall_gpa_label": "OVERALL SUBJECTS REGIONAL GPA",
+        "overall_gpa_label": overall_label,
         "scope": "REGIONWISE",
-        "page_break_after_sn": "24",
     }
     # sort by SN numeric
     rows.sort(key=lambda r: int(r["sn"]))

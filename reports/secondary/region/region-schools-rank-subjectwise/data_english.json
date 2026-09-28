@@ -13,7 +13,7 @@
     {
       "subject": "ENGLISH LANGUAGE",
       "scope": "REGIONWISE",
-      "scope_label": "REGIONALWISE",
+      "scope_label": "SUBJECT REGIONALWISE",
       "rows": [
         {
           "sn": "001",
@@ -208,7 +208,7 @@
         {
           "sn": "011",
           "council": "SENGEREMA DC",
-          "school": "CHRIST THE KING NYANTA",
+          "school": "CHRIST THE KING NYANTAKUBWA GIRLS",
           "a": "26",
           "b": "28",
           "c": "28",
@@ -569,7 +569,7 @@
         {
           "sn": "030",
           "council": "SENGEREMA DC",
-          "school": "CHRIST THE KING NYANTA",
+          "school": "CHRIST THE KING NYANTAKUBWA BOYS",
           "a": "2",
           "b": "13",
           "c": "20",
@@ -721,7 +721,7 @@
         {
           "sn": "038",
           "council": "MWANZA CC",
-          "school": "STAR REACHERS GIRLS A",
+          "school": "STAR REACHERS GIRLS AND BOYS",
           "a": "1",
           "b": "4",
           "c": "7",
@@ -1386,7 +1386,7 @@
         {
           "sn": "073",
           "council": "SENGEREMA DC",
-          "school": "AICT KATUNGURU CHRIST",
+          "school": "AICT KATUNGURU CHRISTIAN SEMINARY",
           "a": "0",
           "b": "0",
           "c": "15",
@@ -7370,7 +7370,7 @@
         }
       ],
       "overall": {
-        "label": "COUNCIL OVERALL PERFORMANCE Grade D (Satisfactory)",
+        "label": "COUNCIL OVERALL PERFORMANCE",
         "a": "859",
         "b": "2645",
         "c": "11416",
@@ -7382,7 +7382,7 @@
         "a_d": "30742",
         "pct_a_d": "59.03",
         "gpa": "3.97",
-        "competency": ""
+        "competency": "Grade D (Satisfactory)"
       }
     }
   ]

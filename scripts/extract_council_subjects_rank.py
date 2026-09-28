@@ -71,10 +71,22 @@ def parse_row(line):
     return row
 
 
+def span_text(page, needle):
+    """The literal text of the span containing ``needle`` (keeps the original's spacing,
+    e.g. the double space in 'OVERALL SUBJECTS  COUNCIL GPA')."""
+    for block in page.get_text("dict")["blocks"]:
+        for line in block.get("lines", []):
+            for span in line["spans"]:
+                if needle in span["text"]:
+                    return span["text"].strip()
+    return None
+
+
 def main():
     doc = pymupdf.open(SRC)
     rows = []
     overall = {"gpa": "", "competency": ""}
+    overall_label = "OVERALL SUBJECTS COUNCIL GPA"
     for pi in range(doc.page_count):
         lines = group_lines(doc[pi].get_text("words"))
         pending_gpa = None
@@ -88,6 +100,7 @@ def main():
                 pending_gpa = text  # lone GPA number above the overall label
             elif "OVERALL" in text and "GPA" in text:
                 overall["gpa"] = pending_gpa or ""
+                overall_label = span_text(doc[pi], "OVERALL") or overall_label
             elif "Grade" in text and "COMPETENCY" not in text and first[0] > 200:
                 overall["competency"] = " ".join(w[4] for w in line)
 
@@ -100,7 +113,7 @@ def main():
         ],
         "exam_name": "REGIONAL FORM TWO MOCK ASSESSMENT RESULTS, JULY 2026",
         "report_title": "MWANZA CC ALL SUBJECTS PERFOMANCE",
-        "overall_gpa_label": "OVERALL SUBJECTS COUNCIL GPA",
+        "overall_gpa_label": overall_label,
     }
     data = {"document": document, "rows": rows, "overall": overall}
     OUT.parent.mkdir(parents=True, exist_ok=True)

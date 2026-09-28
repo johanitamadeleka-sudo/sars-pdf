@@ -10,9 +10,13 @@ Coordinate based (pymupdf words), never hand-typed.
 """
 
 import json
+import sys
 from pathlib import Path
 
 import pymupdf
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from sars_pdf.pdftext import column_x, page_words  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "region_pdf" / "region_pdf" / "Mwanza Best students-Subjectwise.pdf"
@@ -45,22 +49,45 @@ def group_lines(words, y_tol=4.0):
     return lines
 
 
+CATEGORY_WORDS = ("PRIVATE", "GOVERNMENT")
+
+
+def split_merged_category(txt):
+    """Split a SCHOOL+CATEGORY merged run like "MAYALAPRIVATE" into (school, category).
+
+    Only splits when the token ends with a category keyword AND has school text before it
+    (the source draws them as one text run). A bare "PRIVATE"/"GOVERNMENT" is untouched.
+    """
+    for cat in CATEGORY_WORDS:
+        if txt.endswith(cat) and len(txt) > len(cat):
+            return txt[: -len(cat)], cat
+    return txt, ""
+
+
 def parse_row(words):
     row = {k: "" for k in ["sno", "council", "school", "category", "candidate", "sex",
                             "marks", "grade", "position", "competency"]}
     council_p, school_p, cat_p, cand_p, comp_p = [], [], [], [], []
+    # words drawn past their cell edge stay in the cell they were typed into (column_x)
+    colx = column_x(words)
     for w in words:
         x0, x1, txt = w[0], w[2], w[4]
         cx = (x0 + x1) / 2
-        if x0 < SNO_MAX:
+        col_x = colx[id(w)]
+        if col_x < SNO_MAX:
             row["sno"] = txt
-        elif x0 < COUNCIL_MAX:
+        elif col_x < COUNCIL_MAX:
             council_p.append((x0, txt))
-        elif x0 < SCHOOL_MAX:
-            school_p.append((x0, txt))
-        elif x0 < CAT_MAX:
+        elif col_x < SCHOOL_MAX:
+            # a run merging SCHOOL + CATEGORY (e.g. "MAYALAPRIVATE") splits lexically
+            sch, cat = split_merged_category(txt)
+            if sch:
+                school_p.append((x0, sch))
+            if cat:
+                cat_p.append((SCHOOL_MAX, cat))
+        elif col_x < CAT_MAX:
             cat_p.append((x0, txt))
-        elif x0 < CAND_MAX:
+        elif col_x < CAND_MAX:
             cand_p.append((x0, txt))
         elif cx < SEX_MAX:
             row["sex"] = txt
@@ -96,7 +123,7 @@ def main():
     doc = pymupdf.open(SRC)
     sections = []
     for pi in range(doc.page_count):
-        words = doc[pi].get_text("words")
+        words = page_words(doc[pi])
         title = section_title(words)
         rows = []
         for cy, band in group_lines(words):

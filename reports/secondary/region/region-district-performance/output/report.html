@@ -2,963 +2,2128 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Region district performance</title>
+<meta name="sars-pdf:rules" content="filled-aa">
+<title>DISTRICT PERFORMANCE OVERALL</title>
 <link rel="stylesheet" href="style.css">
+<style>
+.k-overall { --thin: 0.36pt; --thick: 0.84pt; }
+.k-overall .titles { width: 781.84pt; padding-top: 54.618pt; font-size: 6.01pt; line-height: 7.8pt; }
+.k-overall .band { margin: -0.138pt 0 0 18.96pt; width: 743.52pt; height: 11.76pt; padding-top: 4.521pt; font-size: 6.01pt; line-height: 6.713pt; text-indent: 1.98pt; }
+.k-overall table.grid { width: 743.88pt; margin: 6.000pt 0 0 18.360pt; }
+.k-overall tr.h0 { height: 14.52pt; }
+.k-overall tr.h1 { height: 8.64pt; }
+.k-overall tr.row { height: 9.48pt; }
+.k-overall tr.total { height: 13.2pt; }.k-overall th.g-grp { font-size: 6.01pt; line-height: 6.713pt; padding-bottom: 4.126pt; }
+.k-overall th.g-sat { font-size: 6.01pt; line-height: 6.896pt; padding-bottom: 4.006pt; }.k-overall th.g-reg { font-size: 5.17pt; line-height: 5.932pt; padding-bottom: 4.424pt; }.k-overall th.h-sn .anc span, .k-overall th.h-dist .anc span { font-size: 6.01pt; line-height: 6.896pt; bottom: 8.566pt; }.k-overall th.h-nos .anc span { font-size: 4.81pt; line-height: 5.880pt; bottom: 5.880pt; }
+.k-overall th.h-gpa .anc span { font-size: 6.01pt; line-height: 6.713pt; bottom: 8.446pt; }
+.k-overall th.h-comp .anc span { font-size: 5.17pt; line-height: 5.932pt; bottom: 8.984pt; }
+.k-overall th.h-rank .anc span.rot { font-size: 4.8pt; line-height: 5.508pt; left: 7.577pt; bottom: 1.080pt; }.k-overall th.fmt { font-size: 6.01pt; line-height: 6.896pt; padding-bottom: 0.766pt; }
+.k-overall th.fmt.tb { font-size: 6.01pt; line-height: 6.896pt; padding-bottom: 0.526pt; }
+.k-overall th.spct { font-size: 6.01pt; line-height: 6.896pt; padding-bottom: 1.126pt; }.k-overall td.sn { font-size: 5.17pt; line-height: 5.933pt; padding-bottom: 0.000pt; }
+.k-overall td.dist { font-size: 5.17pt; line-height: 5.775pt; padding-bottom: 0.104pt; padding-left: 0.960pt; }
+.k-overall td.sch { font-size: 6.01pt; line-height: 6.565pt; padding-bottom: 0.000pt; }
+.k-overall td.nb { font-size: 5.17pt; line-height: 5.775pt; padding-bottom: 0.104pt; }
+.k-overall td.nc { font-size: 5.17pt; line-height: 5.775pt; padding-bottom: 1.424pt; }
+.k-overall td.comp { font-size: 5.17pt; line-height: 5.775pt; padding-bottom: 1.424pt; padding-left: 0.990pt; }
+.k-overall td.rk { font-size: 4.81pt; line-height: 5.373pt; padding-bottom: 0.180pt; }.k-overall tr.last td.sn { font-size: 5.17pt; line-height: 6.311pt; padding-bottom: 0.291pt; }
+.k-overall tr.last td.dist { font-size: 5.17pt; line-height: 5.775pt; padding-bottom: 0.584pt; }
+.k-overall tr.last td.sch { font-size: 6.01pt; line-height: 6.713pt; padding-bottom: 0.166pt; }
+.k-overall tr.last td.nb { font-size: 5.17pt; line-height: 5.775pt; padding-bottom: 0.344pt; }
+.k-overall tr.last td.nc { font-size: 5.17pt; line-height: 5.775pt; padding-bottom: 1.184pt; }
+.k-overall tr.last td.rk { font-size: 4.81pt; line-height: 5.373pt; padding-bottom: 0.660pt; }.k-overall td.t-label { font-size: 6.01pt; line-height: 7.336pt; padding-bottom: 3.306pt; }
+.k-overall td.t-sch { font-size: 6.01pt; line-height: 7.336pt; padding-bottom: 2.586pt; }
+.k-overall td.t-num { font-size: 5.65pt; line-height: 6.896pt; padding-bottom: 2.802pt; }
+.k-overall td.t-comp { font-size: 5.17pt; line-height: 6.311pt; padding-bottom: 3.411pt; padding-left: 0.720pt; }
+.k-government { --thin: 0.36pt; --thick: 0.72pt; }
+.k-government .titles { width: 771.58pt; padding-top: 54.682pt; font-size: 5.65pt; line-height: 7.2pt; }
+.k-government .band { margin: -0.202pt 0 0 18.96pt; width: 733.32pt; height: 10.92pt; padding-top: 4.247pt; font-size: 5.65pt; line-height: 6.311pt; text-indent: 0.50pt; }
+.k-government table.grid { width: 733.68pt; margin: 5.520pt 0 0 18.360pt; }
+.k-government tr.h0 { height: 13.44pt; }
+.k-government tr.h1 { height: 8.02pt; }
+.k-government tr.row { height: 8.76pt; }
+.k-government tr.total { height: 12.24pt; }.k-government th.g-grp { font-size: 5.65pt; line-height: 6.311pt; padding-bottom: 3.842pt; }
+.k-government th.g-sat { font-size: 5.65pt; line-height: 6.483pt; padding-bottom: 3.723pt; }.k-government th.g-reg { font-size: 4.81pt; line-height: 5.519pt; padding-bottom: 4.021pt; }.k-government th.h-sn .anc span, .k-government th.h-dist .anc span { font-size: 5.65pt; line-height: 6.483pt; bottom: 7.783pt; }.k-government th.h-nos .anc span { font-size: 4.45pt; line-height: 5.520pt; bottom: 5.310pt; }
+.k-government th.h-gpa .anc span { font-size: 5.65pt; line-height: 6.311pt; bottom: 7.782pt; }
+.k-government th.h-comp .anc span { font-size: 4.81pt; line-height: 5.519pt; bottom: 8.441pt; }
+.k-government th.h-rank .anc span.rot { font-size: 4.44pt; line-height: 5.094pt; left: 7.181pt; bottom: 1.060pt; }.k-government th.fmt { font-size: 5.65pt; line-height: 6.483pt; padding-bottom: 0.583pt; }
+.k-government th.fmt.tb { font-size: 5.65pt; line-height: 6.483pt; padding-bottom: 0.403pt; }
+.k-government th.spct { font-size: 5.65pt; line-height: 6.232pt; padding-bottom: 1.248pt; }.k-government td.sn { font-size: 4.81pt; line-height: 5.447pt; padding-bottom: 0.000pt; }
+.k-government td.dist { font-size: 4.81pt; line-height: 5.373pt; padding-bottom: 0.060pt; padding-left: 0.960pt; }
+.k-government td.sch { font-size: 5.65pt; line-height: 6.075pt; padding-bottom: 0.000pt; }
+.k-government td.nb { font-size: 4.81pt; line-height: 5.373pt; padding-bottom: 0.060pt; }
+.k-government td.nc { font-size: 4.81pt; line-height: 5.373pt; padding-bottom: 1.260pt; }
+.k-government td.comp { font-size: 4.81pt; line-height: 5.373pt; padding-bottom: 1.260pt; padding-left: 0.980pt; }
+.k-government td.rk { font-size: 4.45pt; line-height: 4.971pt; padding-bottom: 0.137pt; }.k-government tr.last td.sn { font-size: 4.81pt; line-height: 5.871pt; padding-bottom: 0.248pt; }
+.k-government tr.last td.dist { font-size: 4.81pt; line-height: 5.373pt; padding-bottom: 0.520pt; }
+.k-government tr.last td.sch { font-size: 5.65pt; line-height: 6.311pt; padding-bottom: 0.162pt; }
+.k-government tr.last td.nb { font-size: 4.81pt; line-height: 5.373pt; padding-bottom: 0.340pt; }
+.k-government tr.last td.nc { font-size: 4.81pt; line-height: 5.373pt; padding-bottom: 1.080pt; }
+.k-government tr.last td.rk { font-size: 4.45pt; line-height: 4.971pt; padding-bottom: 0.597pt; }.k-government td.t-label { font-size: 5.65pt; line-height: 6.896pt; padding-bottom: 3.022pt; }
+.k-government td.t-sch { font-size: 5.65pt; line-height: 6.896pt; padding-bottom: 2.362pt; }
+.k-government td.t-num { font-size: 5.17pt; line-height: 6.311pt; padding-bottom: 2.731pt; }
+.k-government td.t-comp { font-size: 4.81pt; line-height: 5.871pt; padding-bottom: 3.128pt; padding-left: 0.690pt; }
+.k-private { --thin: 0.48pt; --thick: 0.96pt; }
+.k-private .titles { width: 777.50pt; padding-top: 54.548pt; font-size: 6.73pt; line-height: 8.64pt; }
+.k-private .band { margin: -0.068pt 0 0 18.96pt; width: 739.20pt; height: 13.08pt; padding-top: 4.949pt; font-size: 6.73pt; line-height: 7.517pt; text-indent: 2.40pt; }
+.k-private table.grid { width: 739.56pt; margin: 6.600pt 0 0 18.240pt; }
+.k-private tr.h0 { height: 16.2pt; }
+.k-private tr.h1 { height: 9.72pt; }
+.k-private tr.row { height: 10.56pt; }
+.k-private tr.total { height: 14.76pt; }.k-private th.g-grp { font-size: 6.73pt; line-height: 7.517pt; padding-bottom: 4.453pt; }
+.k-private th.g-sat { font-size: 6.73pt; line-height: 7.722pt; padding-bottom: 4.334pt; }.k-private th.g-reg { font-size: 5.77pt; line-height: 6.620pt; padding-bottom: 4.897pt; }.k-private th.h-sn .anc span, .k-private th.h-dist .anc span { font-size: 6.73pt; line-height: 7.722pt; bottom: 9.374pt; }.k-private th.h-nos .anc span { font-size: 5.29pt; line-height: 6.600pt; bottom: 6.294pt; }
+.k-private th.h-gpa .anc span { font-size: 6.73pt; line-height: 7.517pt; bottom: 9.373pt; }
+.k-private th.h-comp .anc span { font-size: 5.77pt; line-height: 6.620pt; bottom: 10.057pt; }
+.k-private th.h-rank .anc span.rot { font-size: 5.28pt; line-height: 6.058pt; left: 8.179pt; bottom: 0.960pt; }.k-private th.fmt { font-size: 6.73pt; line-height: 7.722pt; padding-bottom: 0.854pt; }
+.k-private th.fmt.tb { font-size: 6.73pt; line-height: 7.722pt; padding-bottom: 0.614pt; }
+.k-private th.spct { font-size: 6.73pt; line-height: 7.370pt; padding-bottom: 1.630pt; }.k-private td.sn { font-size: 5.77pt; line-height: 6.583pt; padding-bottom: 0.000pt; }
+.k-private td.dist { font-size: 5.77pt; line-height: 6.445pt; padding-bottom: 0.097pt; padding-left: 1.080pt; }
+.k-private td.sch { font-size: 5.77pt; line-height: 6.445pt; padding-bottom: 0.097pt; }
+.k-private td.nb { font-size: 5.77pt; line-height: 6.445pt; padding-bottom: 0.097pt; }
+.k-private td.nc { font-size: 5.77pt; line-height: 6.445pt; padding-bottom: 1.537pt; }
+.k-private td.comp { font-size: 5.77pt; line-height: 6.445pt; padding-bottom: 1.537pt; padding-left: 1.100pt; }
+.k-private td.rk { font-size: 5.29pt; line-height: 5.909pt; padding-bottom: 0.199pt; }.k-private tr.last td.sn { font-size: 5.77pt; line-height: 7.043pt; padding-bottom: 0.250pt; }
+.k-private tr.last td.dist { font-size: 5.77pt; line-height: 6.445pt; padding-bottom: 0.577pt; }
+.k-private tr.last td.sch { font-size: 5.77pt; line-height: 6.445pt; padding-bottom: 0.337pt; }
+.k-private tr.last td.nb { font-size: 5.77pt; line-height: 6.445pt; padding-bottom: 0.337pt; }
+.k-private tr.last td.nc { font-size: 5.77pt; line-height: 6.445pt; padding-bottom: 1.297pt; }
+.k-private tr.last td.rk { font-size: 5.29pt; line-height: 5.909pt; padding-bottom: 0.679pt; }.k-private td.t-label { font-size: 6.73pt; line-height: 8.215pt; padding-bottom: 3.592pt; }
+.k-private td.t-sch { font-size: 6.25pt; line-height: 7.629pt; padding-bottom: 3.121pt; }
+.k-private td.t-num { font-size: 6.25pt; line-height: 7.629pt; padding-bottom: 3.121pt; }
+.k-private td.t-comp { font-size: 5.77pt; line-height: 7.043pt; padding-bottom: 3.610pt; padding-left: 0.720pt; }
+.k-percentage { --thin: 0.48pt; --thick: 0.84pt; }
+.k-percentage .titles { width: 776.44pt; padding-top: 54.571pt; font-size: 6.49pt; line-height: 8.28pt; }
+.k-percentage .band { margin: -0.091pt 0 0 18.96pt; width: 738.00pt; height: 12.60pt; padding-top: 4.807pt; font-size: 6.49pt; line-height: 7.249pt; text-indent: 2.24pt; }
+.k-percentage table.grid { width: 738.36pt; margin: 6.360pt 0 0 18.240pt; }
+.k-percentage tr.h0 { height: 15.48pt; }
+.k-percentage tr.h1 { height: 9.26pt; }
+.k-percentage tr.row { height: 10.08pt; }
+.k-percentage tr.total { height: 14.16pt; }.k-percentage th.g-grp { font-size: 6.49pt; line-height: 7.249pt; padding-bottom: 4.264pt; }
+.k-percentage th.g-sat { font-size: 6.49pt; line-height: 7.447pt; padding-bottom: 4.145pt; }.k-percentage th.h-sn .anc span, .k-percentage th.h-dist .anc span { font-size: 6.49pt; line-height: 7.447pt; bottom: 8.845pt; }.k-percentage th.h-nos .anc span { font-size: 5.05pt; line-height: 6.360pt; bottom: 5.987pt; }
+.k-percentage th.h-gpa .anc span { font-size: 6.49pt; line-height: 7.249pt; bottom: 8.964pt; }
+.k-percentage th.h-comp .anc span { font-size: 5.53pt; line-height: 6.345pt; bottom: 9.528pt; }
+.k-percentage th.h-rank .anc span.rot { font-size: 5.04pt; line-height: 5.783pt; left: 7.948pt; bottom: 0.980pt; }.k-percentage th.fmt { font-size: 6.49pt; line-height: 7.447pt; padding-bottom: 0.685pt; }
+.k-percentage th.fmt.tb { font-size: 6.49pt; line-height: 7.447pt; padding-bottom: 0.505pt; }
+.k-percentage th.spct { font-size: 6.49pt; line-height: 7.064pt; padding-bottom: 1.536pt; }.k-percentage td.sn { font-size: 5.53pt; line-height: 6.419pt; padding-bottom: 0.000pt; }
+.k-percentage td.dist { font-size: 5.53pt; line-height: 6.177pt; padding-bottom: 0.148pt; padding-left: 1.080pt; }
+.k-percentage td.sch { font-size: 6.49pt; line-height: 7.138pt; padding-bottom: 0.000pt; }
+.k-percentage td.nb { font-size: 5.53pt; line-height: 6.177pt; padding-bottom: 0.148pt; }
+.k-percentage td.nc { font-size: 5.53pt; line-height: 6.177pt; padding-bottom: 1.468pt; }
+.k-percentage td.comp { font-size: 5.53pt; line-height: 6.177pt; padding-bottom: 1.468pt; padding-left: 1.090pt; }
+.k-percentage td.rk { font-size: 5.05pt; line-height: 5.641pt; padding-bottom: 0.249pt; }.k-percentage tr.last td.sn { font-size: 5.53pt; line-height: 6.750pt; padding-bottom: 0.215pt; }
+.k-percentage tr.last td.dist { font-size: 5.53pt; line-height: 6.177pt; padding-bottom: 0.528pt; }
+.k-percentage tr.last td.sch { font-size: 6.49pt; line-height: 7.249pt; padding-bottom: 0.144pt; }
+.k-percentage tr.last td.nb { font-size: 5.53pt; line-height: 6.177pt; padding-bottom: 0.348pt; }
+.k-percentage tr.last td.nc { font-size: 5.53pt; line-height: 6.177pt; padding-bottom: 1.288pt; }
+.k-percentage tr.last td.rk { font-size: 5.05pt; line-height: 5.641pt; padding-bottom: 0.629pt; }.k-percentage td.t-label { font-size: 6.49pt; line-height: 7.922pt; padding-bottom: 3.437pt; }
+.k-percentage td.t-sch { font-size: 6.49pt; line-height: 7.922pt; padding-bottom: 2.777pt; }
+.k-percentage td.t-num { font-size: 6.01pt; line-height: 7.336pt; padding-bottom: 3.026pt; }
+.k-percentage td.t-comp { font-size: 5.53pt; line-height: 6.750pt; padding-bottom: 3.455pt; padding-left: 0.750pt; }
+.k-kpi { --thin: 0.48pt; --thick: 0.84pt; }
+.k-kpi .titles { width: 776.44pt; padding-top: 54.571pt; font-size: 6.49pt; line-height: 8.28pt; }
+.k-kpi .band { margin: -0.091pt 0 0 18.96pt; width: 738.00pt; height: 12.60pt; padding-top: 4.807pt; font-size: 6.49pt; line-height: 7.249pt; text-indent: 2.24pt; }
+.k-kpi table.grid { width: 738.36pt; margin: 6.360pt 0 0 18.240pt; }
+.k-kpi tr.h0 { height: 15.48pt; }
+.k-kpi tr.h1 { height: 9.26pt; }
+.k-kpi tr.row { height: 10.08pt; }
+.k-kpi tr.total { height: 14.16pt; }.k-kpi th.g-grp { font-size: 6.49pt; line-height: 7.249pt; padding-bottom: 4.264pt; }
+.k-kpi th.g-sat { font-size: 6.49pt; line-height: 7.447pt; padding-bottom: 4.145pt; }.k-kpi th.h-sn .anc span, .k-kpi th.h-dist .anc span { font-size: 6.49pt; line-height: 7.447pt; bottom: 8.845pt; }.k-kpi th.h-nos .anc span { font-size: 5.05pt; line-height: 6.360pt; bottom: 5.987pt; }
+.k-kpi th.h-gpa .anc span { font-size: 6.49pt; line-height: 7.249pt; bottom: 8.964pt; }
+.k-kpi th.h-comp .anc span { font-size: 5.53pt; line-height: 6.345pt; bottom: 9.528pt; }
+.k-kpi th.h-rank .anc span.rot { font-size: 5.04pt; line-height: 5.783pt; left: 7.948pt; bottom: 0.980pt; }.k-kpi th.fmt { font-size: 6.49pt; line-height: 7.447pt; padding-bottom: 0.685pt; }
+.k-kpi th.fmt.tb { font-size: 6.49pt; line-height: 7.447pt; padding-bottom: 0.505pt; }
+.k-kpi th.spct { font-size: 6.49pt; line-height: 7.064pt; padding-bottom: 1.536pt; }.k-kpi td.sn { font-size: 5.53pt; line-height: 6.419pt; padding-bottom: 0.000pt; }
+.k-kpi td.dist { font-size: 5.53pt; line-height: 6.177pt; padding-bottom: 0.148pt; padding-left: 1.080pt; }
+.k-kpi td.sch { font-size: 6.49pt; line-height: 7.138pt; padding-bottom: 0.000pt; }
+.k-kpi td.nb { font-size: 5.53pt; line-height: 6.177pt; padding-bottom: 0.148pt; }
+.k-kpi td.nc { font-size: 5.53pt; line-height: 6.177pt; padding-bottom: 1.468pt; }
+.k-kpi td.comp { font-size: 5.53pt; line-height: 6.177pt; padding-bottom: 1.468pt; padding-left: 1.090pt; }
+.k-kpi td.rk { font-size: 5.05pt; line-height: 5.641pt; padding-bottom: 0.249pt; }.k-kpi tr.last td.sn { font-size: 5.53pt; line-height: 6.750pt; padding-bottom: 0.215pt; }
+.k-kpi tr.last td.dist { font-size: 5.53pt; line-height: 6.177pt; padding-bottom: 0.528pt; }
+.k-kpi tr.last td.sch { font-size: 6.49pt; line-height: 7.249pt; padding-bottom: 0.144pt; }
+.k-kpi tr.last td.nb { font-size: 5.53pt; line-height: 6.177pt; padding-bottom: 0.348pt; }
+.k-kpi tr.last td.nc { font-size: 5.53pt; line-height: 6.177pt; padding-bottom: 1.288pt; }
+.k-kpi tr.last td.rk { font-size: 5.05pt; line-height: 5.641pt; padding-bottom: 0.629pt; }.k-kpi td.t-label { font-size: 6.49pt; line-height: 7.922pt; padding-bottom: 3.437pt; }
+.k-kpi td.t-sch { font-size: 6.49pt; line-height: 7.922pt; padding-bottom: 2.777pt; }
+.k-kpi td.t-num { font-size: 6.01pt; line-height: 7.336pt; padding-bottom: 3.026pt; }
+.k-kpi td.t-comp { font-size: 5.53pt; line-height: 6.750pt; padding-bottom: 3.455pt; padding-left: 0.750pt; }
+</style>
 </head>
 <body>
-
-<div class="section">
+<section class="sec k-overall kind-overall">
   <div class="titles">
-    <div class="hl ministry">THE PRIME MINISTER&#39;S OFFICE</div>
-    <div class="hl ministry">REGIONAL ADMINISTRATION AND LOCAL GOVERNMENT</div>
-    <div class="hl ministry">MWANZA REGION</div>
-    <div class="hl exam-name">REGIONAL FORM TWO MOCK ASSESSMENT RESULTS, JULY 2026</div>
-    <div class="hl sec-title">DISTRICT PERFORMANCE OVERALL</div>
+    <div class="hl">THE PRIME MINISTER&#39;S OFFICE</div>
+    <div class="hl">REGIONAL ADMINISTRATION AND LOCAL GOVERNMENT</div>
+    <div class="hl">MWANZA REGION</div>
+    <div class="hl">REGIONAL FORM TWO MOCK ASSESSMENT RESULTS, JULY 2026</div>
   </div>
-  <table class="grid full">
-    <colgroup>
-<col style="width: 20.5pt"><col style="width: 49.5pt"><col style="width: 28.5pt"><col style="width: 18.1pt"><col style="width: 17.9pt"><col style="width: 17.6pt"><col style="width: 18.1pt"><col style="width: 17.9pt"><col style="width: 17.9pt"><col style="width: 29.5pt"><col style="width: 15.0pt"><col style="width: 14.8pt"><col style="width: 14.7pt"><col style="width: 14.8pt"><col style="width: 14.8pt"><col style="width: 14.7pt"><col style="width: 14.8pt"><col style="width: 14.7pt"><col style="width: 14.8pt"><col style="width: 17.9pt"><col style="width: 17.9pt"><col style="width: 17.6pt"><col style="width: 15.0pt"><col style="width: 14.8pt"><col style="width: 14.7pt"><col style="width: 26.3pt"><col style="width: 15.0pt"><col style="width: 17.9pt"><col style="width: 17.9pt"><col style="width: 28.6pt"><col style="width: 18.2pt"><col style="width: 17.8pt"><col style="width: 17.9pt"><col style="width: 26.4pt"><col style="width: 24.0pt"><col style="width: 57.4pt"><col style="width: 14.9pt">    </colgroup>
+  <div class="band">DISTRICT PERFORMANCE OVERALL</div>
+  <table class="grid">
+    <colgroup><col style="width:20.52pt"><col style="width:49.8pt"><col style="width:28.44pt"><col style="width:17.88pt"><col style="width:17.88pt"><col style="width:17.88pt"><col style="width:17.88pt"><col style="width:17.88pt"><col style="width:17.88pt"><col style="width:29.76pt"><col style="width:14.76pt"><col style="width:14.76pt"><col style="width:14.76pt"><col style="width:14.76pt"><col style="width:14.76pt"><col style="width:14.76pt"><col style="width:14.76pt"><col style="width:14.76pt"><col style="width:14.76pt"><col style="width:17.88pt"><col style="width:17.88pt"><col style="width:17.88pt"><col style="width:14.76pt"><col style="width:14.76pt"><col style="width:14.76pt"><col style="width:26.52pt"><col style="width:14.76pt"><col style="width:17.88pt"><col style="width:17.88pt"><col style="width:28.92pt"><col style="width:17.88pt"><col style="width:17.88pt"><col style="width:17.88pt"><col style="width:26.64pt"><col style="width:24.0pt"><col style="width:57.12pt"><col style="width:9.96pt"></colgroup>
     <thead>
-      <tr class="hg">
-        <th rowspan="3" class="c-sn">S/N</th>
-        <th rowspan="3" class="v-mid">DISTRICT</th>
-        <th rowspan="3" class="v-mid nowrap">NO. OF SCHOOLS</th>
-        <th colspan="7" class="grp fill-cand-h">NUMBER OF CANDIDATES</th>
-        <th colspan="23" class="grp">DIVISION PERFORMANCE</th>
-        <th rowspan="3" class="v-mid fill-gpa-h">GPA</th>
-        <th rowspan="3" class="v-mid">COMPETENCY LEVEL</th>
-        <th rowspan="3" class="rank-h"><div class="vert"><span>RANK</span></div></th>
+      <tr class="h0">
+        <th rowspan="2" class="h-sn"><div class="anc"><span>S/N</span></div></th>
+        <th rowspan="2" class="h-dist"><div class="anc"><span>DISTRICT</span></div></th>
+        <th rowspan="2" class="h-nos f-hnos"><div class="anc"><span>NUMBER OF<br>SCHOOLS</span></div></th>
+<th colspan="3" class="g-reg">REGISTERED</th>        <th colspan="4" class="g-sat">SAT</th>
+        <th colspan="3" class="g-grp">I</th>
+        <th colspan="3" class="g-grp">II</th>
+        <th colspan="3" class="g-grp">III</th>
+        <th colspan="3" class="g-grp">IV</th>
+        <th colspan="4" class="g-grp">0</th>
+        <th colspan="4" class="g-grp">I-III</th>
+        <th colspan="4" class="g-grp">I-IV</th>
+        <th rowspan="2" class="h-gpa"><div class="anc"><span>GPA</span></div></th>
+        <th rowspan="2" class="h-comp"><div class="anc"><span>COMPETENCY LEVEL</span></div></th>
+        <th rowspan="2" class="h-rank"><div class="anc"><span class="rot">RANK</span></div></th>
       </tr>
-      <tr class="hs">
-<th colspan="3" class="fill-cand-h">REGISTERED</th>        <th colspan="4" class="fill-cand-h">SAT</th>
-        <th colspan="3">I</th><th colspan="3">II</th><th colspan="3">III</th><th colspan="3">IV</th>
-        <th colspan="4" class="fill-0-h">0</th>
-        <th colspan="4" class="fill-3-h">I-III</th>
-        <th colspan="4" class="fill-4-h">I-IV</th>
-      </tr>
-      <tr class="hf">
-<th>F</th><th>M</th><th>T</th>        <th>F</th><th>M</th><th>T</th><th>%</th>
-        <th>F</th><th>M</th><th>T</th><th>F</th><th>M</th><th>T</th>
-        <th>F</th><th>M</th><th>T</th><th>F</th><th>M</th><th>T</th>
-        <th>F</th><th>M</th><th>T</th><th>%</th>
-        <th>F</th><th>M</th><th>T</th><th>%</th>
-        <th>F</th><th>M</th><th>T</th><th>%</th>
+      <tr class="h1">
+        <th class="fmt tb">F</th>
+        <th class="fmt tb">M</th>
+        <th class="fmt tb">T</th>
+        <th class="fmt tb f-hsat">F</th>
+        <th class="fmt tb f-hsat">M</th>
+        <th class="fmt tb f-hsat">T</th>
+        <th class="spct tb f-hsat">%</th>
+        <th class="fmt">F</th>
+        <th class="fmt">M</th>
+        <th class="fmt">T</th>
+        <th class="fmt">F</th>
+        <th class="fmt">M</th>
+        <th class="fmt">T</th>
+        <th class="fmt">F</th>
+        <th class="fmt">M</th>
+        <th class="fmt">T</th>
+        <th class="fmt">F</th>
+        <th class="fmt">M</th>
+        <th class="fmt">T</th>
+        <th class="fmt tb f-hz">F</th>
+        <th class="fmt tb f-hz">M</th>
+        <th class="fmt tb f-hz">T</th>
+        <th class="fmt tb f-hzp">%</th>
+        <th class="fmt tb f-hd3">F</th>
+        <th class="fmt tb f-hd3">M</th>
+        <th class="fmt tb f-hd3">T</th>
+        <th class="fmt tb f-hd3">%</th>
+        <th class="fmt tb">F</th>
+        <th class="fmt tb">M</th>
+        <th class="fmt tb">T</th>
+        <th class="fmt tb f-hd4p">%</th>
       </tr>
     </thead>
     <tbody>
       <tr class="row">
-        <td class="c-sn">01</td>
-        <td class="txt">ILEMELA MC</td>
-          <td class="b fill-sch">61</td>
-<td>5369</td><td>4400</td><td class="b">9769</td>  <td>5247</td><td>4152</td><td class="b">9399</td><td class="b fill-sat">96.59</td>
-  <td>623</td><td>734</td><td class="b">1357</td>
-  <td>666</td><td>534</td><td class="b">1200</td>
-  <td>1074</td><td>809</td><td class="b">1883</td>
-  <td>2843</td><td>2032</td><td class="b">4875</td>
-  <td class="fill-0">41</td><td class="fill-0">43</td><td class="b fill-0">84</td><td class="b fill-0-pct">0.89</td>
-  <td class="fill-3">2363</td><td class="fill-3">2077</td><td class="b fill-3">4440</td><td class="b fill-3-pct">47.24</td>
-  <td class="fill-4">5206</td><td class="fill-4">4109</td><td class="b fill-4">9315</td><td class="b fill-4-pct">99.11</td>
-  <td class="b fill-gpa">3.23261</td>
-
+        <td class="sn">01</td>
+        <td class="dist">ILEMELA MC</td>
+        <td class="sch f-sch">61</td>
+        <td class="nb tl">5369</td>
+        <td class="nb">4400</td>
+        <td class="nb b">9769</td>
+        <td class="nb tl">5247</td>
+        <td class="nb">4152</td>
+        <td class="nb b">9399</td>
+        <td class="nb b f-sp">96.59</td>
+        <td class="nb tl">623</td>
+        <td class="nb">734</td>
+        <td class="nb b">1357</td>
+        <td class="nb">666</td>
+        <td class="nb">534</td>
+        <td class="nb b">1200</td>
+        <td class="nb">1074</td>
+        <td class="nb">809</td>
+        <td class="nb b">1883</td>
+        <td class="nb">2843</td>
+        <td class="nb">2032</td>
+        <td class="nb b">4875</td>
+        <td class="nc f-z tl">41</td>
+        <td class="nc f-z">43</td>
+        <td class="nc f-z">84</td>
+        <td class="nc b f-zp">0.89</td>
+        <td class="nc b f-d3 tl">2363</td>
+        <td class="nc b f-d3">2077</td>
+        <td class="nc b f-d3">4440</td>
+        <td class="nc b f-d3p">47.24</td>
+        <td class="nc tl">5206</td>
+        <td class="nc">4109</td>
+        <td class="nc">9315</td>
+        <td class="nc b f-d4p">99.11</td>
+        <td class="nc f-gpa tl">3.23261</td>
         <td class="comp lvl-c">Grade C (Good)</td>
-        <td class="b c-rank fill-sch">1</td>
+        <td class="rk f-rank">1</td>
       </tr>
       <tr class="row">
-        <td class="c-sn">02</td>
-        <td class="txt">MWANZA CC</td>
-          <td class="b fill-sch">64</td>
-<td>6854</td><td>5820</td><td class="b">12674</td>  <td>6655</td><td>5549</td><td class="b">12204</td><td class="b fill-sat">96.78</td>
-  <td>619</td><td>717</td><td class="b">1336</td>
-  <td>514</td><td>560</td><td class="b">1074</td>
-  <td>746</td><td>699</td><td class="b">1445</td>
-  <td>4603</td><td>3360</td><td class="b">7963</td>
-  <td class="fill-0">173</td><td class="fill-0">213</td><td class="b fill-0">386</td><td class="b fill-0-pct">3.16</td>
-  <td class="fill-3">1879</td><td class="fill-3">1976</td><td class="b fill-3">3855</td><td class="b fill-3-pct">31.59</td>
-  <td class="fill-4">6482</td><td class="fill-4">5336</td><td class="b fill-4">11818</td><td class="b fill-4-pct">96.84</td>
-  <td class="b fill-gpa">3.35705</td>
-
+        <td class="sn">02</td>
+        <td class="dist">MWANZA CC</td>
+        <td class="sch f-sch">64</td>
+        <td class="nb tl">6854</td>
+        <td class="nb">5820</td>
+        <td class="nb b">12674</td>
+        <td class="nb tl">6655</td>
+        <td class="nb">5549</td>
+        <td class="nb b">12204</td>
+        <td class="nb b f-sp">96.78</td>
+        <td class="nb tl">619</td>
+        <td class="nb">717</td>
+        <td class="nb b">1336</td>
+        <td class="nb">514</td>
+        <td class="nb">560</td>
+        <td class="nb b">1074</td>
+        <td class="nb">746</td>
+        <td class="nb">699</td>
+        <td class="nb b">1445</td>
+        <td class="nb">4603</td>
+        <td class="nb">3360</td>
+        <td class="nb b">7963</td>
+        <td class="nc f-z tl">173</td>
+        <td class="nc f-z">213</td>
+        <td class="nc f-z">386</td>
+        <td class="nc b f-zp">3.16</td>
+        <td class="nc b f-d3 tl">1879</td>
+        <td class="nc b f-d3">1976</td>
+        <td class="nc b f-d3">3855</td>
+        <td class="nc b f-d3p">31.59</td>
+        <td class="nc tl">6482</td>
+        <td class="nc">5336</td>
+        <td class="nc">11818</td>
+        <td class="nc b f-d4p">96.84</td>
+        <td class="nc f-gpa tl">3.35705</td>
         <td class="comp lvl-c">Grade C (Good)</td>
-        <td class="b c-rank fill-sch">2</td>
+        <td class="rk f-rank">2</td>
       </tr>
       <tr class="row">
-        <td class="c-sn">03</td>
-        <td class="txt">MAGU DC</td>
-          <td class="b fill-sch">50</td>
-<td>3412</td><td>2532</td><td class="b">5944</td>  <td>3254</td><td>2335</td><td class="b">5589</td><td class="b fill-sat">93.94</td>
-  <td>198</td><td>219</td><td class="b">417</td>
-  <td>255</td><td>268</td><td class="b">523</td>
-  <td>551</td><td>415</td><td class="b">966</td>
-  <td>2217</td><td>1387</td><td class="b">3604</td>
-  <td class="fill-0">33</td><td class="fill-0">46</td><td class="b fill-0">79</td><td class="b fill-0-pct">1.41</td>
-  <td class="fill-3">1004</td><td class="fill-3">902</td><td class="b fill-3">1906</td><td class="b fill-3-pct">34.1</td>
-  <td class="fill-4">3221</td><td class="fill-4">2289</td><td class="b fill-4">5510</td><td class="b fill-4-pct">98.59</td>
-  <td class="b fill-gpa">3.54240</td>
-
+        <td class="sn">03</td>
+        <td class="dist">MAGU DC</td>
+        <td class="sch f-sch">50</td>
+        <td class="nb tl">3412</td>
+        <td class="nb">2532</td>
+        <td class="nb b">5944</td>
+        <td class="nb tl">3254</td>
+        <td class="nb">2335</td>
+        <td class="nb b">5589</td>
+        <td class="nb b f-sp">93.94</td>
+        <td class="nb tl">198</td>
+        <td class="nb">219</td>
+        <td class="nb b">417</td>
+        <td class="nb">255</td>
+        <td class="nb">268</td>
+        <td class="nb b">523</td>
+        <td class="nb">551</td>
+        <td class="nb">415</td>
+        <td class="nb b">966</td>
+        <td class="nb">2217</td>
+        <td class="nb">1387</td>
+        <td class="nb b">3604</td>
+        <td class="nc f-z tl">33</td>
+        <td class="nc f-z">46</td>
+        <td class="nc f-z">79</td>
+        <td class="nc b f-zp">1.41</td>
+        <td class="nc b f-d3 tl">1004</td>
+        <td class="nc b f-d3">902</td>
+        <td class="nc b f-d3">1906</td>
+        <td class="nc b f-d3p">34.1</td>
+        <td class="nc tl">3221</td>
+        <td class="nc">2289</td>
+        <td class="nc">5510</td>
+        <td class="nc b f-d4p">98.59</td>
+        <td class="nc f-gpa tl">3.54240</td>
         <td class="comp lvl-c">Grade C (Good)</td>
-        <td class="b c-rank fill-sch">3</td>
+        <td class="rk f-rank">3</td>
       </tr>
       <tr class="row">
-        <td class="c-sn">04</td>
-        <td class="txt">SENGEREMA DC</td>
-          <td class="b fill-sch">57</td>
-<td>3788</td><td>3427</td><td class="b">7215</td>  <td>3610</td><td>3203</td><td class="b">6813</td><td class="b fill-sat">93.87</td>
-  <td>238</td><td>387</td><td class="b">625</td>
-  <td>320</td><td>457</td><td class="b">777</td>
-  <td>634</td><td>599</td><td class="b">1233</td>
-  <td>2368</td><td>1729</td><td class="b">4097</td>
-  <td class="fill-0">50</td><td class="fill-0">31</td><td class="b fill-0">81</td><td class="b fill-0-pct">1.19</td>
-  <td class="fill-3">1192</td><td class="fill-3">1443</td><td class="b fill-3">2635</td><td class="b fill-3-pct">38.68</td>
-  <td class="fill-4">3560</td><td class="fill-4">3172</td><td class="b fill-4">6732</td><td class="b fill-4-pct">98.81</td>
-  <td class="b fill-gpa">3.56489</td>
-
+        <td class="sn">04</td>
+        <td class="dist">SENGEREMA DC</td>
+        <td class="sch f-sch">57</td>
+        <td class="nb tl">3788</td>
+        <td class="nb">3427</td>
+        <td class="nb b">7215</td>
+        <td class="nb tl">3610</td>
+        <td class="nb">3203</td>
+        <td class="nb b">6813</td>
+        <td class="nb b f-sp">93.87</td>
+        <td class="nb tl">238</td>
+        <td class="nb">387</td>
+        <td class="nb b">625</td>
+        <td class="nb">320</td>
+        <td class="nb">457</td>
+        <td class="nb b">777</td>
+        <td class="nb">634</td>
+        <td class="nb">599</td>
+        <td class="nb b">1233</td>
+        <td class="nb">2368</td>
+        <td class="nb">1729</td>
+        <td class="nb b">4097</td>
+        <td class="nc f-z tl">50</td>
+        <td class="nc f-z">31</td>
+        <td class="nc f-z">81</td>
+        <td class="nc b f-zp">1.19</td>
+        <td class="nc b f-d3 tl">1192</td>
+        <td class="nc b f-d3">1443</td>
+        <td class="nc b f-d3">2635</td>
+        <td class="nc b f-d3p">38.68</td>
+        <td class="nc tl">3560</td>
+        <td class="nc">3172</td>
+        <td class="nc">6732</td>
+        <td class="nc b f-d4p">98.81</td>
+        <td class="nc f-gpa tl">3.56489</td>
         <td class="comp lvl-c">Grade C (Good)</td>
-        <td class="b c-rank fill-sch">4</td>
+        <td class="rk f-rank">4</td>
       </tr>
       <tr class="row">
-        <td class="c-sn">05</td>
-        <td class="txt">MISUNGWI DC</td>
-          <td class="b fill-sch">49</td>
-<td>3250</td><td>2169</td><td class="b">5419</td>  <td>3081</td><td>1992</td><td class="b">5073</td><td class="b fill-sat">93.46</td>
-  <td>257</td><td>206</td><td class="b">463</td>
-  <td>148</td><td>230</td><td class="b">378</td>
-  <td>357</td><td>346</td><td class="b">703</td>
-  <td>2263</td><td>1163</td><td class="b">3426</td>
-  <td class="fill-0">56</td><td class="fill-0">47</td><td class="b fill-0">103</td><td class="b fill-0-pct">2.03</td>
-  <td class="fill-3">762</td><td class="fill-3">782</td><td class="b fill-3">1544</td><td class="b fill-3-pct">30.44</td>
-  <td class="fill-4">3025</td><td class="fill-4">1945</td><td class="b fill-4">4970</td><td class="b fill-4-pct">97.97</td>
-  <td class="b fill-gpa">3.63257</td>
-
+        <td class="sn">05</td>
+        <td class="dist">MISUNGWI DC</td>
+        <td class="sch f-sch">49</td>
+        <td class="nb tl">3250</td>
+        <td class="nb">2169</td>
+        <td class="nb b">5419</td>
+        <td class="nb tl">3081</td>
+        <td class="nb">1992</td>
+        <td class="nb b">5073</td>
+        <td class="nb b f-sp">93.46</td>
+        <td class="nb tl">257</td>
+        <td class="nb">206</td>
+        <td class="nb b">463</td>
+        <td class="nb">148</td>
+        <td class="nb">230</td>
+        <td class="nb b">378</td>
+        <td class="nb">357</td>
+        <td class="nb">346</td>
+        <td class="nb b">703</td>
+        <td class="nb">2263</td>
+        <td class="nb">1163</td>
+        <td class="nb b">3426</td>
+        <td class="nc f-z tl">56</td>
+        <td class="nc f-z">47</td>
+        <td class="nc f-z">103</td>
+        <td class="nc b f-zp">2.03</td>
+        <td class="nc b f-d3 tl">762</td>
+        <td class="nc b f-d3">782</td>
+        <td class="nc b f-d3">1544</td>
+        <td class="nc b f-d3p">30.44</td>
+        <td class="nc tl">3025</td>
+        <td class="nc">1945</td>
+        <td class="nc">4970</td>
+        <td class="nc b f-d4p">97.97</td>
+        <td class="nc f-gpa tl">3.63257</td>
         <td class="comp lvl-d">Grade D (Satisfactory)</td>
-        <td class="b c-rank fill-sch">5</td>
+        <td class="rk f-rank">5</td>
       </tr>
       <tr class="row">
-        <td class="c-sn">06</td>
-        <td class="txt">KWIMBA DC</td>
-          <td class="b fill-sch">43</td>
-<td>3705</td><td>2341</td><td class="b">6046</td>  <td>3509</td><td>2159</td><td class="b">5668</td><td class="b fill-sat">93.47</td>
-  <td>192</td><td>164</td><td class="b">356</td>
-  <td>384</td><td>266</td><td class="b">650</td>
-  <td>649</td><td>469</td><td class="b">1118</td>
-  <td>2132</td><td>1203</td><td class="b">3335</td>
-  <td class="fill-0">152</td><td class="fill-0">57</td><td class="b fill-0">209</td><td class="b fill-0-pct">3.69</td>
-  <td class="fill-3">1225</td><td class="fill-3">899</td><td class="b fill-3">2124</td><td class="b fill-3-pct">37.47</td>
-  <td class="fill-4">3357</td><td class="fill-4">2102</td><td class="b fill-4">5459</td><td class="b fill-4-pct">96.31</td>
-  <td class="b fill-gpa">3.69727</td>
-
+        <td class="sn">06</td>
+        <td class="dist">KWIMBA DC</td>
+        <td class="sch f-sch">43</td>
+        <td class="nb tl">3705</td>
+        <td class="nb">2341</td>
+        <td class="nb b">6046</td>
+        <td class="nb tl">3509</td>
+        <td class="nb">2159</td>
+        <td class="nb b">5668</td>
+        <td class="nb b f-sp">93.47</td>
+        <td class="nb tl">192</td>
+        <td class="nb">164</td>
+        <td class="nb b">356</td>
+        <td class="nb">384</td>
+        <td class="nb">266</td>
+        <td class="nb b">650</td>
+        <td class="nb">649</td>
+        <td class="nb">469</td>
+        <td class="nb b">1118</td>
+        <td class="nb">2132</td>
+        <td class="nb">1203</td>
+        <td class="nb b">3335</td>
+        <td class="nc f-z tl">152</td>
+        <td class="nc f-z">57</td>
+        <td class="nc f-z">209</td>
+        <td class="nc b f-zp">3.69</td>
+        <td class="nc b f-d3 tl">1225</td>
+        <td class="nc b f-d3">899</td>
+        <td class="nc b f-d3">2124</td>
+        <td class="nc b f-d3p">37.47</td>
+        <td class="nc tl">3357</td>
+        <td class="nc">2102</td>
+        <td class="nc">5459</td>
+        <td class="nc b f-d4p">96.31</td>
+        <td class="nc f-gpa tl">3.69727</td>
         <td class="comp lvl-d">Grade D (Satisfactory)</td>
-        <td class="b c-rank fill-sch">6</td>
+        <td class="rk f-rank">6</td>
       </tr>
       <tr class="row">
-        <td class="c-sn">07</td>
-        <td class="txt">UKEREWE DC</td>
-          <td class="b fill-sch">35</td>
-<td>3469</td><td>3566</td><td class="b">7035</td>  <td>3327</td><td>3306</td><td class="b">6633</td><td class="b fill-sat">94.82</td>
-  <td>82</td><td>159</td><td class="b">241</td>
-  <td>125</td><td>283</td><td class="b">408</td>
-  <td>307</td><td>472</td><td class="b">779</td>
-  <td>2724</td><td>2341</td><td class="b">5065</td>
-  <td class="fill-0">89</td><td class="fill-0">51</td><td class="b fill-0">140</td><td class="b fill-0-pct">2.11</td>
-  <td class="fill-3">514</td><td class="fill-3">914</td><td class="b fill-3">1428</td><td class="b fill-3-pct">21.53</td>
-  <td class="fill-4">3238</td><td class="fill-4">3255</td><td class="b fill-4">6493</td><td class="b fill-4-pct">97.89</td>
-  <td class="b fill-gpa">3.73023</td>
-
+        <td class="sn">07</td>
+        <td class="dist">UKEREWE DC</td>
+        <td class="sch f-sch">35</td>
+        <td class="nb tl">3469</td>
+        <td class="nb">3566</td>
+        <td class="nb b">7035</td>
+        <td class="nb tl">3327</td>
+        <td class="nb">3306</td>
+        <td class="nb b">6633</td>
+        <td class="nb b f-sp">94.82</td>
+        <td class="nb tl">82</td>
+        <td class="nb">159</td>
+        <td class="nb b">241</td>
+        <td class="nb">125</td>
+        <td class="nb">283</td>
+        <td class="nb b">408</td>
+        <td class="nb">307</td>
+        <td class="nb">472</td>
+        <td class="nb b">779</td>
+        <td class="nb">2724</td>
+        <td class="nb">2341</td>
+        <td class="nb b">5065</td>
+        <td class="nc f-z tl">89</td>
+        <td class="nc f-z">51</td>
+        <td class="nc f-z">140</td>
+        <td class="nc b f-zp">2.11</td>
+        <td class="nc b f-d3 tl">514</td>
+        <td class="nc b f-d3">914</td>
+        <td class="nc b f-d3">1428</td>
+        <td class="nc b f-d3p">21.53</td>
+        <td class="nc tl">3238</td>
+        <td class="nc">3255</td>
+        <td class="nc">6493</td>
+        <td class="nc b f-d4p">97.89</td>
+        <td class="nc f-gpa tl">3.73023</td>
         <td class="comp lvl-d">Grade D (Satisfactory)</td>
-        <td class="b c-rank fill-sch">7</td>
+        <td class="rk f-rank">7</td>
       </tr>
-      <tr class="row">
-        <td class="c-sn">08</td>
-        <td class="txt">BUCHOSA DC</td>
-          <td class="b fill-sch">28</td>
-<td>2648</td><td>2704</td><td class="b">5352</td>  <td>2498</td><td>2458</td><td class="b">4956</td><td class="b fill-sat">92.37</td>
-  <td>38</td><td>118</td><td class="b">156</td>
-  <td>63</td><td>202</td><td class="b">265</td>
-  <td>204</td><td>426</td><td class="b">630</td>
-  <td>2141</td><td>1659</td><td class="b">3800</td>
-  <td class="fill-0">52</td><td class="fill-0">53</td><td class="b fill-0">105</td><td class="b fill-0-pct">2.12</td>
-  <td class="fill-3">305</td><td class="fill-3">746</td><td class="b fill-3">1051</td><td class="b fill-3-pct">21.21</td>
-  <td class="fill-4">2446</td><td class="fill-4">2405</td><td class="b fill-4">4851</td><td class="b fill-4-pct">97.88</td>
-  <td class="b fill-gpa">3.86729</td>
-
+      <tr class="row last">
+        <td class="sn">08</td>
+        <td class="dist">BUCHOSA DC</td>
+        <td class="sch f-sch">28</td>
+        <td class="nb tl">2648</td>
+        <td class="nb">2704</td>
+        <td class="nb b">5352</td>
+        <td class="nb tl">2498</td>
+        <td class="nb">2458</td>
+        <td class="nb b">4956</td>
+        <td class="nb b f-sp">92.37</td>
+        <td class="nb tl">38</td>
+        <td class="nb">118</td>
+        <td class="nb b">156</td>
+        <td class="nb">63</td>
+        <td class="nb">202</td>
+        <td class="nb b">265</td>
+        <td class="nb">204</td>
+        <td class="nb">426</td>
+        <td class="nb b">630</td>
+        <td class="nb">2141</td>
+        <td class="nb">1659</td>
+        <td class="nb b">3800</td>
+        <td class="nc f-z tl">52</td>
+        <td class="nc f-z">53</td>
+        <td class="nc f-z">105</td>
+        <td class="nc b f-zp">2.12</td>
+        <td class="nc b f-d3 tl">305</td>
+        <td class="nc b f-d3">746</td>
+        <td class="nc b f-d3">1051</td>
+        <td class="nc b f-d3p">21.21</td>
+        <td class="nc tl">2446</td>
+        <td class="nc">2405</td>
+        <td class="nc">4851</td>
+        <td class="nc b f-d4p">97.88</td>
+        <td class="nc f-gpa tl">3.86729</td>
         <td class="comp lvl-d">Grade D (Satisfactory)</td>
-        <td class="b c-rank fill-sch">8</td>
+        <td class="rk f-rank">8</td>
       </tr>
-      <tr class="row total">
-        <td class="txt b" colspan="2">TOTAL</td>
-          <td class="b fill-sch">387</td>
-<td>32495</td><td>26959</td><td class="b">59454</td>  <td>31181</td><td>25154</td><td class="b">56335</td><td class="b fill-sat">94.41</td>
-  <td>2247</td><td>2704</td><td class="b">4951</td>
-  <td>2475</td><td>2800</td><td class="b">5275</td>
-  <td>4522</td><td>4235</td><td class="b">8757</td>
-  <td>21291</td><td>14874</td><td class="b">36165</td>
-  <td class="fill-0">646</td><td class="fill-0">541</td><td class="b fill-0">1187</td><td class="b fill-0-pct">2.07</td>
-  <td class="fill-3">9244</td><td class="fill-3">9739</td><td class="b fill-3">18983</td><td class="b fill-3-pct">33.7</td>
-  <td class="fill-4">30535</td><td class="fill-4">24613</td><td class="b fill-4">55148</td><td class="b fill-4-pct">97.93</td>
-  <td class="b fill-gpa">3.53535</td>
-
-        <td class="comp">Grade C (Good)</td>
-        <td class="b c-rank fill-sch"></td>
+      <tr class="total">
+        <td colspan="2" class="t-label">TOTAL</td>
+        <td class="t-sch tt tb f-tsch tl">387</td>
+        <td class="t-num tt tb tl">32495</td>
+        <td class="t-num tt tb">26959</td>
+        <td class="t-num tt tb">59454</td>
+        <td class="t-num tt tb">31181</td>
+        <td class="t-num tt tb">25154</td>
+        <td class="t-num tt tb">56335</td>
+        <td class="t-num tt tb f-tsp">94.41</td>
+        <td class="t-num tt tb tl">2247</td>
+        <td class="t-num tt tb">2704</td>
+        <td class="t-num tt tb">4951</td>
+        <td class="t-num tt tb">2475</td>
+        <td class="t-num tt tb">2800</td>
+        <td class="t-num tt tb">5275</td>
+        <td class="t-num tt tb">4522</td>
+        <td class="t-num tt tb">4235</td>
+        <td class="t-num tt tb">8757</td>
+        <td class="t-num tt tb">21291</td>
+        <td class="t-num tt tb">14874</td>
+        <td class="t-num tt tb">36165</td>
+        <td class="t-num gc tt tb f-z">646</td>
+        <td class="t-num gc tt tb f-z">541</td>
+        <td class="t-num gc tt tb f-z">1187</td>
+        <td class="t-num gc tt tb f-tzp">2.07</td>
+        <td class="t-num gc tt tb f-td3 tl">9244</td>
+        <td class="t-num gc tt tb f-td3">9739</td>
+        <td class="t-num gc tt tb f-td3">18983</td>
+        <td class="t-num gc tt tb f-td3">33.7</td>
+        <td class="t-num gc tt tb">30535</td>
+        <td class="t-num gc tt tb">24613</td>
+        <td class="t-num gc tt tb">55148</td>
+        <td class="t-num gc tt tb f-td4p">97.93</td>
+        <td class="t-num gc tt tb f-tgpa tl">3.53535</td>
+        <td class="t-comp tl lvl-c">Grade C (Good)</td>
+        <td class="t-rank"></td>
       </tr>
     </tbody>
   </table>
-</div>
-<div class="section own-page">
+</section>
+<section class="sec k-government kind-government">
   <div class="titles">
-    <div class="hl ministry">THE PRIME MINISTER&#39;S OFFICE</div>
-    <div class="hl ministry">REGIONAL ADMINISTRATION AND LOCAL GOVERNMENT</div>
-    <div class="hl ministry">MWANZA REGION</div>
-    <div class="hl exam-name">REGIONAL FORM TWO MOCK ASSESSMENT RESULTS, JULY 2026</div>
-    <div class="hl sec-title">DISTRICT PERFORMANCE FOR GOVERNMENT SCHOOLS ONLY</div>
+    <div class="hl">THE PRIME MINISTER&#39;S OFFICE</div>
+    <div class="hl">REGIONAL ADMINISTRATION AND LOCAL GOVERNMENT</div>
+    <div class="hl">MWANZA REGION</div>
+    <div class="hl">REGIONAL FORM TWO MOCK ASSESSMENT RESULTS, JULY 2026</div>
   </div>
-  <table class="grid full">
-    <colgroup>
-<col style="width: 20.5pt"><col style="width: 49.5pt"><col style="width: 28.5pt"><col style="width: 18.1pt"><col style="width: 17.9pt"><col style="width: 17.6pt"><col style="width: 18.1pt"><col style="width: 17.9pt"><col style="width: 17.9pt"><col style="width: 29.5pt"><col style="width: 15.0pt"><col style="width: 14.8pt"><col style="width: 14.7pt"><col style="width: 14.8pt"><col style="width: 14.8pt"><col style="width: 14.7pt"><col style="width: 14.8pt"><col style="width: 14.7pt"><col style="width: 14.8pt"><col style="width: 17.9pt"><col style="width: 17.9pt"><col style="width: 17.6pt"><col style="width: 15.0pt"><col style="width: 14.8pt"><col style="width: 14.7pt"><col style="width: 26.3pt"><col style="width: 15.0pt"><col style="width: 17.9pt"><col style="width: 17.9pt"><col style="width: 28.6pt"><col style="width: 18.2pt"><col style="width: 17.8pt"><col style="width: 17.9pt"><col style="width: 26.4pt"><col style="width: 24.0pt"><col style="width: 57.4pt"><col style="width: 14.9pt">    </colgroup>
+  <div class="band">DISTRICT PERFORMANCE FOR GOVERNMENT SCHOOLS ONLY</div>
+  <table class="grid">
+    <colgroup><col style="width:19.08pt"><col style="width:42.21pt"><col style="width:26.4pt"><col style="width:17.67pt"><col style="width:17.64pt"><col style="width:17.62pt"><col style="width:17.66pt"><col style="width:17.64pt"><col style="width:17.64pt"><col style="width:24.93pt"><col style="width:17.31pt"><col style="width:17.28pt"><col style="width:17.28pt"><col style="width:17.28pt"><col style="width:17.28pt"><col style="width:17.28pt"><col style="width:17.28pt"><col style="width:17.28pt"><col style="width:17.28pt"><col style="width:17.28pt"><col style="width:17.28pt"><col style="width:17.26pt"><col style="width:15.62pt"><col style="width:15.6pt"><col style="width:15.6pt"><col style="width:21.93pt"><col style="width:18.27pt"><col style="width:18.24pt"><col style="width:18.24pt"><col style="width:26.86pt"><col style="width:16.58pt"><col style="width:16.56pt"><col style="width:16.56pt"><col style="width:24.81pt"><col style="width:20.52pt"><col style="width:53.19pt"><col style="width:9.24pt"></colgroup>
     <thead>
-      <tr class="hg">
-        <th rowspan="3" class="c-sn">S/N</th>
-        <th rowspan="3" class="v-mid">DISTRICT</th>
-        <th rowspan="3" class="v-mid nowrap">NO. OF SCHOOLS</th>
-        <th colspan="7" class="grp fill-cand-h">NUMBER OF CANDIDATES</th>
-        <th colspan="23" class="grp">DIVISION PERFORMANCE</th>
-        <th rowspan="3" class="v-mid fill-gpa-h">GPA</th>
-        <th rowspan="3" class="v-mid">COMPETENCY LEVEL</th>
-        <th rowspan="3" class="rank-h"><div class="vert"><span>RANK</span></div></th>
+      <tr class="h0">
+        <th rowspan="2" class="h-sn"><div class="anc"><span>S/N</span></div></th>
+        <th rowspan="2" class="h-dist"><div class="anc"><span>DISTRICT</span></div></th>
+        <th rowspan="2" class="h-nos f-hnos"><div class="anc"><span>NUMBER OF<br>SCHOOLS</span></div></th>
+<th colspan="3" class="g-reg">REGISTERED</th>        <th colspan="4" class="g-sat">SAT</th>
+        <th colspan="3" class="g-grp">I</th>
+        <th colspan="3" class="g-grp">II</th>
+        <th colspan="3" class="g-grp">III</th>
+        <th colspan="3" class="g-grp">IV</th>
+        <th colspan="4" class="g-grp">0</th>
+        <th colspan="4" class="g-grp">I-III</th>
+        <th colspan="4" class="g-grp">I-IV</th>
+        <th rowspan="2" class="h-gpa"><div class="anc"><span>GPA</span></div></th>
+        <th rowspan="2" class="h-comp"><div class="anc"><span>COMPETENCY LEVEL</span></div></th>
+        <th rowspan="2" class="h-rank"><div class="anc"><span class="rot">RANK</span></div></th>
       </tr>
-      <tr class="hs">
-<th colspan="3" class="fill-cand-h">REGISTERED</th>        <th colspan="4" class="fill-cand-h">SAT</th>
-        <th colspan="3">I</th><th colspan="3">II</th><th colspan="3">III</th><th colspan="3">IV</th>
-        <th colspan="4" class="fill-0-h">0</th>
-        <th colspan="4" class="fill-3-h">I-III</th>
-        <th colspan="4" class="fill-4-h">I-IV</th>
-      </tr>
-      <tr class="hf">
-<th>F</th><th>M</th><th>T</th>        <th>F</th><th>M</th><th>T</th><th>%</th>
-        <th>F</th><th>M</th><th>T</th><th>F</th><th>M</th><th>T</th>
-        <th>F</th><th>M</th><th>T</th><th>F</th><th>M</th><th>T</th>
-        <th>F</th><th>M</th><th>T</th><th>%</th>
-        <th>F</th><th>M</th><th>T</th><th>%</th>
-        <th>F</th><th>M</th><th>T</th><th>%</th>
+      <tr class="h1">
+        <th class="fmt tb">F</th>
+        <th class="fmt tb">M</th>
+        <th class="fmt tb">T</th>
+        <th class="fmt tb f-hsat">F</th>
+        <th class="fmt tb f-hsat">M</th>
+        <th class="fmt tb f-hsat">T</th>
+        <th class="spct tb f-hsat">%</th>
+        <th class="fmt">F</th>
+        <th class="fmt">M</th>
+        <th class="fmt">T</th>
+        <th class="fmt">F</th>
+        <th class="fmt">M</th>
+        <th class="fmt">T</th>
+        <th class="fmt">F</th>
+        <th class="fmt">M</th>
+        <th class="fmt">T</th>
+        <th class="fmt">F</th>
+        <th class="fmt">M</th>
+        <th class="fmt">T</th>
+        <th class="fmt tb f-hz">F</th>
+        <th class="fmt tb f-hz">M</th>
+        <th class="fmt tb f-hz">T</th>
+        <th class="fmt tb f-hzp">%</th>
+        <th class="fmt tb f-hd3">F</th>
+        <th class="fmt tb f-hd3">M</th>
+        <th class="fmt tb f-hd3">T</th>
+        <th class="fmt tb f-hd3">%</th>
+        <th class="fmt tb">F</th>
+        <th class="fmt tb">M</th>
+        <th class="fmt tb">T</th>
+        <th class="fmt tb f-hd4p">%</th>
       </tr>
     </thead>
     <tbody>
       <tr class="row">
-        <td class="c-sn">01</td>
-        <td class="txt">ILEMELA MC</td>
-          <td class="b fill-sch">36</td>
-<td>4536</td><td>3749</td><td class="b">8285</td>  <td>4427</td><td>3515</td><td class="b">7942</td><td class="b fill-sat">95.9</td>
-  <td>154</td><td>339</td><td class="b">493</td>
-  <td>477</td><td>411</td><td class="b">888</td>
-  <td>963</td><td>735</td><td class="b">1698</td>
-  <td>2793</td><td>1989</td><td class="b">4782</td>
-  <td class="fill-0">40</td><td class="fill-0">41</td><td class="b fill-0">81</td><td class="b fill-0-pct">1.27</td>
-  <td class="fill-3">1594</td><td class="fill-3">1485</td><td class="b fill-3">3079</td><td class="b fill-3-pct">36.81</td>
-  <td class="fill-4">4387</td><td class="fill-4">3474</td><td class="b fill-4">7861</td><td class="b fill-4-pct">98.73</td>
-  <td class="b fill-gpa">3.6666</td>
-
+        <td class="sn">01</td>
+        <td class="dist">ILEMELA MC</td>
+        <td class="sch f-sch">36</td>
+        <td class="nb tl">4536</td>
+        <td class="nb">3749</td>
+        <td class="nb b">8285</td>
+        <td class="nb tl">4427</td>
+        <td class="nb">3515</td>
+        <td class="nb b">7942</td>
+        <td class="nb b f-sp">95.9</td>
+        <td class="nb tl">154</td>
+        <td class="nb">339</td>
+        <td class="nb b">493</td>
+        <td class="nb">477</td>
+        <td class="nb">411</td>
+        <td class="nb b">888</td>
+        <td class="nb">963</td>
+        <td class="nb">735</td>
+        <td class="nb b">1698</td>
+        <td class="nb">2793</td>
+        <td class="nb">1989</td>
+        <td class="nb b">4782</td>
+        <td class="nc f-z tl">40</td>
+        <td class="nc f-z">41</td>
+        <td class="nc f-z">81</td>
+        <td class="nc b f-zp">1.27</td>
+        <td class="nc b f-d3 tl">1594</td>
+        <td class="nc b f-d3">1485</td>
+        <td class="nc b f-d3">3079</td>
+        <td class="nc b f-d3p">36.81</td>
+        <td class="nc tl">4387</td>
+        <td class="nc">3474</td>
+        <td class="nc">7861</td>
+        <td class="nc b f-d4p">98.73</td>
+        <td class="nc f-gpa tl">3.6666</td>
         <td class="comp lvl-d">Grade D (Satisfactory)</td>
-        <td class="b c-rank fill-sch">1</td>
+        <td class="rk f-rank">1</td>
       </tr>
       <tr class="row">
-        <td class="c-sn">02</td>
-        <td class="txt">MAGU DC</td>
-          <td class="b fill-sch">42</td>
-<td>3290</td><td>2392</td><td class="b">5682</td>  <td>3133</td><td>2197</td><td class="b">5330</td><td class="b fill-sat">93.02</td>
-  <td>147</td><td>155</td><td class="b">302</td>
-  <td>217</td><td>236</td><td class="b">453</td>
-  <td>533</td><td>392</td><td class="b">925</td>
-  <td>2203</td><td>1370</td><td class="b">3573</td>
-  <td class="fill-0">33</td><td class="fill-0">44</td><td class="b fill-0">77</td><td class="b fill-0-pct">1.33</td>
-  <td class="fill-3">897</td><td class="fill-3">783</td><td class="b fill-3">1680</td><td class="b fill-3-pct">34.16</td>
-  <td class="fill-4">3100</td><td class="fill-4">2153</td><td class="b fill-4">5253</td><td class="b fill-4-pct">98.67</td>
-  <td class="b fill-gpa">3.7355</td>
-
+        <td class="sn">02</td>
+        <td class="dist">MAGU DC</td>
+        <td class="sch f-sch">42</td>
+        <td class="nb tl">3290</td>
+        <td class="nb">2392</td>
+        <td class="nb b">5682</td>
+        <td class="nb tl">3133</td>
+        <td class="nb">2197</td>
+        <td class="nb b">5330</td>
+        <td class="nb b f-sp">93.02</td>
+        <td class="nb tl">147</td>
+        <td class="nb">155</td>
+        <td class="nb b">302</td>
+        <td class="nb">217</td>
+        <td class="nb">236</td>
+        <td class="nb b">453</td>
+        <td class="nb">533</td>
+        <td class="nb">392</td>
+        <td class="nb b">925</td>
+        <td class="nb">2203</td>
+        <td class="nb">1370</td>
+        <td class="nb b">3573</td>
+        <td class="nc f-z tl">33</td>
+        <td class="nc f-z">44</td>
+        <td class="nc f-z">77</td>
+        <td class="nc b f-zp">1.33</td>
+        <td class="nc b f-d3 tl">897</td>
+        <td class="nc b f-d3">783</td>
+        <td class="nc b f-d3">1680</td>
+        <td class="nc b f-d3p">34.16</td>
+        <td class="nc tl">3100</td>
+        <td class="nc">2153</td>
+        <td class="nc">5253</td>
+        <td class="nc b f-d4p">98.67</td>
+        <td class="nc f-gpa tl">3.7355</td>
         <td class="comp lvl-d">Grade D (Satisfactory)</td>
-        <td class="b c-rank fill-sch">2</td>
+        <td class="rk f-rank">2</td>
       </tr>
       <tr class="row">
-        <td class="c-sn">03</td>
-        <td class="txt">KWIMBA DC</td>
-          <td class="b fill-sch">41</td>
-<td>3526</td><td>2341</td><td class="b">5867</td>  <td>3331</td><td>2159</td><td class="b">5490</td><td class="b fill-sat">93.19</td>
-  <td>143</td><td>164</td><td class="b">307</td>
-  <td>324</td><td>266</td><td class="b">590</td>
-  <td>607</td><td>469</td><td class="b">1076</td>
-  <td>2105</td><td>1203</td><td class="b">3308</td>
-  <td class="fill-0">152</td><td class="fill-0">57</td><td class="b fill-0">209</td><td class="b fill-0-pct">4.03</td>
-  <td class="fill-3">1074</td><td class="fill-3">899</td><td class="b fill-3">1973</td><td class="b fill-3-pct">35.81</td>
-  <td class="fill-4">3179</td><td class="fill-4">2102</td><td class="b fill-4">5281</td><td class="b fill-4-pct">95.97</td>
-  <td class="b fill-gpa">3.7419</td>
-
+        <td class="sn">03</td>
+        <td class="dist">KWIMBA DC</td>
+        <td class="sch f-sch">41</td>
+        <td class="nb tl">3526</td>
+        <td class="nb">2341</td>
+        <td class="nb b">5867</td>
+        <td class="nb tl">3331</td>
+        <td class="nb">2159</td>
+        <td class="nb b">5490</td>
+        <td class="nb b f-sp">93.19</td>
+        <td class="nb tl">143</td>
+        <td class="nb">164</td>
+        <td class="nb b">307</td>
+        <td class="nb">324</td>
+        <td class="nb">266</td>
+        <td class="nb b">590</td>
+        <td class="nb">607</td>
+        <td class="nb">469</td>
+        <td class="nb b">1076</td>
+        <td class="nb">2105</td>
+        <td class="nb">1203</td>
+        <td class="nb b">3308</td>
+        <td class="nc f-z tl">152</td>
+        <td class="nc f-z">57</td>
+        <td class="nc f-z">209</td>
+        <td class="nc b f-zp">4.03</td>
+        <td class="nc b f-d3 tl">1074</td>
+        <td class="nc b f-d3">899</td>
+        <td class="nc b f-d3">1973</td>
+        <td class="nc b f-d3p">35.81</td>
+        <td class="nc tl">3179</td>
+        <td class="nc">2102</td>
+        <td class="nc">5281</td>
+        <td class="nc b f-d4p">95.97</td>
+        <td class="nc f-gpa tl">3.7419</td>
         <td class="comp lvl-d">Grade D (Satisfactory)</td>
-        <td class="b c-rank fill-sch">3</td>
+        <td class="rk f-rank">3</td>
       </tr>
       <tr class="row">
-        <td class="c-sn">04</td>
-        <td class="txt">SENGEREMA DC</td>
-          <td class="b fill-sch">47</td>
-<td>3514</td><td>3194</td><td class="b">6708</td>  <td>3347</td><td>2979</td><td class="b">6326</td><td class="b fill-sat">93.23</td>
-  <td>117</td><td>284</td><td class="b">401</td>
-  <td>253</td><td>392</td><td class="b">645</td>
-  <td>582</td><td>563</td><td class="b">1145</td>
-  <td>2345</td><td>1709</td><td class="b">4054</td>
-  <td class="fill-0">50</td><td class="fill-0">31</td><td class="b fill-0">81</td><td class="b fill-0-pct">1.22</td>
-  <td class="fill-3">952</td><td class="fill-3">1239</td><td class="b fill-3">2191</td><td class="b fill-3-pct">30.44</td>
-  <td class="fill-4">3297</td><td class="fill-4">2948</td><td class="b fill-4">6245</td><td class="b fill-4-pct">98.78</td>
-  <td class="b fill-gpa">3.7990</td>
-
+        <td class="sn">04</td>
+        <td class="dist">SENGEREMA DC</td>
+        <td class="sch f-sch">47</td>
+        <td class="nb tl">3514</td>
+        <td class="nb">3194</td>
+        <td class="nb b">6708</td>
+        <td class="nb tl">3347</td>
+        <td class="nb">2979</td>
+        <td class="nb b">6326</td>
+        <td class="nb b f-sp">93.23</td>
+        <td class="nb tl">117</td>
+        <td class="nb">284</td>
+        <td class="nb b">401</td>
+        <td class="nb">253</td>
+        <td class="nb">392</td>
+        <td class="nb b">645</td>
+        <td class="nb">582</td>
+        <td class="nb">563</td>
+        <td class="nb b">1145</td>
+        <td class="nb">2345</td>
+        <td class="nb">1709</td>
+        <td class="nb b">4054</td>
+        <td class="nc f-z tl">50</td>
+        <td class="nc f-z">31</td>
+        <td class="nc f-z">81</td>
+        <td class="nc b f-zp">1.22</td>
+        <td class="nc b f-d3 tl">952</td>
+        <td class="nc b f-d3">1239</td>
+        <td class="nc b f-d3">2191</td>
+        <td class="nc b f-d3p">30.44</td>
+        <td class="nc tl">3297</td>
+        <td class="nc">2948</td>
+        <td class="nc">6245</td>
+        <td class="nc b f-d4p">98.78</td>
+        <td class="nc f-gpa tl">3.7990</td>
         <td class="comp lvl-d">Grade D (Satisfactory)</td>
-        <td class="b c-rank fill-sch">4</td>
+        <td class="rk f-rank">4</td>
       </tr>
       <tr class="row">
-        <td class="c-sn">05</td>
-        <td class="txt">BUCHOSA</td>
-          <td class="b fill-sch">28</td>
-<td>2648</td><td>2704</td><td class="b">5352</td>  <td>2498</td><td>2458</td><td class="b">4956</td><td class="b fill-sat">92.37</td>
-  <td>38</td><td>118</td><td class="b">156</td>
-  <td>63</td><td>202</td><td class="b">265</td>
-  <td>204</td><td>426</td><td class="b">630</td>
-  <td>2141</td><td>1659</td><td class="b">3800</td>
-  <td class="fill-0">52</td><td class="fill-0">53</td><td class="b fill-0">105</td><td class="b fill-0-pct">1.70</td>
-  <td class="fill-3">305</td><td class="fill-3">746</td><td class="b fill-3">1051</td><td class="b fill-3-pct">23.26</td>
-  <td class="fill-4">2446</td><td class="fill-4">2405</td><td class="b fill-4">4851</td><td class="b fill-4-pct">98.30</td>
-  <td class="b fill-gpa">3.8673</td>
-
+        <td class="sn">05</td>
+        <td class="dist">BUCHOSA</td>
+        <td class="sch f-sch">28</td>
+        <td class="nb tl">2648</td>
+        <td class="nb">2704</td>
+        <td class="nb b">5352</td>
+        <td class="nb tl">2498</td>
+        <td class="nb">2458</td>
+        <td class="nb b">4956</td>
+        <td class="nb b f-sp">92.37</td>
+        <td class="nb tl">38</td>
+        <td class="nb">118</td>
+        <td class="nb b">156</td>
+        <td class="nb">63</td>
+        <td class="nb">202</td>
+        <td class="nb b">265</td>
+        <td class="nb">204</td>
+        <td class="nb">426</td>
+        <td class="nb b">630</td>
+        <td class="nb">2141</td>
+        <td class="nb">1659</td>
+        <td class="nb b">3800</td>
+        <td class="nc f-z tl">52</td>
+        <td class="nc f-z">53</td>
+        <td class="nc f-z">105</td>
+        <td class="nc b f-zp">1.70</td>
+        <td class="nc b f-d3 tl">305</td>
+        <td class="nc b f-d3">746</td>
+        <td class="nc b f-d3">1051</td>
+        <td class="nc b f-d3p">23.26</td>
+        <td class="nc tl">2446</td>
+        <td class="nc">2405</td>
+        <td class="nc">4851</td>
+        <td class="nc b f-d4p">98.30</td>
+        <td class="nc f-gpa tl">3.8673</td>
         <td class="comp lvl-d">Grade D (Satisfactory)</td>
-        <td class="b c-rank fill-sch">5</td>
+        <td class="rk f-rank">5</td>
       </tr>
       <tr class="row">
-        <td class="c-sn">06</td>
-        <td class="txt">UKEREWE</td>
-          <td class="b fill-sch">31</td>
-<td>3409</td><td>3528</td><td class="b">6937</td>  <td>3268</td><td>3268</td><td class="b">6536</td><td class="b fill-sat">94.24</td>
-  <td>52</td><td>143</td><td class="b">195</td>
-  <td>102</td><td>269</td><td class="b">371</td>
-  <td>301</td><td>465</td><td class="b">766</td>
-  <td>2724</td><td>2340</td><td class="b">5064</td>
-  <td class="fill-0">89</td><td class="fill-0">51</td><td class="b fill-0">140</td><td class="b fill-0-pct">1.99</td>
-  <td class="fill-3">455</td><td class="fill-3">877</td><td class="b fill-3">1332</td><td class="b fill-3-pct">21.91</td>
-  <td class="fill-4">3179</td><td class="fill-4">3217</td><td class="b fill-4">6396</td><td class="b fill-4-pct">98.01</td>
-  <td class="b fill-gpa">3.9292</td>
-
+        <td class="sn">06</td>
+        <td class="dist">UKEREWE</td>
+        <td class="sch f-sch">31</td>
+        <td class="nb tl">3409</td>
+        <td class="nb">3528</td>
+        <td class="nb b">6937</td>
+        <td class="nb tl">3268</td>
+        <td class="nb">3268</td>
+        <td class="nb b">6536</td>
+        <td class="nb b f-sp">94.24</td>
+        <td class="nb tl">52</td>
+        <td class="nb">143</td>
+        <td class="nb b">195</td>
+        <td class="nb">102</td>
+        <td class="nb">269</td>
+        <td class="nb b">371</td>
+        <td class="nb">301</td>
+        <td class="nb">465</td>
+        <td class="nb b">766</td>
+        <td class="nb">2724</td>
+        <td class="nb">2340</td>
+        <td class="nb b">5064</td>
+        <td class="nc f-z tl">89</td>
+        <td class="nc f-z">51</td>
+        <td class="nc f-z">140</td>
+        <td class="nc b f-zp">1.99</td>
+        <td class="nc b f-d3 tl">455</td>
+        <td class="nc b f-d3">877</td>
+        <td class="nc b f-d3">1332</td>
+        <td class="nc b f-d3p">21.91</td>
+        <td class="nc tl">3179</td>
+        <td class="nc">3217</td>
+        <td class="nc">6396</td>
+        <td class="nc b f-d4p">98.01</td>
+        <td class="nc f-gpa tl">3.9292</td>
         <td class="comp lvl-d">Grade D (Satisfactory)</td>
-        <td class="b c-rank fill-sch">6</td>
+        <td class="rk f-rank">6</td>
       </tr>
       <tr class="row">
-        <td class="c-sn">07</td>
-        <td class="txt">MISUNGWI DC</td>
-          <td class="b fill-sch">41</td>
-<td>2924</td><td>1922</td><td class="b">4846</td>  <td>2763</td><td>1747</td><td class="b">4510</td><td class="b fill-sat">92.58</td>
-  <td>22</td><td>49</td><td class="b">71</td>
-  <td>95</td><td>179</td><td class="b">274</td>
-  <td>330</td><td>317</td><td class="b">647</td>
-  <td>2260</td><td>1155</td><td class="b">3415</td>
-  <td class="fill-0">56</td><td class="fill-0">47</td><td class="b fill-0">103</td><td class="b fill-0-pct">1.83</td>
-  <td class="fill-3">447</td><td class="fill-3">545</td><td class="b fill-3">992</td><td class="b fill-3-pct">23.3</td>
-  <td class="fill-4">2707</td><td class="fill-4">1700</td><td class="b fill-4">4407</td><td class="b fill-4-pct">98.17</td>
-  <td class="b fill-gpa">3.9438</td>
-
+        <td class="sn">07</td>
+        <td class="dist">MISUNGWI DC</td>
+        <td class="sch f-sch">41</td>
+        <td class="nb tl">2924</td>
+        <td class="nb">1922</td>
+        <td class="nb b">4846</td>
+        <td class="nb tl">2763</td>
+        <td class="nb">1747</td>
+        <td class="nb b">4510</td>
+        <td class="nb b f-sp">92.58</td>
+        <td class="nb tl">22</td>
+        <td class="nb">49</td>
+        <td class="nb b">71</td>
+        <td class="nb">95</td>
+        <td class="nb">179</td>
+        <td class="nb b">274</td>
+        <td class="nb">330</td>
+        <td class="nb">317</td>
+        <td class="nb b">647</td>
+        <td class="nb">2260</td>
+        <td class="nb">1155</td>
+        <td class="nb b">3415</td>
+        <td class="nc f-z tl">56</td>
+        <td class="nc f-z">47</td>
+        <td class="nc f-z">103</td>
+        <td class="nc b f-zp">1.83</td>
+        <td class="nc b f-d3 tl">447</td>
+        <td class="nc b f-d3">545</td>
+        <td class="nc b f-d3">992</td>
+        <td class="nc b f-d3p">23.3</td>
+        <td class="nc tl">2707</td>
+        <td class="nc">1700</td>
+        <td class="nc">4407</td>
+        <td class="nc b f-d4p">98.17</td>
+        <td class="nc f-gpa tl">3.9438</td>
         <td class="comp lvl-d">Grade D (Satisfactory)</td>
-        <td class="b c-rank fill-sch">7</td>
+        <td class="rk f-rank">7</td>
       </tr>
-      <tr class="row">
-        <td class="c-sn">08</td>
-        <td class="txt">MWANZA CC</td>
-          <td class="b fill-sch">34</td>
-<td>5838</td><td>4787</td><td class="b">10625</td>  <td>5647</td><td>4533</td><td class="b">10180</td><td class="b fill-sat">95.68</td>
-  <td>91</td><td>190</td><td class="b">281</td>
-  <td>271</td><td>303</td><td class="b">574</td>
-  <td>613</td><td>553</td><td class="b">1166</td>
-  <td>4501</td><td>3277</td><td class="b">7778</td>
-  <td class="fill-0">171</td><td class="fill-0">210</td><td class="b fill-0">381</td><td class="b fill-0-pct">3.67</td>
-  <td class="fill-3">975</td><td class="fill-3">1046</td><td class="b fill-3">2021</td><td class="b fill-3-pct">20.57</td>
-  <td class="fill-4">5476</td><td class="fill-4">4323</td><td class="b fill-4">9799</td><td class="b fill-4-pct">96.33</td>
-  <td class="b fill-gpa">3.9487</td>
-
+      <tr class="row last">
+        <td class="sn">08</td>
+        <td class="dist">MWANZA CC</td>
+        <td class="sch f-sch">34</td>
+        <td class="nb tl">5838</td>
+        <td class="nb">4787</td>
+        <td class="nb b">10625</td>
+        <td class="nb tl">5647</td>
+        <td class="nb">4533</td>
+        <td class="nb b">10180</td>
+        <td class="nb b f-sp">95.68</td>
+        <td class="nb tl">91</td>
+        <td class="nb">190</td>
+        <td class="nb b">281</td>
+        <td class="nb">271</td>
+        <td class="nb">303</td>
+        <td class="nb b">574</td>
+        <td class="nb">613</td>
+        <td class="nb">553</td>
+        <td class="nb b">1166</td>
+        <td class="nb">4501</td>
+        <td class="nb">3277</td>
+        <td class="nb b">7778</td>
+        <td class="nc f-z tl">171</td>
+        <td class="nc f-z">210</td>
+        <td class="nc f-z">381</td>
+        <td class="nc b f-zp">3.67</td>
+        <td class="nc b f-d3 tl">975</td>
+        <td class="nc b f-d3">1046</td>
+        <td class="nc b f-d3">2021</td>
+        <td class="nc b f-d3p">20.57</td>
+        <td class="nc tl">5476</td>
+        <td class="nc">4323</td>
+        <td class="nc">9799</td>
+        <td class="nc b f-d4p">96.33</td>
+        <td class="nc f-gpa tl">3.9487</td>
         <td class="comp lvl-d">Grade D (Satisfactory)</td>
-        <td class="b c-rank fill-sch">8</td>
+        <td class="rk f-rank">8</td>
       </tr>
-      <tr class="row total">
-        <td class="txt b" colspan="2">TOTAL</td>
-          <td class="b fill-sch">300</td>
-<td>29685</td><td>24617</td><td class="b">54302</td>  <td>28414</td><td>22856</td><td class="b">51270</td><td class="b fill-sat">93.78</td>
-  <td>764</td><td>1442</td><td class="b">2206</td>
-  <td>1802</td><td>2258</td><td class="b">4060</td>
-  <td>4133</td><td>3920</td><td class="b">8053</td>
-  <td>21072</td><td>14702</td><td class="b">35774</td>
-  <td class="fill-0">643</td><td class="fill-0">534</td><td class="b fill-0">1177</td><td class="b fill-0-pct">2.13</td>
-  <td class="fill-3">6699</td><td class="fill-3">7620</td><td class="b fill-3">14319</td><td class="b fill-3-pct">28.2825</td>
-  <td class="fill-4">27771</td><td class="fill-4">22322</td><td class="b fill-4">50093</td><td class="b fill-4-pct">97.87</td>
-  <td class="b fill-gpa">3.8290</td>
-
-        <td class="comp">Grade D (Satisfactory)</td>
-        <td class="b c-rank fill-sch"></td>
+      <tr class="total">
+        <td colspan="2" class="t-label">TOTAL</td>
+        <td class="t-sch tt tb f-tsch tl">300</td>
+        <td class="t-num tt tb tl">29685</td>
+        <td class="t-num tt tb">24617</td>
+        <td class="t-num tt tb">54302</td>
+        <td class="t-num tt tb">28414</td>
+        <td class="t-num tt tb">22856</td>
+        <td class="t-num tt tb">51270</td>
+        <td class="t-num tt tb f-tsp">93.78</td>
+        <td class="t-num tt tb tl">764</td>
+        <td class="t-num tt tb">1442</td>
+        <td class="t-num tt tb">2206</td>
+        <td class="t-num tt tb">1802</td>
+        <td class="t-num tt tb">2258</td>
+        <td class="t-num tt tb">4060</td>
+        <td class="t-num tt tb">4133</td>
+        <td class="t-num tt tb">3920</td>
+        <td class="t-num tt tb">8053</td>
+        <td class="t-num tt tb">21072</td>
+        <td class="t-num tt tb">14702</td>
+        <td class="t-num tt tb">35774</td>
+        <td class="t-num gc tt tb f-z">643</td>
+        <td class="t-num gc tt tb f-z">534</td>
+        <td class="t-num gc tt tb f-z">1177</td>
+        <td class="t-num gc tt tb f-tzp">2.13</td>
+        <td class="t-num gc tt tb f-td3 tl">6699</td>
+        <td class="t-num gc tt tb f-td3">7620</td>
+        <td class="t-num gc tt tb f-td3">14319</td>
+        <td class="t-num gc tt tb f-td3">28.2825</td>
+        <td class="t-num gc tt tb">27771</td>
+        <td class="t-num gc tt tb">22322</td>
+        <td class="t-num gc tt tb">50093</td>
+        <td class="t-num gc tt tb f-td4p">97.87</td>
+        <td class="t-num gc tt tb f-tgpa tl">3.8290</td>
+        <td class="t-comp tl lvl-d">Grade D (Satisfactory)</td>
+        <td class="t-rank"></td>
       </tr>
     </tbody>
   </table>
-</div>
-<div class="section own-page">
+</section>
+<section class="sec k-private kind-private">
   <div class="titles">
-    <div class="hl ministry">THE PRIME MINISTER&#39;S OFFICE</div>
-    <div class="hl ministry">REGIONAL ADMINISTRATION AND LOCAL GOVERNMENT</div>
-    <div class="hl ministry">MWANZA REGION</div>
-    <div class="hl exam-name">REGIONAL FORM TWO MOCK ASSESSMENT RESULTS, JULY 2026</div>
-    <div class="hl sec-title">DISTRICT PERFORMANCE FOR PRIVATE SCHOOLS ONLY</div>
+    <div class="hl">THE PRIME MINISTER&#39;S OFFICE</div>
+    <div class="hl">REGIONAL ADMINISTRATION AND LOCAL GOVERNMENT</div>
+    <div class="hl">MWANZA REGION</div>
+    <div class="hl">REGIONAL FORM TWO MOCK ASSESSMENT RESULTS, JULY 2026</div>
   </div>
-  <table class="grid full">
-    <colgroup>
-<col style="width: 20.5pt"><col style="width: 49.5pt"><col style="width: 28.5pt"><col style="width: 18.1pt"><col style="width: 17.9pt"><col style="width: 17.6pt"><col style="width: 18.1pt"><col style="width: 17.9pt"><col style="width: 17.9pt"><col style="width: 29.5pt"><col style="width: 15.0pt"><col style="width: 14.8pt"><col style="width: 14.7pt"><col style="width: 14.8pt"><col style="width: 14.8pt"><col style="width: 14.7pt"><col style="width: 14.8pt"><col style="width: 14.7pt"><col style="width: 14.8pt"><col style="width: 17.9pt"><col style="width: 17.9pt"><col style="width: 17.6pt"><col style="width: 15.0pt"><col style="width: 14.8pt"><col style="width: 14.7pt"><col style="width: 26.3pt"><col style="width: 15.0pt"><col style="width: 17.9pt"><col style="width: 17.9pt"><col style="width: 28.6pt"><col style="width: 18.2pt"><col style="width: 17.8pt"><col style="width: 17.9pt"><col style="width: 26.4pt"><col style="width: 24.0pt"><col style="width: 57.4pt"><col style="width: 14.9pt">    </colgroup>
+  <div class="band">DISTRICT PERFORMANCE FOR PRIVATE SCHOOLS ONLY</div>
+  <table class="grid">
+    <colgroup><col style="width:22.92pt"><col style="width:50.64pt"><col style="width:31.68pt"><col style="width:16.44pt"><col style="width:16.44pt"><col style="width:16.44pt"><col style="width:16.44pt"><col style="width:16.44pt"><col style="width:16.44pt"><col style="width:26.52pt"><col style="width:16.44pt"><col style="width:16.44pt"><col style="width:16.44pt"><col style="width:12.96pt"><col style="width:12.96pt"><col style="width:16.44pt"><col style="width:14.28pt"><col style="width:14.28pt"><col style="width:14.28pt"><col style="width:14.28pt"><col style="width:14.28pt"><col style="width:14.28pt"><col style="width:12.0pt"><col style="width:12.0pt"><col style="width:12.0pt"><col style="width:29.52pt"><col style="width:16.44pt"><col style="width:16.44pt"><col style="width:16.44pt"><col style="width:32.28pt"><col style="width:18.0pt"><col style="width:18.0pt"><col style="width:18.0pt"><col style="width:29.76pt"><col style="width:27.6pt"><col style="width:62.28pt"><col style="width:11.04pt"></colgroup>
     <thead>
-      <tr class="hg">
-        <th rowspan="3" class="c-sn">S/N</th>
-        <th rowspan="3" class="v-mid">DISTRICT</th>
-        <th rowspan="3" class="v-mid nowrap">NO. OF SCHOOLS</th>
-        <th colspan="7" class="grp fill-cand-h">NUMBER OF CANDIDATES</th>
-        <th colspan="23" class="grp">DIVISION PERFORMANCE</th>
-        <th rowspan="3" class="v-mid fill-gpa-h">GPA</th>
-        <th rowspan="3" class="v-mid">COMPETENCY LEVEL</th>
-        <th rowspan="3" class="rank-h"><div class="vert"><span>RANK</span></div></th>
+      <tr class="h0">
+        <th rowspan="2" class="h-sn"><div class="anc"><span>S/N</span></div></th>
+        <th rowspan="2" class="h-dist"><div class="anc"><span>DISTRICT</span></div></th>
+        <th rowspan="2" class="h-nos f-hnos"><div class="anc"><span>NUMBER OF<br>SCHOOLS</span></div></th>
+<th colspan="3" class="g-reg">REGISTERED</th>        <th colspan="4" class="g-sat">SAT</th>
+        <th colspan="3" class="g-grp">I</th>
+        <th colspan="3" class="g-grp">II</th>
+        <th colspan="3" class="g-grp">III</th>
+        <th colspan="3" class="g-grp">IV</th>
+        <th colspan="4" class="g-grp">0</th>
+        <th colspan="4" class="g-grp">I-III</th>
+        <th colspan="4" class="g-grp">I-IV</th>
+        <th rowspan="2" class="h-gpa"><div class="anc"><span>GPA</span></div></th>
+        <th rowspan="2" class="h-comp"><div class="anc"><span>COMPETENCY LEVEL</span></div></th>
+        <th rowspan="2" class="h-rank"><div class="anc"><span class="rot">RANK</span></div></th>
       </tr>
-      <tr class="hs">
-<th colspan="3" class="fill-cand-h">REGISTERED</th>        <th colspan="4" class="fill-cand-h">SAT</th>
-        <th colspan="3">I</th><th colspan="3">II</th><th colspan="3">III</th><th colspan="3">IV</th>
-        <th colspan="4" class="fill-0-h">0</th>
-        <th colspan="4" class="fill-3-h">I-III</th>
-        <th colspan="4" class="fill-4-h">I-IV</th>
-      </tr>
-      <tr class="hf">
-<th>F</th><th>M</th><th>T</th>        <th>F</th><th>M</th><th>T</th><th>%</th>
-        <th>F</th><th>M</th><th>T</th><th>F</th><th>M</th><th>T</th>
-        <th>F</th><th>M</th><th>T</th><th>F</th><th>M</th><th>T</th>
-        <th>F</th><th>M</th><th>T</th><th>%</th>
-        <th>F</th><th>M</th><th>T</th><th>%</th>
-        <th>F</th><th>M</th><th>T</th><th>%</th>
+      <tr class="h1">
+        <th class="fmt tb">F</th>
+        <th class="fmt tb">M</th>
+        <th class="fmt tb">T</th>
+        <th class="fmt tb f-hsat">F</th>
+        <th class="fmt tb f-hsat">M</th>
+        <th class="fmt tb f-hsat">T</th>
+        <th class="spct tb f-hsat">%</th>
+        <th class="fmt">F</th>
+        <th class="fmt">M</th>
+        <th class="fmt">T</th>
+        <th class="fmt">F</th>
+        <th class="fmt">M</th>
+        <th class="fmt">T</th>
+        <th class="fmt">F</th>
+        <th class="fmt">M</th>
+        <th class="fmt">T</th>
+        <th class="fmt">F</th>
+        <th class="fmt">M</th>
+        <th class="fmt">T</th>
+        <th class="fmt tb f-hz">F</th>
+        <th class="fmt tb f-hz">M</th>
+        <th class="fmt tb f-hz">T</th>
+        <th class="fmt tb f-hzp">%</th>
+        <th class="fmt tb f-hd3">F</th>
+        <th class="fmt tb f-hd3">M</th>
+        <th class="fmt tb f-hd3">T</th>
+        <th class="fmt tb f-hd3">%</th>
+        <th class="fmt tb">F</th>
+        <th class="fmt tb">M</th>
+        <th class="fmt tb">T</th>
+        <th class="fmt tb f-hd4p">%</th>
       </tr>
     </thead>
     <tbody>
       <tr class="row">
-        <td class="c-sn">01</td>
-        <td class="txt">MISUNGWI DC</td>
-          <td class="b fill-sch">8</td>
-<td>326</td><td>247</td><td class="b">573</td>  <td>318</td><td>245</td><td class="b">563</td><td class="b fill-sat">97.97</td>
-  <td>235</td><td>157</td><td class="b">392</td>
-  <td>53</td><td>51</td><td class="b">104</td>
-  <td>27</td><td>29</td><td class="b">56</td>
-  <td>3</td><td>8</td><td class="b">11</td>
-  <td class="fill-0">0</td><td class="fill-0">0</td><td class="b fill-0">0</td><td class="b fill-0-pct">0.00</td>
-  <td class="fill-3">315</td><td class="fill-3">237</td><td class="b fill-3">552</td><td class="b fill-3-pct">97.84</td>
-  <td class="fill-4">318</td><td class="fill-4">245</td><td class="b fill-4">563</td><td class="b fill-4-pct">100.0</td>
-  <td class="b fill-gpa">2.03730</td>
-
+        <td class="sn">01</td>
+        <td class="dist">MISUNGWI DC</td>
+        <td class="sch f-sch">8</td>
+        <td class="nb tl">326</td>
+        <td class="nb">247</td>
+        <td class="nb b">573</td>
+        <td class="nb tl">318</td>
+        <td class="nb">245</td>
+        <td class="nb b">563</td>
+        <td class="nb b f-sp">97.97</td>
+        <td class="nb tl">235</td>
+        <td class="nb">157</td>
+        <td class="nb b">392</td>
+        <td class="nb">53</td>
+        <td class="nb">51</td>
+        <td class="nb b">104</td>
+        <td class="nb">27</td>
+        <td class="nb">29</td>
+        <td class="nb b">56</td>
+        <td class="nb">3</td>
+        <td class="nb">8</td>
+        <td class="nb b">11</td>
+        <td class="nc f-z tl">0</td>
+        <td class="nc f-z">0</td>
+        <td class="nc f-z">0</td>
+        <td class="nc b f-zp">0.00</td>
+        <td class="nc b f-d3 tl">315</td>
+        <td class="nc b f-d3">237</td>
+        <td class="nc b f-d3">552</td>
+        <td class="nc b f-d3p">97.84</td>
+        <td class="nc tl">318</td>
+        <td class="nc">245</td>
+        <td class="nc">563</td>
+        <td class="nc b f-d4p">100.0</td>
+        <td class="nc f-gpa tl">2.03730</td>
         <td class="comp lvl-b">Grade B (Very Good)</td>
-        <td class="b c-rank fill-sch">1</td>
+        <td class="rk f-rank">1</td>
       </tr>
       <tr class="row">
-        <td class="c-sn">02</td>
-        <td class="txt">UKEREWE</td>
-          <td class="b fill-sch">4</td>
-<td>60</td><td>38</td><td class="b">98</td>  <td>59</td><td>38</td><td class="b">97</td><td class="b fill-sat">99.27</td>
-  <td>30</td><td>16</td><td class="b">46</td>
-  <td>23</td><td>14</td><td class="b">37</td>
-  <td>6</td><td>7</td><td class="b">13</td>
-  <td>0</td><td>1</td><td class="b">1</td>
-  <td class="fill-0">0</td><td class="fill-0">0</td><td class="b fill-0">0</td><td class="b fill-0-pct">0.00</td>
-  <td class="fill-3">59</td><td class="fill-3">37</td><td class="b fill-3">96</td><td class="b fill-3-pct">98.08</td>
-  <td class="fill-4">59</td><td class="fill-4">38</td><td class="b fill-4">97</td><td class="b fill-4-pct">100.0</td>
-  <td class="b fill-gpa">2.18800</td>
-
+        <td class="sn">02</td>
+        <td class="dist">UKEREWE</td>
+        <td class="sch f-sch">4</td>
+        <td class="nb tl">60</td>
+        <td class="nb">38</td>
+        <td class="nb b">98</td>
+        <td class="nb tl">59</td>
+        <td class="nb">38</td>
+        <td class="nb b">97</td>
+        <td class="nb b f-sp">99.27</td>
+        <td class="nb tl">30</td>
+        <td class="nb">16</td>
+        <td class="nb b">46</td>
+        <td class="nb">23</td>
+        <td class="nb">14</td>
+        <td class="nb b">37</td>
+        <td class="nb">6</td>
+        <td class="nb">7</td>
+        <td class="nb b">13</td>
+        <td class="nb">0</td>
+        <td class="nb">1</td>
+        <td class="nb b">1</td>
+        <td class="nc f-z tl">0</td>
+        <td class="nc f-z">0</td>
+        <td class="nc f-z">0</td>
+        <td class="nc b f-zp">0.00</td>
+        <td class="nc b f-d3 tl">59</td>
+        <td class="nc b f-d3">37</td>
+        <td class="nc b f-d3">96</td>
+        <td class="nc b f-d3p">98.08</td>
+        <td class="nc tl">59</td>
+        <td class="nc">38</td>
+        <td class="nc">97</td>
+        <td class="nc b f-d4p">100.0</td>
+        <td class="nc f-gpa tl">2.18800</td>
         <td class="comp lvl-b">Grade B (Very Good)</td>
-        <td class="b c-rank fill-sch">2</td>
+        <td class="rk f-rank">2</td>
       </tr>
       <tr class="row">
-        <td class="c-sn">03</td>
-        <td class="txt">SENGEREMA DC</td>
-          <td class="b fill-sch">10</td>
-<td>274</td><td>233</td><td class="b">507</td>  <td>263</td><td>224</td><td class="b">487</td><td class="b fill-sat">96.89</td>
-  <td>121</td><td>103</td><td class="b">224</td>
-  <td>67</td><td>65</td><td class="b">132</td>
-  <td>52</td><td>36</td><td class="b">88</td>
-  <td>23</td><td>20</td><td class="b">43</td>
-  <td class="fill-0">0</td><td class="fill-0">0</td><td class="b fill-0">0</td><td class="b fill-0-pct">0.00</td>
-  <td class="fill-3">240</td><td class="fill-3">204</td><td class="b fill-3">444</td><td class="b fill-3-pct">89.46</td>
-  <td class="fill-4">263</td><td class="fill-4">224</td><td class="b fill-4">487</td><td class="b fill-4-pct">100.0</td>
-  <td class="b fill-gpa">2.46480</td>
-
+        <td class="sn">03</td>
+        <td class="dist">SENGEREMA DC</td>
+        <td class="sch f-sch">10</td>
+        <td class="nb tl">274</td>
+        <td class="nb">233</td>
+        <td class="nb b">507</td>
+        <td class="nb tl">263</td>
+        <td class="nb">224</td>
+        <td class="nb b">487</td>
+        <td class="nb b f-sp">96.89</td>
+        <td class="nb tl">121</td>
+        <td class="nb">103</td>
+        <td class="nb b">224</td>
+        <td class="nb">67</td>
+        <td class="nb">65</td>
+        <td class="nb b">132</td>
+        <td class="nb">52</td>
+        <td class="nb">36</td>
+        <td class="nb b">88</td>
+        <td class="nb">23</td>
+        <td class="nb">20</td>
+        <td class="nb b">43</td>
+        <td class="nc f-z tl">0</td>
+        <td class="nc f-z">0</td>
+        <td class="nc f-z">0</td>
+        <td class="nc b f-zp">0.00</td>
+        <td class="nc b f-d3 tl">240</td>
+        <td class="nc b f-d3">204</td>
+        <td class="nc b f-d3">444</td>
+        <td class="nc b f-d3p">89.46</td>
+        <td class="nc tl">263</td>
+        <td class="nc">224</td>
+        <td class="nc">487</td>
+        <td class="nc b f-d4p">100.0</td>
+        <td class="nc f-gpa tl">2.46480</td>
         <td class="comp lvl-b">Grade B (Very Good)</td>
-        <td class="b c-rank fill-sch">3</td>
+        <td class="rk f-rank">3</td>
       </tr>
       <tr class="row">
-        <td class="c-sn">04</td>
-        <td class="txt">MAGU DC</td>
-          <td class="b fill-sch">8</td>
-<td>122</td><td>140</td><td class="b">262</td>  <td>121</td><td>138</td><td class="b">259</td><td class="b fill-sat">98.81</td>
-  <td>51</td><td>64</td><td class="b">115</td>
-  <td>38</td><td>32</td><td class="b">70</td>
-  <td>18</td><td>23</td><td class="b">41</td>
-  <td>14</td><td>17</td><td class="b">31</td>
-  <td class="fill-0">0</td><td class="fill-0">2</td><td class="b fill-0">2</td><td class="b fill-0-pct">2.12</td>
-  <td class="fill-3">107</td><td class="fill-3">119</td><td class="b fill-3">226</td><td class="b fill-3-pct">86.03</td>
-  <td class="fill-4">121</td><td class="fill-4">136</td><td class="b fill-4">257</td><td class="b fill-4-pct">97.9</td>
-  <td class="b fill-gpa">2.52880</td>
-
+        <td class="sn">04</td>
+        <td class="dist">MAGU DC</td>
+        <td class="sch f-sch">8</td>
+        <td class="nb tl">122</td>
+        <td class="nb">140</td>
+        <td class="nb b">262</td>
+        <td class="nb tl">121</td>
+        <td class="nb">138</td>
+        <td class="nb b">259</td>
+        <td class="nb b f-sp">98.81</td>
+        <td class="nb tl">51</td>
+        <td class="nb">64</td>
+        <td class="nb b">115</td>
+        <td class="nb">38</td>
+        <td class="nb">32</td>
+        <td class="nb b">70</td>
+        <td class="nb">18</td>
+        <td class="nb">23</td>
+        <td class="nb b">41</td>
+        <td class="nb">14</td>
+        <td class="nb">17</td>
+        <td class="nb b">31</td>
+        <td class="nc f-z tl">0</td>
+        <td class="nc f-z">2</td>
+        <td class="nc f-z">2</td>
+        <td class="nc b f-zp">2.12</td>
+        <td class="nc b f-d3 tl">107</td>
+        <td class="nc b f-d3">119</td>
+        <td class="nc b f-d3">226</td>
+        <td class="nc b f-d3p">86.03</td>
+        <td class="nc tl">121</td>
+        <td class="nc">136</td>
+        <td class="nc">257</td>
+        <td class="nc b f-d4p">97.9</td>
+        <td class="nc f-gpa tl">2.52880</td>
         <td class="comp lvl-b">Grade B (Very Good)</td>
-        <td class="b c-rank fill-sch">4</td>
+        <td class="rk f-rank">4</td>
       </tr>
       <tr class="row">
-        <td class="c-sn">05</td>
-        <td class="txt">ILEMELA MC</td>
-          <td class="b fill-sch">25</td>
-<td>833</td><td>651</td><td class="b">1484</td>  <td>820</td><td>637</td><td class="b">1457</td><td class="b fill-sat">97.60</td>
-  <td>469</td><td>395</td><td class="b">864</td>
-  <td>189</td><td>123</td><td class="b">312</td>
-  <td>111</td><td>74</td><td class="b">185</td>
-  <td>50</td><td>43</td><td class="b">93</td>
-  <td class="fill-0">1</td><td class="fill-0">2</td><td class="b fill-0">3</td><td class="b fill-0-pct">0.97</td>
-  <td class="fill-3">769</td><td class="fill-3">592</td><td class="b fill-3">1361</td><td class="b fill-3-pct">83.20</td>
-  <td class="fill-4">819</td><td class="fill-4">635</td><td class="b fill-4">1454</td><td class="b fill-4-pct">99.0</td>
-  <td class="b fill-gpa">2.60770</td>
-
+        <td class="sn">05</td>
+        <td class="dist">ILEMELA MC</td>
+        <td class="sch f-sch">25</td>
+        <td class="nb tl">833</td>
+        <td class="nb">651</td>
+        <td class="nb b">1484</td>
+        <td class="nb tl">820</td>
+        <td class="nb">637</td>
+        <td class="nb b">1457</td>
+        <td class="nb b f-sp">97.60</td>
+        <td class="nb tl">469</td>
+        <td class="nb">395</td>
+        <td class="nb b">864</td>
+        <td class="nb">189</td>
+        <td class="nb">123</td>
+        <td class="nb b">312</td>
+        <td class="nb">111</td>
+        <td class="nb">74</td>
+        <td class="nb b">185</td>
+        <td class="nb">50</td>
+        <td class="nb">43</td>
+        <td class="nb b">93</td>
+        <td class="nc f-z tl">1</td>
+        <td class="nc f-z">2</td>
+        <td class="nc f-z">3</td>
+        <td class="nc b f-zp">0.97</td>
+        <td class="nc b f-d3 tl">769</td>
+        <td class="nc b f-d3">592</td>
+        <td class="nc b f-d3">1361</td>
+        <td class="nc b f-d3p">83.20</td>
+        <td class="nc tl">819</td>
+        <td class="nc">635</td>
+        <td class="nc">1454</td>
+        <td class="nc b f-d4p">99.0</td>
+        <td class="nc f-gpa tl">2.60770</td>
         <td class="comp lvl-c">Grade C (Good)</td>
-        <td class="b c-rank fill-sch">5</td>
+        <td class="rk f-rank">5</td>
       </tr>
       <tr class="row">
-        <td class="c-sn">06</td>
-        <td class="txt">MWANZA CC</td>
-          <td class="b fill-sch">30</td>
-<td>1016</td><td>1033</td><td class="b">2049</td>  <td>1008</td><td>1016</td><td class="b">2024</td><td class="b fill-sat">98.03</td>
-  <td>528</td><td>527</td><td class="b">1055</td>
-  <td>243</td><td>257</td><td class="b">500</td>
-  <td>133</td><td>146</td><td class="b">279</td>
-  <td>102</td><td>83</td><td class="b">185</td>
-  <td class="fill-0">2</td><td class="fill-0">3</td><td class="b fill-0">5</td><td class="b fill-0-pct">2.19</td>
-  <td class="fill-3">904</td><td class="fill-3">930</td><td class="b fill-3">1834</td><td class="b fill-3-pct">81.21</td>
-  <td class="fill-4">1006</td><td class="fill-4">1013</td><td class="b fill-4">2019</td><td class="b fill-4-pct">97.8</td>
-  <td class="b fill-gpa">2.68650</td>
-
+        <td class="sn">06</td>
+        <td class="dist">MWANZA CC</td>
+        <td class="sch f-sch">30</td>
+        <td class="nb tl">1016</td>
+        <td class="nb">1033</td>
+        <td class="nb b">2049</td>
+        <td class="nb tl">1008</td>
+        <td class="nb">1016</td>
+        <td class="nb b">2024</td>
+        <td class="nb b f-sp">98.03</td>
+        <td class="nb tl">528</td>
+        <td class="nb">527</td>
+        <td class="nb b">1055</td>
+        <td class="nb">243</td>
+        <td class="nb">257</td>
+        <td class="nb b">500</td>
+        <td class="nb">133</td>
+        <td class="nb">146</td>
+        <td class="nb b">279</td>
+        <td class="nb">102</td>
+        <td class="nb">83</td>
+        <td class="nb b">185</td>
+        <td class="nc f-z tl">2</td>
+        <td class="nc f-z">3</td>
+        <td class="nc f-z">5</td>
+        <td class="nc b f-zp">2.19</td>
+        <td class="nc b f-d3 tl">904</td>
+        <td class="nc b f-d3">930</td>
+        <td class="nc b f-d3">1834</td>
+        <td class="nc b f-d3p">81.21</td>
+        <td class="nc tl">1006</td>
+        <td class="nc">1013</td>
+        <td class="nc">2019</td>
+        <td class="nc b f-d4p">97.8</td>
+        <td class="nc f-gpa tl">2.68650</td>
         <td class="comp lvl-c">Grade C (Good)</td>
-        <td class="b c-rank fill-sch">6</td>
+        <td class="rk f-rank">6</td>
       </tr>
-      <tr class="row">
-        <td class="c-sn">07</td>
-        <td class="txt">KWIMBA DC</td>
-          <td class="b fill-sch">2</td>
-<td>179</td><td>0</td><td class="b">179</td>  <td>178</td><td>0</td><td class="b">178</td><td class="b fill-sat">99.37</td>
-  <td>49</td><td>0</td><td class="b">49</td>
-  <td>60</td><td>0</td><td class="b">60</td>
-  <td>42</td><td>0</td><td class="b">42</td>
-  <td>27</td><td>0</td><td class="b">27</td>
-  <td class="fill-0">0</td><td class="fill-0">0</td><td class="b fill-0">0</td><td class="b fill-0-pct">0.00</td>
-  <td class="fill-3">151</td><td class="fill-3">0</td><td class="b fill-3">151</td><td class="b fill-3-pct">86.36</td>
-  <td class="fill-4">178</td><td class="fill-4">0</td><td class="b fill-4">178</td><td class="b fill-4-pct">100.0</td>
-  <td class="b fill-gpa">2.78210</td>
-
+      <tr class="row last">
+        <td class="sn">07</td>
+        <td class="dist">KWIMBA DC</td>
+        <td class="sch f-sch">2</td>
+        <td class="nb tl">179</td>
+        <td class="nb">0</td>
+        <td class="nb b">179</td>
+        <td class="nb tl">178</td>
+        <td class="nb">0</td>
+        <td class="nb b">178</td>
+        <td class="nb b f-sp">99.37</td>
+        <td class="nb tl">49</td>
+        <td class="nb">0</td>
+        <td class="nb b">49</td>
+        <td class="nb">60</td>
+        <td class="nb">0</td>
+        <td class="nb b">60</td>
+        <td class="nb">42</td>
+        <td class="nb">0</td>
+        <td class="nb b">42</td>
+        <td class="nb">27</td>
+        <td class="nb">0</td>
+        <td class="nb b">27</td>
+        <td class="nc f-z tl">0</td>
+        <td class="nc f-z">0</td>
+        <td class="nc f-z">0</td>
+        <td class="nc b f-zp">0.00</td>
+        <td class="nc b f-d3 tl">151</td>
+        <td class="nc b f-d3">0</td>
+        <td class="nc b f-d3">151</td>
+        <td class="nc b f-d3p">86.36</td>
+        <td class="nc tl">178</td>
+        <td class="nc">0</td>
+        <td class="nc">178</td>
+        <td class="nc b f-d4p">100.0</td>
+        <td class="nc f-gpa tl">2.78210</td>
         <td class="comp lvl-c">Grade C (Good)</td>
-        <td class="b c-rank fill-sch">7</td>
+        <td class="rk f-rank">7</td>
       </tr>
-      <tr class="row total">
-        <td class="txt b" colspan="2">TOTAL</td>
-          <td class="b fill-sch">87</td>
-<td>2810</td><td>2342</td><td class="b">5152</td>  <td>2767</td><td>2298</td><td class="b">5065</td><td class="b fill-sat">98.28</td>
-  <td>1483</td><td>1262</td><td class="b">2745</td>
-  <td>673</td><td>542</td><td class="b">1215</td>
-  <td>389</td><td>315</td><td class="b">704</td>
-  <td>219</td><td>172</td><td class="b">391</td>
-  <td class="fill-0">3</td><td class="fill-0">7</td><td class="b fill-0">10</td><td class="b fill-0-pct">0.75</td>
-  <td class="fill-3">2545</td><td class="fill-3">2119</td><td class="b fill-3">4664</td><td class="b fill-3-pct">88.88</td>
-  <td class="fill-4">2764</td><td class="fill-4">2291</td><td class="b fill-4">5055</td><td class="b fill-4-pct">99.25</td>
-  <td class="b fill-gpa">2.47074</td>
-
-        <td class="comp">Grade B (Very Good)</td>
-        <td class="b c-rank fill-sch"></td>
+      <tr class="total">
+        <td colspan="2" class="t-label">TOTAL</td>
+        <td class="t-sch tt tb f-tsch tl">87</td>
+        <td class="t-num tt tb tl">2810</td>
+        <td class="t-num tt tb">2342</td>
+        <td class="t-num tt tb">5152</td>
+        <td class="t-num tt tb">2767</td>
+        <td class="t-num tt tb">2298</td>
+        <td class="t-num tt tb">5065</td>
+        <td class="t-num tt tb f-tsp">98.28</td>
+        <td class="t-num tt tb tl">1483</td>
+        <td class="t-num tt tb">1262</td>
+        <td class="t-num tt tb">2745</td>
+        <td class="t-num tt tb">673</td>
+        <td class="t-num tt tb">542</td>
+        <td class="t-num tt tb">1215</td>
+        <td class="t-num tt tb">389</td>
+        <td class="t-num tt tb">315</td>
+        <td class="t-num tt tb">704</td>
+        <td class="t-num tt tb">219</td>
+        <td class="t-num tt tb">172</td>
+        <td class="t-num tt tb">391</td>
+        <td class="t-num gc tt tb f-z">3</td>
+        <td class="t-num gc tt tb f-z">7</td>
+        <td class="t-num gc tt tb f-z">10</td>
+        <td class="t-num gc tt tb f-tzp">0.75</td>
+        <td class="t-num gc tt tb f-td3 tl">2545</td>
+        <td class="t-num gc tt tb f-td3">2119</td>
+        <td class="t-num gc tt tb f-td3">4664</td>
+        <td class="t-num gc tt tb f-td3">88.88</td>
+        <td class="t-num gc tt tb">2764</td>
+        <td class="t-num gc tt tb">2291</td>
+        <td class="t-num gc tt tb">5055</td>
+        <td class="t-num gc tt tb f-td4p">99.25</td>
+        <td class="t-num gc tt tb f-tgpa tl">2.47074</td>
+        <td class="t-comp tl lvl-b">Grade B (Very Good)</td>
+        <td class="t-rank"></td>
       </tr>
     </tbody>
   </table>
-</div>
-<div class="section own-page">
+</section>
+<section class="sec k-percentage kind-percentage">
   <div class="titles">
-    <div class="hl ministry">THE PRIME MINISTER&#39;S OFFICE</div>
-    <div class="hl ministry">REGIONAL ADMINISTRATION AND LOCAL GOVERNMENT</div>
-    <div class="hl ministry">MWANZA REGION</div>
-    <div class="hl exam-name">REGIONAL FORM TWO MOCK ASSESSMENT RESULTS, JULY 2026</div>
-    <div class="hl sec-title">DISTRICT PERFORMANCE BY PERCENTAGE</div>
+    <div class="hl">THE PRIME MINISTER&#39;S OFFICE</div>
+    <div class="hl">REGIONAL ADMINISTRATION AND LOCAL GOVERNMENT</div>
+    <div class="hl">MWANZA REGION</div>
+    <div class="hl">REGIONAL FORM TWO MOCK ASSESSMENT RESULTS, JULY 2026</div>
   </div>
-  <table class="grid pct">
-    <colgroup>
-<col style="width: 22.0pt"><col style="width: 53.2pt"><col style="width: 30.3pt"><col style="width: 19.2pt"><col style="width: 19.1pt"><col style="width: 19.1pt"><col style="width: 31.7pt"><col style="width: 15.9pt"><col style="width: 15.9pt"><col style="width: 15.8pt"><col style="width: 15.8pt"><col style="width: 15.9pt"><col style="width: 15.8pt"><col style="width: 15.9pt"><col style="width: 15.8pt"><col style="width: 15.8pt"><col style="width: 19.1pt"><col style="width: 19.1pt"><col style="width: 19.0pt"><col style="width: 15.9pt"><col style="width: 15.9pt"><col style="width: 15.8pt"><col style="width: 28.2pt"><col style="width: 16.0pt"><col style="width: 19.0pt"><col style="width: 19.1pt"><col style="width: 30.9pt"><col style="width: 19.2pt"><col style="width: 19.0pt"><col style="width: 19.1pt"><col style="width: 28.5pt"><col style="width: 25.6pt"><col style="width: 61.2pt"><col style="width: 15.9pt">    </colgroup>
+  <div class="band">DISTRICT PERFORMANCE BY PERCENTAGE</div>
+  <table class="grid">
+    <colgroup><col style="width:21.96pt"><col style="width:53.31pt"><col style="width:30.35pt"><col style="width:19.06pt"><col style="width:19.08pt"><col style="width:19.08pt"><col style="width:31.83pt"><col style="width:15.81pt"><col style="width:15.84pt"><col style="width:15.84pt"><col style="width:15.84pt"><col style="width:15.84pt"><col style="width:15.84pt"><col style="width:15.84pt"><col style="width:15.84pt"><col style="width:15.84pt"><col style="width:19.08pt"><col style="width:19.08pt"><col style="width:19.1pt"><col style="width:15.82pt"><col style="width:15.84pt"><col style="width:15.84pt"><col style="width:28.35pt"><col style="width:15.81pt"><col style="width:19.08pt"><col style="width:19.08pt"><col style="width:30.98pt"><col style="width:19.06pt"><col style="width:19.08pt"><col style="width:19.08pt"><col style="width:28.59pt"><col style="width:25.68pt"><col style="width:61.05pt"><col style="width:10.56pt"></colgroup>
     <thead>
-      <tr class="hg">
-        <th rowspan="3" class="c-sn">S/N</th>
-        <th rowspan="3" class="v-mid">DISTRICT</th>
-        <th rowspan="3" class="v-mid nowrap">NO. OF SCHOOLS</th>
-        <th colspan="4" class="grp fill-cand-h">NUMBER OF CANDIDATES</th>
-        <th colspan="23" class="grp">DIVISION PERFORMANCE</th>
-        <th rowspan="3" class="v-mid fill-gpa-h">GPA</th>
-        <th rowspan="3" class="v-mid">COMPETENCY LEVEL</th>
-        <th rowspan="3" class="rank-h"><div class="vert"><span>RANK</span></div></th>
+      <tr class="h0">
+        <th rowspan="2" class="h-sn"><div class="anc"><span>S/N</span></div></th>
+        <th rowspan="2" class="h-dist"><div class="anc"><span>DISTRICT</span></div></th>
+        <th rowspan="2" class="h-nos f-hnos"><div class="anc"><span>NUMBER OF<br>SCHOOLS</span></div></th>
+        <th colspan="4" class="g-sat">SAT</th>
+        <th colspan="3" class="g-grp">I</th>
+        <th colspan="3" class="g-grp">II</th>
+        <th colspan="3" class="g-grp">III</th>
+        <th colspan="3" class="g-grp">IV</th>
+        <th colspan="4" class="g-grp">0</th>
+        <th colspan="4" class="g-grp">I-III</th>
+        <th colspan="4" class="g-grp">I-IV</th>
+        <th rowspan="2" class="h-gpa"><div class="anc"><span>GPA</span></div></th>
+        <th rowspan="2" class="h-comp"><div class="anc"><span>COMPETENCY LEVEL</span></div></th>
+        <th rowspan="2" class="h-rank"><div class="anc"><span class="rot">RANK</span></div></th>
       </tr>
-      <tr class="hs">
-        <th colspan="4" class="fill-cand-h">SAT</th>
-        <th colspan="3">I</th><th colspan="3">II</th><th colspan="3">III</th><th colspan="3">IV</th>
-        <th colspan="4" class="fill-0-h">0</th>
-        <th colspan="4" class="fill-3-h">I-III</th>
-        <th colspan="4" class="fill-4-h">I-IV</th>
-      </tr>
-      <tr class="hf">
-        <th>F</th><th>M</th><th>T</th><th>%</th>
-        <th>F</th><th>M</th><th>T</th><th>F</th><th>M</th><th>T</th>
-        <th>F</th><th>M</th><th>T</th><th>F</th><th>M</th><th>T</th>
-        <th>F</th><th>M</th><th>T</th><th>%</th>
-        <th>F</th><th>M</th><th>T</th><th>%</th>
-        <th>F</th><th>M</th><th>T</th><th>%</th>
+      <tr class="h1">
+        <th class="fmt tb f-hsat">F</th>
+        <th class="fmt tb f-hsat">M</th>
+        <th class="fmt tb f-hsat">T</th>
+        <th class="spct tb f-hsat">%</th>
+        <th class="fmt">F</th>
+        <th class="fmt">M</th>
+        <th class="fmt">T</th>
+        <th class="fmt">F</th>
+        <th class="fmt">M</th>
+        <th class="fmt">T</th>
+        <th class="fmt">F</th>
+        <th class="fmt">M</th>
+        <th class="fmt">T</th>
+        <th class="fmt">F</th>
+        <th class="fmt">M</th>
+        <th class="fmt">T</th>
+        <th class="fmt tb f-hz">F</th>
+        <th class="fmt tb f-hz">M</th>
+        <th class="fmt tb f-hz">T</th>
+        <th class="fmt tb f-hzp">%</th>
+        <th class="fmt tb f-hd3">F</th>
+        <th class="fmt tb f-hd3">M</th>
+        <th class="fmt tb f-hd3">T</th>
+        <th class="fmt tb f-hd3">%</th>
+        <th class="fmt tb">F</th>
+        <th class="fmt tb">M</th>
+        <th class="fmt tb">T</th>
+        <th class="fmt tb f-hd4p">%</th>
       </tr>
     </thead>
     <tbody>
       <tr class="row">
-        <td class="c-sn">01</td>
-        <td class="txt">ILEMELA MC</td>
-          <td class="b fill-sch">61</td>
-  <td>5247</td><td>4152</td><td class="b">9399</td><td class="b fill-sat">96.59</td>
-  <td>623</td><td>734</td><td class="b">1357</td>
-  <td>666</td><td>534</td><td class="b">1200</td>
-  <td>1074</td><td>809</td><td class="b">1883</td>
-  <td>2843</td><td>2032</td><td class="b">4875</td>
-  <td class="fill-0">41</td><td class="fill-0">43</td><td class="b fill-0">84</td><td class="b fill-0-pct">0.89</td>
-  <td class="fill-3">2363</td><td class="fill-3">2077</td><td class="b fill-3">4440</td><td class="b fill-3-pct">47.24</td>
-  <td class="fill-4">5206</td><td class="fill-4">4109</td><td class="b fill-4">9315</td><td class="b fill-4-pct">99.11</td>
-  <td class="b fill-gpa">3.23261</td>
-
+        <td class="sn">01</td>
+        <td class="dist">ILEMELA MC</td>
+        <td class="sch f-sch">61</td>
+        <td class="nb tl">5247</td>
+        <td class="nb">4152</td>
+        <td class="nb b">9399</td>
+        <td class="nb b f-sp">96.59</td>
+        <td class="nb tl">623</td>
+        <td class="nb">734</td>
+        <td class="nb b">1357</td>
+        <td class="nb">666</td>
+        <td class="nb">534</td>
+        <td class="nb b">1200</td>
+        <td class="nb">1074</td>
+        <td class="nb">809</td>
+        <td class="nb b">1883</td>
+        <td class="nb">2843</td>
+        <td class="nb">2032</td>
+        <td class="nb b">4875</td>
+        <td class="nc f-z tl">41</td>
+        <td class="nc f-z">43</td>
+        <td class="nc f-z">84</td>
+        <td class="nc b f-zp">0.89</td>
+        <td class="nc b f-d3 tl">2363</td>
+        <td class="nc b f-d3">2077</td>
+        <td class="nc b f-d3">4440</td>
+        <td class="nc b f-d3p">47.24</td>
+        <td class="nc tl">5206</td>
+        <td class="nc">4109</td>
+        <td class="nc">9315</td>
+        <td class="nc b f-d4p">99.11</td>
+        <td class="nc f-gpa tl">3.23261</td>
         <td class="comp lvl-c">Grade C (Good)</td>
-        <td class="b c-rank fill-sch">1</td>
+        <td class="rk f-rank">1</td>
       </tr>
       <tr class="row">
-        <td class="c-sn">02</td>
-        <td class="txt">SENGEREMA DC</td>
-          <td class="b fill-sch">57</td>
-  <td>3610</td><td>3203</td><td class="b">6813</td><td class="b fill-sat">93.87</td>
-  <td>238</td><td>387</td><td class="b">625</td>
-  <td>320</td><td>457</td><td class="b">777</td>
-  <td>634</td><td>599</td><td class="b">1233</td>
-  <td>2368</td><td>1729</td><td class="b">4097</td>
-  <td class="fill-0">50</td><td class="fill-0">31</td><td class="b fill-0">81</td><td class="b fill-0-pct">1.19</td>
-  <td class="fill-3">1192</td><td class="fill-3">1443</td><td class="b fill-3">2635</td><td class="b fill-3-pct">38.68</td>
-  <td class="fill-4">3560</td><td class="fill-4">3172</td><td class="b fill-4">6732</td><td class="b fill-4-pct">98.81</td>
-  <td class="b fill-gpa">3.56489</td>
-
+        <td class="sn">02</td>
+        <td class="dist">SENGEREMA DC</td>
+        <td class="sch f-sch">57</td>
+        <td class="nb tl">3610</td>
+        <td class="nb">3203</td>
+        <td class="nb b">6813</td>
+        <td class="nb b f-sp">93.87</td>
+        <td class="nb tl">238</td>
+        <td class="nb">387</td>
+        <td class="nb b">625</td>
+        <td class="nb">320</td>
+        <td class="nb">457</td>
+        <td class="nb b">777</td>
+        <td class="nb">634</td>
+        <td class="nb">599</td>
+        <td class="nb b">1233</td>
+        <td class="nb">2368</td>
+        <td class="nb">1729</td>
+        <td class="nb b">4097</td>
+        <td class="nc f-z tl">50</td>
+        <td class="nc f-z">31</td>
+        <td class="nc f-z">81</td>
+        <td class="nc b f-zp">1.19</td>
+        <td class="nc b f-d3 tl">1192</td>
+        <td class="nc b f-d3">1443</td>
+        <td class="nc b f-d3">2635</td>
+        <td class="nc b f-d3p">38.68</td>
+        <td class="nc tl">3560</td>
+        <td class="nc">3172</td>
+        <td class="nc">6732</td>
+        <td class="nc b f-d4p">98.81</td>
+        <td class="nc f-gpa tl">3.56489</td>
         <td class="comp lvl-c">Grade C (Good)</td>
-        <td class="b c-rank fill-sch">2</td>
+        <td class="rk f-rank">2</td>
       </tr>
       <tr class="row">
-        <td class="c-sn">03</td>
-        <td class="txt">MAGU DC</td>
-          <td class="b fill-sch">50</td>
-  <td>3254</td><td>2335</td><td class="b">5589</td><td class="b fill-sat">93.94</td>
-  <td>198</td><td>219</td><td class="b">417</td>
-  <td>255</td><td>268</td><td class="b">523</td>
-  <td>551</td><td>415</td><td class="b">966</td>
-  <td>2217</td><td>1387</td><td class="b">3604</td>
-  <td class="fill-0">33</td><td class="fill-0">46</td><td class="b fill-0">79</td><td class="b fill-0-pct">1.41</td>
-  <td class="fill-3">1004</td><td class="fill-3">902</td><td class="b fill-3">1906</td><td class="b fill-3-pct">34.1</td>
-  <td class="fill-4">3221</td><td class="fill-4">2289</td><td class="b fill-4">5510</td><td class="b fill-4-pct">98.59</td>
-  <td class="b fill-gpa">3.54240</td>
-
+        <td class="sn">03</td>
+        <td class="dist">MAGU DC</td>
+        <td class="sch f-sch">50</td>
+        <td class="nb tl">3254</td>
+        <td class="nb">2335</td>
+        <td class="nb b">5589</td>
+        <td class="nb b f-sp">93.94</td>
+        <td class="nb tl">198</td>
+        <td class="nb">219</td>
+        <td class="nb b">417</td>
+        <td class="nb">255</td>
+        <td class="nb">268</td>
+        <td class="nb b">523</td>
+        <td class="nb">551</td>
+        <td class="nb">415</td>
+        <td class="nb b">966</td>
+        <td class="nb">2217</td>
+        <td class="nb">1387</td>
+        <td class="nb b">3604</td>
+        <td class="nc f-z tl">33</td>
+        <td class="nc f-z">46</td>
+        <td class="nc f-z">79</td>
+        <td class="nc b f-zp">1.41</td>
+        <td class="nc b f-d3 tl">1004</td>
+        <td class="nc b f-d3">902</td>
+        <td class="nc b f-d3">1906</td>
+        <td class="nc b f-d3p">34.1</td>
+        <td class="nc tl">3221</td>
+        <td class="nc">2289</td>
+        <td class="nc">5510</td>
+        <td class="nc b f-d4p">98.59</td>
+        <td class="nc f-gpa tl">3.54240</td>
         <td class="comp lvl-c">Grade C (Good)</td>
-        <td class="b c-rank fill-sch">3</td>
+        <td class="rk f-rank">3</td>
       </tr>
       <tr class="row">
-        <td class="c-sn">04</td>
-        <td class="txt">MISUNGWI DC</td>
-          <td class="b fill-sch">49</td>
-  <td>3081</td><td>1992</td><td class="b">5073</td><td class="b fill-sat">93.46</td>
-  <td>257</td><td>206</td><td class="b">463</td>
-  <td>148</td><td>230</td><td class="b">378</td>
-  <td>357</td><td>346</td><td class="b">703</td>
-  <td>2263</td><td>1163</td><td class="b">3426</td>
-  <td class="fill-0">56</td><td class="fill-0">47</td><td class="b fill-0">103</td><td class="b fill-0-pct">2.03</td>
-  <td class="fill-3">762</td><td class="fill-3">782</td><td class="b fill-3">1544</td><td class="b fill-3-pct">30.44</td>
-  <td class="fill-4">3025</td><td class="fill-4">1945</td><td class="b fill-4">4970</td><td class="b fill-4-pct">97.97</td>
-  <td class="b fill-gpa">3.63257</td>
-
+        <td class="sn">04</td>
+        <td class="dist">MISUNGWI DC</td>
+        <td class="sch f-sch">49</td>
+        <td class="nb tl">3081</td>
+        <td class="nb">1992</td>
+        <td class="nb b">5073</td>
+        <td class="nb b f-sp">93.46</td>
+        <td class="nb tl">257</td>
+        <td class="nb">206</td>
+        <td class="nb b">463</td>
+        <td class="nb">148</td>
+        <td class="nb">230</td>
+        <td class="nb b">378</td>
+        <td class="nb">357</td>
+        <td class="nb">346</td>
+        <td class="nb b">703</td>
+        <td class="nb">2263</td>
+        <td class="nb">1163</td>
+        <td class="nb b">3426</td>
+        <td class="nc f-z tl">56</td>
+        <td class="nc f-z">47</td>
+        <td class="nc f-z">103</td>
+        <td class="nc b f-zp">2.03</td>
+        <td class="nc b f-d3 tl">762</td>
+        <td class="nc b f-d3">782</td>
+        <td class="nc b f-d3">1544</td>
+        <td class="nc b f-d3p">30.44</td>
+        <td class="nc tl">3025</td>
+        <td class="nc">1945</td>
+        <td class="nc">4970</td>
+        <td class="nc b f-d4p">97.97</td>
+        <td class="nc f-gpa tl">3.63257</td>
         <td class="comp lvl-d">Grade D (Satisfactory)</td>
-        <td class="b c-rank fill-sch">4</td>
+        <td class="rk f-rank">4</td>
       </tr>
       <tr class="row">
-        <td class="c-sn">05</td>
-        <td class="txt">UKEREWE DC</td>
-          <td class="b fill-sch">35</td>
-  <td>3327</td><td>3306</td><td class="b">6633</td><td class="b fill-sat">94.82</td>
-  <td>82</td><td>159</td><td class="b">241</td>
-  <td>125</td><td>283</td><td class="b">408</td>
-  <td>307</td><td>472</td><td class="b">779</td>
-  <td>2724</td><td>2341</td><td class="b">5065</td>
-  <td class="fill-0">89</td><td class="fill-0">51</td><td class="b fill-0">140</td><td class="b fill-0-pct">2.11</td>
-  <td class="fill-3">514</td><td class="fill-3">914</td><td class="b fill-3">1428</td><td class="b fill-3-pct">21.53</td>
-  <td class="fill-4">3238</td><td class="fill-4">3255</td><td class="b fill-4">6493</td><td class="b fill-4-pct">97.89</td>
-  <td class="b fill-gpa">3.73023</td>
-
+        <td class="sn">05</td>
+        <td class="dist">UKEREWE DC</td>
+        <td class="sch f-sch">35</td>
+        <td class="nb tl">3327</td>
+        <td class="nb">3306</td>
+        <td class="nb b">6633</td>
+        <td class="nb b f-sp">94.82</td>
+        <td class="nb tl">82</td>
+        <td class="nb">159</td>
+        <td class="nb b">241</td>
+        <td class="nb">125</td>
+        <td class="nb">283</td>
+        <td class="nb b">408</td>
+        <td class="nb">307</td>
+        <td class="nb">472</td>
+        <td class="nb b">779</td>
+        <td class="nb">2724</td>
+        <td class="nb">2341</td>
+        <td class="nb b">5065</td>
+        <td class="nc f-z tl">89</td>
+        <td class="nc f-z">51</td>
+        <td class="nc f-z">140</td>
+        <td class="nc b f-zp">2.11</td>
+        <td class="nc b f-d3 tl">514</td>
+        <td class="nc b f-d3">914</td>
+        <td class="nc b f-d3">1428</td>
+        <td class="nc b f-d3p">21.53</td>
+        <td class="nc tl">3238</td>
+        <td class="nc">3255</td>
+        <td class="nc">6493</td>
+        <td class="nc b f-d4p">97.89</td>
+        <td class="nc f-gpa tl">3.73023</td>
         <td class="comp lvl-d">Grade D (Satisfactory)</td>
-        <td class="b c-rank fill-sch">5</td>
+        <td class="rk f-rank">5</td>
       </tr>
       <tr class="row">
-        <td class="c-sn">06</td>
-        <td class="txt">BUCHOSA DC</td>
-          <td class="b fill-sch">28</td>
-  <td>2498</td><td>2458</td><td class="b">4956</td><td class="b fill-sat">92.37</td>
-  <td>38</td><td>118</td><td class="b">156</td>
-  <td>63</td><td>202</td><td class="b">265</td>
-  <td>204</td><td>426</td><td class="b">630</td>
-  <td>2141</td><td>1659</td><td class="b">3800</td>
-  <td class="fill-0">52</td><td class="fill-0">53</td><td class="b fill-0">105</td><td class="b fill-0-pct">2.12</td>
-  <td class="fill-3">305</td><td class="fill-3">746</td><td class="b fill-3">1051</td><td class="b fill-3-pct">21.21</td>
-  <td class="fill-4">2446</td><td class="fill-4">2405</td><td class="b fill-4">4851</td><td class="b fill-4-pct">97.88</td>
-  <td class="b fill-gpa">3.86729</td>
-
+        <td class="sn">06</td>
+        <td class="dist">BUCHOSA DC</td>
+        <td class="sch f-sch">28</td>
+        <td class="nb tl">2498</td>
+        <td class="nb">2458</td>
+        <td class="nb b">4956</td>
+        <td class="nb b f-sp">92.37</td>
+        <td class="nb tl">38</td>
+        <td class="nb">118</td>
+        <td class="nb b">156</td>
+        <td class="nb">63</td>
+        <td class="nb">202</td>
+        <td class="nb b">265</td>
+        <td class="nb">204</td>
+        <td class="nb">426</td>
+        <td class="nb b">630</td>
+        <td class="nb">2141</td>
+        <td class="nb">1659</td>
+        <td class="nb b">3800</td>
+        <td class="nc f-z tl">52</td>
+        <td class="nc f-z">53</td>
+        <td class="nc f-z">105</td>
+        <td class="nc b f-zp">2.12</td>
+        <td class="nc b f-d3 tl">305</td>
+        <td class="nc b f-d3">746</td>
+        <td class="nc b f-d3">1051</td>
+        <td class="nc b f-d3p">21.21</td>
+        <td class="nc tl">2446</td>
+        <td class="nc">2405</td>
+        <td class="nc">4851</td>
+        <td class="nc b f-d4p">97.88</td>
+        <td class="nc f-gpa tl">3.86729</td>
         <td class="comp lvl-d">Grade D (Satisfactory)</td>
-        <td class="b c-rank fill-sch">6</td>
+        <td class="rk f-rank">6</td>
       </tr>
       <tr class="row">
-        <td class="c-sn">07</td>
-        <td class="txt">MWANZA CC</td>
-          <td class="b fill-sch">64</td>
-  <td>6655</td><td>5549</td><td class="b">12204</td><td class="b fill-sat">96.78</td>
-  <td>619</td><td>717</td><td class="b">1336</td>
-  <td>514</td><td>560</td><td class="b">1074</td>
-  <td>746</td><td>699</td><td class="b">1445</td>
-  <td>4603</td><td>3360</td><td class="b">7963</td>
-  <td class="fill-0">173</td><td class="fill-0">213</td><td class="b fill-0">386</td><td class="b fill-0-pct">3.16</td>
-  <td class="fill-3">1879</td><td class="fill-3">1976</td><td class="b fill-3">3855</td><td class="b fill-3-pct">31.59</td>
-  <td class="fill-4">6482</td><td class="fill-4">5336</td><td class="b fill-4">11818</td><td class="b fill-4-pct">96.84</td>
-  <td class="b fill-gpa">3.35705</td>
-
+        <td class="sn">07</td>
+        <td class="dist">MWANZA CC</td>
+        <td class="sch f-sch">64</td>
+        <td class="nb tl">6655</td>
+        <td class="nb">5549</td>
+        <td class="nb b">12204</td>
+        <td class="nb b f-sp">96.78</td>
+        <td class="nb tl">619</td>
+        <td class="nb">717</td>
+        <td class="nb b">1336</td>
+        <td class="nb">514</td>
+        <td class="nb">560</td>
+        <td class="nb b">1074</td>
+        <td class="nb">746</td>
+        <td class="nb">699</td>
+        <td class="nb b">1445</td>
+        <td class="nb">4603</td>
+        <td class="nb">3360</td>
+        <td class="nb b">7963</td>
+        <td class="nc f-z tl">173</td>
+        <td class="nc f-z">213</td>
+        <td class="nc f-z">386</td>
+        <td class="nc b f-zp">3.16</td>
+        <td class="nc b f-d3 tl">1879</td>
+        <td class="nc b f-d3">1976</td>
+        <td class="nc b f-d3">3855</td>
+        <td class="nc b f-d3p">31.59</td>
+        <td class="nc tl">6482</td>
+        <td class="nc">5336</td>
+        <td class="nc">11818</td>
+        <td class="nc b f-d4p">96.84</td>
+        <td class="nc f-gpa tl">3.35705</td>
         <td class="comp lvl-c">Grade C (Good)</td>
-        <td class="b c-rank fill-sch">7</td>
+        <td class="rk f-rank">7</td>
       </tr>
-      <tr class="row">
-        <td class="c-sn">08</td>
-        <td class="txt">KWIMBA DC</td>
-          <td class="b fill-sch">43</td>
-  <td>3509</td><td>2159</td><td class="b">5668</td><td class="b fill-sat">93.47</td>
-  <td>192</td><td>164</td><td class="b">356</td>
-  <td>384</td><td>266</td><td class="b">650</td>
-  <td>649</td><td>469</td><td class="b">1118</td>
-  <td>2132</td><td>1203</td><td class="b">3335</td>
-  <td class="fill-0">152</td><td class="fill-0">57</td><td class="b fill-0">209</td><td class="b fill-0-pct">3.69</td>
-  <td class="fill-3">1225</td><td class="fill-3">899</td><td class="b fill-3">2124</td><td class="b fill-3-pct">37.47</td>
-  <td class="fill-4">3357</td><td class="fill-4">2102</td><td class="b fill-4">5459</td><td class="b fill-4-pct">96.31</td>
-  <td class="b fill-gpa">3.69727</td>
-
+      <tr class="row last">
+        <td class="sn">08</td>
+        <td class="dist">KWIMBA DC</td>
+        <td class="sch f-sch">43</td>
+        <td class="nb tl">3509</td>
+        <td class="nb">2159</td>
+        <td class="nb b">5668</td>
+        <td class="nb b f-sp">93.47</td>
+        <td class="nb tl">192</td>
+        <td class="nb">164</td>
+        <td class="nb b">356</td>
+        <td class="nb">384</td>
+        <td class="nb">266</td>
+        <td class="nb b">650</td>
+        <td class="nb">649</td>
+        <td class="nb">469</td>
+        <td class="nb b">1118</td>
+        <td class="nb">2132</td>
+        <td class="nb">1203</td>
+        <td class="nb b">3335</td>
+        <td class="nc f-z tl">152</td>
+        <td class="nc f-z">57</td>
+        <td class="nc f-z">209</td>
+        <td class="nc b f-zp">3.69</td>
+        <td class="nc b f-d3 tl">1225</td>
+        <td class="nc b f-d3">899</td>
+        <td class="nc b f-d3">2124</td>
+        <td class="nc b f-d3p">37.47</td>
+        <td class="nc tl">3357</td>
+        <td class="nc">2102</td>
+        <td class="nc">5459</td>
+        <td class="nc b f-d4p">96.31</td>
+        <td class="nc f-gpa tl">3.69727</td>
         <td class="comp lvl-d">Grade D (Satisfactory)</td>
-        <td class="b c-rank fill-sch">8</td>
+        <td class="rk f-rank">8</td>
       </tr>
-      <tr class="row total">
-        <td class="txt b" colspan="2">TOTAL</td>
-          <td class="b fill-sch">387</td>
-  <td>31181</td><td>25154</td><td class="b">56335</td><td class="b fill-sat">94.41</td>
-  <td>2247</td><td>2704</td><td class="b">4951</td>
-  <td>2475</td><td>2800</td><td class="b">5275</td>
-  <td>4522</td><td>4235</td><td class="b">8757</td>
-  <td>21291</td><td>14874</td><td class="b">36165</td>
-  <td class="fill-0">646</td><td class="fill-0">541</td><td class="b fill-0">1187</td><td class="b fill-0-pct">2.07</td>
-  <td class="fill-3">9244</td><td class="fill-3">9739</td><td class="b fill-3">18983</td><td class="b fill-3-pct">33.7</td>
-  <td class="fill-4">30535</td><td class="fill-4">24613</td><td class="b fill-4">55148</td><td class="b fill-4-pct">97.93</td>
-  <td class="b fill-gpa">3.53535</td>
-
-        <td class="comp">Grade C (Good)</td>
-        <td class="b c-rank fill-sch"></td>
+      <tr class="total">
+        <td colspan="2" class="t-label">TOTAL</td>
+        <td class="t-sch tt tb f-tsch tl">387</td>
+        <td class="t-num tt tb">31181</td>
+        <td class="t-num tt tb">25154</td>
+        <td class="t-num tt tb">56335</td>
+        <td class="t-num tt tb f-tsp">94.41</td>
+        <td class="t-num tt tb tl">2247</td>
+        <td class="t-num tt tb">2704</td>
+        <td class="t-num tt tb">4951</td>
+        <td class="t-num tt tb">2475</td>
+        <td class="t-num tt tb">2800</td>
+        <td class="t-num tt tb">5275</td>
+        <td class="t-num tt tb">4522</td>
+        <td class="t-num tt tb">4235</td>
+        <td class="t-num tt tb">8757</td>
+        <td class="t-num tt tb">21291</td>
+        <td class="t-num tt tb">14874</td>
+        <td class="t-num tt tb">36165</td>
+        <td class="t-num gc tt tb f-z">646</td>
+        <td class="t-num gc tt tb f-z">541</td>
+        <td class="t-num gc tt tb f-z">1187</td>
+        <td class="t-num gc tt tb f-tzp">2.07</td>
+        <td class="t-num gc tt tb f-td3 tl">9244</td>
+        <td class="t-num gc tt tb f-td3">9739</td>
+        <td class="t-num gc tt tb f-td3">18983</td>
+        <td class="t-num gc tt tb f-td3">33.7</td>
+        <td class="t-num gc tt tb">30535</td>
+        <td class="t-num gc tt tb">24613</td>
+        <td class="t-num gc tt tb">55148</td>
+        <td class="t-num gc tt tb f-td4p">97.93</td>
+        <td class="t-num gc tt tb f-tgpa tl">3.53535</td>
+        <td class="t-comp tl lvl-c">Grade C (Good)</td>
+        <td class="t-rank"></td>
       </tr>
     </tbody>
   </table>
-</div>
-<div class="section own-page">
+</section>
+<section class="sec k-kpi kind-kpi">
   <div class="titles">
-    <div class="hl ministry">THE PRIME MINISTER&#39;S OFFICE</div>
-    <div class="hl ministry">REGIONAL ADMINISTRATION AND LOCAL GOVERNMENT</div>
-    <div class="hl ministry">MWANZA REGION</div>
-    <div class="hl exam-name">REGIONAL FORM TWO MOCK ASSESSMENT RESULTS, JULY 2026</div>
-    <div class="hl sec-title">DISTRICT PERFORMANCE BY KPI</div>
+    <div class="hl">THE PRIME MINISTER&#39;S OFFICE</div>
+    <div class="hl">REGIONAL ADMINISTRATION AND LOCAL GOVERNMENT</div>
+    <div class="hl">MWANZA REGION</div>
+    <div class="hl">REGIONAL FORM TWO MOCK ASSESSMENT RESULTS, JULY 2026</div>
   </div>
-  <table class="grid pct">
-    <colgroup>
-<col style="width: 22.0pt"><col style="width: 53.2pt"><col style="width: 30.3pt"><col style="width: 19.2pt"><col style="width: 19.1pt"><col style="width: 19.1pt"><col style="width: 31.7pt"><col style="width: 15.9pt"><col style="width: 15.9pt"><col style="width: 15.8pt"><col style="width: 15.8pt"><col style="width: 15.9pt"><col style="width: 15.8pt"><col style="width: 15.9pt"><col style="width: 15.8pt"><col style="width: 15.8pt"><col style="width: 19.1pt"><col style="width: 19.1pt"><col style="width: 19.0pt"><col style="width: 15.9pt"><col style="width: 15.9pt"><col style="width: 15.8pt"><col style="width: 28.2pt"><col style="width: 16.0pt"><col style="width: 19.0pt"><col style="width: 19.1pt"><col style="width: 30.9pt"><col style="width: 19.2pt"><col style="width: 19.0pt"><col style="width: 19.1pt"><col style="width: 28.5pt"><col style="width: 25.6pt"><col style="width: 61.2pt"><col style="width: 15.9pt">    </colgroup>
+  <div class="band">DISTRICT PERFORMANCE BY KPI</div>
+  <table class="grid">
+    <colgroup><col style="width:21.96pt"><col style="width:53.31pt"><col style="width:30.35pt"><col style="width:19.06pt"><col style="width:19.08pt"><col style="width:19.08pt"><col style="width:31.83pt"><col style="width:15.81pt"><col style="width:15.84pt"><col style="width:15.84pt"><col style="width:15.84pt"><col style="width:15.84pt"><col style="width:15.84pt"><col style="width:15.84pt"><col style="width:15.84pt"><col style="width:15.84pt"><col style="width:19.08pt"><col style="width:19.08pt"><col style="width:19.1pt"><col style="width:15.82pt"><col style="width:15.84pt"><col style="width:15.84pt"><col style="width:28.35pt"><col style="width:15.81pt"><col style="width:19.08pt"><col style="width:19.08pt"><col style="width:30.98pt"><col style="width:19.06pt"><col style="width:19.08pt"><col style="width:19.08pt"><col style="width:28.59pt"><col style="width:25.68pt"><col style="width:61.05pt"><col style="width:10.56pt"></colgroup>
     <thead>
-      <tr class="hg">
-        <th rowspan="3" class="c-sn">S/N</th>
-        <th rowspan="3" class="v-mid">DISTRICT</th>
-        <th rowspan="3" class="v-mid nowrap">NO. OF SCHOOLS</th>
-        <th colspan="4" class="grp fill-cand-h">NUMBER OF CANDIDATES</th>
-        <th colspan="23" class="grp">DIVISION PERFORMANCE</th>
-        <th rowspan="3" class="v-mid fill-gpa-h">GPA</th>
-        <th rowspan="3" class="v-mid">COMPETENCY LEVEL</th>
-        <th rowspan="3" class="rank-h"><div class="vert"><span>RANK</span></div></th>
+      <tr class="h0">
+        <th rowspan="2" class="h-sn"><div class="anc"><span>S/N</span></div></th>
+        <th rowspan="2" class="h-dist"><div class="anc"><span>DISTRICT</span></div></th>
+        <th rowspan="2" class="h-nos f-hnos"><div class="anc"><span>NUMBER OF<br>SCHOOLS</span></div></th>
+        <th colspan="4" class="g-sat">SAT</th>
+        <th colspan="3" class="g-grp">I</th>
+        <th colspan="3" class="g-grp">II</th>
+        <th colspan="3" class="g-grp">III</th>
+        <th colspan="3" class="g-grp">IV</th>
+        <th colspan="4" class="g-grp">0</th>
+        <th colspan="4" class="g-grp">I-III</th>
+        <th colspan="4" class="g-grp">I-IV</th>
+        <th rowspan="2" class="h-gpa"><div class="anc"><span>GPA</span></div></th>
+        <th rowspan="2" class="h-comp"><div class="anc"><span>COMPETENCY LEVEL</span></div></th>
+        <th rowspan="2" class="h-rank"><div class="anc"><span class="rot">RANK</span></div></th>
       </tr>
-      <tr class="hs">
-        <th colspan="4" class="fill-cand-h">SAT</th>
-        <th colspan="3">I</th><th colspan="3">II</th><th colspan="3">III</th><th colspan="3">IV</th>
-        <th colspan="4" class="fill-0-h">0</th>
-        <th colspan="4" class="fill-3-h">I-III</th>
-        <th colspan="4" class="fill-4-h">I-IV</th>
-      </tr>
-      <tr class="hf">
-        <th>F</th><th>M</th><th>T</th><th>%</th>
-        <th>F</th><th>M</th><th>T</th><th>F</th><th>M</th><th>T</th>
-        <th>F</th><th>M</th><th>T</th><th>F</th><th>M</th><th>T</th>
-        <th>F</th><th>M</th><th>T</th><th>%</th>
-        <th>F</th><th>M</th><th>T</th><th>%</th>
-        <th>F</th><th>M</th><th>T</th><th>%</th>
+      <tr class="h1">
+        <th class="fmt tb f-hsat">F</th>
+        <th class="fmt tb f-hsat">M</th>
+        <th class="fmt tb f-hsat">T</th>
+        <th class="spct tb f-hsat">%</th>
+        <th class="fmt">F</th>
+        <th class="fmt">M</th>
+        <th class="fmt">T</th>
+        <th class="fmt">F</th>
+        <th class="fmt">M</th>
+        <th class="fmt">T</th>
+        <th class="fmt">F</th>
+        <th class="fmt">M</th>
+        <th class="fmt">T</th>
+        <th class="fmt">F</th>
+        <th class="fmt">M</th>
+        <th class="fmt">T</th>
+        <th class="fmt tb f-hz">F</th>
+        <th class="fmt tb f-hz">M</th>
+        <th class="fmt tb f-hz">T</th>
+        <th class="fmt tb f-hzp">%</th>
+        <th class="fmt tb f-hd3">F</th>
+        <th class="fmt tb f-hd3">M</th>
+        <th class="fmt tb f-hd3">T</th>
+        <th class="fmt tb f-hd3">%</th>
+        <th class="fmt tb">F</th>
+        <th class="fmt tb">M</th>
+        <th class="fmt tb">T</th>
+        <th class="fmt tb f-hd4p">%</th>
       </tr>
     </thead>
     <tbody>
       <tr class="row">
-        <td class="c-sn">01</td>
-        <td class="txt">ILEMELA MC</td>
-          <td class="b fill-sch">61</td>
-  <td>5247</td><td>4152</td><td class="b">9399</td><td class="b fill-sat">96.59</td>
-  <td>623</td><td>734</td><td class="b">1357</td>
-  <td>666</td><td>534</td><td class="b">1200</td>
-  <td>1074</td><td>809</td><td class="b">1883</td>
-  <td>2843</td><td>2032</td><td class="b">4875</td>
-  <td class="fill-0">41</td><td class="fill-0">43</td><td class="b fill-0">84</td><td class="b fill-0-pct">0.89</td>
-  <td class="fill-3">2363</td><td class="fill-3">2077</td><td class="b fill-3">4440</td><td class="b fill-3-pct">47.24</td>
-  <td class="fill-4">5206</td><td class="fill-4">4109</td><td class="b fill-4">9315</td><td class="b fill-4-pct">99.11</td>
-  <td class="b fill-gpa">3.23261</td>
-
+        <td class="sn">01</td>
+        <td class="dist">ILEMELA MC</td>
+        <td class="sch f-sch">61</td>
+        <td class="nb tl">5247</td>
+        <td class="nb">4152</td>
+        <td class="nb b">9399</td>
+        <td class="nb b f-sp">96.59</td>
+        <td class="nb tl">623</td>
+        <td class="nb">734</td>
+        <td class="nb b">1357</td>
+        <td class="nb">666</td>
+        <td class="nb">534</td>
+        <td class="nb b">1200</td>
+        <td class="nb">1074</td>
+        <td class="nb">809</td>
+        <td class="nb b">1883</td>
+        <td class="nb">2843</td>
+        <td class="nb">2032</td>
+        <td class="nb b">4875</td>
+        <td class="nc f-z tl">41</td>
+        <td class="nc f-z">43</td>
+        <td class="nc f-z">84</td>
+        <td class="nc b f-zp">0.89</td>
+        <td class="nc b f-d3 tl">2363</td>
+        <td class="nc b f-d3">2077</td>
+        <td class="nc b f-d3">4440</td>
+        <td class="nc b f-d3p">47.24</td>
+        <td class="nc tl">5206</td>
+        <td class="nc">4109</td>
+        <td class="nc">9315</td>
+        <td class="nc b f-d4p">99.11</td>
+        <td class="nc f-gpa tl">3.23261</td>
         <td class="comp lvl-c">Grade C (Good)</td>
-        <td class="b c-rank fill-sch">1</td>
+        <td class="rk f-rank">1</td>
       </tr>
       <tr class="row">
-        <td class="c-sn">02</td>
-        <td class="txt">SENGEREMA DC</td>
-          <td class="b fill-sch">57</td>
-  <td>3610</td><td>3203</td><td class="b">6813</td><td class="b fill-sat">93.87</td>
-  <td>238</td><td>387</td><td class="b">625</td>
-  <td>320</td><td>457</td><td class="b">777</td>
-  <td>634</td><td>599</td><td class="b">1233</td>
-  <td>2368</td><td>1729</td><td class="b">4097</td>
-  <td class="fill-0">50</td><td class="fill-0">31</td><td class="b fill-0">81</td><td class="b fill-0-pct">1.19</td>
-  <td class="fill-3">1192</td><td class="fill-3">1443</td><td class="b fill-3">2635</td><td class="b fill-3-pct">38.68</td>
-  <td class="fill-4">3560</td><td class="fill-4">3172</td><td class="b fill-4">6732</td><td class="b fill-4-pct">98.81</td>
-  <td class="b fill-gpa">3.56489</td>
-
+        <td class="sn">02</td>
+        <td class="dist">SENGEREMA DC</td>
+        <td class="sch f-sch">57</td>
+        <td class="nb tl">3610</td>
+        <td class="nb">3203</td>
+        <td class="nb b">6813</td>
+        <td class="nb b f-sp">93.87</td>
+        <td class="nb tl">238</td>
+        <td class="nb">387</td>
+        <td class="nb b">625</td>
+        <td class="nb">320</td>
+        <td class="nb">457</td>
+        <td class="nb b">777</td>
+        <td class="nb">634</td>
+        <td class="nb">599</td>
+        <td class="nb b">1233</td>
+        <td class="nb">2368</td>
+        <td class="nb">1729</td>
+        <td class="nb b">4097</td>
+        <td class="nc f-z tl">50</td>
+        <td class="nc f-z">31</td>
+        <td class="nc f-z">81</td>
+        <td class="nc b f-zp">1.19</td>
+        <td class="nc b f-d3 tl">1192</td>
+        <td class="nc b f-d3">1443</td>
+        <td class="nc b f-d3">2635</td>
+        <td class="nc b f-d3p">38.68</td>
+        <td class="nc tl">3560</td>
+        <td class="nc">3172</td>
+        <td class="nc">6732</td>
+        <td class="nc b f-d4p">98.81</td>
+        <td class="nc f-gpa tl">3.56489</td>
         <td class="comp lvl-c">Grade C (Good)</td>
-        <td class="b c-rank fill-sch">2</td>
+        <td class="rk f-rank">2</td>
       </tr>
       <tr class="row">
-        <td class="c-sn">03</td>
-        <td class="txt">KWIMBA DC</td>
-          <td class="b fill-sch">43</td>
-  <td>3509</td><td>2159</td><td class="b">5668</td><td class="b fill-sat">93.47</td>
-  <td>192</td><td>164</td><td class="b">356</td>
-  <td>384</td><td>266</td><td class="b">650</td>
-  <td>649</td><td>469</td><td class="b">1118</td>
-  <td>2132</td><td>1203</td><td class="b">3335</td>
-  <td class="fill-0">152</td><td class="fill-0">57</td><td class="b fill-0">209</td><td class="b fill-0-pct">3.69</td>
-  <td class="fill-3">1225</td><td class="fill-3">899</td><td class="b fill-3">2124</td><td class="b fill-3-pct">37.47</td>
-  <td class="fill-4">3357</td><td class="fill-4">2102</td><td class="b fill-4">5459</td><td class="b fill-4-pct">96.31</td>
-  <td class="b fill-gpa">3.69727</td>
-
+        <td class="sn">03</td>
+        <td class="dist">KWIMBA DC</td>
+        <td class="sch f-sch">43</td>
+        <td class="nb tl">3509</td>
+        <td class="nb">2159</td>
+        <td class="nb b">5668</td>
+        <td class="nb b f-sp">93.47</td>
+        <td class="nb tl">192</td>
+        <td class="nb">164</td>
+        <td class="nb b">356</td>
+        <td class="nb">384</td>
+        <td class="nb">266</td>
+        <td class="nb b">650</td>
+        <td class="nb">649</td>
+        <td class="nb">469</td>
+        <td class="nb b">1118</td>
+        <td class="nb">2132</td>
+        <td class="nb">1203</td>
+        <td class="nb b">3335</td>
+        <td class="nc f-z tl">152</td>
+        <td class="nc f-z">57</td>
+        <td class="nc f-z">209</td>
+        <td class="nc b f-zp">3.69</td>
+        <td class="nc b f-d3 tl">1225</td>
+        <td class="nc b f-d3">899</td>
+        <td class="nc b f-d3">2124</td>
+        <td class="nc b f-d3p">37.47</td>
+        <td class="nc tl">3357</td>
+        <td class="nc">2102</td>
+        <td class="nc">5459</td>
+        <td class="nc b f-d4p">96.31</td>
+        <td class="nc f-gpa tl">3.69727</td>
         <td class="comp lvl-d">Grade D (Satisfactory)</td>
-        <td class="b c-rank fill-sch">3</td>
+        <td class="rk f-rank">3</td>
       </tr>
       <tr class="row">
-        <td class="c-sn">04</td>
-        <td class="txt">MAGU DC</td>
-          <td class="b fill-sch">50</td>
-  <td>3254</td><td>2335</td><td class="b">5589</td><td class="b fill-sat">93.94</td>
-  <td>198</td><td>219</td><td class="b">417</td>
-  <td>255</td><td>268</td><td class="b">523</td>
-  <td>551</td><td>415</td><td class="b">966</td>
-  <td>2217</td><td>1387</td><td class="b">3604</td>
-  <td class="fill-0">33</td><td class="fill-0">46</td><td class="b fill-0">79</td><td class="b fill-0-pct">1.41</td>
-  <td class="fill-3">1004</td><td class="fill-3">902</td><td class="b fill-3">1906</td><td class="b fill-3-pct">34.1</td>
-  <td class="fill-4">3221</td><td class="fill-4">2289</td><td class="b fill-4">5510</td><td class="b fill-4-pct">98.59</td>
-  <td class="b fill-gpa">3.54240</td>
-
+        <td class="sn">04</td>
+        <td class="dist">MAGU DC</td>
+        <td class="sch f-sch">50</td>
+        <td class="nb tl">3254</td>
+        <td class="nb">2335</td>
+        <td class="nb b">5589</td>
+        <td class="nb b f-sp">93.94</td>
+        <td class="nb tl">198</td>
+        <td class="nb">219</td>
+        <td class="nb b">417</td>
+        <td class="nb">255</td>
+        <td class="nb">268</td>
+        <td class="nb b">523</td>
+        <td class="nb">551</td>
+        <td class="nb">415</td>
+        <td class="nb b">966</td>
+        <td class="nb">2217</td>
+        <td class="nb">1387</td>
+        <td class="nb b">3604</td>
+        <td class="nc f-z tl">33</td>
+        <td class="nc f-z">46</td>
+        <td class="nc f-z">79</td>
+        <td class="nc b f-zp">1.41</td>
+        <td class="nc b f-d3 tl">1004</td>
+        <td class="nc b f-d3">902</td>
+        <td class="nc b f-d3">1906</td>
+        <td class="nc b f-d3p">34.1</td>
+        <td class="nc tl">3221</td>
+        <td class="nc">2289</td>
+        <td class="nc">5510</td>
+        <td class="nc b f-d4p">98.59</td>
+        <td class="nc f-gpa tl">3.54240</td>
         <td class="comp lvl-c">Grade C (Good)</td>
-        <td class="b c-rank fill-sch">4</td>
+        <td class="rk f-rank">4</td>
       </tr>
       <tr class="row">
-        <td class="c-sn">05</td>
-        <td class="txt">MWANZA CC</td>
-          <td class="b fill-sch">64</td>
-  <td>6655</td><td>5549</td><td class="b">12204</td><td class="b fill-sat">96.78</td>
-  <td>619</td><td>717</td><td class="b">1336</td>
-  <td>514</td><td>560</td><td class="b">1074</td>
-  <td>746</td><td>699</td><td class="b">1445</td>
-  <td>4603</td><td>3360</td><td class="b">7963</td>
-  <td class="fill-0">173</td><td class="fill-0">213</td><td class="b fill-0">386</td><td class="b fill-0-pct">3.16</td>
-  <td class="fill-3">1879</td><td class="fill-3">1976</td><td class="b fill-3">3855</td><td class="b fill-3-pct">31.59</td>
-  <td class="fill-4">6482</td><td class="fill-4">5336</td><td class="b fill-4">11818</td><td class="b fill-4-pct">96.84</td>
-  <td class="b fill-gpa">3.35705</td>
-
+        <td class="sn">05</td>
+        <td class="dist">MWANZA CC</td>
+        <td class="sch f-sch">64</td>
+        <td class="nb tl">6655</td>
+        <td class="nb">5549</td>
+        <td class="nb b">12204</td>
+        <td class="nb b f-sp">96.78</td>
+        <td class="nb tl">619</td>
+        <td class="nb">717</td>
+        <td class="nb b">1336</td>
+        <td class="nb">514</td>
+        <td class="nb">560</td>
+        <td class="nb b">1074</td>
+        <td class="nb">746</td>
+        <td class="nb">699</td>
+        <td class="nb b">1445</td>
+        <td class="nb">4603</td>
+        <td class="nb">3360</td>
+        <td class="nb b">7963</td>
+        <td class="nc f-z tl">173</td>
+        <td class="nc f-z">213</td>
+        <td class="nc f-z">386</td>
+        <td class="nc b f-zp">3.16</td>
+        <td class="nc b f-d3 tl">1879</td>
+        <td class="nc b f-d3">1976</td>
+        <td class="nc b f-d3">3855</td>
+        <td class="nc b f-d3p">31.59</td>
+        <td class="nc tl">6482</td>
+        <td class="nc">5336</td>
+        <td class="nc">11818</td>
+        <td class="nc b f-d4p">96.84</td>
+        <td class="nc f-gpa tl">3.35705</td>
         <td class="comp lvl-c">Grade C (Good)</td>
-        <td class="b c-rank fill-sch">5</td>
+        <td class="rk f-rank">5</td>
       </tr>
       <tr class="row">
-        <td class="c-sn">06</td>
-        <td class="txt">MISUNGWI DC</td>
-          <td class="b fill-sch">49</td>
-  <td>3081</td><td>1992</td><td class="b">5073</td><td class="b fill-sat">93.46</td>
-  <td>257</td><td>206</td><td class="b">463</td>
-  <td>148</td><td>230</td><td class="b">378</td>
-  <td>357</td><td>346</td><td class="b">703</td>
-  <td>2263</td><td>1163</td><td class="b">3426</td>
-  <td class="fill-0">56</td><td class="fill-0">47</td><td class="b fill-0">103</td><td class="b fill-0-pct">2.03</td>
-  <td class="fill-3">762</td><td class="fill-3">782</td><td class="b fill-3">1544</td><td class="b fill-3-pct">30.44</td>
-  <td class="fill-4">3025</td><td class="fill-4">1945</td><td class="b fill-4">4970</td><td class="b fill-4-pct">97.97</td>
-  <td class="b fill-gpa">3.63257</td>
-
+        <td class="sn">06</td>
+        <td class="dist">MISUNGWI DC</td>
+        <td class="sch f-sch">49</td>
+        <td class="nb tl">3081</td>
+        <td class="nb">1992</td>
+        <td class="nb b">5073</td>
+        <td class="nb b f-sp">93.46</td>
+        <td class="nb tl">257</td>
+        <td class="nb">206</td>
+        <td class="nb b">463</td>
+        <td class="nb">148</td>
+        <td class="nb">230</td>
+        <td class="nb b">378</td>
+        <td class="nb">357</td>
+        <td class="nb">346</td>
+        <td class="nb b">703</td>
+        <td class="nb">2263</td>
+        <td class="nb">1163</td>
+        <td class="nb b">3426</td>
+        <td class="nc f-z tl">56</td>
+        <td class="nc f-z">47</td>
+        <td class="nc f-z">103</td>
+        <td class="nc b f-zp">2.03</td>
+        <td class="nc b f-d3 tl">762</td>
+        <td class="nc b f-d3">782</td>
+        <td class="nc b f-d3">1544</td>
+        <td class="nc b f-d3p">30.44</td>
+        <td class="nc tl">3025</td>
+        <td class="nc">1945</td>
+        <td class="nc">4970</td>
+        <td class="nc b f-d4p">97.97</td>
+        <td class="nc f-gpa tl">3.63257</td>
         <td class="comp lvl-d">Grade D (Satisfactory)</td>
-        <td class="b c-rank fill-sch">6</td>
+        <td class="rk f-rank">6</td>
       </tr>
       <tr class="row">
-        <td class="c-sn">07</td>
-        <td class="txt">UKEREWE DC</td>
-          <td class="b fill-sch">35</td>
-  <td>3327</td><td>3306</td><td class="b">6633</td><td class="b fill-sat">94.82</td>
-  <td>82</td><td>159</td><td class="b">241</td>
-  <td>125</td><td>283</td><td class="b">408</td>
-  <td>307</td><td>472</td><td class="b">779</td>
-  <td>2724</td><td>2341</td><td class="b">5065</td>
-  <td class="fill-0">89</td><td class="fill-0">51</td><td class="b fill-0">140</td><td class="b fill-0-pct">2.11</td>
-  <td class="fill-3">514</td><td class="fill-3">914</td><td class="b fill-3">1428</td><td class="b fill-3-pct">21.53</td>
-  <td class="fill-4">3238</td><td class="fill-4">3255</td><td class="b fill-4">6493</td><td class="b fill-4-pct">97.89</td>
-  <td class="b fill-gpa">3.73023</td>
-
+        <td class="sn">07</td>
+        <td class="dist">UKEREWE DC</td>
+        <td class="sch f-sch">35</td>
+        <td class="nb tl">3327</td>
+        <td class="nb">3306</td>
+        <td class="nb b">6633</td>
+        <td class="nb b f-sp">94.82</td>
+        <td class="nb tl">82</td>
+        <td class="nb">159</td>
+        <td class="nb b">241</td>
+        <td class="nb">125</td>
+        <td class="nb">283</td>
+        <td class="nb b">408</td>
+        <td class="nb">307</td>
+        <td class="nb">472</td>
+        <td class="nb b">779</td>
+        <td class="nb">2724</td>
+        <td class="nb">2341</td>
+        <td class="nb b">5065</td>
+        <td class="nc f-z tl">89</td>
+        <td class="nc f-z">51</td>
+        <td class="nc f-z">140</td>
+        <td class="nc b f-zp">2.11</td>
+        <td class="nc b f-d3 tl">514</td>
+        <td class="nc b f-d3">914</td>
+        <td class="nc b f-d3">1428</td>
+        <td class="nc b f-d3p">21.53</td>
+        <td class="nc tl">3238</td>
+        <td class="nc">3255</td>
+        <td class="nc">6493</td>
+        <td class="nc b f-d4p">97.89</td>
+        <td class="nc f-gpa tl">3.73023</td>
         <td class="comp lvl-d">Grade D (Satisfactory)</td>
-        <td class="b c-rank fill-sch">7</td>
+        <td class="rk f-rank">7</td>
       </tr>
-      <tr class="row">
-        <td class="c-sn">08</td>
-        <td class="txt">BUCHOSA DC</td>
-          <td class="b fill-sch">28</td>
-  <td>2498</td><td>2458</td><td class="b">4956</td><td class="b fill-sat">92.37</td>
-  <td>38</td><td>118</td><td class="b">156</td>
-  <td>63</td><td>202</td><td class="b">265</td>
-  <td>204</td><td>426</td><td class="b">630</td>
-  <td>2141</td><td>1659</td><td class="b">3800</td>
-  <td class="fill-0">52</td><td class="fill-0">53</td><td class="b fill-0">105</td><td class="b fill-0-pct">2.12</td>
-  <td class="fill-3">305</td><td class="fill-3">746</td><td class="b fill-3">1051</td><td class="b fill-3-pct">21.21</td>
-  <td class="fill-4">2446</td><td class="fill-4">2405</td><td class="b fill-4">4851</td><td class="b fill-4-pct">97.88</td>
-  <td class="b fill-gpa">3.86729</td>
-
+      <tr class="row last">
+        <td class="sn">08</td>
+        <td class="dist">BUCHOSA DC</td>
+        <td class="sch f-sch">28</td>
+        <td class="nb tl">2498</td>
+        <td class="nb">2458</td>
+        <td class="nb b">4956</td>
+        <td class="nb b f-sp">92.37</td>
+        <td class="nb tl">38</td>
+        <td class="nb">118</td>
+        <td class="nb b">156</td>
+        <td class="nb">63</td>
+        <td class="nb">202</td>
+        <td class="nb b">265</td>
+        <td class="nb">204</td>
+        <td class="nb">426</td>
+        <td class="nb b">630</td>
+        <td class="nb">2141</td>
+        <td class="nb">1659</td>
+        <td class="nb b">3800</td>
+        <td class="nc f-z tl">52</td>
+        <td class="nc f-z">53</td>
+        <td class="nc f-z">105</td>
+        <td class="nc b f-zp">2.12</td>
+        <td class="nc b f-d3 tl">305</td>
+        <td class="nc b f-d3">746</td>
+        <td class="nc b f-d3">1051</td>
+        <td class="nc b f-d3p">21.21</td>
+        <td class="nc tl">2446</td>
+        <td class="nc">2405</td>
+        <td class="nc">4851</td>
+        <td class="nc b f-d4p">97.88</td>
+        <td class="nc f-gpa tl">3.86729</td>
         <td class="comp lvl-d">Grade D (Satisfactory)</td>
-        <td class="b c-rank fill-sch">8</td>
+        <td class="rk f-rank">8</td>
       </tr>
-      <tr class="row total">
-        <td class="txt b" colspan="2">TOTAL</td>
-          <td class="b fill-sch">387</td>
-  <td>31181</td><td>25154</td><td class="b">56335</td><td class="b fill-sat">94.41</td>
-  <td>2247</td><td>2704</td><td class="b">4951</td>
-  <td>2475</td><td>2800</td><td class="b">5275</td>
-  <td>4522</td><td>4235</td><td class="b">8757</td>
-  <td>21291</td><td>14874</td><td class="b">36165</td>
-  <td class="fill-0">646</td><td class="fill-0">541</td><td class="b fill-0">1187</td><td class="b fill-0-pct">2.07</td>
-  <td class="fill-3">9244</td><td class="fill-3">9739</td><td class="b fill-3">18983</td><td class="b fill-3-pct">33.7</td>
-  <td class="fill-4">30535</td><td class="fill-4">24613</td><td class="b fill-4">55148</td><td class="b fill-4-pct">97.93</td>
-  <td class="b fill-gpa">3.53535</td>
-
-        <td class="comp">Grade C (Good)</td>
-        <td class="b c-rank fill-sch"></td>
+      <tr class="total">
+        <td colspan="2" class="t-label">TOTAL</td>
+        <td class="t-sch tt tb f-tsch tl">387</td>
+        <td class="t-num tt tb">31181</td>
+        <td class="t-num tt tb">25154</td>
+        <td class="t-num tt tb">56335</td>
+        <td class="t-num tt tb f-tsp">94.41</td>
+        <td class="t-num tt tb tl">2247</td>
+        <td class="t-num tt tb">2704</td>
+        <td class="t-num tt tb">4951</td>
+        <td class="t-num tt tb">2475</td>
+        <td class="t-num tt tb">2800</td>
+        <td class="t-num tt tb">5275</td>
+        <td class="t-num tt tb">4522</td>
+        <td class="t-num tt tb">4235</td>
+        <td class="t-num tt tb">8757</td>
+        <td class="t-num tt tb">21291</td>
+        <td class="t-num tt tb">14874</td>
+        <td class="t-num tt tb">36165</td>
+        <td class="t-num gc tt tb f-z">646</td>
+        <td class="t-num gc tt tb f-z">541</td>
+        <td class="t-num gc tt tb f-z">1187</td>
+        <td class="t-num gc tt tb f-tzp">2.07</td>
+        <td class="t-num gc tt tb f-td3 tl">9244</td>
+        <td class="t-num gc tt tb f-td3">9739</td>
+        <td class="t-num gc tt tb f-td3">18983</td>
+        <td class="t-num gc tt tb f-td3">33.7</td>
+        <td class="t-num gc tt tb">30535</td>
+        <td class="t-num gc tt tb">24613</td>
+        <td class="t-num gc tt tb">55148</td>
+        <td class="t-num gc tt tb f-td4p">97.93</td>
+        <td class="t-num gc tt tb f-tgpa tl">3.53535</td>
+        <td class="t-comp tl lvl-c">Grade C (Good)</td>
+        <td class="t-rank"></td>
       </tr>
     </tbody>
   </table>
-</div>
+</section>
 </body>
 </html>

@@ -13,9 +13,13 @@ PERFORMANCE row closes each subject. Coordinate based (pymupdf words), never han
 """
 
 import json
+import sys
 from pathlib import Path
 
 import pymupdf
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from sars_pdf.pdftext import column_x, page_words  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 SRCDIR = ROOT / "region_pdf" / "region_pdf"
@@ -42,14 +46,18 @@ def col_for(cx):
 def parse_row(words):
     row = {k: "" for k in ["sn", "council", "school", *NUM_COLS, "competency", "c_rank", "rank"]}
     council_parts, school_parts, comp_parts = [], [], []
+    colx = column_x(words)
     for w in words:
         x0, x1, txt = w[0], w[2], w[4]
         cx = (x0 + x1) / 2
+        # a name wider than its cell keeps drawing past the edge; keep every word in the
+        # cell its run was typed into (sars_pdf/pdftext) so 'MAYALA'+'PRIVATE' etc. don't glue
+        cxr = colx[id(w)]
         if cx < SN_MAX_X:
             row["sn"] = txt
-        elif x0 < COUNCIL_MAX_X:
+        elif cxr < COUNCIL_MAX_X:
             council_parts.append((x0, txt))
-        elif x0 < SCHOOL_MAX_X:
+        elif cxr < SCHOOL_MAX_X:
             school_parts.append((x0, txt))
         elif cx >= RRANK_MIN_X:
             row["rank"] = txt
@@ -70,7 +78,7 @@ def extract(src, subject, scope_note):
     rows = []
     overall = None
     for pi in range(doc.page_count):
-        words = doc[pi].get_text("words")
+        words = page_words(doc[pi])
         anchors = []
         for w in words:
             cx = (w[0] + w[2]) / 2
@@ -94,12 +102,16 @@ def extract(src, subject, scope_note):
             txt = " ".join(x[4] for x in ws)
             if "OVERALL PERFORMANCE" in txt:
                 nums = [x[4] for x in ws if _isnum(x[4])]
+                # the label sits left of the numbers; a competency label may share the line
+                # to the right of the COMPETENCY column (x >= COMP_MIN_X)
+                label = " ".join(x[4] for x in ws if not _isnum(x[4]) and x[0] < COMP_MIN_X)
+                comp = " ".join(x[4] for x in ws if not _isnum(x[4]) and x[0] >= COMP_MIN_X)
                 overall = {
-                    "label": " ".join(x[4] for x in ws if not _isnum(x[4])),
+                    "label": label,
                     "a": nums[0], "b": nums[1], "c": nums[2], "d": nums[3], "f": nums[4],
                     "total": nums[5], "a_c": nums[6], "pct_a_c": nums[7],
                     "a_d": nums[8], "pct_a_d": nums[9], "gpa": nums[10],
-                    "competency": "",
+                    "competency": comp,
                 }
             elif overall is not None and not overall["competency"] and txt.startswith("Grade"):
                 overall["competency"] = txt

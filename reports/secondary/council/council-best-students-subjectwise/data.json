@@ -666,8 +666,8 @@
         {
           "sn": "3",
           "id": "0005",
-          "school": "ALLIANCE ROCK ARMPRIVATE",
-          "category": "",
+          "school": "ALLIANCE ROCK ARMY",
+          "category": "PRIVATE",
           "candidate": "CATHERINE MSIRALI MRIMI",
           "sex": "F",
           "marks": "86.0",
@@ -1351,8 +1351,8 @@
         {
           "sn": "8",
           "id": "0018",
-          "school": "ALLIANCE ROCK ARMPRIVATE",
-          "category": "",
+          "school": "ALLIANCE ROCK ARMY",
+          "category": "PRIVATE",
           "candidate": "BARAKA JUMA RYOBA",
           "sex": "M",
           "marks": "82",

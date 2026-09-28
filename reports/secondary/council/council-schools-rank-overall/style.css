@@ -1,12 +1,21 @@
 /*
  * council-schools-rank-overall (LEVEL + FUNCTION name; data-driven, not tied to any council).
- * Wide F/M/T division-performance grid measured from the reference PDF
- * (US Letter LANDSCAPE, 792 x 612 pt). A SUMMARY block (+ %PASS) sits above the main
- * per-school table (+ TOTAL row). All fixed fills live in :root; only .lvl-* (competency)
- * is data-driven (grading.py).
+ * US Letter LANDSCAPE (792 x 612 pt). Two tables, each on its OWN grid measured from the
+ * reference PDF with pdfplumber (border-rect centres, fills, fonts, baselines):
  *
- * REAL fonts registered INLINE so this report is fully self-contained (own template + own
- * CSS, no shared stylesheet). One family name per @font-face, NO fallback list.
+ *   table.summary  x 64.32 .. 754.08   rows 6.6 / 6.6 / 6.6 / 9.72 / 9.0      all rules 0.24pt
+ *   table.main     x 13.44 .. 779.52   header 9.18 / 6.6 / 6.6, rows 6.6, TOTAL 9.0
+ *                  rules 0.24pt; 0.6pt at the group lines, the header box and the TOTAL box
+ *
+ * Column widths are emitted by the template (<col style="width:..">) from the same measured
+ * list that feeds shrink-to-fit, so geometry lives in one place.
+ *
+ * Vertical placement: every cell is bottom-aligned with a line box equal to the font's em
+ * box (ascent+descent), then padding-bottom / line-height put each baseline where the
+ * original has it (Excel mixes bottom- and centre-aligned cells, so the offsets differ).
+ *
+ * All fixed fills live in :root; only .lvl-* (competency) is data-driven (grading.py).
+ * REAL fonts registered INLINE (one family name per @font-face, NO fallback list).
  */
 @font-face {
   font-family: 'Arial'; font-style: normal; font-weight: normal;
@@ -16,29 +25,51 @@
   font-family: 'Arial'; font-style: normal; font-weight: bold;
   src: url("../../../../fonts/LiberationSans-Bold.ttf") format('truetype');
 }
+@font-face {
+  font-family: 'Arial Narrow'; font-style: normal; font-weight: bold;
+  src: url("../../../../fonts/LiberationSansNarrow-Bold.ttf") format('truetype');
+}
+@font-face {
+  font-family: 'Times New Roman'; font-style: normal; font-weight: bold;
+  src: url("../../../../fonts/LiberationSerif-Bold.ttf") format('truetype');
+}
 
 :root {
-  /* FIXED division-grid palette, measured column-by-column from the reference PDF.
-     Only .lvl-* (competency) below is data-driven; every fill here is a fixed tint. */
-  --fill-cand: #fde9d9;    /* NUMBER OF CANDIDATES group + REGISTERED/SAT sub-headers */
-  --fill-gpa-h: #c4d79b;   /* GPA PERFORMANCE header group (summary block only) */
-  --fill-gpa-col: #d2fce6; /* GPA column cell in the summary block */
-  --fill-blue: #dce6f1;    /* SAT % cells */
-  --fill-t: #daeef3;       /* T cells of I, II, III, IV + I-IV % */
-  --fill-z: #fde9d9;       /* 0 (DIV-0) F/M/T band */
-  --fill-z-pct: #fabf8f;   /* 0 (DIV-0) % */
-  --fill-3: #d2fce6;       /* I-III F/M/T band */
-  --fill-3-pct: #65ffab;   /* I-III % */
-  --fill-crank: #ebf1de;   /* C/RANK column pale green */
+  /* ---- SUMMARY block (table 1), measured from its own cells ---- */
+  --s-cand: #eeece1;   /* NUMBER OF CANDIDATES, REGISTERED */
+  --s-sat: #daeef3;    /* SAT, SAT % header, I-IV F M T header */
+  --s-gpa: #c4d79b;    /* GPA PERFORMANCE */
+  --s-gpah: #fde9d9;   /* GPA + COMPENTENCY LEVEL headers */
+  --s-fmt: #d2fce6;    /* REG/SAT/I..IV F M T headers, I-IV % header */
+  --s-z: #f2dcdb;      /* 0 F M T % headers */
+  --s-d3: #ebf1de;     /* I-III F M T headers */
+  --s-d3p: #65ffab;    /* I-III % header */
+  --s-vz: #fabf8f;     /* 0 aggregate values */
+  --s-vd3: #ccffff;    /* I-III aggregate values */
 
-  /* SUMMARY-block-only header/aggregate fills, measured from the original's decorative
-     summary band (distinct from the main table's palette). */
-  --fill-sum-label: #eeece1; /* NO. OF SCHOOLS IN COUNCIL label */
-  --fill-sum-reg: #daeef3;   /* summary REGISTERED/SAT sub-band */
-  --fill-sum-band: #ffffcc;  /* summary aggregate value band */
-  --fill-sum-pink: #f2dcdb;  /* summary 0-div sub-header */
-  --fill-sum-red: #da9694;   /* summary 0-div aggregate */
-  --fill-sum-cy: #ccffff;    /* summary I-III sub-band */
+  /* ---- PER-SCHOOL table (table 2) header ---- */
+  --h-cand: #ffffcc;   /* NUMBER OF CANDIDATES */
+  --h-gpa: #d2fce6;    /* GPA */
+  --h-rank: #fde9d9;   /* C/RANK, R/RANK */
+  --h-reg: #eeece1;    /* REGISTERED F M T */
+  --h-sat: #daeef3;    /* SAT F M T */
+  --h-satp: #ffffcc;   /* SAT % */
+  --h-div: #d2fce6;    /* I II III IV F M T */
+  --h-z: #da9694;      /* 0 F M T % */
+  --h-d3: #65ffab;     /* I-III F M T % */
+  --h-d4: #daeef3;     /* I-IV F M T */
+  --h-d4p: #d2fce6;    /* I-IV % */
+
+  /* ---- PER-SCHOOL body + TOTAL row ---- */
+  --satp: #dce6f1;     /* SAT % */
+  --t: #daeef3;        /* T of I..IV, I-IV % */
+  --z: #fde9d9;        /* 0 F M T */
+  --zp: #fabf8f;       /* 0 % */
+  --d3: #d2fce6;       /* I-III F M T */
+  --d3p: #65ffab;      /* I-III % */
+  --crank: #ebf1de;    /* C/RANK cells */
+  --t-rrank: #ffffcc;  /* TOTAL row R/RANK */
+  --t-rrank-ink: #002060; /* TOTAL row R/RANK text (dark blue in the original) */
 
   --lvl-a: #00b050;  --lvl-a-ink: #000000;
   --lvl-b: #92d050;  --lvl-b-ink: #000000;
@@ -48,139 +79,179 @@
 
   --ink: #000000;
   --grid: #000000;
+  --thin: 0.24pt;
+  --thick: 0.6pt;
 }
 
 @page {
   size: Letter landscape;
-  margin: 18pt 0 18pt 0;
+  margin: 17.71pt 0 18pt 0;
 }
 
 * { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; font-family: 'Arial'; color: var(--ink); }
+/* Excel does not kern; Pango does by default, which made e.g. "BUHONGWA ISLAMIC" 0.8pt short */
+html, body { margin: 0; padding: 0; font-family: 'Arial'; color: var(--ink); font-kerning: none; }
 
-.titles { text-align: center; font-weight: bold; font-size: 7.4pt; line-height: 7.4pt; }
+/* ---------- title block: 6pt bold, 7.44pt pitch, centred on x = 389.1 ---------- */
+.titles {
+  margin-left: 13.44pt; width: 751.32pt;
+  text-align: center; font-weight: bold; font-size: 6pt; line-height: 7.44pt;
+}
 .titles .hl { white-space: pre; }
-.titles .report-title { font-size: 7.4pt; margin-top: 6pt; }
+.titles .report-title { margin-top: 7.44pt; }
 
-/* ---------- shared grid geometry ---------- */
+/* ---------- shared grid rules ---------- */
 table.grid {
-  width: 766.1pt;              /* 13.3 .. 779.4 */
-  margin: 0 0 0 13.3pt;
   border-collapse: collapse;
   table-layout: fixed;
-  border: 0.8pt solid var(--grid);
+  border: var(--thin) solid var(--grid);
 }
-table.summary { margin-top: 3.2pt; margin-bottom: 14pt; }
-
-/* per-column widths (39 columns, measured boundaries) */
-col:nth-child(1)  { width: 12.9pt; }
-col:nth-child(2)  { width: 38.0pt; }
-col:nth-child(3)  { width: 50.8pt; }
-col:nth-child(4)  { width: 36.8pt; }
-col:nth-child(5)  { width: 14.1pt; }
-col:nth-child(6)  { width: 16.5pt; }
-col:nth-child(7)  { width: 19.6pt; }
-col:nth-child(8)  { width: 16.5pt; }
-col:nth-child(9)  { width: 16.6pt; }
-col:nth-child(10) { width: 16.6pt; }
-col:nth-child(11) { width: 19.4pt; }
-col:nth-child(12) { width: 16.7pt; }
-col:nth-child(13) { width: 13.2pt; }
-col:nth-child(14) { width: 16.6pt; }
-col:nth-child(15) { width: 13.2pt; }
-col:nth-child(16) { width: 13.2pt; }
-col:nth-child(17) { width: 19.5pt; }
-col:nth-child(18) { width: 13.2pt; }
-col:nth-child(19) { width: 13.2pt; }
-col:nth-child(20) { width: 19.6pt; }
-col:nth-child(21) { width: 16.6pt; }
-col:nth-child(22) { width: 16.5pt; }
-col:nth-child(23) { width: 16.5pt; }
-col:nth-child(24) { width: 19.7pt; }
-col:nth-child(25) { width: 13.2pt; }
-col:nth-child(26) { width: 16.5pt; }
-col:nth-child(27) { width: 19.5pt; }
-col:nth-child(28) { width: 16.6pt; }
-col:nth-child(29) { width: 16.6pt; }
-col:nth-child(30) { width: 16.6pt; }
-col:nth-child(31) { width: 19.4pt; }
-col:nth-child(32) { width: 16.7pt; }
-col:nth-child(33) { width: 16.6pt; }
-col:nth-child(34) { width: 16.5pt; }
-col:nth-child(35) { width: 19.5pt; }
-col:nth-child(36) { width: 26.2pt; }
-col:nth-child(37) { width: 61.3pt; }
-col:nth-child(38) { width: 9.8pt; }
-col:nth-child(39) { width: 15.6pt; }
-
 th, td {
-  border: 0.4pt solid var(--grid);
-  padding: 0;
-  overflow: hidden;
+  border: var(--thin) solid var(--grid);
+  /* Excel prints centred text ~0.43pt right of the true centre: a left padding of 2x that */
+  padding: 0 0 0 0.86pt;
+  /* NOT overflow:hidden - that makes every cell its own stacking context, so its fill is
+     re-painted OVER the table rules and eats part of each line. Containment comes from
+     fit() (shrink-to-fit) in the template instead: no value can exceed its cell. */
+  overflow: visible;
   white-space: nowrap;
   text-align: center;
-  vertical-align: middle;
-  font-size: 5.4pt;
-  line-height: 1;
+  vertical-align: bottom;
+  font-weight: bold;
 }
-/* table-header-group so WeasyPrint repeats the column-header band on every printed
-   page when the row set spans more than one page (content-driven pagination, no
-   hard-coded rows-per-page). On the real single-page instance this is visually
-   identical to table-row-group, so the fidelity comparison is unchanged. */
+.tl { border-left-width: var(--thick); }
+.tt { border-top-width: var(--thick); }
+.tb { border-bottom-width: var(--thick); }
+
+/* ROWSPAN cells: WeasyPrint adds a rowspan cell's whole content height to the LAST row it
+   spans when rows have fixed heights, which would stretch that band. So a rowspan label is a
+   zero-height anchor at the cell bottom (vertical-align: bottom) and its text is an absolute
+   span placed `bottom: <baseline offset>` above it - the rows keep their measured pitch. */
+.anc { position: relative; height: 0; }
+.anc span { position: absolute; left: 0; right: 0; display: block; white-space: nowrap; text-align: center; }
+/* rotated labels: same anchor; the span is turned -90deg about its bottom-left corner so it
+   reads bottom-to-top exactly like the original */
+.rot { position: relative; height: 0; }
+.rot span {
+  position: absolute; display: block; white-space: nowrap; font-weight: bold;
+  transform-origin: 0 100%; transform: rotate(-90deg);
+}
+
+/* =================== TABLE 1: SUMMARY block =================== */
+table.summary { width: 689.76pt; margin: 2.47pt 0 0 64.2pt; }
+table.summary tr.s1, table.summary tr.s2, table.summary tr.s3 { height: 6.6pt; }
+table.summary tr.s4 { height: 9.72pt; }
+table.summary tr.s5 { height: 9pt; }
+
+th.s-label, th.h-rank { padding-left: 0; }
+th.s-label .rot span {
+  left: 32.13pt; bottom: 0.1pt; width: 29.28pt; text-align: center;
+  font-size: 3.6pt; line-height: 4.56pt;
+}
+th.s-nos   { font-size: 3.6pt; line-height: 4.56pt; }
+th.s-nos .anc span { bottom: 5.33pt; }
+th.s-cand  { font-size: 4.2pt; line-height: 4.61pt; }
+th.s-div   { font-size: 4.2pt; line-height: 4.69pt; padding-bottom: 1.4pt; }
+th.s-gpa   { font-size: 4.2pt; line-height: 4.69pt; padding-bottom: 0.92pt; }
+th.s-reg   { font-size: 4.2pt; line-height: 4.69pt; padding-bottom: 0.92pt; }
+th.s-sat   { font-size: 4.2pt; line-height: 4.61pt; }
+th.s-rn    { font-family: 'Times New Roman'; font-size: 4.8pt; line-height: 5.31pt; padding-bottom: 0.88pt; }
+th.s-rn-lo { font-family: 'Times New Roman'; font-size: 4.2pt; line-height: 4.52pt; }
+th.s-rn-0  { font-family: 'Times New Roman'; font-size: 4.2pt; line-height: 4.65pt; padding-bottom: 1.25pt; }
+th.s-rn-iv { font-family: 'Times New Roman'; font-size: 4.8pt; line-height: 4.92pt; }
+th.s-gpah  { font-size: 4.2pt; line-height: 4.69pt; }
+th.s-gpah .anc span { bottom: 4.64pt; }
+th.s-comph { font-family: 'Arial Narrow'; font-size: 3.6pt; line-height: 4.13pt; }
+th.s-comph .anc span { bottom: 4.64pt; }
+th.s-fmt   { font-family: 'Times New Roman'; font-size: 4.8pt; line-height: 5.31pt; padding-bottom: 0.4pt; }
+th.s-pct   { font-family: 'Times New Roman'; font-size: 4.2pt; line-height: 4.52pt; }
+th.s-pct-sat { line-height: 4.65pt; padding-bottom: 0.17pt; }
+td.s-val   { font-size: 4.8pt; line-height: 5.36pt; padding-bottom: 1.63pt; padding-left: 0.56pt; }
+td.s-comp  { font-size: 4.2pt; line-height: 4.69pt; padding-bottom: 2.48pt; text-align: left; padding-left: 0.96pt; }
+td.s-passl { font-size: 4.8pt; line-height: 5.03pt; }
+td.s-passv { font-size: 4.8pt; line-height: 5.36pt; padding-bottom: 2.11pt; }
+
+.f-s-cand { background: var(--s-cand); }
+.f-s-reg  { background: var(--s-cand); }
+.f-s-sat  { background: var(--s-sat); }
+.f-s-satp { background: var(--s-sat); }
+.f-s-gpa  { background: var(--s-gpa); }
+.f-s-gpah { background: var(--s-gpah); }
+.f-s-fmt  { background: var(--s-fmt); }
+.f-s-z    { background: var(--s-z); }
+.f-s-d3   { background: var(--s-d3); }
+.f-s-d3p  { background: var(--s-d3p); }
+.f-s-d4   { background: var(--s-sat); }
+.f-s-vz   { background: var(--s-vz); }
+.f-s-vd3  { background: var(--s-vd3); }
+
+/* =================== TABLE 2: PER-SCHOOL table =================== */
+/* the header's thick (0.6pt) left rule puts WeasyPrint's collapsed table edge 0.18pt further
+   right than a thin one, hence 13.14 (grid line at 13.44 like the original) */
+table.main { width: 766.08pt; margin: 13.7pt 0 0 13.14pt; }
+/* table-header-group so WeasyPrint repeats the column-header band on every printed page
+   when the row set spans more than one page (content-driven pagination). */
 thead { display: table-header-group; }
-thead th { font-weight: bold; font-size: 5.6pt; }
-thead th.grp { font-size: 6pt; }
-thead th.v-mid { vertical-align: middle; }
-thead .hg { height: 9.1pt; }
-thead .hs { height: 6.6pt; }
-thead .hf { height: 6.7pt; }
-/* summary block: 3 header bands (6.6pt) then a taller aggregate row + % PASS row */
-table.summary .hg { height: 6.6pt; }
-table.summary .hs { height: 6.6pt; }
-table.summary .hf { height: 6.7pt; }
-table.summary .srow { height: 9.8pt; }
-table.summary .pass { height: 9pt; }
+table.main tr.h1 { height: 9.18pt; }
+table.main tr.h2 { height: 6.6pt; }
+table.main tr.h3 { height: 6.6pt; }
+table.main tr.row { height: 6.6pt; }
+table.main tr.total { height: 9pt; }
+table.main tr.h1 th { border-top-width: var(--thick); }
 
-thead th.vlabel, thead th.crank-h, thead th.rrank-h { padding: 0; overflow: hidden; }
-.vert { display: flex; align-items: center; justify-content: center; height: 100%; width: 100%; }
-.vert span {
-  writing-mode: vertical-rl; transform: rotate(180deg);
-  font-size: 5.4pt; font-weight: bold; white-space: nowrap; line-height: 1;
-}
-thead th.crank-h .vert span, thead th.rrank-h .vert span { font-size: 5pt; }
+th.h-lbl   { font-size: 4.2pt; line-height: 4.37pt; }
+th.h-sn, th.h-ward { text-align: left; padding-left: 0.96pt; }
+th.h-ctr   { padding-left: 1.52pt; }
+th.h-cand  { font-size: 4.2pt; line-height: 4.61pt; }
+th.h-div   { font-size: 4.8pt; line-height: 5.36pt; padding-bottom: 2.23pt; }
+th.h-gpa   { font-size: 5.4pt; line-height: 6.03pt; }
+th.h-gpa .anc span { bottom: 8.47pt; }
+th.h-comp  { font-size: 4.2pt; line-height: 4.69pt; }
+th.h-comp .anc span { bottom: 8.72pt; }
+th.h-grp   { font-size: 4.2pt; line-height: 4.69pt; padding-bottom: 0.2pt; }
+th.h-rn    { font-family: 'Times New Roman'; font-size: 5.4pt; line-height: 5.4pt; padding-bottom: 0.8pt; }
+th.h-rn-lo { font-family: 'Times New Roman'; font-size: 5.4pt; line-height: 5.8pt; }
+th.h-fmt   { font-family: 'Times New Roman'; font-size: 4.8pt; line-height: 5.31pt; padding-bottom: 0.28pt; }
+th.h-pct-sat { font-size: 4.2pt; line-height: 4.69pt; padding-bottom: 0.8pt; }
+th.h-pct   { font-family: 'Times New Roman'; font-size: 4.2pt; line-height: 4.65pt; padding-bottom: 0.17pt; }
+th.h-rank .rot span { left: 7.36pt; bottom: 0.96pt; font-size: 4.2pt; line-height: 4.69pt; }
+th.h-rrank .rot span { left: 10.24pt; }
 
-/* body rows */
-tbody tr.row { height: 6.6pt; }
-table.main tbody tr.total { height: 9pt; }
-tbody td { font-size: 5.4pt; }
-td.c-sn { }
-td.txt { text-align: left; padding-left: 1pt; font-size: 4.9pt; letter-spacing: -0.1pt; }
-td.b { font-weight: bold; }
-td.comp { text-align: left; font-weight: bold; padding-left: 1pt; font-size: 5.2pt; }
-td.c-rank { }
-tr.pass td, tr.total td { font-weight: bold; }
-tr.pass td.txt, tr.total td.txt { text-align: left; padding-left: 1pt; }
+/* body: numbers 4.2pt (bold per column), text 3.96pt regular, competency / ranks 3.96pt bold */
+table.main tbody td { font-size: 4.2pt; line-height: 4.61pt; font-weight: normal; padding-left: 0.98pt; }
+table.main tbody td.b { font-weight: bold; }
+table.main tbody td.c-sn { font-size: 3.96pt; line-height: 4.44pt; }
+table.main tbody td.txt { font-size: 3.96pt; line-height: 4.44pt; text-align: left; padding-left: 0.96pt; }
+table.main tbody td.comp { font-size: 3.96pt; line-height: 4.44pt; font-weight: bold; text-align: left; padding-left: 0.96pt; }
+table.main tbody td.rk { font-size: 3.96pt; line-height: 4.44pt; font-weight: bold; }
 
-/* fills (fixed palette, per measured column) */
-.fill-cand-h { background: var(--fill-cand); }
-.fill-gpa-h { background: var(--fill-gpa-h); }
-.fill-gpa-col { background: var(--fill-gpa-col); }
-.fill-blue { background: var(--fill-blue); }
-.fill-t { background: var(--fill-t); }
-.fill-z { background: var(--fill-z); }
-.fill-z-pct { background: var(--fill-z-pct); }
-.fill-3 { background: var(--fill-3); }
-.fill-3-pct { background: var(--fill-3-pct); }
-.fill-crank { background: var(--fill-crank); }
-.fill-sum-label { background: var(--fill-sum-label); }
-.fill-sum-reg { background: var(--fill-sum-reg); }
-.fill-sum-band { background: var(--fill-sum-band); }
-.fill-sum-pink { background: var(--fill-sum-pink); }
-.fill-sum-red { background: var(--fill-sum-red); }
-.fill-sum-cy { background: var(--fill-sum-cy); }
-/* summary aggregate row: the 0-div (DIV-0) cells are a distinct reddish tint (#da9694)
-   in the original's summary band, not the pale peach used in the per-school detail rows. */
-table.summary .srow td.fill-z { background: var(--fill-sum-red); }
+/* TOTAL row: all bold 4.2pt, label centred, R/RANK 3.6pt */
+table.main tr.total td { font-weight: bold; line-height: 4.69pt; }
+table.main tr.total td.t-label { padding-bottom: 2.6pt; padding-left: 1.1pt; }
+table.main tr.total td.t-num { padding-bottom: 2pt; padding-left: 1.08pt; }
+table.main tr.total td.t-num:not(.tb) { padding-bottom: 2.12pt; }
+table.main tr.total td.t-comp { padding-bottom: 2.6pt; text-align: left; padding-left: 0.96pt; }
+table.main tr.total td.t-rrank { font-size: 3.6pt; line-height: 4.02pt; padding-bottom: 2.25pt; color: var(--t-rrank-ink); }
+
+.f-h-cand { background: var(--h-cand); }
+.f-h-gpa  { background: var(--h-gpa); }
+.f-h-rank { background: var(--h-rank); }
+.f-h-reg  { background: var(--h-reg); }
+.f-h-sat  { background: var(--h-sat); }
+.f-h-satp { background: var(--h-satp); }
+.f-h-div  { background: var(--h-div); }
+.f-h-z    { background: var(--h-z); }
+.f-h-d3   { background: var(--h-d3); }
+.f-h-d4   { background: var(--h-d4); }
+.f-h-d4p  { background: var(--h-d4p); }
+.f-satp   { background: var(--satp); }
+.f-t      { background: var(--t); }
+.f-z      { background: var(--z); }
+.f-zp     { background: var(--zp); }
+.f-d3     { background: var(--d3); }
+.f-d3p    { background: var(--d3p); }
+.f-crank  { background: var(--crank); }
+.f-t-rrank { background: var(--t-rrank); }
 
 .lvl-a { background: var(--lvl-a); color: var(--lvl-a-ink); }
 .lvl-b { background: var(--lvl-b); color: var(--lvl-b-ink); }

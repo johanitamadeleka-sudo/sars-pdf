@@ -17,13 +17,13 @@ Pixel diff = share of pixels that differ at 110 dpi; tolerant = still different 
 | 7 | 10.88% | 8.66% | 0 | 0 | - | - | ❌ FAIL (pixels 8.66%>4%) |
 | 8 | 10.97% | 8.71% | 0 | 0 | - | - | ❌ FAIL (pixels 8.71%>4%) |
 | 9 | 11.07% | 8.78% | 0 | 0 | - | - | ❌ FAIL (pixels 8.78%>4%) |
-| 10 | 11.06% | 8.86% | 1 | 1 | - | - | ❌ FAIL (pixels 8.86%>4%, words 1miss/1extra) |
+| 10 | 11.06% | 8.85% | 1 | 2 | - | - | ❌ FAIL (pixels 8.85%>4%, words 1miss/2extra) |
 | 11 | 11.21% | 9.20% | 32 | 6 | #00b050 | - | ❌ FAIL (pixels 9.20%>4%, fills 1orig/0gen, words 32miss/6extra) |
 | 12 | 11.28% | 8.91% | 0 | 0 | - | - | ❌ FAIL (pixels 8.91%>4%) |
 | 13 | 11.25% | 9.02% | 0 | 0 | - | - | ❌ FAIL (pixels 9.02%>4%) |
 | 14 | 11.24% | 9.11% | 20 | 10 | - | - | ❌ FAIL (pixels 9.11%>4%, words 20miss/10extra) |
 | 15 | 11.24% | 9.08% | 20 | 10 | - | - | ❌ FAIL (pixels 9.08%>4%, words 20miss/10extra) |
-| 16 | 11.06% | 8.80% | 0 | 0 | #ffff00 | #92d050 | ❌ FAIL (pixels 8.80%>4%, fills 1orig/1gen) |
+| 16 | 11.07% | 8.80% | 2 | 4 | #ffff00 | #92d050 | ❌ FAIL (pixels 8.80%>4%, fills 1orig/1gen, words 2miss/4extra) |
 | 17 | 11.24% | 8.90% | 0 | 0 | - | - | ❌ FAIL (pixels 8.90%>4%) |
 | 18 | 11.26% | 8.88% | 0 | 0 | - | - | ❌ FAIL (pixels 8.88%>4%) |
 | 19 | 11.27% | 8.97% | 0 | 0 | - | #92d050 | ❌ FAIL (pixels 8.97%>4%, fills 0orig/1gen) |
@@ -74,7 +74,7 @@ extra: `{'MUSABGEIRLS': 4, 'DIPLPORMIVAATTIE': 1, 'BUKUPRMIVBAITE': 1, 'CENTRVAA
 
 ## Page 10
 missing: `{'SEMINARPYRIVATE': 1}`
-extra: `{'SEMINARPRIVATE': 1}`
+extra: `{'SEMINARY': 1, 'PRIVATE': 1}`
 
 ![page 10](page_10.png)
 
@@ -105,6 +105,8 @@ extra: `{'MUSABGEIRLS': 6, 'MUSABBEOYS': 4}`
 ![page 15](page_15.png)
 
 ## Page 16
+missing: `{'MAYALAPRIVATE': 2}`
+extra: `{'PRIVATE': 2, 'MAYALA': 2}`
 
 ![page 16](page_16.png)
 
