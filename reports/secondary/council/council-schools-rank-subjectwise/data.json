@@ -9,13 +9,59 @@
     "exam_name": "REGIONAL FORM TWO MOCK ASSESSMENT RESULTS, JULY 2026",
     "report_title": "MWANZA CC SCHOOLS RANK SUBJECTWISE",
     "scope": "COUNCILWISE",
-    "rows_per_page": 54,
     "trailing_blank_page": true
   },
   "tables": [
     {
       "subject": "HTM",
       "scope": "COUNCILWISE",
+      "subtitle": "MWANZA CC SCHOOLS RANK SUBJECTWISE",
+      "design": "a",
+      "geom": {
+        "new_page": true,
+        "first": 69.0,
+        "title": [
+          [
+            0.0,
+            7.8
+          ],
+          [
+            11.3,
+            7.8
+          ],
+          [
+            22.58,
+            7.8
+          ],
+          [
+            33.86,
+            7.8
+          ],
+          [
+            45.14,
+            7.8
+          ],
+          [
+            58.58,
+            9.0
+          ]
+        ],
+        "top": 5.7,
+        "hdr": [
+          15.6,
+          15.6
+        ],
+        "row": 11.2807,
+        "ov": 13.93,
+        "ov_comp": 7.32,
+        "band": [
+          31.56,
+          36.14,
+          590.4,
+          47.54
+        ],
+        "comp_font": "N"
+      },
       "rows": [
         {
           "sn": "001",
@@ -1120,11 +1166,52 @@
         "gpa": "2.11",
         "competency": "Grade B (Very Good)"
       },
-      "overall_label": "COUNCIL OVERALL PERFORMANCE"
+      "overall_label": "COUNCIL OVERALL  PERFORMANCE"
     },
     {
       "subject": "BUSINESS STUDIES",
       "scope": "COUNCILWISE",
+      "subtitle": "MWANZA CC",
+      "design": "b",
+      "geom": {
+        "new_page": true,
+        "first": 80.3,
+        "title": [
+          [
+            0.0,
+            7.8
+          ],
+          [
+            11.28,
+            7.8
+          ],
+          [
+            22.56,
+            7.8
+          ],
+          [
+            33.84,
+            7.8
+          ],
+          [
+            45.12,
+            7.8
+          ],
+          [
+            58.92,
+            7.8
+          ]
+        ],
+        "top": 8.67,
+        "hdr": [
+          15.63,
+          15.57
+        ],
+        "row": 11.2813,
+        "ov": 13.96,
+        "ov_comp": 7.32,
+        "comp_font": "N"
+      },
       "rows": [
         {
           "sn": "001",
@@ -2234,6 +2321,47 @@
     {
       "subject": "GEOGRAPHY",
       "scope": "COUNCILWISE",
+      "subtitle": "MWANZA CC",
+      "design": "b",
+      "geom": {
+        "new_page": true,
+        "first": 80.3,
+        "title": [
+          [
+            0.0,
+            7.8
+          ],
+          [
+            11.28,
+            7.8
+          ],
+          [
+            22.56,
+            7.8
+          ],
+          [
+            33.84,
+            7.8
+          ],
+          [
+            45.12,
+            7.8
+          ],
+          [
+            61.08,
+            7.8
+          ]
+        ],
+        "top": 5.67,
+        "hdr": [
+          13.95,
+          13.89
+        ],
+        "row": 11.2813,
+        "ov": 13.96,
+        "ov_comp": 7.32,
+        "comp_font": "N"
+      },
       "rows": [
         {
           "sn": "001",
@@ -3343,6 +3471,47 @@
     {
       "subject": "KISWAHILI",
       "scope": "COUNCILWISE",
+      "subtitle": "MWANZA CC",
+      "design": "b",
+      "geom": {
+        "new_page": true,
+        "first": 80.3,
+        "title": [
+          [
+            0.0,
+            7.8
+          ],
+          [
+            11.28,
+            7.8
+          ],
+          [
+            22.56,
+            7.8
+          ],
+          [
+            33.84,
+            7.8
+          ],
+          [
+            45.12,
+            7.8
+          ],
+          [
+            60.24,
+            7.8
+          ]
+        ],
+        "top": 13.59,
+        "hdr": [
+          13.95,
+          13.89
+        ],
+        "row": 11.2813,
+        "ov": 13.96,
+        "ov_comp": 7.32,
+        "comp_font": "N"
+      },
       "rows": [
         {
           "sn": "001",
@@ -4452,6 +4621,47 @@
     {
       "subject": "ENGLISH LANGUAGE",
       "scope": "COUNCILWISE",
+      "subtitle": "MWANZA CC",
+      "design": "b",
+      "geom": {
+        "new_page": true,
+        "first": 80.3,
+        "title": [
+          [
+            0.0,
+            7.8
+          ],
+          [
+            11.28,
+            7.8
+          ],
+          [
+            22.56,
+            7.8
+          ],
+          [
+            33.84,
+            7.8
+          ],
+          [
+            45.12,
+            7.8
+          ],
+          [
+            59.88,
+            7.8
+          ]
+        ],
+        "top": 4.23,
+        "hdr": [
+          13.95,
+          13.89
+        ],
+        "row": 11.2813,
+        "ov": 13.96,
+        "ov_comp": 7.32,
+        "comp_font": "N"
+      },
       "rows": [
         {
           "sn": "001",
@@ -5561,6 +5771,47 @@
     {
       "subject": "PHYSICS",
       "scope": "COUNCILWISE",
+      "subtitle": "MWANZA CC",
+      "design": "b",
+      "geom": {
+        "new_page": true,
+        "first": 80.3,
+        "title": [
+          [
+            0.0,
+            7.8
+          ],
+          [
+            11.28,
+            7.8
+          ],
+          [
+            22.56,
+            7.8
+          ],
+          [
+            33.84,
+            7.8
+          ],
+          [
+            45.12,
+            7.8
+          ],
+          [
+            58.08,
+            7.8
+          ]
+        ],
+        "top": 6.15,
+        "hdr": [
+          13.95,
+          13.89
+        ],
+        "row": 11.2813,
+        "ov": 13.96,
+        "ov_comp": 7.8,
+        "comp_font": "N"
+      },
       "rows": [
         {
           "sn": "001",
@@ -6653,6 +6904,47 @@
     {
       "subject": "CHEMISTRY",
       "scope": "COUNCILWISE",
+      "subtitle": "MWANZA CC",
+      "design": "b",
+      "geom": {
+        "new_page": true,
+        "first": 80.3,
+        "title": [
+          [
+            0.0,
+            7.8
+          ],
+          [
+            11.28,
+            7.8
+          ],
+          [
+            22.56,
+            7.8
+          ],
+          [
+            33.84,
+            7.8
+          ],
+          [
+            45.12,
+            7.8
+          ],
+          [
+            58.08,
+            7.8
+          ]
+        ],
+        "top": 6.15,
+        "hdr": [
+          13.95,
+          13.89
+        ],
+        "row": 11.2813,
+        "ov": 13.95,
+        "ov_comp": 7.32,
+        "comp_font": "N"
+      },
       "rows": [
         {
           "sn": "001",
@@ -7745,6 +8037,47 @@
     {
       "subject": "BIOLOGY",
       "scope": "COUNCILWISE",
+      "subtitle": "MWANZA CC",
+      "design": "b",
+      "geom": {
+        "new_page": true,
+        "first": 80.3,
+        "title": [
+          [
+            0.0,
+            7.8
+          ],
+          [
+            11.28,
+            7.8
+          ],
+          [
+            22.56,
+            7.8
+          ],
+          [
+            33.84,
+            7.8
+          ],
+          [
+            45.12,
+            7.8
+          ],
+          [
+            58.08,
+            7.8
+          ]
+        ],
+        "top": 6.15,
+        "hdr": [
+          13.95,
+          13.89
+        ],
+        "row": 11.2813,
+        "ov": 13.95,
+        "ov_comp": 7.32,
+        "comp_font": "A"
+      },
       "rows": [
         {
           "sn": "001",
@@ -8837,6 +9170,47 @@
     {
       "subject": "BASIC MATHEMATICS",
       "scope": "COUNCILWISE",
+      "subtitle": "MWANZA CC",
+      "design": "b",
+      "geom": {
+        "new_page": true,
+        "first": 80.3,
+        "title": [
+          [
+            0.0,
+            7.8
+          ],
+          [
+            11.28,
+            7.8
+          ],
+          [
+            22.56,
+            7.8
+          ],
+          [
+            33.84,
+            7.8
+          ],
+          [
+            45.12,
+            7.8
+          ],
+          [
+            58.08,
+            7.8
+          ]
+        ],
+        "top": 6.15,
+        "hdr": [
+          13.95,
+          13.89
+        ],
+        "row": 11.2813,
+        "ov": 13.96,
+        "ov_comp": 7.8,
+        "comp_font": "A"
+      },
       "rows": [
         {
           "sn": "001",
@@ -9946,6 +10320,47 @@
     {
       "subject": "HISTORY",
       "scope": "COUNCILWISE",
+      "subtitle": "MWANZA CC",
+      "design": "b",
+      "geom": {
+        "new_page": true,
+        "first": 80.3,
+        "title": [
+          [
+            0.0,
+            7.8
+          ],
+          [
+            11.28,
+            7.8
+          ],
+          [
+            22.56,
+            7.8
+          ],
+          [
+            33.84,
+            7.8
+          ],
+          [
+            45.12,
+            7.8
+          ],
+          [
+            58.08,
+            7.8
+          ]
+        ],
+        "top": 6.15,
+        "hdr": [
+          14.67,
+          14.61
+        ],
+        "row": 11.2813,
+        "ov": 13.96,
+        "ov_comp": 7.8,
+        "comp_font": "A"
+      },
       "rows": [
         {
           "sn": "001",
@@ -11038,6 +11453,47 @@
     {
       "subject": "B/KEEPING",
       "scope": "COUNCILWISE",
+      "subtitle": "MWANZA CC",
+      "design": "b",
+      "geom": {
+        "new_page": true,
+        "first": 69.0,
+        "title": [
+          [
+            0.0,
+            7.8
+          ],
+          [
+            11.3,
+            7.8
+          ],
+          [
+            22.58,
+            7.8
+          ],
+          [
+            33.86,
+            7.8
+          ],
+          [
+            45.14,
+            7.8
+          ],
+          [
+            58.58,
+            9.0
+          ]
+        ],
+        "top": 5.67,
+        "hdr": [
+          13.95,
+          13.89
+        ],
+        "row": 11.2817,
+        "ov": 13.96,
+        "ov_comp": 7.8,
+        "comp_font": "A"
+      },
       "rows": [
         {
           "sn": "001",
@@ -11450,6 +11906,47 @@
     {
       "subject": "BIBLE KNOWLEDGE",
       "scope": "COUNCILWISE",
+      "subtitle": "MWANZA CC",
+      "design": "b",
+      "geom": {
+        "new_page": false,
+        "first": 20.22,
+        "title": [
+          [
+            0.0,
+            7.8
+          ],
+          [
+            11.28,
+            7.8
+          ],
+          [
+            22.56,
+            7.8
+          ],
+          [
+            33.84,
+            7.8
+          ],
+          [
+            45.12,
+            7.8
+          ],
+          [
+            58.08,
+            7.8
+          ]
+        ],
+        "top": 6.15,
+        "hdr": [
+          13.95,
+          13.89
+        ],
+        "row": 11.2825,
+        "ov": 13.96,
+        "ov_comp": 7.8,
+        "comp_font": "A"
+      },
       "rows": [
         {
           "sn": "001",
@@ -11607,6 +12104,47 @@
     {
       "subject": "ELIMU YA DINI YA KIISLAMU",
       "scope": "COUNCILWISE",
+      "subtitle": "MWANZA CC",
+      "design": "b",
+      "geom": {
+        "new_page": false,
+        "first": 14.82,
+        "title": [
+          [
+            0.0,
+            7.8
+          ],
+          [
+            11.28,
+            7.8
+          ],
+          [
+            22.56,
+            7.8
+          ],
+          [
+            33.84,
+            7.8
+          ],
+          [
+            45.12,
+            7.8
+          ],
+          [
+            58.08,
+            7.8
+          ]
+        ],
+        "top": 6.15,
+        "hdr": [
+          13.95,
+          13.91
+        ],
+        "row": 11.25,
+        "ov": 13.96,
+        "ov_comp": 7.8,
+        "comp_font": "A"
+      },
       "rows": [
         {
           "sn": "001",
@@ -11849,6 +12387,47 @@
     {
       "subject": "CHINES LANGUAGE",
       "scope": "COUNCILWISE",
+      "subtitle": "MWANZA CC",
+      "design": "b",
+      "geom": {
+        "new_page": false,
+        "first": 20.22,
+        "title": [
+          [
+            0.0,
+            7.8
+          ],
+          [
+            11.28,
+            7.8
+          ],
+          [
+            22.59,
+            7.8
+          ],
+          [
+            33.87,
+            7.8
+          ],
+          [
+            45.15,
+            7.8
+          ],
+          [
+            58.11,
+            7.8
+          ]
+        ],
+        "top": 6.15,
+        "hdr": [
+          13.95,
+          13.89
+        ],
+        "row": 11.2783,
+        "ov": 11.32,
+        "ov_comp": 7.8,
+        "comp_font": "A"
+      },
       "rows": [
         {
           "sn": "001",
@@ -11972,6 +12551,47 @@
     {
       "subject": "FRENCH LANGUAGE",
       "scope": "COUNCILWISE",
+      "subtitle": "MWANZA CC",
+      "design": "b",
+      "geom": {
+        "new_page": false,
+        "first": 20.24,
+        "title": [
+          [
+            0.0,
+            7.8
+          ],
+          [
+            11.28,
+            7.8
+          ],
+          [
+            22.56,
+            7.8
+          ],
+          [
+            33.84,
+            7.8
+          ],
+          [
+            45.12,
+            7.8
+          ],
+          [
+            58.08,
+            7.8
+          ]
+        ],
+        "top": 6.15,
+        "hdr": [
+          15.15,
+          15.09
+        ],
+        "row": 11.2817,
+        "ov": 11.32,
+        "ov_comp": 7.8,
+        "comp_font": "A"
+      },
       "rows": [
         {
           "sn": "001",
@@ -12197,6 +12817,47 @@
     {
       "subject": "COMPUTER SCIENCE",
       "scope": "COUNCILWISE",
+      "subtitle": "MWANZA CC",
+      "design": "b",
+      "geom": {
+        "new_page": false,
+        "first": 20.22,
+        "title": [
+          [
+            0.0,
+            7.8
+          ],
+          [
+            11.28,
+            7.8
+          ],
+          [
+            22.56,
+            7.8
+          ],
+          [
+            33.84,
+            7.8
+          ],
+          [
+            45.12,
+            7.8
+          ],
+          [
+            58.08,
+            7.8
+          ]
+        ],
+        "top": 6.15,
+        "hdr": [
+          15.11,
+          15.09
+        ],
+        "row": 11.28,
+        "ov": 11.32,
+        "ov_comp": 7.8,
+        "comp_font": "A"
+      },
       "rows": [
         {
           "sn": "001",
@@ -12490,6 +13151,47 @@
     {
       "subject": "SPORT STUDIES",
       "scope": "COUNCILWISE",
+      "subtitle": "MWANZA CC",
+      "design": "b",
+      "geom": {
+        "new_page": false,
+        "first": 20.22,
+        "title": [
+          [
+            0.0,
+            7.8
+          ],
+          [
+            11.28,
+            7.8
+          ],
+          [
+            22.56,
+            7.8
+          ],
+          [
+            33.84,
+            7.8
+          ],
+          [
+            45.12,
+            7.8
+          ],
+          [
+            55.92,
+            7.8
+          ]
+        ],
+        "top": 2.79,
+        "hdr": [
+          15.15,
+          15.09
+        ],
+        "row": 11.2767,
+        "ov": 11.34,
+        "ov_comp": 6.12,
+        "comp_font": "A"
+      },
       "rows": [
         {
           "sn": "001",
@@ -12562,6 +13264,47 @@
     {
       "subject": "FOOD AND NUTRITION",
       "scope": "COUNCILWISE",
+      "subtitle": "MWANZA CC",
+      "design": "b",
+      "geom": {
+        "new_page": false,
+        "first": 8.94,
+        "title": [
+          [
+            0.0,
+            7.8
+          ],
+          [
+            11.28,
+            7.8
+          ],
+          [
+            22.56,
+            7.8
+          ],
+          [
+            33.84,
+            7.8
+          ],
+          [
+            45.12,
+            7.8
+          ],
+          [
+            58.08,
+            7.8
+          ]
+        ],
+        "top": 6.15,
+        "hdr": [
+          13.95,
+          13.89
+        ],
+        "row": 11.2767,
+        "ov": 11.32,
+        "ov_comp": 6.12,
+        "comp_font": "A"
+      },
       "rows": [
         {
           "sn": "001",

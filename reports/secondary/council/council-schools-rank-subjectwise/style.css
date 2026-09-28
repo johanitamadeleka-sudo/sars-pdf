@@ -1,18 +1,15 @@
 /*
- * council-schools-rank-subjectwise  (LEVEL + FUNCTION name; data-driven, not tied to
- * any particular council). Layout measured from the reference PDF (US Letter,
- * 612 x 792 pt, PORTRAIT). Column set has NO region/council/centre/av/grd:
+ * council-schools-rank-subjectwise (LEVEL + FUNCTION name; data-driven, not tied to any
+ * council). US Letter PORTRAIT, Excel export. One table per subject:
  *   S/N | SCHOOL NAME | A B C D F | TOTAL | A-C %A-C A-D %A-D | GPA | COMPETENCY | C/RANK
- * All fixed fills live in :root; only .lvl-* (competency level) is data-driven (grading.py).
  *
- * REAL fonts, NO fallback chain: each 'Arial' @font-face below maps to one real file.
+ * Geometry (column widths, each table's title block, header band heights, row pitch and
+ * overall row) is measured from the original and emitted by template.html.j2; this file
+ * holds the fonts, the rule topology of the two header designs, alignment and the fills
+ * (measured from this report's own original.pdf). Only .lvl-* is data-driven (grading.py).
+ *
+ * REAL fonts registered INLINE (one family name per @font-face, NO fallback list).
  */
-
-/* REAL fonts registered inline so this report is fully self-contained (own template +
-   own CSS, no shared stylesheet include). One family name per @font-face, NO fallback
-   list. Files are the repo-local metric-compatible Liberation faces (see fonts/README.md
-   for the Arial/Times licensing decision). Only the competency-level background differs
-   between reports; every other colour/fill below is identical across the family. */
 @font-face {
   font-family: 'Arial'; font-style: normal; font-weight: normal;
   src: url("../../../../fonts/LiberationSans-Regular.ttf") format('truetype');
@@ -25,189 +22,130 @@
   font-family: 'Arial Narrow'; font-style: normal; font-weight: bold;
   src: url("../../../../fonts/LiberationSansNarrow-Bold.ttf") format('truetype');
 }
-@font-face {
-  font-family: 'Times New Roman'; font-style: normal; font-weight: bold;
-  src: url("../../../../fonts/LiberationSerif-Bold.ttf") format('truetype');
-}
 
 :root {
-  /* fixed column fills - MEASURED from this report's OWN original.pdf page 1
-     (pdfplumber page.rects non_stroking_color), not the generalized lakezone palette. */
-  --fill-band: #dce6f1;     /* full-width top band above the table (GRADING PERFORMANCE) */
-  --fill-abcd: #d8e4bc;     /* A B C D header */
-  --fill-f-h: #fabf8f;      /* F header */
-  --fill-f: #fcd5b4;        /* F cells */
-  --fill-total-h: #b7dee8;  /* TOTAL header */
-  --fill-ac-h: #65ffab;     /* A-C + %A-C header */
-  --fill-pac-h: #65ffab;    /* %A-C header (same span colour as A-C header) */
-  --fill-ac: #ccffff;       /* A-C, %A-C cells */
-  --fill-ad-h: #ccffff;     /* A-D + %A-D header */
-  --fill-ad: #b7dee8;       /* A-D, %A-D cells */
-  --fill-gpa-h: #d2fce6;    /* GPA header on the FIRST table (page 1) */
-  --fill-gpa-h2: #daeef3;   /* GPA header on every SUBSEQUENT subject table */
-  --fill-rank: #fde9d9;     /* S/N + C/RANK header */
+  --f-band: #dce6f1;      /* report title band (first table) */
+  /* header */
+  --f-hsn: #fde9d9;       /* S/N (first sheet's design) */
+  --f-hgpa-a: #d2fce6;    /* GPA (first sheet's design) */
+  --f-hgpa-b: #daeef3;    /* GPA (other sheets) */
+  --f-hrank: #fde9d9;     /* C/RANK */
+  --f-hg: #d8e4bc;        /* A B C D */
+  --f-hf: #fabf8f;        /* F */
+  --f-htot: #b7dee8;      /* TOTAL */
+  --f-hac: #65ffab;       /* A-C, %A-C */
+  --f-had: #ccffff;       /* A-D, %A-D */
+  /* school rows */
+  --f-f: #fcd5b4;         /* F */
+  --f-ac: #ccffff;        /* A-C, %A-C */
+  --f-ad: #b7dee8;        /* A-D, %A-D */
+  /* overall row (first sheet's design; the others print it on white) */
+  --f-oabcd: #daeef3;
+  --f-of: #fcd5b4;
+  --f-otot: #f2dcdb;
+  --f-oac: #ccffff;
+  --f-oad: #b7dee8;
+  --f-ogpa: #d2fce6;
 
-  /* competency level fills - the only conditional colours */
   --lvl-a: #00b050;  --lvl-a-ink: #000000;
   --lvl-b: #92d050;  --lvl-b-ink: #000000;
   --lvl-c: #ffff00;  --lvl-c-ink: #000000;
   --lvl-d: #ffc000;  --lvl-d-ink: #000000;
-  --lvl-f: #ff0000;  --lvl-f-ink: #ffc7ce;
+  --lvl-f: #ff0000;  --lvl-f-ink: #000000;
 
   --ink: #000000;
   --grid: #000000;
+  --thin: 0.48pt;
+  --thick: 1.08pt;
 }
 
+/* the top margin is set by the template (measured); rows flow onto the next page */
 @page {
-  size: Letter portrait;
-  /* Top margin = header band start on the reference. The reference's very first page
-     starts higher (header top y~62) than every later page (y~73), so the first page
-     fits 54 rows and later pages 52-53. Bottom margin (~18pt) matches the reference's
-     last body row bottom (y~773.8 on a 792pt page) so flow breaks at the same row.
-     A top margin (not block padding) means a block at page top gets this gap while a
-     block STACKED below another only gets its own small margin-top. */
-  margin: 60pt 0 18.2pt 0;
-}
-@page :first {
-  margin-top: 59pt;
+  size: Letter;
+  margin: 59.76pt 0 17pt 0;
 }
 
 * { box-sizing: border-box; }
+/* Excel does not kern; Pango does by default */
+html, body { margin: 0; padding: 0; font-family: 'Arial'; color: var(--ink); font-kerning: none; }
 
-html, body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Arial';
-  color: var(--ink);
-}
+section.new-page { break-before: page; }
+.trailing-page { break-before: page; height: 1pt; }
 
-/* Each subject is its own block; rows flow across page breaks, a new subject starts
-   a new block. The title block repeats only at the start of each subject (matching
-   the reference, whose continuation pages carry the table body with no header). */
-/* Each subject is its own block. `page-break-inside: avoid` reproduces the reference
-   pagination without hard-coding page numbers: a big subject (too tall for one page)
-   still starts on a fresh page and overflows onto the next, so the following subject
-   begins on a new page; small subjects that fit stack several to a page. Data-driven:
-   works for any council's data of this shape. */
-.block {
-  padding: 0 11pt 0 31.1pt;      /* table left edge at x = 31.1 pt (matches reference) */
-  margin-top: 11pt;              /* gap between stacked subjects (page-top gap = @page margin) */
-  page-break-inside: auto;       /* small subjects flow/pack; big ones get .own-page below */
-}
-.block:first-child { margin-top: 0; }
-/* Multi-page subjects occupy their own page span: they begin on a fresh page and the
-   following subject also starts fresh (matches the reference, where every big subject
-   is a 2-page unit and small subjects stack). Small subjects have no such class. */
-.block.own-page { page-break-before: always; page-break-after: always; page-break-inside: auto; }
-.block:first-child.own-page { page-break-before: avoid; }
-
-/* Trailing empty page: the reference source PDF ends with one blank page. */
-.trailing-page { page-break-before: always; height: 1pt; }
-
-/* ---------- titles ---------- */
-.titles {
-  text-align: center;
-  font-weight: bold;
-  font-size: 7.4pt;
-  line-height: 11.3pt;
-  padding-top: 0;
-}
+/* ---------- title block ---------- */
+.titles { text-align: center; font-weight: bold; }
 .titles .hl { white-space: pre; }
-.titles .subject { font-size: 7.4pt; line-height: 12.3pt; }
-/* The original draws the full-width pale-blue band (#dce6f1) behind the final title
-   line ONLY on the first table (page 1); later subject tables have no band. */
-.first-block .titles .subject { background: var(--fill-band); }
-/* GPA header colour: #d2fce6 on the first table, #daeef3 on every later table
-   (measured per-page from the original - a fixed per-table flag, not generalized). */
-.gpa-h { background: var(--fill-gpa-h2); }
-.first-block .gpa-h { background: var(--fill-gpa-h); }
+.titles .hl.band { background: var(--f-band); }
 
-/* ---------- table ---------- */
-table.rank {
-  width: 558.9pt;
-  border-collapse: collapse;
-  table-layout: fixed;
-  border: 0.9pt solid var(--grid);
-  margin-top: 1.5pt;
-}
-
-col.w-sn { width: 24.7pt; }      /* 31.5 .. 56.2 */
-col.w-school { width: 127.8pt; } /* 56.2 .. 184.0 */
-col.w-a { width: 24.0pt; }       /* 184 .. 208 */
-col.w-b { width: 24.0pt; }
-col.w-c { width: 23.9pt; }
-col.w-d { width: 23.6pt; }       /* 256 .. 279.6 */
-col.w-f { width: 29.9pt; }       /* 279.6 .. 309.5 */
-col.w-total { width: 29.2pt; }   /* 309.5 .. 338.7 */
-col.w-ac { width: 26.3pt; }      /* 338.7 .. 365 */
-col.w-pac { width: 28.0pt; }     /* 365 .. 393 */
-col.w-ad { width: 26.0pt; }      /* 393 .. 419 */
-col.w-pad { width: 29.0pt; }     /* 419 .. 448 */
-col.w-gpa { width: 34.3pt; }     /* 448 .. 482.3 */
-col.w-comp { width: 94.7pt; }    /* 482.3 .. 577 */
-col.w-rank { width: 13.4pt; }    /* 577 .. 590.4 */
-
+/* ---------- grid ---------- */
+table.grid { border-collapse: collapse; table-layout: fixed; border: var(--thin) solid var(--grid); }
 th, td {
-  border: 0.5pt solid var(--grid);
-  padding: 0 1pt;
-  overflow: hidden;
+  border: var(--thin) solid var(--grid);
+  /* the original prints centred text ~0.4pt right of the true centre */
+  padding: 0 0 0 0.8pt;
+  /* NOT overflow:hidden (it repaints each cell's fill over the rules); fit() keeps values in */
+  overflow: visible;
   white-space: nowrap;
   text-align: center;
-  vertical-align: middle;
+  vertical-align: bottom;
 }
+.tl { border-left-width: var(--thick); }
+.tr { border-right-width: var(--thick); }
+.tt { border-top-width: var(--thick); }
+.tb { border-bottom-width: var(--thick); }
+.nr { border-right: none; }
+.nl { border-left: none; }
 
-/* header. The reference does NOT repeat the column header on a subject's continuation
-   page, so stop WeasyPrint from repeating <thead> on every page the table spans. */
-thead { display: table-row-group; }
-thead th { font-weight: bold; font-size: 7pt; }
-thead tr.h1 { height: 18.0pt; }
-thead tr.h2 { height: 16.1pt; }
-thead tr.h1 th { vertical-align: middle; }
-thead th.grading { font-size: 8pt; vertical-align: middle; border-bottom: 0.5pt solid var(--grid); }
-thead th.tiny { font-size: 5.6pt; }
-thead th.comp-h { font-size: 6pt; text-align: center; }
-thead tr.h1 th.rank-h { padding: 0; vertical-align: middle; overflow: visible; }
-.vert { width: 12pt; height: 12pt; position: relative; margin: 0 auto; }
-.vert span {
-  position: absolute;
-  left: 50%; top: 50%;
-  font-size: 6pt;
-  white-space: nowrap;
-  transform: translate(-50%, -50%) rotate(90deg);
-}
+/* header: boxed by thick rules; the tall columns (S/N, SCHOOL NAME, GPA, COMPETENCY, RANK)
+   are two cells with no rule between, so a page may break between the two bands */
+tr.h0 th { border-top-width: var(--thick); }
+tr.h0 th.tn { border-top-width: var(--thin); }
+th.tall.top { border-bottom: none; }
+th.tall.bot { border-top: none; }
+th { font-weight: bold; }
+th.nb, th.nt, th.h-comp { font-family: 'Arial Narrow'; }
+th.h-comp.left { text-align: left; padding-left: 1.08pt; }
 
-/* body rows */
-tbody tr.row { height: 11.28pt; }
-tbody td { font-size: 6.6pt; line-height: 1; }
-td.txt { text-align: left; }
-td.c-sn { font-size: 6.6pt; }
-td.b { font-weight: bold; }
-td.c-total { font-weight: bold; }
-td.c-rank { font-size: 6pt; }
+/* rotated rank label: zero-height anchor at the cell bottom, span turned -90deg about its
+   bottom-left corner (reads bottom-to-top). Excel writes the rotated text matrix with a
+   tiny non-zero cosine; -90.001deg does the same (invisible), so text extractors read both
+   PDFs' letters alike. */
+.anc { position: relative; height: 0; }
+.anc span { position: absolute; left: 0; display: block; white-space: nowrap; }
+.anc span.rot { transform-origin: 0 100%; transform: rotate(-90.001deg); }
+th.h-rank { padding-left: 0; }
+.d-a th.h-rank { font-family: 'Arial Narrow'; }
 
-td.comp { text-align: left; font-weight: bold; font-size: 6pt; padding-left: 1pt; }
+/* school rows */
+td { font-weight: normal; }
+td.nb, td.rk, td.comp { font-weight: bold; }
+td.school { text-align: left; padding-left: 1.2pt; }
+td.comp { font-family: 'Arial Narrow'; text-align: left; padding-left: 1.08pt; }
 
 /* overall row */
-tr.overall { height: 11.3pt; }
-tr.overall td { font-size: 6.6pt; font-weight: bold; }
-td.ov-label { font-weight: bold; font-size: 7pt; text-align: center; }
-td.ov-comp { font-weight: bold; font-size: 6pt; text-align: left; padding-left: 1pt; }
+tr.ov td { font-weight: bold; white-space: pre; }
+td.ov-l.d-b { text-align: left; padding-left: 0.48pt; }
 
-/* fills */
-.fill-band { background: var(--fill-band); }
-.fill-f-h { background: var(--fill-f-h); }
-.fill-f { background: var(--fill-f); }
-.fill-total-h { background: var(--fill-total-h); }
-.fill-abcd { background: var(--fill-abcd); }
-.fill-ac-h { background: var(--fill-ac-h); }
-.fill-pac-h { background: var(--fill-pac-h); }
-.fill-ac { background: var(--fill-ac); }
-.fill-ad-h { background: var(--fill-ad-h); }
-.fill-ad { background: var(--fill-ad); }
-.fill-gpa-h { background: var(--fill-gpa-h); }
-.fill-rank { background: var(--fill-rank); }
+/* ---------- fills ---------- */
+.f-hsn    { background: var(--f-hsn); }
+.f-hgpa-a { background: var(--f-hgpa-a); }
+.f-hgpa-b { background: var(--f-hgpa-b); }
+.f-hrank  { background: var(--f-hrank); }
+.f-hg     { background: var(--f-hg); }
+.f-hf     { background: var(--f-hf); }
+.f-htot   { background: var(--f-htot); }
+.f-hac    { background: var(--f-hac); }
+.f-had    { background: var(--f-had); }
+.f-f      { background: var(--f-f); }
+.f-ac     { background: var(--f-ac); }
+.f-ad     { background: var(--f-ad); }
+.f-oabcd  { background: var(--f-oabcd); }
+.f-of     { background: var(--f-of); }
+.f-otot   { background: var(--f-otot); }
+.f-oac    { background: var(--f-oac); }
+.f-oad    { background: var(--f-oad); }
+.f-ogpa   { background: var(--f-ogpa); }
 
-/* competency level: the only data-dependent colour */
 .lvl-a { background: var(--lvl-a); color: var(--lvl-a-ink); }
 .lvl-b { background: var(--lvl-b); color: var(--lvl-b-ink); }
 .lvl-c { background: var(--lvl-c); color: var(--lvl-c-ink); }
