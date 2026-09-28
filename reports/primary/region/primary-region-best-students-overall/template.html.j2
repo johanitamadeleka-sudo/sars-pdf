@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>{{ doc.document.report_title }}</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+{#
+  Primary region best students overall (WANAFUNZI KUMI BORA). Section-centric: 6 top-10
+  blocks, ONE per page over 6 pages. Pagination is DATA-DRIVEN via s.page_top. Fully
+  self-contained (own template + own style.css, inline @font-face, single family name, no
+  fallback, no @import). KUNDI LA UMAHIRI (competency-level) background is the ONLY
+  data-driven colour.
+
+  Columns: S/N | HALMASHAURI | JINA LA SHULE | UMILIKI | NAMBA YA MTAHINIWA
+    | JINA LA MWANAFUNZI | JINSI | 6 subjects (AL avg + DRJ)
+    | JUMLA | WASTANI | NAFASI | KUNDI LA UMAHIRI
+#}
+{% set subs = doc.document.subjects %}
+{% for s in doc.sections %}
+<div class="section{% if not loop.first and s.page_top %} page-top{% endif %}">
+  <div class="titles">
+    {% for line in doc.document.ministry %}
+    <div class="hl ministry">{{ line }}</div>
+    {% endfor %}
+    <div class="hl exam-name">{{ doc.document.exam_name }}</div>
+  </div>
+  <div class="sec-title">{{ s.title }}</div>
+  <table class="students">
+    <colgroup>
+      <col class="c-sn"><col class="c-hal"><col class="c-sch"><col class="c-own">
+      <col class="c-cno"><col class="c-cand"><col class="c-jinsi">
+      {% for sub in subs %}<col class="c-al"><col class="c-drj">{% endfor %}
+      <col class="c-jumla"><col class="c-wastani"><col class="c-nafasi"><col class="c-comp">
+    </colgroup>
+    <thead>
+      <tr class="hg">
+        <th rowspan="3" class="v-mid">S/N</th>
+        <th rowspan="3" class="v-mid">HALMASHAURI</th>
+        <th rowspan="3" class="v-mid">JINA LA SHULE</th>
+        <th rowspan="3" class="v-mid">UMILIKI</th>
+        <th rowspan="3" class="v-mid">NAMBA YA MTAHINIWA</th>
+        <th rowspan="3" class="v-mid">JINA LA MWANAFUNZI</th>
+        <th rowspan="3" class="v-mid">JINSI</th>
+        <th colspan="12" class="grp">MASOMO</th>
+        <th rowspan="3" class="v-mid">JUMLA</th>
+        <th rowspan="3" class="v-mid">WASTANI</th>
+        <th rowspan="3" class="v-mid">NAFASI</th>
+        <th rowspan="3" class="v-mid">KUNDI LA UMAHIRI</th>
+      </tr>
+      <tr class="hs">
+        {% for sub in subs %}<th colspan="2" class="subj">{{ sub }}</th>{% endfor %}
+      </tr>
+      <tr class="hf">
+        {% for sub in subs %}<th>AL</th><th>DRJ</th>{% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for r in s.rows %}
+      <tr class="row">
+        <td>{{ r.sn }}</td>
+        <td class="txt">{{ r.council }}</td>
+        <td class="txt">{{ r.school }}</td>
+        <td class="txt">{{ r.ownership }}</td>
+        <td class="txt">{{ r.candno }}</td>
+        <td class="txt">{{ r.candidate }}</td>
+        <td>{{ r.jinsi }}</td>
+        {% for key in ['hisabati','kiswahili','sayansi','english','jiografia','historia'] %}
+        <td>{{ r[key ~ '_al'] }}</td>
+        <td>{{ r[key ~ '_g'] }}</td>
+        {% endfor %}
+        <td class="b">{{ r.jumla }}</td>
+        <td class="b">{{ r.wastani }}</td>
+        <td class="b">{{ r.nafasi }}</td>
+        <td class="comp{% if r.level %} lvl-{{ r.level | lower }}{% endif %}">{{ r.competency }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endfor %}
+</body>
+</html>
