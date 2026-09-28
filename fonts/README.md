@@ -16,6 +16,7 @@ The council/region source PDFs embed these exact families:
 | `Arial-BoldMT`            | `Arial`           | bold   |
 | `ArialNarrow-Bold`        | `Arial Narrow`    | bold   |
 | `TimesNewRomanPS-BoldMT`  | `Times New Roman` | bold   |
+| `Calibri`, `Calibri-Bold` | `Calibri`         | normal / bold (region "Print To PDF" originals, e.g. district performance) |
 
 ## Licensing decision point (why substitutes)
 
@@ -31,6 +32,10 @@ Roman, so text lays out at the same widths — which is exactly what the
 pixel/word fidelity check (`scripts/compare.py`) needs. They are licensed under
 the **SIL Open Font License 1.1** (with the GPLv2 + font exception heritage),
 which permits redistribution and bundling.
+
+Calibri (Microsoft proprietary as well) is substituted the same way by **Carlito**,
+which is metric-compatible with Calibri (identical advance widths) and licensed under
+the SIL Open Font License 1.1.
 
 If a genuinely licensed Arial/Times file becomes available, drop it in here and
 repoint the matching `@font-face` `src` in each report's `style.css`; no other
@@ -58,7 +63,10 @@ shared `FontConfiguration()` to `write_pdf()`.
 | `LiberationSans-Bold.ttf`        | `Arial` (bold)            | liberation-fonts 2.1.5 |
 | `LiberationSansNarrow-Bold.ttf`  | `Arial Narrow` (bold)     | Debian `fonts-liberation` 1:1.07.4-11 (Narrow was dropped after the 1.07.x line) |
 | `LiberationSerif-Bold.ttf`       | `Times New Roman` (bold)  | liberation-fonts 2.1.5 |
+| `Carlito-Regular.ttf`            | `Calibri` (normal)        | googlefonts/carlito, Version 1.104 |
+| `Carlito-Bold.ttf`               | `Calibri` (bold)          | googlefonts/carlito, Version 1.104 |
 | `LICENSE-Liberation.txt`         | (license text)            | SIL OFL 1.1 |
+| `LICENSE-Carlito.txt`            | (license text)            | SIL OFL 1.1 |
 
 ### Provenance / verification
 
@@ -70,6 +78,8 @@ Downloaded and verified with fonttools; family/subfamily names confirmed:
 | `LiberationSans-Bold.ttf`       | `Liberation Sans` / `Bold`         | `788abee4c806d660` | 414456 |
 | `LiberationSansNarrow-Bold.ttf` | `Liberation Sans Narrow` / `Bold`  | `f77fe6ca01c8b043` | 110252 |
 | `LiberationSerif-Bold.ttf`      | `Liberation Serif` / `Bold`        | `d754ba427cfe0bca` | 370096 |
+| `Carlito-Regular.ttf`           | `Carlito` / `Regular`              | `f6418f708baede97` | 628032 |
+| `Carlito-Bold.ttf`              | `Carlito` / `Bold`                 | `bb5d20f79b82599e` | 682468 |
 
 - Liberation Sans / Serif came from the official
   `liberation-fonts-ttf-2.1.5.tar.gz` release.
