@@ -35,7 +35,7 @@ REPORTS = ROOT / "reports"
 # Discovery walks every level so a bare `build_all.py` builds all of them.
 LEVELS = ["secondary", "primary"]
 # Scope names used to restrict discovery within a level (reports/<level>/<scope>/).
-SCOPES = ["council", "region"]
+SCOPES = ["council", "region", "school"]
 
 
 def is_report_dir(d: Path) -> bool:
@@ -127,7 +127,7 @@ def main(argv=None):
                          "backwards compatibility, one scope (council/region) "
                          "across all levels (default: all)")
     ap.add_argument("--scope", choices=SCOPES, default=None,
-                    help="restrict to one scope (council/region) within the level(s)")
+                    help="restrict to one scope (council/region/school) within the level(s)")
     ap.add_argument("--no-compare", action="store_true",
                     help="render only; skip the fidelity comparison")
     a = ap.parse_args(argv)
