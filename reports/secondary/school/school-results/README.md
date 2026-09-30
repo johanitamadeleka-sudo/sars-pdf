@@ -37,6 +37,21 @@ The competency label (`"Grade D (Satisfactory)"`) sets the only data-driven colo
 palettes: D is `#e26b0a` in the subject table and `#ffc000` in the GPA cell, as in the
 originals.
 
+## Long names and subject lists
+
+The data is never clipped. The layout of CANDIDATE FULL NAME and DETAILED SUBJECTS
+comes from `wrap()` (`sars_pdf/fit.py`):
+
+- A line that fits is printed as is.
+- A line at most 2.5% too wide is shrunk to fit.
+- A longer line is broken between `SHORT NAME - MARKS'GRADE'` entries (names break
+  between words). The row grows to n lines at 1.2 leading.
+
+Pages fill by height, not row count. A page takes rows while their total height fits
+`first_page_rows` (or `rows_per_page`) × `cand_row`. When nothing wraps, that is exactly
+the measured row count. When rows wrap, candidates flow onto more pages and the summary
+blocks move with them.
+
 ## `layout`: sheet geometry
 
 Excel scales every school's sheet to fit the page. Column widths, row heights, font

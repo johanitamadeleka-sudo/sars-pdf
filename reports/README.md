@@ -97,6 +97,25 @@ report. Verify with the fidelity harness: render `data.json` to a PDF, then run
 `../scripts/compare.py reference/original.pdf output/report.pdf` and drive the
 pixel-diff and word-diff toward zero, exactly as the Lakezone example does.
 
+**Long text is never clipped.** Live data can be longer than the sample. Real
+ExaMetrics short names such as `HISTORIA TZ`, `B/KNOWL` and `BUSINESS` are longer,
+and practical-paper averages such as `82.67` are wider. Those lines ran 20–40pt past
+the fixed DETAILED SUBJECTS column, so the last subject was hidden.
+
+The best-students-overall templates (council + region) and `school-results` now lay
+free text out with `wrap()` (`sars_pdf/fit.py`, a Jinja global). It measures the text
+with the real font files and handles it in one of three ways:
+
+- a line that fits is printed unchanged;
+- a line at most 2.5% too wide is shrunk to fit (the Excel originals print such lines a
+  few percent smaller themselves);
+- anything longer is broken between `SHORT NAME - MARKS'GRADE'` entries (names: between
+  words). The row grows to hold the extra line.
+
+On the reference data every row still prints on one line, so the fidelity scores are
+unchanged. The only visible change is in `region-best-students-overall`: 13 rows that
+used to lose their last characters are now shrunk by at most 2.4%.
+
 ## Build + compare everything
 
 Regenerate and compare **all** secondary reports in one step (each report writes

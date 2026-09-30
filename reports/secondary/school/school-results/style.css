@@ -100,6 +100,8 @@ td.white { color: #fff; }
    Excel lets it overflow; here it is taken out of the row-height calculation and
    anchored to the cell's inner bottom edge, exactly where bottom-aligned text sits. */
 td.rel { position: relative; }
+/* NAME / DETAILED SUBJECTS broken onto several lines by wrap(): normal leading */
+td.wrap { line-height: 1.2; }
 td .ab { position: absolute; left: 0.66pt; right: 0.66pt; bottom: 0; white-space: pre; line-height: 1.117; }
 td.rot { position: relative; padding: 0; }
 td.rot span { position: absolute; white-space: pre; font-family: 'Arial Narrow'; font-weight: bold;

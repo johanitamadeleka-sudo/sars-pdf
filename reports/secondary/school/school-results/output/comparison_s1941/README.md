@@ -9,11 +9,11 @@ Pixel diff = share of pixels that differ at 110 dpi; tolerant = still different 
 | page | pixel diff | tolerant diff | words missing | words extra | fills only in original | fills only in generated | verdict (>=96%) |
 |---|---|---|---|---|---|---|---|
 | 1 | 4.83% | 0.27% | 0 | 0 | - | - | ✅ PASS |
-| 2 | 8.23% | 0.39% | 0 | 0 | - | - | ✅ PASS |
+| 2 | 8.24% | 0.40% | 0 | 0 | - | - | ✅ PASS |
 | 3 | 7.85% | 0.37% | 0 | 0 | - | - | ✅ PASS |
 | 4 | 8.14% | 0.36% | 0 | 0 | - | - | ✅ PASS |
 | 5 | 7.44% | 0.35% | 0 | 0 | - | - | ✅ PASS |
-| 6 | 7.85% | 0.34% | 0 | 0 | - | - | ✅ PASS |
+| 6 | 7.85% | 0.35% | 0 | 0 | - | - | ✅ PASS |
 | 7 | 1.81% | 0.19% | 0 | 0 | - | - | ✅ PASS |
 | 8 | 4.29% | 0.36% | 20 | 4 | - | - | ❌ FAIL (words 20miss/4extra) |
 

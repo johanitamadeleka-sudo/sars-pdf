@@ -14,6 +14,8 @@ a fitted value can never overflow.
 """
 
 import math
+import re
+from collections import namedtuple
 from functools import lru_cache
 from pathlib import Path
 
@@ -63,6 +65,55 @@ def fit_size(text, width, size, family="Arial", bold=False, letter_spacing=0.0, 
     glyphs = w - letter_spacing * len(text)
     room = width - letter_spacing * len(text)
     return max(min_size, math.floor(size * room / glyphs * 100) / 100)
+
+
+Wrapped = namedtuple("Wrapped", "size lines")
+
+# DETAILED SUBJECTS strings are "SHORT NAME - MARKS'GRADE'" entries separated by spaces,
+# e.g. "HISTORIA TZ - 91'A' BUSINESS - 98'A'" or "HTM - 'X'" (absent). An entry always
+# ends with its closing quote, so a run of spaces right after a quote is an entry boundary.
+_ENTRY_SEP = re.compile(r"(?<=')(\s+)")
+_WORD_SEP = re.compile(r"(\s+)")
+
+
+def wrap_lines(text, width, size, family="Arial", bold=False, letter_spacing=0.0,
+               word_spacing=0.0, unit="words", max_shrink=1.0):
+    """Lay ``text`` out in a fixed-width cell without losing any of it.
+
+    Returns ``Wrapped(size, lines)``:
+
+    * text that fits ``width`` pt comes back unchanged as one line at ``size``;
+    * text at most ``1 - max_shrink`` too wide is shrunk to fit on one line (the Excel
+      originals print such lines a few percent smaller themselves);
+    * anything longer is broken into several lines at ``size``. ``unit="subjects"``
+      breaks only between "SHORT NAME - MARKS'GRADE'" entries, so an entry is never split
+      across lines. ``unit="words"`` breaks between words.
+
+    Widths use the same advance widths (no kerning, an upper bound) as ``fit_size``, plus
+    CSS ``letter-spacing`` per character and ``word-spacing`` per space.
+    """
+    text = (text or "").strip()
+
+    def measure(t, s):
+        return text_width(t, s, family, bold, letter_spacing) + word_spacing * t.count(" ")
+
+    if not text or measure(text, size) <= width:
+        return Wrapped(size, [text])
+    if max_shrink < 1.0:
+        fixed = letter_spacing * len(text) + word_spacing * text.count(" ")
+        fitted = math.floor((width - fixed) / text_width(text, 1.0, family, bold) * 100) / 100
+        if fitted >= size * max_shrink:
+            return Wrapped(fitted, [text])
+    parts = (_ENTRY_SEP if unit == "subjects" else _WORD_SEP).split(text)
+    lines, cur = [], parts[0]
+    for sep, piece in zip(parts[1::2], parts[2::2]):
+        if measure(cur + sep + piece, size) <= width:
+            cur = cur + sep + piece
+        else:
+            lines.append(cur)
+            cur = piece
+    lines.append(cur)
+    return Wrapped(size, lines)
 
 
 def fit_style(text, width, size, family="Arial", bold=False, letter_spacing=0.0):

@@ -57,6 +57,8 @@
 {% macro topen(a, z, y, n=7) %}<table class="grid" style="left:{{ p(b[a] - 0.74) }}pt;top:{{ p(y - 0.74) }}pt;width:{{ p(b[z] - b[a] + 1.48) }}pt;font-size:{{ fz(n) }}pt"><colgroup>{% for i in range(a, z) %}<col style="width:{{ p(b[i + 1] - b[i] - 0.52) }}pt">{% endfor %}</colgroup>{% endmacro %}
 {# bottom-aligned text that may be taller than its row (Excel lets it overflow) #}
 {% macro ab(text, n=none) %}<div class="ab"{% if n %} style="font-size:{{ fz(n) }}pt"{% endif %}>{{ text }}</div>{% endmacro %}
+{# a candidate text cell laid out by wrap(): one line, or several joined by <br> #}
+{% macro wcell(cls, w, span) %}<td class="{{ cls }}{% if w.lines | length > 1 %} wrap{% endif %}" colspan="{{ span }}" style="font-size:{{ p(w.size) }}pt">{% for line in w.lines %}{% if not loop.first %}<br>{% endif %}{{ line }}{% endfor %}</td>{% endmacro %}
 {% macro tr(h) %}<tr style="height:{{ p(h - 0.52) }}pt">{% endmacro %}
 {% macro lvl(prefix, comp) %}{% set g = level(comp, none) %}{% if g %} {{ prefix }}-{{ g | lower }}{% endif %}{% endmacro %}
 {# vertical header text (reads bottom-to-top), centred in columns a..a+1 #}
@@ -67,11 +69,36 @@
 {# vertical alignment per candidate column: "m" = middle, "" = bottom (Excel default) #}
 {% set va = {} %}{% for k in ["cno", "name", "sex", "aggt", "div", "pos", "subjects"] %}{% set _ = va.update({k: "m" if k in L.cand_middle else ""}) %}{% endfor %}
 {% set head_bottom = L.cand_head_top + L.cand_head %}
-{% set fpr = L.first_page_rows or ((BOTTOM - head_bottom) / L.cand_row) | int %}
-{% set rpp = L.rows_per_page or ((BOTTOM - L.cont_top) / L.cand_row) | int %}
-{% set pages = [{"first": true, "rows": cands[:fpr], "y": head_bottom, "blocks": []}] %}
-{% for start in range(fpr, cands | length, rpp) %}
-  {% set _ = pages.append({"first": false, "rows": cands[start:start + rpp], "y": L.cont_top, "blocks": []}) %}
+{#
+  NAME and DETAILED SUBJECTS never lose text: wrap() (sars_pdf/fit.py) keeps a line that
+  fits, shrinks one that is at most 2.5% too wide, and otherwise breaks it (between
+  "SHORT NAME - MARKS'GRADE'" entries / between words) onto extra lines. Such a row grows
+  to n lines of 1.2 leading, so pages are filled by HEIGHT: a page holds rows while their
+  heights fit in first_page_rows (rows_per_page) x cand_row - exactly the measured row
+  count when nothing wraps.
+#}
+{% set cs = ((6.5 * fs / 0.12) | round) * 0.12 %}
+{% set SUBJ_ROOM = b[23] - b[8] - 2.8 %}{# cell - spacing 0.52 - borders 0.96 - padding 1.32 #}
+{% set NAME_ROOM = b[4] - b[2] - 2.8 %}
+{% set rows = [] %}
+{% for c in cands %}
+  {% set sw = wrap(c.subjects, SUBJ_ROOM, cs, unit="subjects", max_shrink=0.975) %}
+  {% set nw = wrap(c.name, NAME_ROOM, cs, max_shrink=0.975) %}
+  {% set n = [sw.lines | length, nw.lines | length] | max %}
+  {% set _ = rows.append({"c": c, "subj": sw, "name": nw,
+                          "h": L.cand_row if n == 1 else [L.cand_row, n * cs * 1.2 + 2.5] | max}) %}
+{% endfor %}
+{% set cap1 = L.first_page_rows * L.cand_row if L.first_page_rows else BOTTOM - head_bottom %}
+{% set capn = L.rows_per_page * L.cand_row if L.rows_per_page else BOTTOM - L.cont_top %}
+{% set pages = [{"first": true, "rows": [], "h": 0, "y": head_bottom, "blocks": []}] %}
+{% set pn = namespace(cap=cap1) %}
+{% for r in rows %}
+  {% if pages[-1].rows and pages[-1].h + r.h > pn.cap + 0.01 %}
+    {% set _ = pages.append({"first": false, "rows": [], "h": 0, "y": L.cont_top, "blocks": []}) %}
+    {% set pn.cap = capn %}
+  {% endif %}
+  {% set _ = pages[-1].rows.append(r) %}
+  {% set _ = pages[-1].update({"h": pages[-1].h + r.h}) %}
 {% endfor %}
 {% set o, dv, sr, gr = L.overall_rows, L.division_rows, L.subject_rows, L.grading_rows %}
 {% set heights = {
@@ -79,7 +106,7 @@
   "division": dv.title + dv.head + 2 * dv.row,
   "subjects": sr.title + sr.head1 + sr.head2 + (doc.subjects | length) * sr.row,
   "grading": gr.title + gr.head1 + gr.head2 + (doc.grading | length) * gr.row} %}
-{% set ns = namespace(y=pages[-1].y + (pages[-1].rows | length) * L.cand_row) %}
+{% set ns = namespace(y=pages[-1].y + pages[-1].h) %}
 {% for name in ["overall", "division", "subjects", "grading"] %}
   {% set brk = breaks.get(name) %}
   {% if auto %}
@@ -90,7 +117,7 @@
   {% endif %}
   {% if brk %}
     {% set _ = pages[-1].update({"band_bottom": ns.y + brk.tail}) %}
-    {% set _ = pages.append({"first": false, "rows": [], "y": L.top, "blocks": []}) %}
+    {% set _ = pages.append({"first": false, "rows": [], "h": 0, "y": L.top, "blocks": []}) %}
     {% set ns.y = L.top + brk.lead %}
   {% else %}
     {% set ns.y = ns.y + gap %}
@@ -174,7 +201,7 @@
 <body>
 {% for pg in pages %}
 <div class="page">
-<div class="band" style="left:{{ p(b[0]) }}pt;top:{{ p(L.top) }}pt;width:{{ p(b[24] - b[0]) }}pt;height:{{ p((pg.band_bottom or (pg.y + (pg.rows | length) * L.cand_row)) - L.top) }}pt"></div>
+<div class="band" style="left:{{ p(b[0]) }}pt;top:{{ p(L.top) }}pt;width:{{ p(b[24] - b[0]) }}pt;height:{{ p((pg.band_bottom or (pg.y + pg.h)) - L.top) }}pt"></div>
 {% if pg.first %}
   {% set lines = D.ministry + [D.region_title, D.exam_name, D.school_title or (D.centre_no ~ " - " ~ D.school_name)] %}
   {% for line in lines %}
@@ -194,8 +221,8 @@
 {% elif pg.rows %}
 {{ topen(1, 23, pg.y) }}
 {% endif %}
-{% for c in pg.rows %}
-{{ tr(L.cand_row) }}<td class="{{ va.cno }}"{{ sz(6.5) }}>{{ c.cno }}</td><td class="l {{ va.name }}" colspan="2"{{ sz(6.5) }}>{{ c.name }}</td><td class="{{ va.sex }}"{{ sz(6.5) }}>{{ c.sex }}</td><td class="{{ va.aggt }}">{{ c.aggt }}</td><td class="{{ va.div }}">{{ c.div }}</td><td class="{{ va.pos }}">{{ c.pos }}</td><td class="l {{ va.subjects }}" colspan="15"{{ sz(6.5) }}>{{ c.subjects }}</td></tr>
+{% for r in pg.rows %}{% set c = r.c %}
+{{ tr(r.h) }}<td class="{{ va.cno }}"{{ sz(6.5) }}>{{ c.cno }}</td>{{ wcell("l " ~ va.name, r.name, 2) }}<td class="{{ va.sex }}"{{ sz(6.5) }}>{{ c.sex }}</td><td class="{{ va.aggt }}">{{ c.aggt }}</td><td class="{{ va.div }}">{{ c.div }}</td><td class="{{ va.pos }}">{{ c.pos }}</td>{{ wcell("l " ~ va.subjects, r.subj, 15) }}</tr>
 {% endfor %}
 {% if pg.first or pg.rows %}</table>{% endif %}
 {% for blk in pg.blocks %}
