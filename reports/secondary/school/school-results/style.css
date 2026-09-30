@@ -1,0 +1,131 @@
+/*
+ * school-results (LEVEL + FUNCTION name; data-driven, not tied to any school).
+ * One secondary school's Form Two mock result sheet: candidate list + centre summaries.
+ * US Letter LANDSCAPE (792 x 612 pt), exported from Excel.
+ *
+ * Geometry (column boundaries, row heights, font scale, page breaks) is NOT here: it
+ * differs per school because Excel scales every sheet to fit, so template.html.j2 writes
+ * it inline from data.layout. This file holds only the fixed palette, fonts and the
+ * cell alignment rules measured from the originals.
+ *
+ * Grid rules: Excel prints every border as a "double" line (two 0.48pt rules with a
+ * 0.52pt gap). That is reproduced with separate borders: each cell has its own 0.48pt
+ * border and neighbouring cells sit 0.52pt apart (border-spacing).
+ *
+ * REAL fonts registered INLINE: fully self-contained, no shared stylesheet.
+ */
+@font-face { font-family: 'Arial'; font-weight: normal;
+  src: url("../../../../fonts/LiberationSans-Regular.ttf") format('truetype'); }
+@font-face { font-family: 'Arial'; font-weight: bold;
+  src: url("../../../../fonts/LiberationSans-Bold.ttf") format('truetype'); }
+@font-face { font-family: 'Arial Narrow'; font-weight: bold;
+  src: url("../../../../fonts/LiberationSansNarrow-Bold.ttf") format('truetype'); }
+@font-face { font-family: 'Times New Roman'; font-weight: bold;
+  src: url("../../../../fonts/LiberationSerif-Bold.ttf") format('truetype'); }
+@font-face { font-family: 'Tahoma'; font-weight: bold;
+  src: url("../../../../fonts/WineTahoma-Bold.ttf") format('truetype'); }
+@font-face { font-family: 'Courier New'; font-weight: bold; font-style: italic;
+  src: url("../../../../fonts/LiberationMono-BoldItalic.ttf") format('truetype'); }
+
+:root {
+  /* FIXED palette measured from the originals (identical in all three sources) */
+  --band: #92cddc;      /* sheet background */
+  --cell: #ffffcc;      /* default cell fill */
+  --ink: #002060;       /* default text */
+  --ink2: #003366;      /* subject code / SAT F,M / FAILED T,% / TOTAL REG. */
+  --title: #724090;     /* Tahoma page titles */
+  --label: #7030a0;     /* DIVISION PERFORMANCE SUMMARY */
+  --cno-h: #eeece1;     /* CNO header */
+  --pos-h: #fde9d9;     /* POS header, SUBJECT CODE header, RANK headers */
+  --div-h: #d2fce6;     /* division I..IV header, GPA header, DIVISION PERFORMANCE header */
+  --zero-h: #e6b8b7;    /* division 0 header */
+  --comp-h: #daeef3;    /* COMPETENCY LEVEL header */
+  --sat-h: #d8e4bc;     /* SAT F/M/T + grade A F/M/T header */
+  --pct-h: #65ffab;     /* PASS % header, grade A T cells */
+  --fail-h: #fcd5b4;    /* FAILED F/M/T header, FAILED T/% cells, grade C header */
+  --red: #ff0000;       /* FAILED % header, grade F header */
+  --pass: #d2fce6;      /* PASS T/% cells, grade C T cells, TOTAL REG. T cells */
+  --gpa: #ebf1de;       /* GPA cells */
+  --tot-h1: #c4d79b;    /* TOTAL REG. header */
+  --tot-h2: #e4dfec;    /* TOTAL REG. F/M/T header */
+  --b-t: #ccffff;       /* grade B T cells */
+  --f-fm: #fabf8f;      /* grade F F/M cells */
+  --d-h: #e6b8b7;       /* grade D header, grade F T cells */
+
+  /* competency level fills (subject table vs. the centre GPA cell) */
+  --lvl-a: #00b050; --lvl-b: #92d050; --lvl-c: #ffff00; --lvl-d: #e26b0a; --lvl-f: #ff0000;
+  --ovr-a: #00b050; --ovr-b: #92d050; --ovr-c: #ffff00; --ovr-d: #ffc000; --ovr-f: #ff0000;
+}
+
+@page { size: Letter landscape; margin: 0; }
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; font-family: 'Arial'; color: var(--ink); }
+
+.page { position: relative; width: 792pt; height: 612pt; overflow: hidden; page-break-after: always; }
+.page:last-child { page-break-after: auto; }
+.band { position: absolute; background: var(--band); }
+
+.title { position: absolute; font-family: 'Tahoma'; font-weight: bold; color: var(--title);
+         text-align: center; white-space: pre; line-height: 1; }
+.div-label { position: absolute; font-weight: bold; color: var(--label); white-space: pre; line-height: 1; }
+.footer { position: absolute; font-family: 'Courier New'; font-weight: bold; font-style: italic;
+          color: #000; white-space: pre; line-height: 1; }
+
+table.grid {
+  position: absolute;
+  border-collapse: separate;
+  border-spacing: 0.52pt;
+  border: 0.48pt solid #000;
+  table-layout: fixed;
+  background: var(--cell);
+}
+/* plain `td` (lowest specificity) so the alignment / fill modifier classes below win */
+td {
+  border: 0.48pt solid #000;
+  padding: 0 0.66pt;
+  overflow: hidden;
+  white-space: pre;
+  text-align: center;
+  vertical-align: bottom;
+  line-height: 1.117;       /* Arial ascent + descent: text sits on the inner bottom edge like Excel */
+  background: var(--cell);
+}
+td.l { text-align: left; }
+td.m { vertical-align: middle; }
+td.b { font-weight: bold; }
+td.tnr { font-family: 'Times New Roman'; font-weight: bold; }
+td.ink2 { color: var(--ink2); }
+td.white { color: #fff; }
+/* text taller than its Excel row (8pt titles in 9.7pt rows, two-line SUBJECT/CODE headers):
+   Excel lets it overflow; here it is taken out of the row-height calculation and
+   anchored to the cell's inner bottom edge, exactly where bottom-aligned text sits. */
+td.rel { position: relative; }
+td .ab { position: absolute; left: 0.66pt; right: 0.66pt; bottom: 0; white-space: pre; line-height: 1.117; }
+td.rot { position: relative; padding: 0; }
+td.rot span { position: absolute; white-space: pre; font-family: 'Arial Narrow'; font-weight: bold;
+              line-height: 1.117; transform-origin: 0 100%; transform: rotate(-90deg); }
+
+.f-cno-h { background: var(--cno-h); }
+.f-pos-h { background: var(--pos-h); }
+.f-div-h { background: var(--div-h); }
+.f-zero-h { background: var(--zero-h); }
+.f-comp-h { background: var(--comp-h); }
+.f-sat-h { background: var(--sat-h); }
+.f-pct-h { background: var(--pct-h); }
+.f-fail-h { background: var(--fail-h); }
+.f-red { background: var(--red); }
+.f-band { background: var(--band); }
+.f-pass { background: var(--pass); }
+.f-gpa { background: var(--gpa); }
+.f-tot-h1 { background: var(--tot-h1); }
+.f-tot-h2 { background: var(--tot-h2); }
+.f-b-t { background: var(--b-t); }
+.f-f-fm { background: var(--f-fm); }
+.f-d-h { background: var(--d-h); }
+
+.lvl-a { background: var(--lvl-a); } .lvl-b { background: var(--lvl-b); }
+.lvl-c { background: var(--lvl-c); } .lvl-d { background: var(--lvl-d); }
+.lvl-f { background: var(--lvl-f); }
+.ovr-a { background: var(--ovr-a); } .ovr-b { background: var(--ovr-b); }
+.ovr-c { background: var(--ovr-c); } .ovr-d { background: var(--ovr-d); }
+.ovr-f { background: var(--ovr-f); }
