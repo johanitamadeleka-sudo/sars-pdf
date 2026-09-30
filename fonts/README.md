@@ -65,17 +65,8 @@ shared `FontConfiguration()` to `write_pdf()`.
 | `LiberationSerif-Bold.ttf`       | `Times New Roman` (bold)  | liberation-fonts 2.1.5 |
 | `Carlito-Regular.ttf`            | `Calibri` (normal)        | googlefonts/carlito, Version 1.104 |
 | `Carlito-Bold.ttf`               | `Calibri` (bold)          | googlefonts/carlito, Version 1.104 |
-| `WineTahoma-Bold.ttf`            | `Tahoma` (bold)           | Wine project `fonts/tahomabd.ttf` (metric-compatible Tahoma Bold; per-school titles) |
-| `LiberationMono-BoldItalic.ttf`  | `Courier New` (bold italic) | liberation-fonts 2.1.5 (per-school page footer) |
 | `LICENSE-Liberation.txt`         | (license text)            | SIL OFL 1.1 |
 | `LICENSE-Carlito.txt`            | (license text)            | SIL OFL 1.1 |
-| `LICENSE-WineTahoma.txt`         | (license text)            | GNU LGPL 2.1 (Wine) |
-
-The per-school result sheets (`reports/secondary/school/school-results`) also embed
-`Tahoma-Bold` (page titles) and `CourierNewPS-BoldItalicMT` (footer). Wine's Tahoma Bold
-has the same advance widths as the original (e.g. "THE PRIME MINISTER'S OFFICE" at
-7.68pt: 123.4pt vs 123.2pt in the source PDF), and Liberation Mono is metric-compatible
-with Courier New.
 
 ### Provenance / verification
 
