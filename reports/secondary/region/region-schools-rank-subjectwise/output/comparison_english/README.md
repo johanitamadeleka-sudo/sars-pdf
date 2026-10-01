@@ -8,12 +8,12 @@ Pixel diff = share of pixels that differ at 110 dpi; tolerant = still different 
 
 | page | pixel diff | tolerant diff | words missing | words extra | fills only in original | fills only in generated | verdict (>=96%) |
 |---|---|---|---|---|---|---|---|
-| 1 | 12.71% | 3.13% | 5 | 10 | - | - | ❌ FAIL (words 5miss/10extra) |
-| 2 | 18.28% | 2.52% | 2 | 4 | - | - | ❌ FAIL (words 2miss/4extra) |
-| 3 | 18.62% | 2.53% | 0 | 0 | - | - | ✅ PASS |
-| 4 | 18.47% | 2.49% | 0 | 0 | - | - | ✅ PASS |
-| 5 | 18.21% | 3.00% | 0 | 0 | - | - | ✅ PASS |
-| 6 | 15.63% | 4.03% | 0 | 0 | - | #f7c7ac | ❌ FAIL (pixels 4.03%>4%, fills 0orig/1gen) |
+| 1 | 12.64% | 3.08% | 5 | 10 | - | - | ❌ FAIL (words 5miss/10extra) |
+| 2 | 18.22% | 2.46% | 2 | 4 | - | - | ❌ FAIL (words 2miss/4extra) |
+| 3 | 18.56% | 2.48% | 0 | 0 | - | - | ✅ PASS |
+| 4 | 18.41% | 2.44% | 0 | 0 | - | - | ✅ PASS |
+| 5 | 18.15% | 2.95% | 0 | 0 | - | - | ✅ PASS |
+| 6 | 15.57% | 3.98% | 0 | 0 | - | #f7c7ac | ❌ FAIL (fills 0orig/1gen) |
 
 **Verdict summary: 3/6 pages meet the >=96% bar** (tolerant diff <= 4% AND zero fill diffs AND zero word diffs).
 
