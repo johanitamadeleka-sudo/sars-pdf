@@ -11,7 +11,7 @@ from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
-from .fit import fit_style
+from .fit import fit_style, wrap_lines
 from .grading import competency_letter
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -107,7 +107,10 @@ def render_html(doc, template_dir=TEMPLATES, template_name="report.html.j2"):
     #   fit()   - shrink-to-fit for fixed-pitch grid cells (sars_pdf/fit.py)
     #   level() - competency letter for rows build_context() does not decorate
     #             (e.g. a summary block or TOTAL row), same rule as grading.py
+    #   wrap()  - lay long text out in a fixed-width cell without clipping it:
+    #             one line, a small shrink, or several lines (sars_pdf/fit.py)
     env.globals["fit"] = fit_style
+    env.globals["wrap"] = wrap_lines
     env.globals["level"] = competency_letter
     return env.get_template(template_name).render(doc=build_context(doc))
 

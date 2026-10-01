@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+{#
+  school-results: one secondary school's Form Two mock result sheet.
+
+  Data model (all values are display strings; see README.md in this folder):
+    document             ministry[2], region_title, exam_name, centre_no, school_name,
+                         school_title (optional, defaults to "<centre_no> - <school_name>"),
+                         footer (optional page footer, e.g. "LAKE ZONE MOCK IV")
+    division_summary[]   {sex, i, ii, iii, iv, zero}          rows F, M, T
+    candidates[]         {cno, name, sex, aggt, div, pos, subjects}
+    overall              {region, council, passed, average, gpa, competency,
+                          council_rank, region_rank}
+    division_performance {counts:{regist, absent, sat, inc, clean, div_i, div_ii, div_iii,
+                          div_iv, div_0, div_i_iii, div_i_iv}, percent:{same keys}}
+    subjects[]           {code, name, sat[F,M,T], pass[F,M,T,%], fail[F,M,T,%],
+                          s_rank, c_rank, r_rank, z_rank, gpa, competency}
+    grading[]            {code, name, a[F,M,T], b[..], c[..], d[..], f[..], reg[F,M,T]}
+    layout (optional)    sheet geometry measured by scripts/extract_school_results.py.
+                         Missing keys fall back to DEFAULTS below (the S0762 sheet), and
+                         without layout.gaps/breaks the summary blocks paginate themselves.
+
+  The sheet is a grid of 23 Excel columns; cols = [band-left, b1 .. b23, band-right].
+  Every table cell is a range of those columns (same ranges as the extractor's *_CELLS).
+#}
+{% set DEFAULTS = {
+  "cols": [17.4, 42.24, 88.1, 130.94, 205.1, 228.74, 252.41, 276.05, 299.69, 327.53, 355.37,
+           383.21, 411.05, 438.91, 466.75, 494.59, 522.43, 556.63, 590.86, 618.22, 646.06,
+           673.9, 701.74, 757.44, 771.6],
+  "font_scale": 0.96, "top": 54.24,
+  "title_baselines": [64.34, 76.34, 88.34, 100.34, 112.34], "div_label_baseline": 132.62,
+  "div_top": 139.46, "div_row": 10.56, "cand_head_top": 193.61, "cand_head": 19.44,
+  "cand_row": 12.0, "cont_top": 54.24,
+  "cand_middle": ["sex", "aggt", "div", "pos", "subjects"], "first_page_rows": none, "rows_per_page": none,
+  "overall_rows": {"title": 9.72, "row": 9.72},
+  "division_rows": {"title": 9.72, "head": 9.72, "row": 9.72},
+  "subject_rows": {"title": 9.72, "head1": 14.4, "head2": 14.4, "row": 12.0},
+  "grading_rows": {"title": 9.72, "head1": 9.72, "head2": 9.72, "row": 11.52},
+  "tail_last": 9.84
+} %}
+{# used only when layout has no measured gaps/breaks (data straight from the database) #}
+{% set AUTO_GAPS = {"overall": 19.68, "division": 0.0, "subjects": 19.68, "grading": 10.56} %}
+{% set AUTO_LEAD = 9.72 %}
+{% set BOTTOM = 558.2 %}{# lowest row edge Excel prints above the bottom margin #}
+
+{% set L = {} %}{% set _ = L.update(DEFAULTS) %}{% set _ = L.update(doc.layout or {}) %}
+{% set auto = (doc.layout is not defined) or ("gaps" not in doc.layout and "breaks" not in doc.layout) %}
+{% set gaps = L.gaps if L.gaps is defined else {} %}
+{% set breaks = L.breaks if L.breaks is defined else {} %}
+{% set b = L.cols %}
+{% set fs = L.font_scale %}
+{% set D = doc.document %}
+
+{% macro p(x) %}{{ '%.2f' | format(x) }}{% endmacro %}
+{# Excel prints scaled fonts in 0.12pt steps #}
+{% macro fz(n) %}{{ '%.2f' | format(((n * fs / 0.12) | round) * 0.12) }}{% endmacro %}
+{% macro sz(n) %} style="font-size:{{ fz(n) }}pt"{% endmacro %}
+{% macro topen(a, z, y, n=7) %}<table class="grid" style="left:{{ p(b[a] - 0.74) }}pt;top:{{ p(y - 0.74) }}pt;width:{{ p(b[z] - b[a] + 1.48) }}pt;font-size:{{ fz(n) }}pt"><colgroup>{% for i in range(a, z) %}<col style="width:{{ p(b[i + 1] - b[i] - 0.52) }}pt">{% endfor %}</colgroup>{% endmacro %}
+{# bottom-aligned text that may be taller than its row (Excel lets it overflow) #}
+{% macro ab(text, n=none) %}<div class="ab"{% if n %} style="font-size:{{ fz(n) }}pt"{% endif %}>{{ text }}</div>{% endmacro %}
+{# a candidate text cell laid out by wrap(): one line, or several joined by <br> #}
+{% macro wcell(cls, w, span) %}<td class="{{ cls }}{% if w.lines | length > 1 %} wrap{% endif %}" colspan="{{ span }}" style="font-size:{{ p(w.size) }}pt">{% for line in w.lines %}{% if not loop.first %}<br>{% endif %}{{ line }}{% endfor %}</td>{% endmacro %}
+{% macro tr(h) %}<tr style="height:{{ p(h - 0.52) }}pt">{% endmacro %}
+{% macro lvl(prefix, comp) %}{% set g = level(comp, none) %}{% if g %} {{ prefix }}-{{ g | lower }}{% endif %}{% endmacro %}
+{# vertical header text (reads bottom-to-top), centred in columns a..a+1 #}
+{% macro rot(a, text) %}{% set size = ((7 * fs / 0.12) | round) * 0.12 %}<td class="rot f-pos-h" rowspan="2"><span style="font-size:{{ p(size) }}pt;left:{{ p((b[a + 1] - b[a] - 1.48) / 2 + size * 1.117 / 2) }}pt;bottom:0.5pt">{{ text }}</span></td>{% endmacro %}
+
+{# ------------------------------------------------------------------ pagination #}
+{% set cands = doc.candidates %}
+{# vertical alignment per candidate column: "m" = middle, "" = bottom (Excel default) #}
+{% set va = {} %}{% for k in ["cno", "name", "sex", "aggt", "div", "pos", "subjects"] %}{% set _ = va.update({k: "m" if k in L.cand_middle else ""}) %}{% endfor %}
+{% set head_bottom = L.cand_head_top + L.cand_head %}
+{#
+  NAME and DETAILED SUBJECTS never lose text: wrap() (sars_pdf/fit.py) keeps a line that
+  fits, shrinks one that is at most 2.5% too wide, and otherwise breaks it (between
+  "SHORT NAME - MARKS'GRADE'" entries / between words) onto extra lines. Such a row grows
+  to n lines of 1.2 leading, so pages are filled by HEIGHT: a page holds rows while their
+  heights fit in first_page_rows (rows_per_page) x cand_row - exactly the measured row
+  count when nothing wraps.
+#}
+{% set cs = ((6.5 * fs / 0.12) | round) * 0.12 %}
+{% set SUBJ_ROOM = b[23] - b[8] - 2.8 %}{# cell - spacing 0.52 - borders 0.96 - padding 1.32 #}
+{% set NAME_ROOM = b[4] - b[2] - 2.8 %}
+{% set rows = [] %}
+{% for c in cands %}
+  {% set sw = wrap(c.subjects, SUBJ_ROOM, cs, unit="subjects", max_shrink=0.975) %}
+  {% set nw = wrap(c.name, NAME_ROOM, cs, max_shrink=0.975) %}
+  {% set n = [sw.lines | length, nw.lines | length] | max %}
+  {% set _ = rows.append({"c": c, "subj": sw, "name": nw,
+                          "h": L.cand_row if n == 1 else [L.cand_row, n * cs * 1.2 + 2.5] | max}) %}
+{% endfor %}
+{% set cap1 = L.first_page_rows * L.cand_row if L.first_page_rows else BOTTOM - head_bottom %}
+{% set capn = L.rows_per_page * L.cand_row if L.rows_per_page else BOTTOM - L.cont_top %}
+{% set pages = [{"first": true, "rows": [], "h": 0, "y": head_bottom, "blocks": []}] %}
+{% set pn = namespace(cap=cap1) %}
+{% for r in rows %}
+  {% if pages[-1].rows and pages[-1].h + r.h > pn.cap + 0.01 %}
+    {% set _ = pages.append({"first": false, "rows": [], "h": 0, "y": L.cont_top, "blocks": []}) %}
+    {% set pn.cap = capn %}
+  {% endif %}
+  {% set _ = pages[-1].rows.append(r) %}
+  {% set _ = pages[-1].update({"h": pages[-1].h + r.h}) %}
+{% endfor %}
+{% set o, dv, sr, gr = L.overall_rows, L.division_rows, L.subject_rows, L.grading_rows %}
+{% set heights = {
+  "overall": o.title + 7 * o.row,
+  "division": dv.title + dv.head + 2 * dv.row,
+  "subjects": sr.title + sr.head1 + sr.head2 + (doc.subjects | length) * sr.row,
+  "grading": gr.title + gr.head1 + gr.head2 + (doc.grading | length) * gr.row} %}
+{% set ns = namespace(y=pages[-1].y + pages[-1].h) %}
+{% for name in ["overall", "division", "subjects", "grading"] %}
+  {% set brk = breaks.get(name) %}
+  {% if auto %}
+    {% set gap = AUTO_GAPS[name] %}
+    {% if ns.y + gap + heights[name] > BOTTOM %}{% set brk = {"tail": 0, "lead": AUTO_LEAD} %}{% endif %}
+  {% else %}
+    {% set gap = gaps.get(name, 0) %}
+  {% endif %}
+  {% if brk %}
+    {% set _ = pages[-1].update({"band_bottom": ns.y + brk.tail}) %}
+    {% set _ = pages.append({"first": false, "rows": [], "h": 0, "y": L.top, "blocks": []}) %}
+    {% set ns.y = L.top + brk.lead %}
+  {% else %}
+    {% set ns.y = ns.y + gap %}
+  {% endif %}
+  {% set blocks = pages[-1].blocks %}
+  {# DIVISION PERFORMANCE directly under OVERALL shares its table (one double rule) #}
+  {% set joined = name == "division" and not brk and gap == 0 and blocks and blocks[-1].name == "overall" %}
+  {% set _ = blocks.append({"name": name, "y": ns.y, "joined": joined}) %}
+  {% set ns.y = ns.y + heights[name] %}
+{% endfor %}
+{% set _ = pages[-1].update({"band_bottom": ns.y + L.tail_last}) %}
+
+{# ------------------------------------------------------------------ blocks #}
+{% macro overall_rows() %}
+{% set ov = doc.overall %}
+{{ tr(o.title) }}<td class="l b rel" colspan="22">{{ ab("EXAMINATION CENTRE OVERALL PERFORMANCE ", 8) }}</td></tr>
+{% for label, value in [("EXAMINATION CENTRE REGION", ov.region), ("EXAMINATION CENTRE COUNCIL", ov.council),
+                        ("TOTAL PASSED CANDIDATES", ov.passed), ("EXAMINATION CENTRE AVERAGE", ov.average)] %}
+{{ tr(o.row) }}<td class="l" colspan="7">{{ label }}</td><td class="l" colspan="15">{{ value }}</td></tr>
+{% endfor %}
+{{ tr(o.row) }}<td class="l" colspan="7">EXAMINATION CENTRE GPA</td><td class="b rel" colspan="2">{{ ab(ov.gpa, 8) }}</td><td class="l b{{ lvl('ovr', ov.competency) }}" colspan="4">{{ ov.competency }}</td><td colspan="9"></td></tr>
+{{ tr(o.row) }}<td class="l" colspan="7">EXAMINATION CENTRE RANKING COUNCILWISE</td><td class="l" colspan="15">{{ ov.council_rank }}</td></tr>
+{{ tr(o.row) }}<td class="l" colspan="7">EXAMINATION CENTRE RANKING REGIONALWISE</td><td class="l" colspan="15">{{ ov.region_rank }}</td></tr>
+{% endmacro %}
+
+{% macro division_rows() %}
+{% set dp = doc.division_performance %}
+{% set keys = ["regist", "absent", "sat", "inc", "clean", "div_i", "div_ii", "div_iii", "div_iv", "div_0", "div_i_iii", "div_i_iv"] %}
+{% set spans = [2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1] %}
+{% set heads = ["REGIST", "ABSENT", "SAT", "INC", "CLEAN", "DIV I", "DIV II", "DIV III", "DIV IV", "DIV 0", "DIV I-III", "DIV I-IV"] %}
+{{ tr(dv.title) }}<td class="l b rel" colspan="22">{{ ab("EXAMINATION CENTRE DIVISION PERFORMANCE", 8) }}</td></tr>
+{{ tr(dv.head) }}{% for h in heads %}<td class="b f-div-h" colspan="{{ spans[loop.index0] }}">{{ h }}</td>{% endfor %}</tr>
+{{ tr(dv.row) }}{% for k in keys %}<td colspan="{{ spans[loop.index0] }}">{{ dp.counts[k] }}</td>{% endfor %}</tr>
+{{ tr(dv.row) }}{% for k in keys %}<td{% if loop.first %} class="b"{% endif %} colspan="{{ spans[loop.index0] }}">{{ dp.percent[k] if not loop.first else (dp.percent[k] or "%") }}</td>{% endfor %}</tr>
+{% endmacro %}
+
+{% macro subjects_table(y) %}
+{{ topen(1, 23, y) }}
+{{ tr(sr.title) }}<td class="l b rel" colspan="22">{{ ab("EXAMINATION CENTRE SUBJECT PERFORMANCE AND RANKING", 8) }}</td></tr>
+{{ tr(sr.head1) }}<td class="b f-pos-h rel" rowspan="2">{{ ab("SUBJECT \nCODE") }}</td><td class="b" colspan="2" rowspan="2">SUBJECT NAME</td>
+<td class="b" colspan="3"{{ sz(8) }}>SAT</td><td class="b" colspan="4"{{ sz(8) }}>PASS (A-D)</td><td class="b" colspan="4"{{ sz(8) }}>FAILED ( F )</td>
+{{ rot(15, "S/RANK") }}{{ rot(16, "C/RANK") }}{{ rot(17, "R/RANK") }}{{ rot(18, "Z/RANK") }}
+<td class="b m f-div-h" colspan="2" rowspan="2"{{ sz(8) }}>GPA</td><td class="b m f-comp-h" colspan="2" rowspan="2">COMPETENCY LEVEL</td></tr>
+{{ tr(sr.head2) }}{% for t in "FMT" %}<td class="tnr f-sat-h"{{ sz(8) }}>{{ t }}</td>{% endfor %}{% for t in "FMT" %}<td class="tnr f-band"{{ sz(8) }}>{{ t }}</td>{% endfor %}<td class="tnr f-pct-h"{{ sz(8) }}>%</td>{% for t in "FMT" %}<td class="tnr f-fail-h"{{ sz(8) }}>{{ t }}</td>{% endfor %}<td class="tnr f-red"{{ sz(8) }}>%</td></tr>
+{% for s in doc.subjects %}
+{{ tr(sr.row) }}<td class="ink2">{{ s.code }}</td><td class="l" colspan="2">{{ s.name }}</td>
+<td class="ink2">{{ s.sat[0] }}</td><td class="ink2">{{ s.sat[1] }}</td><td class="b">{{ s.sat[2] }}</td>
+<td>{{ s.pass[0] }}</td><td>{{ s.pass[1] }}</td><td class="b f-pass">{{ s.pass[2] }}</td><td class="b f-pass">{{ s.pass[3] }}</td>
+<td>{{ s.fail[0] }}</td><td>{{ s.fail[1] }}</td><td class="b ink2 f-fail-h">{{ s.fail[2] }}</td><td class="b ink2 f-fail-h">{{ s.fail[3] }}</td>
+<td class="b">{{ s.s_rank }}</td><td>{{ s.c_rank }}</td><td>{{ s.r_rank }}</td><td class="white">{{ s.z_rank }}</td>
+<td class="b f-gpa" colspan="2">{{ s.gpa }}</td><td class="l{{ lvl('lvl', s.competency) }}" colspan="2">{{ s.competency }}</td></tr>
+{% endfor %}
+</table>
+{% endmacro %}
+
+{% macro grading_table(y) %}
+{{ topen(1, 22, y) }}
+{{ tr(gr.title) }}<td class="l b rel" colspan="21">{{ ab("EXAMINATION CENTRE SUBJECTS GRADING PERFORMANCE SUMMARY", 8) }}</td></tr>
+{{ tr(gr.head1) }}<td class="b f-pos-h rel" rowspan="2">{{ ab("SUBJECT \nCODE") }}</td><td class="b" colspan="2" rowspan="2">SUBJECT NAME</td>
+{% for g in "ABCDF" %}<td class="tnr rel" colspan="3">{{ ab(g, 8) }}</td>{% endfor %}<td class="tnr f-tot-h1 rel" colspan="3">{{ ab("TOTAL REG.") }}</td></tr>
+{{ tr(gr.head2) }}{% for f in ["f-sat-h", "f-band", "f-fail-h", "f-d-h", "f-red", "f-tot-h2"] %}{% for t in "FMT" %}<td class="tnr rel {{ f }}">{{ ab(t, 8) }}</td>{% endfor %}{% endfor %}</tr>
+{% for g in doc.grading %}
+{{ tr(gr.row) }}<td class="b">{{ g.code }}</td><td class="l" colspan="2">{{ g.name }}</td>
+<td>{{ g.a[0] }}</td><td>{{ g.a[1] }}</td><td class="b f-pct-h">{{ g.a[2] }}</td>
+<td>{{ g.b[0] }}</td><td>{{ g.b[1] }}</td><td class="b f-b-t">{{ g.b[2] }}</td>
+<td>{{ g.c[0] }}</td><td>{{ g.c[1] }}</td><td class="b f-pass">{{ g.c[2] }}</td>
+<td>{{ g.d[0] }}</td><td>{{ g.d[1] }}</td><td class="b">{{ g.d[2] }}</td>
+<td class="f-f-fm">{{ g.f[0] }}</td><td class="f-f-fm">{{ g.f[1] }}</td><td class="b f-d-h">{{ g.f[2] }}</td>
+<td class="b ink2">{{ g.reg[0] }}</td><td class="b ink2">{{ g.reg[1] }}</td><td class="b ink2 f-pass">{{ g.reg[2] }}</td></tr>
+{% endfor %}
+</table>
+{% endmacro %}
+
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="sars-pdf:rules" content="filled-boxes">
+<title>{{ D.school_title or (D.centre_no ~ " - " ~ D.school_name) }}</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+{% for pg in pages %}
+<div class="page">
+<div class="band" style="left:{{ p(b[0]) }}pt;top:{{ p(L.top) }}pt;width:{{ p(b[24] - b[0]) }}pt;height:{{ p((pg.band_bottom or (pg.y + pg.h)) - L.top) }}pt"></div>
+{% if pg.first %}
+  {% set lines = D.ministry + [D.region_title, D.exam_name, D.school_title or (D.centre_no ~ " - " ~ D.school_name)] %}
+  {% for line in lines %}
+    {% set size = ((8 * fs / 0.12) | round) * 0.12 %}
+<div class="title" style="left:{{ p(b[1]) }}pt;width:{{ p(b[23] - b[1]) }}pt;top:{{ p(L.title_baselines[loop.index0] - 0.897 * size) }}pt;font-size:{{ p(size) }}pt">{{ line }}</div>
+  {% endfor %}
+  {% set size = ((8 * fs / 0.12) | round) * 0.12 %}
+<div class="div-label" style="left:{{ p(b[3] + 1.5) }}pt;top:{{ p(L.div_label_baseline - 0.8467 * size) }}pt;font-size:{{ p(size) }}pt">DIVISION PERFORMANCE SUMMARY</div>
+{{ topen(3, 9, L.div_top) }}
+{{ tr(L.div_row) }}<td class="b m">SEX</td>{% for h in ["I", "II", "III", "IV"] %}<td class="tnr m f-div-h">{{ h }}</td>{% endfor %}<td class="tnr m f-zero-h">0</td></tr>
+{% for r in doc.division_summary %}
+{{ tr(L.div_row) }}<td class="tnr m">{{ r.sex }}</td>{% for k in ["i", "ii", "iii", "iv", "zero"] %}<td class="m{% if r.sex == 'T' %} b{% endif %}">{{ r[k] }}</td>{% endfor %}</tr>
+{% endfor %}
+</table>
+{{ topen(1, 23, L.cand_head_top) }}
+{{ tr(L.cand_head) }}<td class="b f-cno-h">CNO</td><td class="b" colspan="2">CANDIDATE FULL NAME</td><td class="b">SEX</td><td class="b">AGGT </td><td class="b">DIV</td><td class="b f-pos-h">POS</td><td class="tnr m" colspan="15"{{ sz(9) }}>DETAILED SUBJECTS</td></tr>
+{% elif pg.rows %}
+{{ topen(1, 23, pg.y) }}
+{% endif %}
+{% for r in pg.rows %}{% set c = r.c %}
+{{ tr(r.h) }}<td class="{{ va.cno }}"{{ sz(6.5) }}>{{ c.cno }}</td>{{ wcell("l " ~ va.name, r.name, 2) }}<td class="{{ va.sex }}"{{ sz(6.5) }}>{{ c.sex }}</td><td class="{{ va.aggt }}">{{ c.aggt }}</td><td class="{{ va.div }}">{{ c.div }}</td><td class="{{ va.pos }}">{{ c.pos }}</td>{{ wcell("l " ~ va.subjects, r.subj, 15) }}</tr>
+{% endfor %}
+{% if pg.first or pg.rows %}</table>{% endif %}
+{% for blk in pg.blocks %}
+  {% if blk.name == "overall" %}
+    {% set nxt = pg.blocks[loop.index0 + 1] if loop.index0 + 1 < pg.blocks | length else none %}
+{{ topen(1, 23, blk.y) }}
+{{ overall_rows() }}
+    {% if nxt and nxt.joined %}{{ division_rows() }}{% endif %}
+</table>
+  {% elif blk.name == "division" and not blk.joined %}
+{{ topen(1, 23, blk.y) }}
+{{ division_rows() }}
+</table>
+  {% elif blk.name == "subjects" %}
+{{ subjects_table(blk.y) }}
+  {% elif blk.name == "grading" %}
+{{ grading_table(blk.y) }}
+  {% endif %}
+{% endfor %}
+{% if D.footer %}
+  {% set size = ((5.4 * fs / 0.12) | round) * 0.12 %}
+<div class="footer" style="left:{{ p(b[0] + 0.48) }}pt;top:{{ p(587.16 - 0.7661 * size) }}pt;font-size:{{ p(size) }}pt">{{ D.footer }}</div>
+{% endif %}
+</div>
+{% endfor %}
+</body>
+</html>

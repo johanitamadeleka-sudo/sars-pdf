@@ -24,7 +24,7 @@ centre line, thickness and colour). Templates without the tag are untouched.
 import contextlib
 import re
 
-META = re.compile(r'<meta name="sars-pdf:rules" content="(filled|filled-aa)">')
+META = re.compile(r'<meta name="sars-pdf:rules" content="(filled|filled-aa|filled-boxes)">')
 
 
 def rules_mode(html):
@@ -65,6 +65,36 @@ def filled_rules(mode="filled"):
                 stream.line_to(left, top)
                 stream.close()
             stream.fill()
+
+    if mode == "filled-boxes":
+        # Separate (non-collapsed) borders, e.g. the Excel "double" rules of the per-school
+        # sheet (reports/secondary/school/school-results): WeasyPrint paints each box's
+        # border as ONE even-odd frame path, which pdfium anti-aliases. Excel paints each
+        # side as its own rectangle, so emit the four sides as separate `re f` rects.
+        import weasyprint.draw.border as wp_border
+
+        original_box = wp_border.draw_rounded_border
+
+        def draw_rounded_border(stream, box, style, color):
+            radii = box.rounded_border_box()[4:]
+            if style != "solid" or any(rx or ry for rx, ry in radii):
+                return original_box(stream, box, style, color)
+            x, y, w, h = box.rounded_border_box()[:4]
+            bt, br, bb, bl = (box.border_top_width, box.border_right_width,
+                              box.border_bottom_width, box.border_left_width)
+            stream.set_color(color)
+            for rect in ((x, y, w, bt), (x, y + h - bb, w, bb),
+                         (x, y + bt, bl, h - bt - bb), (x + w - br, y + bt, br, h - bt - bb)):
+                if rect[2] > 0 and rect[3] > 0:
+                    stream.rectangle(*rect)
+                    stream.fill()
+
+        wp_border.draw_rounded_border = draw_rounded_border
+        try:
+            yield
+        finally:
+            wp_border.draw_rounded_border = original_box
+        return
 
     # draw_collapsed_borders() looks draw_line up in weasyprint.draw's namespace; text
     # decorations import their own reference and are not affected.

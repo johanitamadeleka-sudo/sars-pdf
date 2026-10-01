@@ -22,6 +22,14 @@
   <div class="hl exam-name">{{ doc.document.exam_name }}</div>
 </div>
 
+{% set ROOM, SIZE, LS, WS = 413.5, 6.7, -0.15, 0.0 %}{# = td.det in style.css #}
+{#
+  DETAILED SUBJECTS never loses an entry: wrap() (sars_pdf/fit.py) keeps a line that fits,
+  shrinks one that is at most 2.5% too wide (as the Excel originals do), and otherwise
+  breaks it between "SHORT NAME - MARKS'GRADE'" entries onto extra lines - the row grows.
+  ROOM = column width - 2 x 2pt padding - 0.5pt collapsed border.
+#}
+{% macro detailed(text) %}{% set w = wrap(text, ROOM, SIZE, letter_spacing=LS, word_spacing=WS, unit="subjects", max_shrink=0.975) %}<td class="txt det{% if w.lines | length > 1 %} det-wrap{% endif %}"{% if w.size < SIZE %} style="font-size:{{ '%.2f' | format(w.size) }}pt"{% endif %}>{% for line in w.lines %}{% if not loop.first %}<br>{% endif %}{{ line }}{% endfor %}</td>{% endmacro %}
 {% set bpp = doc.document.blocks_per_page | default(2) %}
 {% for s in doc.sections %}
 {# page grouping is data-driven (blocks_per_page, default 2), not a hard-coded section
@@ -62,7 +70,7 @@
         <td>{{ r.aggt }}</td>
         <td>{{ r.division }}</td>
         <td class="c-pos">{{ r.position }}</td>
-        <td class="txt det">{{ r.detailed }}</td>
+        {{ detailed(r.detailed) }}
       </tr>
       {% endfor %}
     </tbody>
